@@ -100,8 +100,8 @@ export default {
 					'50%': { transform: 'translateY(-10px)' },
 				},
 				'pulse-light': {
-					'0%, 100%': { opacity: '0.85' },
-					'50%': { opacity: '1' },
+					'0%, 100%': { opacity: '0.3' },
+					'50%': { opacity: '0.7' },
 				}
 			},
 			animation: {
