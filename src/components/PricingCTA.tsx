@@ -1,13 +1,14 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 const PricingCTA: React.FC = () => {
   return (
     <section className="py-16 md:py-24 px-4 relative overflow-hidden">
       {/* Background neon circles */}
-      <div className="absolute top-1/3 left-1/4 w-40 h-40 rounded-full neon-circle opacity-20 animate-pulse-light"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-60 h-60 rounded-full neon-circle opacity-15 animate-pulse-light"></div>
+      <div className="absolute top-1/3 left-1/4 w-80 h-80 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
+      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
       
       <div className="container mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center">
@@ -19,9 +20,9 @@ const PricingCTA: React.FC = () => {
           </p>
           <Button 
             size="lg"
-            className="bg-hyregram-neon text-hyregram-dark-bg hover:bg-opacity-90 text-lg px-8 py-6"
+            className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
           >
-            Request a demo
+            Request a demo <ArrowRight className="w-5 h-5" />
           </Button>
         </div>
       </div>
