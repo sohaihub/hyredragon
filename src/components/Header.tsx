@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import HyregramLogo from './HyregramLogo';
+import HydragonLogo from './HydragonLogo';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -12,17 +12,17 @@ const Header: React.FC = () => {
     <header className="py-4 px-4 md:px-8 w-full bg-transparent z-10">
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
-          <HyregramLogo size="md" withText={true} />
+          <HydragonLogo size="md" withText={true} />
           
           {/* Desktop menu */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
+            <Link to="/solutions" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
               Solutions
             </Link>
-            <Link to="/" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
+            <Link to="/ai-products" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
               AI Products
             </Link>
-            <Link to="/" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
+            <Link to="/resources" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
               Resources
             </Link>
             <Link to="/pricing" className="text-white hover:text-[#E2FF55] transition-colors duration-300 font-medium">
@@ -60,13 +60,13 @@ const Header: React.FC = () => {
         {isMobileMenuOpen && (
           <div className="md:hidden mt-4 bg-[#0A0A29]/95 p-4 rounded-lg">
             <nav className="flex flex-col space-y-4">
-              <Link to="/" className="text-white hover:text-[#E2FF55] transition-colors duration-300">
+              <Link to="/solutions" className="text-white hover:text-[#E2FF55] transition-colors duration-300">
                 Solutions
               </Link>
-              <Link to="/" className="text-white hover:text-[#E2FF55] transition-colors duration-300">
+              <Link to="/ai-products" className="text-white hover:text-[#E2FF55] transition-colors duration-300">
                 AI Products
               </Link>
-              <Link to="/" className="text-white hover:text-[#E2FF55] transition-colors duration-300">
+              <Link to="/resources" className="text-white hover:text-[#E2FF55] transition-colors duration-300">
                 Resources
               </Link>
               <Link to="/pricing" className="text-white hover:text-[#E2FF55] transition-colors duration-300">

@@ -16,14 +16,16 @@ const PricingCTA: React.FC = () => {
             Ready to Make Hiring Feel Effortless?
           </h2>
           <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-xl mx-auto">
-            Join thousands of companies that have transformed their recruitment process with Hyregram.
+            Join thousands of companies that have transformed their recruitment process with Hydragon.
           </p>
-          <Button 
-            size="lg"
-            className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
-          >
-            Request a demo <ArrowRight className="w-5 h-5" />
-          </Button>
+          <div className="flex justify-center">
+            <Button 
+              size="lg"
+              className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
+            >
+              Request a demo <ArrowRight className="w-5 h-5" />
+            </Button>
+          </div>
         </div>
       </div>
     </section>
