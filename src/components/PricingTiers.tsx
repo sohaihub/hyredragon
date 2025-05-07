@@ -24,7 +24,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
 }) => {
   return (
     <div 
-      className={`bg-[#0A0A29]/60 border rounded-xl p-6 md:p-8 hover:transform hover:translate-y-[-8px] transition-all duration-300 relative 
+      className={`bg-[#0A0A29]/60 border rounded-xl p-6 md:p-8 hover:transform hover:translate-y-[-8px] transition-all duration-300 relative h-full flex flex-col
       ${isPopular 
         ? 'border-[#E2FF55]' 
         : 'border-[#7B78FF]/40'
@@ -44,16 +44,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
       
       <p className="text-gray-300 mb-6">{description}</p>
       
-      <Button 
-        className={`w-full mb-8 ${isPopular 
-          ? 'bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90' 
-          : 'bg-[#7B78FF] hover:bg-[#7B78FF]/90 text-white'
-        }`}
-      >
-        Get Started
-      </Button>
-      
-      <div className="space-y-4">
+      <div className="space-y-4 mb-8 flex-grow">
         {features.map((feature, index) => (
           <div key={index} className="flex items-start">
             <div className={`mr-3 rounded-full p-1 ${isPopular ? 'bg-[#E2FF55] text-[#0A0A29]' : 'bg-[#7B78FF] text-white'}`}>
@@ -63,6 +54,15 @@ const PricingTier: React.FC<PricingTierProps> = ({
           </div>
         ))}
       </div>
+      
+      <Button 
+        className={`w-full mt-auto ${isPopular 
+          ? 'bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90' 
+          : 'bg-[#7B78FF] hover:bg-[#7B78FF]/90 text-white'
+        }`}
+      >
+        Get Started
+      </Button>
     </div>
   );
 };

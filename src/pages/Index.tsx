@@ -4,6 +4,8 @@ import Header from '@/components/Header';
 import PricingHero from '@/components/PricingHero';
 import PricingTiers from '@/components/PricingTiers';
 import PricingCTA from '@/components/PricingCTA';
+import PricingFAQs from '@/components/PricingFAQs';
+import FeatureComparison from '@/components/FeatureComparison';
 import Footer from '@/components/Footer';
 
 const Index: React.FC = () => {
@@ -26,6 +28,8 @@ const Index: React.FC = () => {
       <main className="flex-grow">
         <PricingHero />
         <PricingTiers />
+        <FeatureComparison />
+        <PricingFAQs />
         <PricingCTA />
       </main>
       <Footer />
