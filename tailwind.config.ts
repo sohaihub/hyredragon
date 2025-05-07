@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,15 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom Hyregram colors
+				hyregram: {
+					'dark-bg': '#1A1F2C',
+					'darker-bg': '#141824',
+					'neon': '#F2FCE2',
+					'purple': '#9b87f5',
+					'purple-dark': '#7E69AB',
+					'purple-vivid': '#8B5CF6',
 				}
 			},
 			borderRadius: {
@@ -84,11 +94,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'float': {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' },
+				},
+				'pulse-light': {
+					'0%, 100%': { opacity: '0.85' },
+					'50%': { opacity: '1' },
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'pulse-light': 'pulse-light 3s ease-in-out infinite',
+			},
+			backgroundImage: {
+				'hyregram-gradient': 'linear-gradient(135deg, #1A1F2C 0%, #141824 100%)',
+				'neon-gradient': 'linear-gradient(135deg, #F2FCE2 0%, #D4FCBD 100%)',
+				'purple-neon-gradient': 'linear-gradient(135deg, #9b87f5 0%, #8B5CF6 100%)',
 			}
 		}
 	},
