@@ -107,7 +107,7 @@ const Home: React.FC = () => {
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto animate-on-scroll">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
-              Smarter Hiring in <span className="text-[#E2FF55]">3 Steps</span>
+              Smarter Hiring in <span className="text-[#E2FF55]">4 Steps</span>
             </h2>
             
             <div className="flex flex-col max-w-4xl mx-auto relative">
@@ -147,11 +147,11 @@ const Home: React.FC = () => {
               </div>
               
               {/* Step 3 */}
-              <div className="flex animate-on-scroll">
+              <div className="flex mb-16 animate-on-scroll">
                 <div className="md:w-1/2 md:pr-16 self-center md:text-right order-2 md:order-1">
-                  <h3 className="text-xl font-bold text-white mb-3">3. Make Better Hiring Decisions</h3>
+                  <h3 className="text-xl font-bold text-white mb-3">3. Interview Process</h3>
                   <p className="text-gray-300">
-                    Get detailed analysis and insights to make data-driven hiring decisions with confidence.
+                    Conduct structured interviews with AI-generated questions and real-time insights.
                   </p>
                 </div>
                 <div className="mr-8 md:mx-auto order-1 md:order-2 relative">
@@ -160,6 +160,22 @@ const Home: React.FC = () => {
                   </div>
                 </div>
                 <div className="hidden md:block md:w-1/2 order-3"></div>
+              </div>
+
+              {/* Step 4 */}
+              <div className="flex animate-on-scroll">
+                <div className="hidden md:block md:w-1/2 order-1"></div>
+                <div className="mr-8 md:mx-auto order-1 md:order-2 relative">
+                  <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center z-10 relative">
+                    <span className="text-[#0A0A29] font-bold">4</span>
+                  </div>
+                </div>
+                <div className="md:w-1/2 md:pl-16 self-center order-2 md:order-3">
+                  <h3 className="text-xl font-bold text-white mb-3">4. AI-Driven Feedback</h3>
+                  <p className="text-gray-300">
+                    Receive comprehensive AI-generated feedback and insights to make data-driven hiring decisions.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -331,3 +347,5 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
+export default Home
