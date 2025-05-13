@@ -15,7 +15,7 @@ import Contact from './pages/Contact';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Security from './pages/Security';
-import ComingSoon from './pages/ComingSoon';
+import ComingSoon from './pages/ComingSoon'; // Placeholder for unimplemented pages
 
 const App: React.FC = () => {
   return (
@@ -25,7 +25,7 @@ const App: React.FC = () => {
         <Route path="/solutions" component={Solutions} />
         <Route path="/ai-products" component={AIProducts} />
         <Route path="/pricing" component={Pricing} />
-        <Route path="/enterprise" component={ComingSoon} /> {/* Route for Enterprise */}
+        <Route path="/enterprise" component={ComingSoon} />
         <Route path="/resources/library" component={ResourceLibrary} />
         <Route path="/resources/blog" component={Blog} />
         <Route path="/resources/case-studies" component={CaseStudies} />
@@ -36,8 +36,7 @@ const App: React.FC = () => {
         <Route path="/terms" component={Terms} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/security" component={Security} />
-        <Route path="/coming-soon" component={ComingSoon} /> {/* Route for Coming Soon */}
-        <Route path="*" component={ComingSoon} /> {/* Fallback route */}
+        <Route path="*" component={ComingSoon} />
       </Switch>
     </Router>
   );
