@@ -18,6 +18,7 @@ const Footer: React.FC = () => {
           
           <div className="md:col-span-2">
             <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+              {/* Product Section */}
               <div>
                 <h4 className="text-white font-medium mb-4">Product</h4>
                 <ul className="space-y-2">
@@ -28,6 +29,7 @@ const Footer: React.FC = () => {
                 </ul>
               </div>
               
+              {/* Resources Section */}
               <div>
                 <h4 className="text-white font-medium mb-4">Resources</h4>
                 <ul className="space-y-2">
@@ -38,6 +40,7 @@ const Footer: React.FC = () => {
                 </ul>
               </div>
               
+              {/* Company Section */}
               <div>
                 <h4 className="text-white font-medium mb-4">Company</h4>
                 <ul className="space-y-2">
