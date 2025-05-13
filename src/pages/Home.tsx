@@ -42,8 +42,7 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
       {/* Background elements */}
-
-        
+      <div className="fixed top-0 left-0 w-full h-full">
         {/* Background circular gradients */}
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
         <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
@@ -104,7 +103,6 @@ const Home: React.FC = () => {
         {/* Metrics Showcase */}
         <MetricsShowcase />
       
-        
         {/* Recruitment Steps */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto animate-on-scroll">
