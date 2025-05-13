@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HyreDragonLogo from './HydragonLogo';
@@ -25,25 +24,25 @@ const Footer: React.FC = () => {
                   <li><Link to="/solutions" className="text-gray-400 hover:text-[#E2FF55] text-sm">Solutions</Link></li>
                   <li><Link to="/ai-products" className="text-gray-400 hover:text-[#E2FF55] text-sm">AI Products</Link></li>
                   <li><Link to="/pricing" className="text-gray-400 hover:text-[#E2FF55] text-sm">Pricing</Link></li>
-                  <li><Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Enterprise</Link></li>
+                  <li><Link to="/enterprise" className="text-gray-400 hover:text-[#E2FF55] text-sm">Enterprise</Link></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="text-white font-medium mb-4">Resources</h4>
                 <ul className="space-y-2">
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Resource Library</Link></li>
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Blog</Link></li>
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Case Studies</Link></li>
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Guides</Link></li>
+                  <li><Link to="/resources/library" className="text-gray-400 hover:text-[#E2FF55] text-sm">Resource Library</Link></li>
+                  <li><Link to="/resources/blog" className="text-gray-400 hover:text-[#E2FF55] text-sm">Blog</Link></li>
+                  <li><Link to="/resources/case-studies" className="text-gray-400 hover:text-[#E2FF55] text-sm">Case Studies</Link></li>
+                  <li><Link to="/resources/guides" className="text-gray-400 hover:text-[#E2FF55] text-sm">Guides</Link></li>
                 </ul>
               </div>
               
               <div>
                 <h4 className="text-white font-medium mb-4">Company</h4>
                 <ul className="space-y-2">
-                  <li><Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">About</Link></li>
-                  <li><Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Careers</Link></li>
+                  <li><Link to="/about" className="text-gray-400 hover:text-[#E2FF55] text-sm">About</Link></li>
+                  <li><Link to="/careers" className="text-gray-400 hover:text-[#E2FF55] text-sm">Careers</Link></li>
                   <li><Link to="/contact" className="text-gray-400 hover:text-[#E2FF55] text-sm">Contact Us</Link></li>
                 </ul>
               </div>
@@ -57,9 +56,9 @@ const Footer: React.FC = () => {
           </div>
           
           <div className="flex space-x-6">
-            <Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Terms</Link>
-            <Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Privacy</Link>
-            <Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Security</Link>
+            <Link to="/terms" className="text-gray-400 hover:text-[#E2FF55] text-sm">Terms</Link>
+            <Link to="/privacy" className="text-gray-400 hover:text-[#E2FF55] text-sm">Privacy</Link>
+            <Link to="/security" className="text-gray-400 hover:text-[#E2FF55] text-sm">Security</Link>
           </div>
         </div>
       </div>
