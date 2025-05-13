@@ -24,7 +24,7 @@ const Footer: React.FC = () => {
                   <li><Link to="/solutions" className="text-gray-400 hover:text-[#E2FF55] text-sm">Solutions</Link></li>
                   <li><Link to="/ai-products" className="text-gray-400 hover:text-[#E2FF55] text-sm">AI Products</Link></li>
                   <li><Link to="/pricing" className="text-gray-400 hover:text-[#E2FF55] text-sm">Pricing</Link></li>
-                  <li><Link to="/enterprise" className="text-gray-400 hover:text-[#E2FF55] text-sm">Enterprise</Link></li>
+                  <li><Link to="/coming-soon" className="text-gray-400 hover:text-[#E2FF55] text-sm">Enterprise</Link></li>
                 </ul>
               </div>
               
