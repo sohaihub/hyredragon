@@ -2,12 +2,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface HydragonLogoProps {
+interface HyreDragonLogoProps {
   size?: 'sm' | 'md' | 'lg';
   withText?: boolean;
 }
 
-const HydragonLogo: React.FC<HydragonLogoProps> = ({ 
+const HyreDragonLogo: React.FC<HyreDragonLogoProps> = ({ 
   size = 'md',
   withText = true
 }) => {
@@ -33,24 +33,26 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
             <feBlend in="SourceGraphic" in2="coloredBlur" mode="normal" />
           </filter>
           
-          {/* Dragon body - main curved line */}
+          {/* Dragon body - main curved line with enhanced details */}
           <path d="M8 23C8 16 15 9 24 11C33 13 38 20 38 27" stroke="#E2FF55" strokeWidth="2.8" filter="url(#glow)" />
           
-          {/* Dragon head */}
+          {/* Dragon head with more details */}
           <path d="M38 27C38 24 40 23 42 24" stroke="#E2FF55" strokeWidth="2.8" filter="url(#glow)" />
           <path d="M38 27C38 30 40 31 42 30" stroke="#E2FF55" strokeWidth="2.8" filter="url(#glow)" />
+          <path d="M42 24C43 24.5 43 25.5 42 26" stroke="#E2FF55" strokeWidth="1.8" filter="url(#glow)" /> {/* Horn */}
           
-          {/* Dragon eye */}
+          {/* Dragon eye with glow */}
           <circle cx="39" cy="27" r="1.5" fill="#E2FF55" filter="url(#glow)" />
           
-          {/* Dragon scales/nodes */}
+          {/* Dragon scales/nodes with enhanced details */}
           <circle cx="14" cy="17" r="3" stroke="#E2FF55" strokeWidth="2.5" filter="url(#glow)" />
           <circle cx="20" cy="13" r="3" stroke="#E2FF55" strokeWidth="2.5" filter="url(#glow)" />
           <circle cx="27" cy="15" r="3" stroke="#E2FF55" strokeWidth="2.5" filter="url(#glow)" />
           <circle cx="32" cy="20" r="3" stroke="#E2FF55" strokeWidth="2.5" filter="url(#glow)" />
           
-          {/* Dragon tail */}
+          {/* Dragon tail with more details */}
           <path d="M8 23C6 26 4 29 8 33" stroke="#E2FF55" strokeWidth="2.8" filter="url(#glow)" />
+          <path d="M8 33C7 34.5 7.5 36 9 36" stroke="#E2FF55" strokeWidth="2" filter="url(#glow)" /> {/* Tail end */}
           <circle cx="8" cy="33" r="2.5" stroke="#E2FF55" strokeWidth="2.5" filter="url(#glow)" />
         </svg>
         
@@ -60,11 +62,11 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
       
       {withText && (
         <div className={`font-bold ${textSize} bg-gradient-to-r from-[#E2FF55] to-[#9b87f5] bg-clip-text text-transparent`}>
-          Hydragon
+          HyreDragon
         </div>
       )}
     </Link>
   );
 };
 
-export default HydragonLogo;
+export default HyreDragonLogo;

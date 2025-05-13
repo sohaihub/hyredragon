@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import HydragonLogo from './HydragonLogo';
+import HyreDragonLogo from './HydragonLogo';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,7 +17,7 @@ const Header: React.FC = () => {
     <header className="py-4 px-4 md:px-8 w-full bg-transparent z-20 relative">
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
-          <HydragonLogo size="md" withText={true} />
+          <HyreDragonLogo size="md" withText={true} />
           
           {/* Desktop menu */}
           <nav className="hidden md:flex items-center space-x-8">

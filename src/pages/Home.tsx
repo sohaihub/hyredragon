@@ -5,6 +5,9 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import MetricsShowcase from '@/components/MetricsShowcase';
+import SavingsCalculator from '@/components/SavingsCalculator';
+import EnterpriseSolution from '@/components/EnterpriseSolution';
 
 const Home: React.FC = () => {
   // Add scroll animation effect
@@ -72,7 +75,7 @@ const Home: React.FC = () => {
                 <p className="text-xl text-gray-300 mb-8">
                   Transform your hiring process with our AI-powered recruitment platform. Save time, reduce bias, and hire better candidates.
                 </p>
-                <div className="flex flex-wrap gap-4">
+                <div className="flex justify-center mb-8">
                   <Link to="/request-demo">
                     <Button 
                       size="lg"
@@ -81,17 +84,8 @@ const Home: React.FC = () => {
                       Request a demo <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
-                  <Link to="/pricing">
-                    <Button 
-                      size="lg"
-                      variant="outline" 
-                      className="border-white text-white hover:bg-white/10 bg-transparent transition-colors text-lg px-8 py-6 rounded-full"
-                    >
-                      View pricing
-                    </Button>
-                  </Link>
                 </div>
-                <div className="mt-8 flex items-center gap-8">
+                <div className="mt-8 flex items-center gap-8 justify-center md:justify-start">
                   <div className="flex items-center">
                     <div className="text-[#E2FF55] font-bold text-3xl">90%</div>
                     <span className="text-gray-300 text-sm ml-2">Faster <br />Hiring</span>
@@ -105,14 +99,24 @@ const Home: React.FC = () => {
               <div className="md:w-1/2">
                 <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
                   <img 
-                    src="/placeholder.svg" 
-                    alt="Hydragon Dashboard" 
-                    className="w-full rounded-lg"
+                    src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&auto=format&crop=entropy&fit=crop&w=870" 
+                    alt="HyreDragon Dashboard" 
+                    className="w-full rounded-lg object-cover"
                     style={{ minHeight: "300px" }}
                   />
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+        
+        {/* Metrics Showcase */}
+        <MetricsShowcase />
+        
+        {/* Savings Calculator */}
+        <section className="py-16 md:py-24 px-4 relative">
+          <div className="container mx-auto animate-on-scroll">
+            <SavingsCalculator />
           </div>
         </section>
         
@@ -233,12 +237,19 @@ const Home: React.FC = () => {
           </div>
         </section>
         
+        {/* Enterprise Solution */}
+        <section className="py-16 md:py-24 px-4 relative">
+          <div className="container mx-auto animate-on-scroll">
+            <EnterpriseSolution />
+          </div>
+        </section>
+
         {/* Why Choose Us */}
         <section className="py-16 md:py-24 px-4 relative bg-[#080820]">
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820] pointer-events-none"></div>
           <div className="container mx-auto relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll">
-              Why <span className="text-[#E2FF55]">Hydragon</span>?
+              Why <span className="text-[#E2FF55]">HyreDragon</span>?
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -292,7 +303,7 @@ const Home: React.FC = () => {
                 Let's Make Hiring Feel Effortless
               </h2>
               <p className="text-gray-300 text-lg md:text-xl mb-8">
-                Join thousands of companies that have transformed their recruitment process with Hydragon.
+                Join thousands of companies that have transformed their recruitment process with HyreDragon.
               </p>
               <div className="flex justify-center">
                 <Link to="/request-demo">
@@ -315,7 +326,7 @@ const Home: React.FC = () => {
               <React.Fragment key={index}>
                 <div className="flex items-center mr-16">
                   <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-1 rounded-full font-bold mr-3">NEW</span>
-                  <span className="text-white font-medium">Hydragon releases advanced AI matching algorithm</span>
+                  <span className="text-white font-medium">HyreDragon releases advanced AI matching algorithm</span>
                 </div>
                 <div className="flex items-center mr-16">
                   <span className="bg-[#7B78FF] text-white text-xs px-2 py-1 rounded-full font-bold mr-3">REPORT</span>

@@ -174,14 +174,16 @@ const AIProducts: React.FC = () => {
               <p className="text-xl text-gray-300 mb-10">
                 Discover our suite of AI-powered products designed to transform every aspect of your hiring process.
               </p>
-              <Link to="/request-demo">
-                <Button 
-                  size="lg"
-                  className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
-                >
-                  Request a demo <ArrowRight className="w-5 h-5" />
-                </Button>
-              </Link>
+              <div className="flex justify-center">
+                <Link to="/request-demo">
+                  <Button 
+                    size="lg"
+                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
+                  >
+                    Request a demo <ArrowRight className="w-5 h-5" />
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </section>
@@ -309,20 +311,28 @@ const AIProducts: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 animate-on-scroll">
                 <div className="bg-[#0A0A29] border border-gray-800 rounded-xl p-8">
                   <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
+                    <img 
+                      src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&auto=format&crop=faces&fit=crop&h=50&w=50" 
+                      alt="Sarah Johnson" 
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                    />
                     <div>
                       <h3 className="text-white font-bold">Sarah Johnson</h3>
                       <p className="text-gray-400">HR Director, TechCorp Inc.</p>
                     </div>
                   </div>
                   <p className="text-gray-300 italic">
-                    "Hydragon's AI Talent Matcher has completely transformed our hiring process. We're finding better candidates in half the time, and our hiring managers are thrilled with the quality of matches."
+                    "HyreDragon's AI Talent Matcher has completely transformed our hiring process. We're finding better candidates in half the time, and our hiring managers are thrilled with the quality of matches."
                   </p>
                 </div>
                 
                 <div className="bg-[#0A0A29] border border-gray-800 rounded-xl p-8">
                   <div className="flex items-center mb-6">
-                    <div className="w-12 h-12 rounded-full bg-gray-700 mr-4"></div>
+                    <img 
+                      src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&auto=format&crop=faces&fit=crop&h=50&w=50" 
+                      alt="Michael Chen" 
+                      className="w-12 h-12 rounded-full object-cover mr-4"
+                    />
                     <div>
                       <h3 className="text-white font-bold">Michael Chen</h3>
                       <p className="text-gray-400">Recruitment Lead, Global Retail Co.</p>

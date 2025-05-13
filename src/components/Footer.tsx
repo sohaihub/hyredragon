@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import HydragonLogo from './HydragonLogo';
+import HyreDragonLogo from './HydragonLogo';
 
 const Footer: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="inline-block mb-4">
-              <HydragonLogo size="sm" withText={true} />
+              <HyreDragonLogo size="sm" withText={true} />
             </div>
             <p className="text-gray-400 text-sm max-w-xs">
               AI-powered recruitment platform that makes hiring smarter, faster, and more efficient.
@@ -44,7 +44,7 @@ const Footer: React.FC = () => {
                 <ul className="space-y-2">
                   <li><Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">About</Link></li>
                   <li><Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Careers</Link></li>
-                  <li><Link to="/" className="text-gray-400 hover:text-[#E2FF55] text-sm">Contact Us</Link></li>
+                  <li><Link to="/contact" className="text-gray-400 hover:text-[#E2FF55] text-sm">Contact Us</Link></li>
                 </ul>
               </div>
             </div>
@@ -53,7 +53,7 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            © 2025 Hydragon. All rights reserved.
+            © 2025 HyreDragon. All rights reserved.
           </div>
           
           <div className="flex space-x-6">
