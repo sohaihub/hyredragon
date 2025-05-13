@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MetricsShowcase from '@/components/MetricsShowcase';
-import SavingsCalculator from '@/components/SavingsCalculator';
 import EnterpriseSolution from '@/components/EnterpriseSolution';
 
 const Home: React.FC = () => {
@@ -111,13 +110,7 @@ const Home: React.FC = () => {
         
         {/* Metrics Showcase */}
         <MetricsShowcase />
-        
-        {/* Savings Calculator */}
-        <section className="py-16 md:py-24 px-4 relative">
-          <div className="container mx-auto animate-on-scroll">
-            <SavingsCalculator />
-          </div>
-        </section>
+      
         
         {/* Recruitment Steps */}
         <section className="py-16 md:py-24 px-4 relative">
