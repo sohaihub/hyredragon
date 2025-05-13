@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 import Solutions from './pages/Solutions';
 import AIProducts from './pages/AIProducts';
-import Pricing from './pages/Pricing';
 import Enterprise from './pages/Enterprise';
 import ResourceLibrary from './pages/ResourceLibrary';
 import Blog from './pages/Blog';
