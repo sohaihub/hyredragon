@@ -1,15 +1,27 @@
 
 import React from 'react';
-import { ArrowRight, Cpu, Shield, BarChart3 } from 'lucide-react';
+import { ArrowRight, Cpu, Shield, BarChart3, CheckCircle, Server, Briefcase, Users } from 'lucide-react';
 import { Button } from './ui/button';
 import { Link } from 'react-router-dom';
 
 const EnterpriseSolution: React.FC = () => {
+  const features = [
+    { icon: <CheckCircle className="w-5 h-5 text-[#E2FF55]" />, text: "Everything in Premium plan" },
+    { icon: <Shield className="w-5 h-5 text-[#E2FF55]" />, text: "Advanced security features" },
+    { icon: <Users className="w-5 h-5 text-[#E2FF55]" />, text: "Dedicated customer success team" },
+    { icon: <Server className="w-5 h-5 text-[#E2FF55]" />, text: "Service level agreement (SLA)" },
+    { icon: <Cpu className="w-5 h-5 text-[#E2FF55]" />, text: "Custom AI model fine-tuning" },
+    { icon: <Briefcase className="w-5 h-5 text-[#E2FF55]" />, text: "Custom integrations" },
+    { icon: <BarChart3 className="w-5 h-5 text-[#E2FF55]" />, text: "Customized reporting" },
+    { icon: <CheckCircle className="w-5 h-5 text-[#E2FF55]" />, text: "Onboarding & training" },
+  ];
+
   return (
     <div className="p-8 md:p-10 rounded-xl bg-gradient-to-br from-[#080822] to-[#0F103E] border border-[#7B78FF]/30 relative overflow-hidden">
       {/* Background elements */}
       <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
       <div className="absolute bottom-10 -left-10 w-48 h-48 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80')] opacity-5 bg-cover bg-center"></div>
       
       <h3 className="text-2xl md:text-3xl font-bold text-white mb-4">HyreDragon: Unleash the Power of AI to Hire Smarter</h3>
       
@@ -18,45 +30,29 @@ const EnterpriseSolution: React.FC = () => {
         from sourcing and screening to interviewing and onboarding.
       </p>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="flex items-start">
-          <div className="p-2 bg-[#E2FF55]/20 rounded-lg mr-3">
-            <Cpu className="w-5 h-5 text-[#E2FF55]" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        {features.map((feature, index) => (
+          <div key={index} className="flex items-start group hover:bg-white/5 p-3 rounded-lg transition-all duration-300">
+            <div className="p-2 bg-[#E2FF55]/10 rounded-lg mr-3 group-hover:bg-[#E2FF55]/20 transition-all">
+              {feature.icon}
+            </div>
+            <div>
+              <p className="text-white text-sm">{feature.text}</p>
+            </div>
           </div>
-          <div>
-            <h4 className="text-white font-medium mb-1">Advanced AI Processing</h4>
-            <p className="text-gray-400 text-sm">Screen thousands of applications in minutes</p>
-          </div>
-        </div>
-        
-        <div className="flex items-start">
-          <div className="p-2 bg-[#E2FF55]/20 rounded-lg mr-3">
-            <Shield className="w-5 h-5 text-[#E2FF55]" />
-          </div>
-          <div>
-            <h4 className="text-white font-medium mb-1">Enterprise Security</h4>
-            <p className="text-gray-400 text-sm">SOC2 compliant with end-to-end encryption</p>
-          </div>
-        </div>
-        
-        <div className="flex items-start">
-          <div className="p-2 bg-[#E2FF55]/20 rounded-lg mr-3">
-            <BarChart3 className="w-5 h-5 text-[#E2FF55]" />
-          </div>
-          <div>
-            <h4 className="text-white font-medium mb-1">Advanced Analytics</h4>
-            <p className="text-gray-400 text-sm">Deep insights into your recruitment funnel</p>
-          </div>
-        </div>
+        ))}
       </div>
       
-      <div className="flex justify-center">
+      <div className="flex flex-col sm:flex-row items-center justify-between pt-4 mt-6 border-t border-white/10">
+        <div className="text-white mb-4 sm:mb-0">
+          <span className="text-[#E2FF55] font-medium">Custom pricing</span> based on your needs
+        </div>
         <Link to="/request-demo">
           <Button 
             size="lg"
-            className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
+            className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 py-6 rounded-full flex items-center gap-2"
           >
-            Request a demo <ArrowRight className="w-5 h-5" />
+            Contact Sales <ArrowRight className="w-5 h-5" />
           </Button>
         </Link>
       </div>

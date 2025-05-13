@@ -25,10 +25,10 @@ const ResourceCard: React.FC<ResourceCardProps> = ({
   icon
 }) => {
   return (
-    <div className="bg-[#080822]/80 border border-gray-800 rounded-xl overflow-hidden hover:border-[#E2FF55]/50 transition-all duration-300">
-      <div className="h-48 bg-gray-800 relative">
+    <div className="bg-[#080822]/80 border border-gray-800 rounded-xl overflow-hidden hover:border-[#E2FF55]/50 transition-all duration-300 group">
+      <div className="h-48 bg-gray-800 relative overflow-hidden">
+        <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-[#080822] to-transparent opacity-60"></div>
-        <img src={image} alt={title} className="w-full h-full object-cover" />
         <div className="absolute top-4 left-4 bg-[#0A0A29]/80 backdrop-blur-sm text-[#E2FF55] text-xs px-3 py-1 rounded-full border border-[#E2FF55]/30 flex items-center">
           {icon}
           <span className="ml-1">{category}</span>
@@ -87,7 +87,7 @@ const Resources: React.FC = () => {
       title: "How AI is Transforming the Recruitment Industry",
       description: "Discover the ways artificial intelligence is revolutionizing hiring processes and improving candidate matches.",
       category: "Blog",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&auto=format&fit=crop",
       link: "#",
       icon: <BookOpen className="h-3 w-3" />
     },
@@ -95,7 +95,7 @@ const Resources: React.FC = () => {
       title: "5 Key Metrics for Measuring Recruitment Success",
       description: "Learn which KPIs matter most when evaluating the effectiveness of your hiring strategies.",
       category: "Blog",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&auto=format&fit=crop",
       link: "#",
       icon: <BookOpen className="h-3 w-3" />
     },
@@ -103,7 +103,7 @@ const Resources: React.FC = () => {
       title: "Reducing Bias in the Hiring Process with AI",
       description: "Explore how artificial intelligence can help create more diverse and inclusive workplaces.",
       category: "Blog",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&auto=format&fit=crop",
       link: "#",
       icon: <BookOpen className="h-3 w-3" />
     }
@@ -112,9 +112,9 @@ const Resources: React.FC = () => {
   const caseStudies = [
     {
       title: "TechCorp Reduces Time-to-Hire by 65%",
-      description: "How a leading tech company transformed their recruitment process using Hydragon's AI platform.",
+      description: "How a leading tech company transformed their recruitment process using HyreDragon's AI platform.",
       category: "Case Study",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1576267423048-15c0030e5605?q=80&auto=format&fit=crop",
       link: "#",
       icon: <FileText className="h-3 w-3" />
     },
@@ -122,7 +122,7 @@ const Resources: React.FC = () => {
       title: "Global Retail Chain Improves Candidate Quality",
       description: "A multinational retailer's journey to better hiring decisions with data-driven recruitment.",
       category: "Case Study",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?q=80&auto=format&fit=crop",
       link: "#",
       icon: <FileText className="h-3 w-3" />
     }
@@ -130,10 +130,10 @@ const Resources: React.FC = () => {
   
   const videos = [
     {
-      title: "Getting Started with Hydragon",
-      description: "A comprehensive walkthrough of setting up and using the Hydragon AI recruitment platform.",
+      title: "Getting Started with HyreDragon",
+      description: "A comprehensive walkthrough of setting up and using the HyreDragon AI recruitment platform.",
       category: "Video",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&auto=format&fit=crop",
       link: "#",
       icon: <Video className="h-3 w-3" />
     },
@@ -141,7 +141,7 @@ const Resources: React.FC = () => {
       title: "AI Matching Algorithm Explained",
       description: "Our Chief Data Scientist explains how our proprietary matching technology works.",
       category: "Video",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&auto=format&fit=crop",
       link: "#",
       icon: <Video className="h-3 w-3" />
     }
@@ -152,7 +152,7 @@ const Resources: React.FC = () => {
       title: "Complete Guide to Modern Recruitment",
       description: "An in-depth handbook covering all aspects of recruitment in the digital age.",
       category: "Guide",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&auto=format&fit=crop",
       link: "#",
       icon: <Download className="h-3 w-3" />
     },
@@ -160,7 +160,7 @@ const Resources: React.FC = () => {
       title: "Remote Hiring Playbook",
       description: "Best practices and strategies for building effective remote teams.",
       category: "Guide",
-      image: "/placeholder.svg",
+      image: "https://images.unsplash.com/photo-1521898284481-a5ec348cb555?q=80&auto=format&fit=crop",
       link: "#",
       icon: <Download className="h-3 w-3" />
     }
@@ -318,7 +318,7 @@ const Resources: React.FC = () => {
                 </Button>
               </div>
               <p className="text-xs text-gray-400 mt-4">
-                By subscribing, you agree to receive marketing emails from Hydragon. You can unsubscribe at any time.
+                By subscribing, you agree to receive marketing emails from HyreDragon. You can unsubscribe at any time.
               </p>
             </div>
           </div>

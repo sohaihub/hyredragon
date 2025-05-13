@@ -75,7 +75,7 @@ const Home: React.FC = () => {
                 <p className="text-xl text-gray-300 mb-8">
                   Transform your hiring process with our AI-powered recruitment platform. Save time, reduce bias, and hire better candidates.
                 </p>
-                <div className="flex justify-center mb-8">
+                <div className="flex justify-start mb-8">
                   <Link to="/request-demo">
                     <Button 
                       size="lg"
@@ -85,7 +85,7 @@ const Home: React.FC = () => {
                     </Button>
                   </Link>
                 </div>
-                <div className="mt-8 flex items-center gap-8 justify-center md:justify-start">
+                <div className="mt-8 flex items-center gap-8 justify-start">
                   <div className="flex items-center">
                     <div className="text-[#E2FF55] font-bold text-3xl">90%</div>
                     <span className="text-gray-300 text-sm ml-2">Faster <br />Hiring</span>
@@ -99,8 +99,8 @@ const Home: React.FC = () => {
               <div className="md:w-1/2">
                 <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
                   <img 
-                    src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&auto=format&crop=entropy&fit=crop&w=870" 
-                    alt="HyreDragon Dashboard" 
+                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
+                    alt="HyreDragon Recruitment Platform" 
                     className="w-full rounded-lg object-cover"
                     style={{ minHeight: "300px" }}
                   />
@@ -243,7 +243,7 @@ const Home: React.FC = () => {
             <EnterpriseSolution />
           </div>
         </section>
-
+        
         {/* Why Choose Us */}
         <section className="py-16 md:py-24 px-4 relative bg-[#080820]">
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820] pointer-events-none"></div>
