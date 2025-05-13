@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -168,16 +167,13 @@ const Resources: React.FC = () => {
   
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Background elements */}
+      {/* Background circular gradients */}
+      <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
+      <div className="absolute top-1/2 left-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
+      <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
 
-        {/* Background circular gradients */}
-        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
-        <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
-      </div>
-      
       <Header />
-      
+
       <main className="flex-grow relative z-10">
         {/* Hero Section */}
         <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-4">
@@ -189,7 +185,7 @@ const Resources: React.FC = () => {
               <p className="text-xl text-gray-300 mb-10">
                 Discover the latest trends, strategies, and best practices in AI-powered recruitment.
               </p>
-              
+
               <div className="relative max-w-2xl mx-auto">
                 <Input 
                   type="search" 
@@ -198,7 +194,7 @@ const Resources: React.FC = () => {
                 />
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               </div>
-              
+
               <div className="flex flex-wrap justify-center gap-3 mt-8">
                 <Button variant="outline" className="rounded-full bg-transparent border-white/20 text-white hover:bg-white/10">
                   All Resources
@@ -219,7 +215,7 @@ const Resources: React.FC = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Featured Articles */}
         <section className="py-12 md:py-16 px-4">
           <div className="container mx-auto">
@@ -229,7 +225,7 @@ const Resources: React.FC = () => {
                 View All <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-on-scroll">
               {blogs.map((blog, index) => (
                 <ResourceCard key={index} {...blog} />
@@ -237,7 +233,7 @@ const Resources: React.FC = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Case Studies */}
         <section className="py-12 md:py-16 px-4 bg-[#080820]">
           <div className="container mx-auto">
@@ -247,7 +243,7 @@ const Resources: React.FC = () => {
                 View All <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-on-scroll">
               {caseStudies.map((study, index) => (
                 <ResourceCard key={index} {...study} />
@@ -255,7 +251,7 @@ const Resources: React.FC = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Videos and Guides */}
         <section className="py-12 md:py-16 px-4">
           <div className="container mx-auto">
@@ -265,20 +261,20 @@ const Resources: React.FC = () => {
                 View All <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16 animate-on-scroll">
               {videos.map((video, index) => (
                 <ResourceCard key={index} {...video} />
               ))}
             </div>
-            
+
             <div className="flex justify-between items-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-white">Guides & Ebooks</h2>
               <Button variant="link" className="text-[#7B78FF] hover:text-[#E2FF55]">
                 View All <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-on-scroll">
               {guides.map((guide, index) => (
                 <ResourceCard key={index} {...guide} />
@@ -286,12 +282,12 @@ const Resources: React.FC = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Newsletter */}
         <section className="py-16 md:py-24 px-4 relative overflow-hidden">
           <div className="absolute top-1/3 left-1/4 w-72 h-72 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
           <div className="absolute bottom-1/3 right-1/4 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
-          
+
           <div className="container mx-auto relative z-10 animate-on-scroll">
             <div className="max-w-3xl mx-auto text-center">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
@@ -319,7 +315,7 @@ const Resources: React.FC = () => {
           </div>
         </section>
       </main>
-      
+
       <Footer />
     </div>
   );
