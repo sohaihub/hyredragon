@@ -1,42 +1,46 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Home from './pages/Home';
+import Solutions from './pages/Solutions';
+import AIProducts from './pages/AIProducts';
+import Pricing from './pages/Pricing';
+import Enterprise from './pages/Enterprise';
+import ResourceLibrary from './pages/ResourceLibrary';
+import Blog from './pages/Blog';
+import CaseStudies from './pages/CaseStudies';
+import Guides from './pages/Guides';
+import About from './pages/About';
+import Careers from './pages/Careers';
+import Contact from './pages/Contact';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import Security from './pages/Security';
+import ComingSoon from './pages/ComingSoon';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Home from "./pages/Home";
-import NotFound from "./pages/NotFound";
-import ResourcesPage from "./pages/Resources";
-import SolutionsPage from "./pages/Solutions";
-import AIProductsPage from "./pages/AIProducts";
-import Contact from "./pages/Contact";
-import Login from "./pages/Login";
-import RequestDemo from "./pages/RequestDemo";
-
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/pricing" element={<Index />} />
-          <Route path="/resources" element={<ResourcesPage />} />
-          <Route path="/solutions" element={<SolutionsPage />} />
-          <Route path="/ai-products" element={<AIProductsPage />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/request-demo" element={<RequestDemo />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App: React.FC = () => {
+  return (
+    <Router>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/solutions" component={Solutions} />
+        <Route path="/ai-products" component={AIProducts} />
+        <Route path="/pricing" component={Pricing} />
+        <Route path="/enterprise" component={ComingSoon} /> {/* Route for Enterprise */}
+        <Route path="/resources/library" component={ResourceLibrary} />
+        <Route path="/resources/blog" component={Blog} />
+        <Route path="/resources/case-studies" component={CaseStudies} />
+        <Route path="/resources/guides" component={Guides} />
+        <Route path="/about" component={About} />
+        <Route path="/careers" component={Careers} />
+        <Route path="/contact" component={Contact} />
+        <Route path="/terms" component={Terms} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/security" component={Security} />
+        <Route path="/coming-soon" component={ComingSoon} /> {/* Route for Coming Soon */}
+        <Route path="*" component={ComingSoon} /> {/* Fallback route */}
+      </Switch>
+    </Router>
+  );
+};
 
 export default App;
