@@ -70,7 +70,7 @@ const Header: React.FC = () => {
                 variant="outline" 
                 className="border-white text-white hover:bg-white/10 bg-transparent transition-colors rounded-full"
               >
-                Contact us
+                Login/Register
               </Button>
             </Link>
             <Link to="/login">
