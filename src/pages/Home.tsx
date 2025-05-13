@@ -99,10 +99,9 @@ const Home: React.FC = () => {
               <div className="md:w-1/2">
                 <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
                   <img 
-                    src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
-                    alt="HyreDragon Recruitment Platform" 
+                    src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
+                    alt="HyreDragon Recruitment Analytics Dashboard" 
                     className="w-full rounded-lg object-cover"
-                    style={{ minHeight: "300px" }}
                   />
                 </div>
               </div>
