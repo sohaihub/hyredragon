@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Solutions from './pages/Solutions';
 import AIProducts from './pages/AIProducts';
@@ -12,25 +12,25 @@ import Login from './pages/Login';
 const App: React.FC = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/solutions" component={Solutions} />
-        <Route path="/ai-products" component={AIProducts} />
-        <Route path="/resources" component={Resources} />
-        <Route path="/request-demo" component={RequestDemo} />
-        <Route path="/login" component={Login} />
-        <Route path="/contact" component={Contact} />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/solutions" element={<Solutions />} />
+        <Route path="/ai-products" element={<AIProducts />} />
+        <Route path="/resources" element={<Resources />} />
+        <Route path="/request-demo" element={<RequestDemo />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/contact" element={<Contact />} />
         {/* Placeholder routes */}
-        <Route path="/pricing" component={ComingSoon} />
-        <Route path="/enterprise" component={ComingSoon} />
-        <Route path="/about" component={ComingSoon} />
-        <Route path="/careers" component={ComingSoon} />
-        <Route path="/terms" component={ComingSoon} />
-        <Route path="/privacy" component={ComingSoon} />
-        <Route path="/security" component={ComingSoon} />
+        <Route path="/pricing" element={<ComingSoon />} />
+        <Route path="/enterprise" element={<ComingSoon />} />
+        <Route path="/about" element={<ComingSoon />} />
+        <Route path="/careers" element={<ComingSoon />} />
+        <Route path="/terms" element={<ComingSoon />} />
+        <Route path="/privacy" element={<ComingSoon />} />
+        <Route path="/security" element={<ComingSoon />} />
         {/* Catch-all */}
-        <Route path="*" component={ComingSoon} />
-      </Switch>
+        <Route path="*" element={<ComingSoon />} />
+      </Routes>
     </Router>
   );
 };
