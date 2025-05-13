@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -27,24 +26,21 @@ const RequestDemo: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setFormSubmitted(true);
-    
+
     toast({
       title: "Demo request received!",
       description: "Our team will contact you shortly to schedule your personalized demo.",
     });
   };
-  
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Background elements */}
-
-      
       {/* Background circular gradients */}
       <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#E2FF55]/20 blur-3xl"></div>
       <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
-      
+
       <Header />
-      
+
       <main className="flex-grow relative z-10 py-12 md:py-20">
         <div className="container mx-auto px-4">
           {!formSubmitted ? (
@@ -57,12 +53,12 @@ const RequestDemo: React.FC = () => {
                   Schedule a personalized demo to see how Hydragon can transform your hiring process.
                 </p>
               </div>
-              
+
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 {/* Demo Form */}
                 <div className="bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 md:p-10 backdrop-blur-lg order-2 lg:order-1">
                   <h2 className="text-2xl font-bold mb-6 text-white">Request your personalized demo</h2>
-                  
+
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
@@ -86,7 +82,7 @@ const RequestDemo: React.FC = () => {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="email" className="text-white">Work Email</Label>
                       <Input 
@@ -97,7 +93,7 @@ const RequestDemo: React.FC = () => {
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                       />
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="phone" className="text-white">Phone Number</Label>
                       <Input 
@@ -108,7 +104,7 @@ const RequestDemo: React.FC = () => {
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                       />
                     </div>
-                    
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       <div className="space-y-2">
                         <Label htmlFor="company" className="text-white">Company Name</Label>
@@ -131,7 +127,7 @@ const RequestDemo: React.FC = () => {
                         />
                       </div>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="companySize" className="text-white">Company Size</Label>
                       <Select required>
@@ -147,7 +143,7 @@ const RequestDemo: React.FC = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                    
+
                     <div className="space-y-2">
                       <Label htmlFor="message" className="text-white">Additional Information</Label>
                       <Textarea 
@@ -157,25 +153,25 @@ const RequestDemo: React.FC = () => {
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white resize-none"
                       />
                     </div>
-                    
+
                     <Button 
                       type="submit" 
                       className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full flex items-center gap-2 justify-center"
                     >
                       Request Demo <ArrowRight className="w-4 h-4" />
                     </Button>
-                    
+
                     <p className="text-xs text-gray-400 text-center">
                       By submitting this form, you agree to our <Link to="#" className="text-[#7B78FF] hover:text-[#E2FF55]">Terms of Service</Link> and <Link to="#" className="text-[#7B78FF] hover:text-[#E2FF55]">Privacy Policy</Link>.
                     </p>
                   </form>
                 </div>
-                
+
                 {/* Benefits */}
                 <div className="order-1 lg:order-2">
                   <div className="sticky top-24 space-y-10">
                     <h2 className="text-3xl font-bold text-white mb-8">What you'll see in your demo</h2>
-                    
+
                     <div className="space-y-6">
                       <div className="flex items-start">
                         <div className="mr-4 p-2 rounded-full bg-[#E2FF55]/10">
@@ -186,7 +182,7 @@ const RequestDemo: React.FC = () => {
                           <p className="text-gray-300">See how our proprietary AI algorithm matches candidates to your job requirements with unparalleled precision.</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start">
                         <div className="mr-4 p-2 rounded-full bg-[#E2FF55]/10">
                           <CheckCircle className="h-6 w-6 text-[#E2FF55]" />
@@ -196,7 +192,7 @@ const RequestDemo: React.FC = () => {
                           <p className="text-gray-300">Experience our intuitive interface that simplifies the entire recruitment process from posting to hiring.</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start">
                         <div className="mr-4 p-2 rounded-full bg-[#E2FF55]/10">
                           <CheckCircle className="h-6 w-6 text-[#E2FF55]" />
@@ -206,7 +202,7 @@ const RequestDemo: React.FC = () => {
                           <p className="text-gray-300">Discover how our data-rich analytics can provide insights to optimize your recruitment strategy.</p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start">
                         <div className="mr-4 p-2 rounded-full bg-[#E2FF55]/10">
                           <CheckCircle className="h-6 w-6 text-[#E2FF55]" />
@@ -217,7 +213,7 @@ const RequestDemo: React.FC = () => {
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className="bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 backdrop-blur-lg">
                       <h3 className="text-xl font-bold text-white mb-3">What clients are saying</h3>
                       <p className="text-gray-300 italic mb-4">
@@ -272,7 +268,7 @@ const RequestDemo: React.FC = () => {
           )}
         </div>
       </main>
-      
+
       <Footer />
     </div>
   );
