@@ -73,11 +73,11 @@ const Header: React.FC = () => {
                 Login/Register
               </Button>
             </Link>
-            <Link to="/login">
+            <Link to="/request-demo">
               <Button 
-                className="bg-white text-[#0A0A29] hover:bg-white/90 rounded-full flex items-center gap-2"
+                className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 rounded-full flex items-center gap-2"
               >
-                Get started for free <ArrowRight className="w-4 h-4" />
+                Request a demo <ArrowRight className="w-4 h-4" />
               </Button>
             </Link>
           </div>
@@ -164,13 +164,13 @@ const Header: React.FC = () => {
                 </Button>
               </Link>
               <Link 
-                to="/login" 
+                to="/request-demo" 
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Button 
-                  className="bg-white text-[#0A0A29] hover:bg-white/90 w-full"
+                  className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full"
                 >
-                  Get started for free
+                  Request a demo
                 </Button>
               </Link>
             </nav>

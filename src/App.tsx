@@ -8,6 +8,7 @@ import ComingSoon from './pages/ComingSoon';
 import Resources from './pages/Resources';
 import RequestDemo from './pages/RequestDemo';
 import Login from './pages/Login';
+import Index from './pages/Index';
 
 const App: React.FC = () => {
   return (
@@ -20,14 +21,13 @@ const App: React.FC = () => {
         <Route path="/request-demo" element={<RequestDemo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />
-        {/* Placeholder routes */}
-        <Route path="/pricing" element={<ComingSoon />} />
-        <Route path="/enterprise" element={<ComingSoon />} />
-        <Route path="/about" element={<ComingSoon />} />
-        <Route path="/careers" element={<ComingSoon />} />
-        <Route path="/terms" element={<ComingSoon />} />
-        <Route path="/privacy" element={<ComingSoon />} />
-        <Route path="/security" element={<ComingSoon />} />
+        <Route path="/pricing" element={<Index />} />
+        <Route path="/enterprise" element={<Contact />} />
+        <Route path="/about" element={<Contact />} />
+        <Route path="/careers" element={<Contact />} />
+        <Route path="/terms" element={<Contact />} />
+        <Route path="/privacy" element={<Contact />} />
+        <Route path="/security" element={<Contact />} />
         {/* Catch-all */}
         <Route path="*" element={<ComingSoon />} />
       </Routes>
