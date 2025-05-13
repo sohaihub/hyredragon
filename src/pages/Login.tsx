@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -14,7 +13,7 @@ const Login: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     toast({
       title: isLogin ? "Login successful!" : "Account created!",
       description: isLogin ? "Welcome back to Hydragon." : "Welcome to Hydragon! Please check your email to verify your account.",
@@ -23,12 +22,11 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Background elements */}
-     
-        {/* Background circular gradients */}
-        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#E2FF55]/20 blur-3xl"></div>
-        <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
-      </div>
+      {/* Removed white dots - you can keep or remove background gradients as needed */}
+      {/* Example: remove any <div> with bg-white and w-1/h-1 or w-2/h-2 classes */}
+      {/* You can keep gradients like the ones below if you want */}
+      <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#E2FF55]/20 blur-3xl pointer-events-none select-none"></div>
+      <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl pointer-events-none select-none"></div>
 
       <div className="flex-grow flex items-center justify-center px-4">
         <div className="max-w-md w-full relative z-10">
@@ -43,7 +41,7 @@ const Login: React.FC = () => {
               {isLogin ? 'Enter your details below to sign in' : 'Enter your details below to get started'}
             </p>
           </div>
-          
+
           <div className="bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 md:p-8 backdrop-blur-lg">
             <form onSubmit={handleSubmit} className="space-y-5">
               {!isLogin && (
@@ -57,7 +55,7 @@ const Login: React.FC = () => {
                   />
                 </div>
               )}
-              
+
               <div className="space-y-1.5">
                 <Label htmlFor="email" className="text-white">Email</Label>
                 <Input
@@ -68,7 +66,7 @@ const Login: React.FC = () => {
                   className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                 />
               </div>
-              
+
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password" className="text-white">Password</Label>
@@ -86,7 +84,7 @@ const Login: React.FC = () => {
                   className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                 />
               </div>
-              
+
               {!isLogin && (
                 <div className="space-y-1.5">
                   <Label htmlFor="confirmPassword" className="text-white">Confirm Password</Label>
@@ -94,12 +92,12 @@ const Login: React.FC = () => {
                     id="confirmPassword"
                     type="password"
                     placeholder="Confirm your password"
-                    required={!isLogin}
+                    required
                     className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                   />
                 </div>
               )}
-              
+
               {isLogin && (
                 <div className="flex items-center">
                   <Checkbox id="remember" className="data-[state=checked]:bg-[#E2FF55] data-[state=checked]:border-[#E2FF55]" />
@@ -111,10 +109,10 @@ const Login: React.FC = () => {
                   </label>
                 </div>
               )}
-              
+
               {!isLogin && (
                 <div className="flex items-center">
-                  <Checkbox id="terms" className="data-[state=checked]:bg-[#E2FF55] data-[state=checked]:border-[#E2FF55]" required/>
+                  <Checkbox id="terms" className="data-[state=checked]:bg-[#E2FF55] data-[state=checked]:border-[#E2FF55]" required />
                   <label
                     htmlFor="terms"
                     className="text-sm text-gray-300 ml-2"
@@ -123,14 +121,14 @@ const Login: React.FC = () => {
                   </label>
                 </div>
               )}
-              
+
               <Button
                 type="submit"
                 className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full"
               >
                 {isLogin ? 'Sign In' : 'Create Account'}
               </Button>
-              
+
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-gray-700"></div>
@@ -139,7 +137,7 @@ const Login: React.FC = () => {
                   <span className="px-2 bg-[#0A0A29] text-gray-400">OR</span>
                 </div>
               </div>
-              
+
               <Button
                 type="button"
                 variant="outline"
@@ -151,13 +149,13 @@ const Login: React.FC = () => {
                 Continue with Google
               </Button>
             </form>
-            
+
             <div className="mt-6 text-center text-sm">
               {isLogin ? (
                 <p className="text-gray-300">
                   Don't have an account?{" "}
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => setIsLogin(false)}
                     className="text-[#7B78FF] hover:text-[#E2FF55]"
                   >
@@ -167,8 +165,8 @@ const Login: React.FC = () => {
               ) : (
                 <p className="text-gray-300">
                   Already have an account?{" "}
-                  <button 
-                    type="button" 
+                  <button
+                    type="button"
                     onClick={() => setIsLogin(true)}
                     className="text-[#7B78FF] hover:text-[#E2FF55]"
                   >
