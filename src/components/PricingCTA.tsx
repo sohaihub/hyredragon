@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const PricingCTA: React.FC = () => {
   return (
@@ -13,18 +14,27 @@ const PricingCTA: React.FC = () => {
       <div className="container mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            Ready to Make Hiring Feel Effortless?
+            Have questions?
           </h2>
           <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-xl mx-auto">
-            Join thousands of companies that have transformed their recruitment process with Hydragon.
+            Our team is ready to help you find the perfect solution for your recruitment needs.
           </p>
-          <div className="flex justify-center">
-            <Button 
-              size="lg"
-              className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
-            >
-              Request a demo <ArrowRight className="w-5 h-5" />
-            </Button>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <Link to="/contact">
+              <Button 
+                variant="outline"
+                className="border-white text-white hover:bg-white/10 bg-transparent transition-colors rounded-full"
+              >
+                Contact Support
+              </Button>
+            </Link>
+            <Link to="/request-demo">
+              <Button 
+                className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 rounded-full flex items-center gap-2"
+              >
+                Request a demo <ArrowRight className="w-5 h-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

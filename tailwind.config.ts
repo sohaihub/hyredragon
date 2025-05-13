@@ -102,6 +102,14 @@ export default {
 				'pulse-light': {
 					'0%, 100%': { opacity: '0.3' },
 					'50%': { opacity: '0.7' },
+				},
+				'fade-in': {
+					'0%': { opacity: '0', transform: 'translateY(10px)' },
+					'100%': { opacity: '1', transform: 'translateY(0)' },
+				},
+				'marquee': {
+					'0%': { transform: 'translateX(0)' },
+					'100%': { transform: 'translateX(-33.33%)' },
 				}
 			},
 			animation: {
@@ -109,6 +117,8 @@ export default {
 				'accordion-up': 'accordion-up 0.2s ease-out',
 				'float': 'float 6s ease-in-out infinite',
 				'pulse-light': 'pulse-light 3s ease-in-out infinite',
+				'fade-in': 'fade-in 0.6s ease-out forwards',
+				'marquee': 'marquee 30s linear infinite'
 			},
 			backgroundImage: {
 				'hyregram-gradient': 'linear-gradient(135deg, #1A1F2C 0%, #141824 100%)',

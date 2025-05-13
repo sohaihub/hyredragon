@@ -9,16 +9,19 @@ interface PricingFeature {
 
 interface PricingTierProps {
   name: string;
+  hours: number;
+  hourlyRate: string;
   price: string;
-  description: string;
+  description?: string;
   features: PricingFeature[];
   isPopular?: boolean;
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({ 
   name, 
+  hours,
+  hourlyRate,
   price, 
-  description, 
   features, 
   isPopular 
 }) => {
@@ -36,13 +39,14 @@ const PricingTier: React.FC<PricingTierProps> = ({
         </div>
       )}
       
-      <h3 className="text-xl md:text-2xl font-bold mb-2 text-white">{name}</h3>
-      <div className="mb-4">
-        <span className="text-3xl md:text-4xl font-bold text-white">{price}</span>
-        {price !== 'Custom' && <span className="text-gray-400 ml-1">/month</span>}
+      <div className="text-center mb-4">
+        <h3 className="text-xl md:text-2xl font-bold mb-1 text-white">{name}</h3>
+        <p className="text-gray-300 text-sm">{hours} hours @ ₹{hourlyRate}/hour</p>
       </div>
-      
-      <p className="text-gray-300 mb-6">{description}</p>
+
+      <div className="mb-6 text-center">
+        <span className="text-3xl md:text-4xl font-bold text-white">₹{price}</span>
+      </div>
       
       <div className="space-y-4 mb-8 flex-grow">
         {features.map((feature, index) => (
@@ -61,67 +65,188 @@ const PricingTier: React.FC<PricingTierProps> = ({
           : 'bg-[#7B78FF] hover:bg-[#7B78FF]/90 text-white'
         }`}
       >
-        Get Started
+        Choose Plan
       </Button>
     </div>
   );
 };
 
 const PricingTiers: React.FC = () => {
+  const starterFeatures = [
+    { text: "AI generated feedback report" },
+    { text: "AI proctoring system" },
+    { text: "Coding platform" },
+    { text: "Detailed insights" },
+    { text: "AI ATS Analyzer" }
+  ];
+  
   const basicFeatures = [
-    { text: "Up to 10 job postings" },
-    { text: "Basic AI candidate matching" },
-    { text: "Standard job templates" },
-    { text: "Email support" },
-    { text: "Basic analytics dashboard" }
+    { text: "Detailed dashboard" },
+    { text: "Custom assessment" },
+    { text: "AI generated feedback report" },
+    { text: "AI proctoring system" },
+    { text: "Coding platform" },
+    { text: "Detailed insights" }
   ];
   
-  const proFeatures = [
-    { text: "Up to 50 job postings" },
-    { text: "Advanced AI candidate matching" },
-    { text: "Custom job templates" },
-    { text: "Priority email & chat support" },
-    { text: "Full analytics suite" },
-    { text: "Team collaboration tools" },
-    { text: "90% faster candidate cycling" }
+  const standardFeatures = [
+    { text: "Detailed dashboard" },
+    { text: "Custom assessment" },
+    { text: "AI generated feedback report" },
+    { text: "AI proctoring system" },
+    { text: "Coding platform" },
+    { text: "Detailed insights" }
   ];
   
-  const enterpriseFeatures = [
-    { text: "Unlimited job postings" },
-    { text: "Enterprise-grade AI matching" },
-    { text: "Custom branded experience" },
-    { text: "Dedicated account manager" },
-    { text: "Advanced analytics & reporting" },
-    { text: "API access & integrations" },
-    { text: "Custom workflows & automation" },
-    { text: "SLA & premium support" }
+  const professionalFeatures = [
+    { text: "Detailed dashboard" },
+    { text: "Custom assessment" },
+    { text: "AI generated feedback report" },
+    { text: "AI proctoring system" },
+    { text: "Coding platform" },
+    { text: "Detailed insights" }
+  ];
+  
+  const premiumFeatures = [
+    { text: "Detailed dashboard" },
+    { text: "Custom assessment" },
+    { text: "AI generated feedback report" },
+    { text: "AI proctoring system" },
+    { text: "Coding platform" },
+    { text: "Detailed insights" }
   ];
 
   return (
     <section className="py-12 md:py-20 px-4">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">Hourly Packages</h2>
+        <div className="h-[1px] bg-gray-700 w-full max-w-6xl mx-auto mb-12"></div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
+          <PricingTier
+            name="Starter"
+            hours={10}
+            hourlyRate="1,000"
+            price="10000"
+            features={starterFeatures}
+          />
+          
           <PricingTier
             name="Basic"
-            price="$199"
-            description="For small businesses just getting started with recruitment."
+            hours={20}
+            hourlyRate="1,000"
+            price="20000"
             features={basicFeatures}
           />
           
           <PricingTier
-            name="Pro"
-            price="$499"
-            description="For growing teams that need advanced features and support."
-            features={proFeatures}
+            name="Standard"
+            hours={30}
+            hourlyRate="1,000"
+            price="30000"
+            features={standardFeatures}
             isPopular={true}
           />
           
           <PricingTier
-            name="Enterprise"
-            price="Custom"
-            description="For large organizations with complex hiring needs."
-            features={enterpriseFeatures}
+            name="Professional"
+            hours={40}
+            hourlyRate="1,000"
+            price="40000"
+            features={professionalFeatures}
           />
+          
+          <PricingTier
+            name="Premium"
+            hours={50}
+            hourlyRate="1,000"
+            price="50000"
+            features={premiumFeatures}
+          />
+        </div>
+        
+        <div className="mt-24 max-w-6xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Enterprise Solution</h2>
+          
+          <div className="bg-[#1a237e] rounded-xl p-8 md:p-10">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="md:col-span-2">
+                <h3 className="text-2xl font-bold text-white mb-4">Enterprise</h3>
+                <p className="text-gray-300 mb-6">Custom solution for large organizations</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Everything in Premium plan</span>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Advanced security features</span>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Dedicated customer success team</span>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Service level agreement (SLA)</span>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Custom AI model fine-tuning</span>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Custom integrations</span>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Customized reporting</span>
+                    </div>
+                    
+                    <div className="flex items-start">
+                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
+                        <Check className="h-4 w-4" />
+                      </div>
+                      <span className="text-gray-200 text-sm">Onboarding & training</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex flex-col justify-center items-center md:items-end">
+                <p className="text-white mb-4 text-center md:text-right">Custom pricing based on your needs</p>
+                <Button 
+                  className="bg-[#FFC107] hover:bg-[#FFC107]/90 text-[#0A0A29] px-8"
+                >
+                  Contact Sales
+                </Button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
