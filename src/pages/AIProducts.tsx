@@ -217,8 +217,8 @@ const AIProducts: React.FC = () => {
                   "Teaching evaluation tools",
                   "Faculty onboarding automation"
                 ]}
-                buttonType="request-demo"
-                color="bg-gradient-to-r from-[#7B78FF] to-[#9b87f5]"
+                buttonType="coming-soon"
+                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
               />
               
               <IndustryCard 
@@ -230,21 +230,20 @@ const AIProducts: React.FC = () => {
                   "Specialty-specific matching",
                   "Shift scheduling integration"
                 ]}
-                buttonType="request-demo"
+                buttonType="coming-soon"
                 color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
               />
               
               <IndustryCard 
-                title="Remote Team Building"
-                description="Tools specialized for building distributed teams across different time zones."
+                title="Pre-Screened Talent Pool:"
+                description="ccess a vetted database of candidates who've completed skill assessments & video interviews."
                 features={[
-                  "Remote work aptitude assessment",
-                  "Cultural fit for distributed teams",
-                  "Time zone compatibility matching",
+                  "Skip initial screening rounds",
+                  "fast-track to final interviews or offers",
                   "Digital collaboration skills evaluation"
                 ]}
-                buttonType="request-demo"
-                color="bg-gradient-to-r from-[#E2FF55] to-[#7B78FF]"
+                buttonType="coming-soon"
+                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
               />
               
               <IndustryCard 
@@ -256,8 +255,8 @@ const AIProducts: React.FC = () => {
                   "Seasonal staffing optimization",
                   "Soft skills assessment"
                 ]}
-                buttonType="request-demo"
-                color="bg-gradient-to-r from-[#7B78FF] to-[#9b87f5]"
+                buttonType="coming-soon"
+                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
               />
               
               <IndustryCard 
