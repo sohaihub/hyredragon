@@ -1,274 +1,161 @@
 
 import React from 'react';
+import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 interface PricingFeature {
   text: string;
+  included: boolean;
 }
 
 interface PricingTierProps {
   name: string;
-  hours: number;
-  hourlyRate: string;
+  description: string;
   price: string;
-  description?: string;
+  priceDetail: string;
   features: PricingFeature[];
-  isPopular?: boolean;
+  highlighted?: boolean;
+  buttonText?: string;
+  buttonUrl?: string;
 }
 
-const PricingTier: React.FC<PricingTierProps> = ({ 
-  name, 
-  hours,
-  hourlyRate,
-  price, 
-  features, 
-  isPopular 
+const PricingTier: React.FC<PricingTierProps> = ({
+  name,
+  description,
+  price,
+  priceDetail,
+  features,
+  highlighted = false,
+  buttonText = "Start free trial",
+  buttonUrl = "/request-demo"
 }) => {
   return (
-    <div 
-      className={`bg-[#0A0A29]/60 border rounded-xl p-6 md:p-8 hover:transform hover:translate-y-[-8px] transition-all duration-300 relative h-full flex flex-col
-      ${isPopular 
-        ? 'border-[#E2FF55]' 
-        : 'border-[#7B78FF]/40'
-      }`}
+    <div
+      className={`rounded-xl border ${
+        highlighted
+          ? 'border-[#E2FF55] bg-[#E2FF55]/5'
+          : 'border-gray-800 bg-[#080822]/70'
+      } p-6 shadow-lg flex flex-col h-full relative`}
     >
-      {isPopular && (
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-[#E2FF55] text-[#0A0A29] text-xs font-bold px-4 py-1 rounded-full">
-          MOST POPULAR
+      {highlighted && (
+        <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
+          Most Popular
         </div>
       )}
-      
-      <div className="text-center mb-4">
-        <h3 className="text-xl md:text-2xl font-bold mb-1 text-white">{name}</h3>
-        <p className="text-gray-300 text-sm">{hours} hours @ ₹{hourlyRate}/hour</p>
+
+      <div>
+        <h3 className="text-xl font-semibold text-white">{name}</h3>
+        <p className="mt-2 text-gray-400 text-sm">{description}</p>
       </div>
 
-      <div className="mb-6 text-center">
-        <span className="text-3xl md:text-4xl font-bold text-white">₹{price}</span>
+      <div className="mt-4 mb-6">
+        <div className="flex items-baseline">
+          <span className="text-3xl font-bold text-white">{price}</span>
+          <span className="ml-1 text-gray-400 text-sm">{priceDetail}</span>
+        </div>
       </div>
-      
-      <div className="space-y-4 mb-8 flex-grow">
+
+      <ul className="mt-2 space-y-3 flex-grow">
         {features.map((feature, index) => (
-          <div key={index} className="flex items-start">
-            <div className={`mr-3 rounded-full p-1 ${isPopular ? 'bg-[#E2FF55] text-[#0A0A29]' : 'bg-[#7B78FF] text-white'}`}>
-              <Check className="h-4 w-4" />
+          <li key={index} className="flex items-start">
+            <div className={`flex-shrink-0 p-0.5 rounded-full ${
+              feature.included ? 'text-[#E2FF55]' : 'text-gray-600'
+            }`}>
+              <CheckIcon className="h-4 w-4" />
             </div>
-            <span className="text-gray-200 text-sm">{feature.text}</span>
-          </div>
+            <span
+              className={`ml-2 text-sm ${
+                feature.included ? 'text-gray-200' : 'text-gray-500'
+              }`}
+            >
+              {feature.text}
+            </span>
+          </li>
         ))}
+      </ul>
+
+      <div className="mt-6">
+        <Link to={buttonUrl} className="w-full">
+          <Button
+            className={`w-full ${
+              highlighted
+                ? 'bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90'
+                : 'bg-white/10 text-white hover:bg-white/20'
+            }`}
+          >
+            {buttonText}
+          </Button>
+        </Link>
       </div>
-      
-      <Button 
-        className={`w-full mt-auto ${isPopular 
-          ? 'bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90' 
-          : 'bg-[#7B78FF] hover:bg-[#7B78FF]/90 text-white'
-        }`}
-      >
-        Choose Plan
-      </Button>
     </div>
   );
 };
 
 const PricingTiers: React.FC = () => {
-  const starterFeatures = [
-    { text: "AI generated feedback report" },
-    { text: "AI proctoring system" },
-    { text: "Coding platform" },
-    { text: "Detailed insights" },
-    { text: "AI ATS Analyzer" },
-    {text: "AI Match maker" },
-    { text: "AI Question generation" },
-    { text: "MCQ platform" }    
-  ];
-  
-  const basicFeatures = [
-    { text: "Detailed dashboard" },
-    { text: "Custom assessment" },
-    { text: "AI generated feedback report" },
-    { text: "AI proctoring system" },
-    { text: "Coding platform" },
-    { text: "Detailed insights" },
-    { text: "AI ATS Analyzer" },
-    { text: "AI Match maker" },
-    { text: "AI Question generation"},
-    { text: "MCQ platform" },
-  ];
-  
-  const standardFeatures = [
-    { text: "Detailed dashboard" },
-    { text: "Custom assessment" },
-    { text: "AI generated feedback report" },
-    { text: "AI proctoring system" },
-    { text: "Coding platform" },
-    { text: "Detailed insights" },
-    { text: "AI ATS Analyzer" },
-    { text: "AI Match maker" },
-    { text: "AI Question generation"},
-    { text: "MCQ platform" },
-  ];
-  
-  const professionalFeatures = [
-    { text: "Detailed dashboard" },
-    { text: "Custom assessment" },
-    { text: "AI generated feedback report" },
-    { text: "AI proctoring system" },
-    { text: "Coding platform" },
-    { text: "Detailed insights" },
-    { text: "AI ATS Analyzer" },
-    { text: "AI Match maker" },
-    { text: "AI Question generation"},
-    { text: "MCQ platform" },
-  ];
-  
-  const premiumFeatures = [
-    { text: "Detailed dashboard" },
-    { text: "Custom assessment" },
-    { text: "AI generated feedback report" },
-    { text: "AI proctoring system" },
-    { text: "Coding platform" },
-    { text: "Detailed insights" },
-    { text: "AI ATS Analyzer" },
-    { text: "AI Match maker" },
-    { text: "AI Question generation"},
-    { text: "MCQ platform" },
+  const tiers = [
+    {
+      name: 'Starter',
+      description: 'Perfect for small businesses just getting started.',
+      price: '$99',
+      priceDetail: '/month',
+      features: [
+        { text: 'Basic AI candidate matching', included: true },
+        { text: 'Up to 10 active job postings', included: true },
+        { text: 'Resume parsing and storage', included: true },
+        { text: '24/7 email support', included: true },
+        { text: 'Standard analytics & reporting', included: true },
+        { text: 'Automated skill assessments', included: false },
+        { text: 'Custom interview templates', included: false },
+        { text: 'ATS integration', included: false },
+        { text: 'Dedicated account manager', included: false },
+      ],
+    },
+    {
+      name: 'Professional',
+      description: 'For growing teams with advanced recruitment needs.',
+      price: '$299',
+      priceDetail: '/month',
+      features: [
+        { text: 'Advanced AI candidate matching', included: true },
+        { text: 'Up to 25 active job postings', included: true },
+        { text: 'Resume parsing and storage', included: true },
+        { text: '24/7 priority support', included: true },
+        { text: 'Advanced analytics & reporting', included: true },
+        { text: 'Automated skill assessments', included: true },
+        { text: 'Custom interview templates', included: true },
+        { text: 'ATS integration', included: true },
+        { text: 'Dedicated account manager', included: false },
+      ],
+      highlighted: true,
+    },
+    {
+      name: 'Enterprise',
+      description: 'Custom solutions for large organizations.',
+      price: 'Custom',
+      priceDetail: '',
+      features: [
+        { text: 'Enterprise AI candidate matching', included: true },
+        { text: 'Unlimited active job postings', included: true },
+        { text: 'Advanced resume parsing and storage', included: true },
+        { text: '24/7 priority support with SLA', included: true },
+        { text: 'Custom analytics & reporting', included: true },
+        { text: 'Advanced skill assessments', included: true },
+        { text: 'Custom interview templates', included: true },
+        { text: 'Advanced ATS integration', included: true },
+        { text: 'Dedicated account manager', included: true },
+      ],
+      buttonText: 'Contact sales',
+      buttonUrl: '/contact',
+    },
   ];
 
   return (
-    <section className="py-12 md:py-20 px-4">
-      <div className="container mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-4 text-white">Hourly Packages</h2>
-        <div className="h-[1px] bg-gray-700 w-full max-w-6xl mx-auto mb-12"></div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 max-w-6xl mx-auto">
-          <PricingTier
-            name="Starter"
-            hours={10}
-            hourlyRate="1,000"
-            price="10000"
-            features={starterFeatures}
-          />
-          
-          <PricingTier
-            name="Basic"
-            hours={20}
-            hourlyRate="1,000"
-            price="20000"
-            features={basicFeatures}
-          />
-          
-          <PricingTier
-            name="Standard"
-            hours={30}
-            hourlyRate="1,000"
-            price="30000"
-            features={standardFeatures}
-            isPopular={true}
-          />
-          
-          <PricingTier
-            name="Professional"
-            hours={40}
-            hourlyRate="1,000"
-            price="40000"
-            features={professionalFeatures}
-          />
-          
-          <PricingTier
-            name="Premium"
-            hours={50}
-            hourlyRate="1,000"
-            price="50000"
-            features={premiumFeatures}
-          />
-        </div>
-        
-        <div className="mt-24 max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Enterprise Solution</h2>
-          
-          <div className="bg-[#1a237e] rounded-xl p-8 md:p-10">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="md:col-span-2">
-                <h3 className="text-2xl font-bold text-white mb-4">Enterprise</h3>
-                <p className="text-gray-300 mb-6">Custom solution for large organizations</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Everything in Premium plan</span>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Advanced security features</span>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Dedicated customer success team</span>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Service level agreement (SLA)</span>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Custom AI model fine-tuning</span>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Custom integrations</span>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Customized reporting</span>
-                    </div>
-                    
-                    <div className="flex items-start">
-                      <div className="mr-3 rounded-full p-1 bg-[#E2FF55] text-[#0A0A29]">
-                        <Check className="h-4 w-4" />
-                      </div>
-                      <span className="text-gray-200 text-sm">Onboarding & training</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="flex flex-col justify-center items-center md:items-end">
-                <p className="text-white mb-4 text-center md:text-right">Custom pricing based on your needs</p>
-                <Button 
-                  className="bg-[#FFC107] hover:bg-[#FFC107]/90 text-[#0A0A29] px-8"
-                >
-                  Contact Sales
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+      {tiers.map((tier, i) => (
+        <PricingTier key={i} {...tier} />
+      ))}
+    </div>
   );
 };
 

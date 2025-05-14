@@ -105,7 +105,7 @@ const Home: React.FC = () => {
         {/* Metrics Showcase */}
         <MetricsShowcase />
       
-        {/* Recruitment Steps - Updated with the vertical timeline visual shown in image */}
+        {/* Recruitment Steps - Updated with the vertical timeline visual */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto animate-on-scroll">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
@@ -255,22 +255,22 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* News Headlines - Animated Ticker */}
-        <section className="py-8 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
+        {/* News Headlines - Smaller Animated Ticker */}
+        <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
           <div className="animate-marquee flex items-center whitespace-nowrap">
             {[1, 2, 3].map((_, index) => (
               <React.Fragment key={index}>
                 <div className="flex items-center mr-16">
-                  <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-1 rounded-full font-bold mr-3">NEW</span>
-                  <span className="text-white font-medium">HyrDragon releases advanced AI matching algorithm</span>
+                  <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-0.5 rounded-full font-bold mr-3">NEW</span>
+                  <span className="text-white font-medium text-sm">HyrDragon releases advanced AI matching algorithm</span>
                 </div>
                 <div className="flex items-center mr-16">
-                  <span className="bg-[#7B78FF] text-white text-xs px-2 py-1 rounded-full font-bold mr-3">REPORT</span>
-                  <span className="text-white font-medium">Companies using AI recruitment see 65% faster time-to-hire</span>
+                  <span className="bg-[#7B78FF] text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">REPORT</span>
+                  <span className="text-white font-medium text-sm">Companies using AI recruitment see 65% faster time-to-hire</span>
                 </div>
                 <div className="flex items-center mr-16">
-                  <span className="bg-white/20 text-white text-xs px-2 py-1 rounded-full font-bold mr-3">INSIGHT</span>
-                  <span className="text-white font-medium">Remote hiring challenges solved with intelligent recruitment platforms</span>
+                  <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">INSIGHT</span>
+                  <span className="text-white font-medium text-sm">Remote hiring challenges solved with intelligent recruitment platforms</span>
                 </div>
               </React.Fragment>
             ))}

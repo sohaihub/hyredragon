@@ -1,15 +1,18 @@
+
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useToast } from '@/hooks/use-toast';
 import HydragonLogo from '@/components/HydragonLogo';
+import { ArrowLeft } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,8 +20,8 @@ const Login: React.FC = () => {
     toast({
       title: isLogin ? "Login successful!" : "Account created!",
       description: isLogin
-        ? "Welcome back to Hydragon."
-        : "Welcome to Hydragon! Please check your email to verify your account.",
+        ? "Welcome back to HyrDragon."
+        : "Welcome to HyrDragon! Please check your email to verify your account.",
     });
   };
 
@@ -27,6 +30,17 @@ const Login: React.FC = () => {
       {/* Background gradients */}
       <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#E2FF55]/20 blur-3xl pointer-events-none select-none"></div>
       <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl pointer-events-none select-none"></div>
+
+      <div className="p-4 absolute top-0 left-0 z-20">
+        <Button
+          variant="ghost"
+          className="text-gray-300 hover:text-white hover:bg-gray-800"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="h-5 w-5 mr-1" />
+          Back
+        </Button>
+      </div>
 
       <div className="flex-grow flex items-center justify-center px-4">
         <div className="max-w-md w-full relative z-10">
@@ -80,7 +94,7 @@ const Login: React.FC = () => {
                   </Label>
                   {isLogin && (
                     <Link
-                      to="#"
+                      to="/coming-soon"
                       className="text-[#7B78FF] hover:text-[#E2FF55] text-xs"
                     >
                       Forgot password?
@@ -141,14 +155,14 @@ const Login: React.FC = () => {
                   >
                     I agree to the{" "}
                     <Link
-                      to="#"
+                      to="/terms"
                       className="text-[#7B78FF] hover:text-[#E2FF55]"
                     >
                       Terms of Service
                     </Link>{" "}
                     and{" "}
                     <Link
-                      to="#"
+                      to="/privacy"
                       className="text-[#7B78FF] hover:text-[#E2FF55]"
                     >
                       Privacy Policy

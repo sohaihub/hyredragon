@@ -14,6 +14,7 @@ interface SolutionCardProps {
   bgColor?: string;
   linkText?: string;
   linkUrl?: string;
+  comingSoon?: boolean;
 }
 
 const SolutionCard: React.FC<SolutionCardProps> = ({ 
@@ -22,8 +23,9 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
   icon, 
   features,
   bgColor = "bg-[#080822]",
-  linkText = "Learn More",
-  linkUrl = "#"
+  linkText = "Request a demo",
+  linkUrl = "/request-demo",
+  comingSoon = false
 }) => {
   return (
     <div className={`${bgColor} border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/40 transition-all duration-300 h-full flex flex-col`}>
@@ -42,14 +44,20 @@ const SolutionCard: React.FC<SolutionCardProps> = ({
           </div>
         ))}
       </div>
-      <Link to={linkUrl}>
-        <Button 
-          variant="link" 
-          className="text-[#7B78FF] hover:text-[#E2FF55] p-0 h-auto font-medium flex items-center"
-        >
-          {linkText} <ArrowRight className="ml-2 h-4 w-4" />
-        </Button>
-      </Link>
+      {comingSoon ? (
+        <div className="inline-block bg-[#7B78FF]/20 text-[#7B78FF] text-sm px-3 py-2 rounded-md font-medium">
+          Coming Soon
+        </div>
+      ) : (
+        <Link to={linkUrl}>
+          <Button 
+            variant="link" 
+            className="text-[#7B78FF] hover:text-[#E2FF55] p-0 h-auto font-medium flex items-center"
+          >
+            {linkText} <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </Link>
+      )}
     </div>
   );
 };
@@ -168,7 +176,44 @@ const Solutions: React.FC = () => {
         "Financial certifications tracking",
         "Compliance-focused screening",
         "Risk assessment for candidates",
-        "Background check integration"
+        "Ethics and compliance screening"
+      ],
+      bgColor: "bg-[#121236]/80",
+      comingSoon: true
+    },
+    {
+      title: "Educational Institutions",
+      description: "Assessment solutions for academic hiring and student evaluation.",
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>,
+      features: [
+        "Faculty qualification assessment",
+        "Student skills evaluation",
+        "Research capability tracking",
+        "Educational credentialing verification"
+      ],
+      bgColor: "bg-[#121236]/80"
+    },
+    {
+      title: "Remote Team Building",
+      description: "Tools specialized for building distributed teams across different time zones.",
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M18 8a6 6 0 0 0-9.33-5"/><path d="m10.83 5.17 3.34-3.34"/><path d="M6 15a3 3 0 0 0 9.33 5"/><path d="m13.17 18.83-3.34 3.34"/><path d="M3 10h7"/><path d="m13 10 8 0"/><path d="m13 10-3-3"/><path d="m13 10-3 3"/></svg>,
+      features: [
+        "Remote work aptitude assessment",
+        "Cultural fit for distributed teams",
+        "Time zone compatibility matching",
+        "Digital collaboration skills evaluation"
+      ],
+      bgColor: "bg-[#121236]/80"
+    },
+    {
+      title: "Retail & Hospitality",
+      description: "Solutions for high-volume, customer-facing role recruitment.",
+      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M3 2h18v10H3z"/><path d="m3 10 5-5"/><path d="m21 10-5-5"/><path d="M12 10v10"/><path d="M3 22h18"/><path d="M7 22v-5a2 2 0 0 1 4 0"/><path d="M17 22v-5a2 2 0 0 0-4 0"/></svg>,
+      features: [
+        "Customer service aptitude testing",
+        "High-volume candidate processing",
+        "Seasonal staffing optimization",
+        "Soft skills assessment"
       ],
       bgColor: "bg-[#121236]/80"
     }
@@ -276,7 +321,7 @@ const Solutions: React.FC = () => {
                     How TechCorp Reduced Time-to-Hire by 65%
                   </h2>
                   <p className="text-gray-300 mb-6">
-                    TechCorp was struggling with a lengthy hiring process that was causing them to lose top talent. After implementing Hydragon's AI recruitment platform, they saw dramatic improvements.
+                    TechCorp was struggling with a lengthy hiring process that was causing them to lose top talent. After implementing HyrDragon's AI recruitment platform, they saw dramatic improvements.
                   </p>
                   <div className="space-y-4 mb-8">
                     <div className="flex items-center">
@@ -292,18 +337,18 @@ const Solutions: React.FC = () => {
                       <div className="text-white">Reduction in recruitment costs</div>
                     </div>
                   </div>
-                  <Link to="/resources">
+                  <Link to="/request-demo">
                     <Button 
                       variant="outline"
                       className="border-[#E2FF55] text-[#E2FF55] hover:bg-[#E2FF55]/10 bg-transparent transition-colors flex items-center gap-2"
                     >
-                      Read Full Case Study <ArrowRight className="w-5 h-5" />
+                      Request a demo <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
                 </div>
                 <div className="bg-gray-800 lg:h-auto">
                   <img 
-                    src="/placeholder.svg" 
+                    src="/lovable-uploads/8efa0dbf-ae1e-4bef-8fa5-cf8c1411991e.png" 
                     alt="TechCorp Case Study" 
                     className="w-full h-full object-cover"
                     style={{ minHeight: "300px" }}
@@ -325,7 +370,7 @@ const Solutions: React.FC = () => {
                 Ready to Transform Your Recruitment Process?
               </h2>
               <p className="text-gray-300 text-lg md:text-xl mb-8">
-                Join leading companies that have revolutionized their hiring with Hydragon's AI-powered platform.
+                Join leading companies that have revolutionized their hiring with HyrDragon's AI-powered platform.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link to="/request-demo">
