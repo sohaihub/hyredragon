@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { MessageCircle, X, Send, ArrowUpCircle } from 'lucide-react';
+import { MessageCircle, X, Send } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -12,7 +12,7 @@ interface Message {
 const GeminiChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I\'m your AI assistant. Ask me anything about HyrDragon\'s features and services.' }
+    { role: 'assistant', content: 'Hello! I\'m Dragon, your AI assistant. Ask me anything about HyrDragon\'s features and services.' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ const GeminiChatbot: React.FC = () => {
 
   // System prompt that contains information about HyrDragon's features
   const systemPrompt = `
-    You are an AI assistant for HyrDragon, an AI-powered recruitment platform. 
+    You are Dragon, an AI assistant for HyrDragon, an AI-powered recruitment platform. 
     Provide helpful, accurate, and concise responses about our product features:
     
     1. AI Candidate Matching: Our advanced AI matching algorithm finds perfect candidates with 85%+ accuracy, including automated skill assessment, customizable matching criteria, and bias reduction algorithms.
@@ -112,7 +112,7 @@ const GeminiChatbot: React.FC = () => {
         <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-80 sm:w-96 h-[450px] transition-all">
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-[#080822] rounded-t-2xl">
-            <h3 className="text-white font-semibold">HyrDragon Assistant</h3>
+            <h3 className="text-white font-semibold">Dragon Assistant</h3>
             <Button 
               variant="ghost" 
               size="sm" 

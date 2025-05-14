@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,16 +13,124 @@ const Login: React.FC = () => {
   const [isLogin, setIsLogin] = useState(true);
   const { toast } = useToast();
   const navigate = useNavigate();
+  
+  // State for form fields
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  
+  // Google OAuth
+  const initializeGoogleOAuth = () => {
+    // Load the Google OAuth script
+    const script = document.createElement('script');
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    
+    // Configure Google OAuth
+    window.onload = () => {
+      window.google?.accounts.id.initialize({
+        client_id: "790036429714-a5e6jsfhhbihs4qabh35n262prtd5bli.apps.googleusercontent.com",
+        callback: handleGoogleCallback
+      });
+    };
+  };
+  
+  useEffect(() => {
+    initializeGoogleOAuth();
+  }, []);
+  
+  const handleGoogleCallback = (response: any) => {
+    if (response?.credential) {
+      // Here you would typically send this token to your backend
+      console.log("Google OAuth successful, token:", response.credential);
+      
+      // For demo purposes, just show a success message
+      toast({
+        title: "Google sign-in successful!",
+        description: "Welcome to HyrDragon.",
+      });
+      
+      // Store the token in local storage
+      localStorage.setItem('google_token', response.credential);
+      
+      // Navigate to home page after successful login
+      navigate('/');
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Basic validation
+    if (isLogin) {
+      if (!email || !password) {
+        toast({
+          title: "Error",
+          description: "Please fill in all fields",
+          variant: "destructive",
+        });
+        return;
+      }
+    } else {
+      if (!name || !email || !password || !confirmPassword) {
+        toast({
+          title: "Error",
+          description: "Please fill in all fields",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        toast({
+          title: "Error",
+          description: "Passwords do not match",
+          variant: "destructive",
+        });
+        return;
+      }
+    }
+    
+    // Store credentials in localStorage
+    if (isLogin) {
+      const storedUsers = JSON.parse(localStorage.getItem('users') || '[]');
+      const user = storedUsers.find((user: any) => user.email === email && user.password === password);
+      
+      if (user) {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        toast({
+          title: "Login successful!",
+          description: "Welcome back to HyrDragon.",
+        });
+        navigate('/');
+      } else {
+        toast({
+          title: "Login failed",
+          description: "Invalid email or password",
+          variant: "destructive",
+        });
+      }
+    } else {
+      // Register new user
+      const newUser = { name, email, password };
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+      users.push(newUser);
+      localStorage.setItem('users', JSON.stringify(users));
+      localStorage.setItem('currentUser', JSON.stringify(newUser));
+      
+      toast({
+        title: "Account created!",
+        description: "Welcome to HyrDragon!",
+      });
+      navigate('/');
+    }
+  };
 
-    toast({
-      title: isLogin ? "Login successful!" : "Account created!",
-      description: isLogin
-        ? "Welcome back to HyrDragon."
-        : "Welcome to HyrDragon! Please check your email to verify your account.",
-    });
+  const handleGoogleSignIn = () => {
+    window.google?.accounts.id.prompt();
   };
 
   return (
@@ -67,6 +175,8 @@ const Login: React.FC = () => {
                   </Label>
                   <Input
                     id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
                     placeholder="Enter your full name"
                     required
                     className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
@@ -81,6 +191,8 @@ const Login: React.FC = () => {
                 <Input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
                   className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
@@ -104,6 +216,8 @@ const Login: React.FC = () => {
                 <Input
                   id="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder={
                     isLogin ? "Enter your password" : "Create a password"
                   }
@@ -120,6 +234,8 @@ const Login: React.FC = () => {
                   <Input
                     id="confirmPassword"
                     type="password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Confirm your password"
                     required
                     className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
@@ -190,6 +306,7 @@ const Login: React.FC = () => {
               <Button
                 type="button"
                 variant="outline"
+                onClick={handleGoogleSignIn}
                 className="border-gray-700 hover:bg-gray-800 text-white w-full flex gap-2 items-center justify-center"
               >
                 <svg
@@ -231,6 +348,14 @@ const Login: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* This div is where the Google Sign In button will be automatically rendered */}
+      <div id="g_id_onload" 
+        data-client_id="790036429714-a5e6jsfhhbihs4qabh35n262prtd5bli.apps.googleusercontent.com"
+        data-callback="handleGoogleCallback"
+        data-auto_prompt="false"
+        className="hidden">
       </div>
     </div>
   );
