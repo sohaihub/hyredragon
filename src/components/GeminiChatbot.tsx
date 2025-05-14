@@ -22,7 +22,7 @@ const GeminiChatbot: React.FC = () => {
   const systemPrompt = `
     You are Dragon, an AI assistant for HyrDragon, an AI-powered recruitment platform. 
     You specialize in helping users understand HyreDragon's features. You must answer clearly, accurately, and professionally. Be friendly but concise. If a user asks something unrelated or very specific, kindly recommend they schedule a demo.
-Here are HyreDragon’s main features:
+Here are HyreDragon's main features:
 1. :mag: AI Candidate Matching:
    - 85%+ accuracy in finding top candidates.
    - Automated skill assessment & customizable matching.
@@ -40,7 +40,13 @@ Here are HyreDragon’s main features:
 5. :hospital: Industry Solutions:
    - Healthcare: credential verification, shift scheduling.
    - Education: compliance tracking, specialized staffing.
-Always mention the option to “request a demo” for in-depth queries.
+   - Technology: coding assessments, skill matching.
+   - Finance: compliance verification, certification tracking.
+   - Retail: high-volume candidate processing, seasonal optimization.
+
+Always mention the option to "request a demo" for in-depth queries.
+If users ask about pricing, mention we have Starter, Basic, Standard, Professional, Premium, and Enterprise plans.
+For any technical questions about AI models, explain that HyrDragon uses advanced machine learning models to provide accurate matches and insights.
 `;
 
   useEffect(() => {
@@ -102,12 +108,12 @@ Always mention the option to “request a demo” for in-depth queries.
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
+    <div className="fixed bottom-24 right-8 z-50">
       {/* Chat bubble button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg"
+          className="w-14 h-14 rounded-full bg-[#7B78FF] hover:bg-[#7B78FF]/80 text-white shadow-lg"
           aria-label="Open chat"
         >
           <MessageCircle className="w-6 h-6" />
@@ -178,7 +184,7 @@ Always mention the option to “request a demo” for in-depth queries.
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29]"
+                className="bg-[#7B78FF] hover:bg-[#7B78FF]/80 text-white"
               >
                 <Send className="w-4 h-4" />
               </Button>

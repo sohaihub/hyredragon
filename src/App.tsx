@@ -15,6 +15,8 @@ import Privacy from './pages/Privacy';
 import Security from './pages/Security';
 import GeminiChatbot from './components/GeminiChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import Guides from './pages/Guides';
+import CaseStudies from './pages/CaseStudies';
 
 // Scroll restoration component
 const ScrollToTop = () => {
@@ -36,6 +38,8 @@ const App: React.FC = () => {
         <Route path="/solutions" element={<Solutions />} />
         <Route path="/ai-products" element={<AIProducts />} />
         <Route path="/resources" element={<Resources />} />
+        <Route path="/guides" element={<Guides />} />
+        <Route path="/case-studies" element={<CaseStudies />} />
         <Route path="/request-demo" element={<RequestDemo />} />
         <Route path="/login" element={<Login />} />
         <Route path="/contact" element={<Contact />} />

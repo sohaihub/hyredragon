@@ -74,6 +74,10 @@
   body {
     @apply bg-background text-foreground;
     @apply pt-0;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%237B78FF' stroke-width='2'><path d='M5 12h14'></path><path d='M12 5v14'></path></svg>") 12 12, auto;
+  }
+  a, button, input, select, textarea, [role="button"] {
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23E2FF55' stroke-width='2'><path d='m18 15-6-6-6 6'></path></svg>") 12 12, pointer;
   }
   html {
     @apply scroll-smooth;
@@ -104,6 +108,15 @@
   }
 }
 
+@keyframes shimmer {
+  0% {
+    background-position: -100% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .animate-fade-in {
   animation: fade-in 0.5s ease-out forwards;
 }
@@ -113,6 +126,40 @@
   white-space: nowrap;
   animation: marquee 30s linear infinite;
   min-width: 100%;
+}
+
+.shimmer-bg {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.03) 25%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.03) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s infinite linear;
+}
+
+.highlight-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.highlight-shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.01) 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.01) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 4s infinite linear;
+  pointer-events: none;
 }
 
 /* Content styles */
@@ -145,4 +192,10 @@
 .prose li {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+}
+
+/* News ticker styles */
+.news-ticker {
+  max-width: 800px;
+  margin: 0 auto;
 }
