@@ -77,7 +77,10 @@ const PricingTiers: React.FC = () => {
     { text: "AI proctoring system" },
     { text: "Coding platform" },
     { text: "Detailed insights" },
-    { text: "AI ATS Analyzer" }
+    { text: "AI ATS Analyzer" },
+    {text: "AI Match maker" },
+    { text: "AI Question generation" },
+    { text: "MCQ platform" }    
   ];
   
   const basicFeatures = [
@@ -86,7 +89,11 @@ const PricingTiers: React.FC = () => {
     { text: "AI generated feedback report" },
     { text: "AI proctoring system" },
     { text: "Coding platform" },
-    { text: "Detailed insights" }
+    { text: "Detailed insights" },
+    { text: "AI ATS Analyzer" },
+    { text: "AI Match maker" },
+    { text: "AI Question generation"},
+    { text: "MCQ platform" },
   ];
   
   const standardFeatures = [
@@ -95,7 +102,11 @@ const PricingTiers: React.FC = () => {
     { text: "AI generated feedback report" },
     { text: "AI proctoring system" },
     { text: "Coding platform" },
-    { text: "Detailed insights" }
+    { text: "Detailed insights" },
+    { text: "AI ATS Analyzer" },
+    { text: "AI Match maker" },
+    { text: "AI Question generation"},
+    { text: "MCQ platform" },
   ];
   
   const professionalFeatures = [
@@ -104,7 +115,11 @@ const PricingTiers: React.FC = () => {
     { text: "AI generated feedback report" },
     { text: "AI proctoring system" },
     { text: "Coding platform" },
-    { text: "Detailed insights" }
+    { text: "Detailed insights" },
+    { text: "AI ATS Analyzer" },
+    { text: "AI Match maker" },
+    { text: "AI Question generation"},
+    { text: "MCQ platform" },
   ];
   
   const premiumFeatures = [
@@ -113,7 +128,11 @@ const PricingTiers: React.FC = () => {
     { text: "AI generated feedback report" },
     { text: "AI proctoring system" },
     { text: "Coding platform" },
-    { text: "Detailed insights" }
+    { text: "Detailed insights" },
+    { text: "AI ATS Analyzer" },
+    { text: "AI Match maker" },
+    { text: "AI Question generation"},
+    { text: "MCQ platform" },
   ];
 
   return (
