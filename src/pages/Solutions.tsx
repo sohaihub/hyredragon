@@ -144,81 +144,68 @@ const Solutions: React.FC = () => {
 
   // Industry-specific solutions data
   const industrySolutions = [
-    {
-      title: "Tech & IT Recruitment",
-      description: "Specialized solutions for hiring developers, engineers, and IT professionals.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>,
-      features: [
-        "Technical skills assessment",
-        "Code challenge platform",
-        "Tech-specific job templates",
-        "Integration with developer platforms"
-      ],
-      bgColor: "bg-[#121236]/80"
-    },
-    {
-      title: "Healthcare Staffing",
-      description: "Solutions for healthcare organizations to find qualified medical professionals.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M19 9h-5a2 2 0 0 0-2 2v.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5V11a2 2 0 0 0-2-2H4"></path><path d="M7 21h10"></path><path d="M12 11v10"></path><path d="M3 9v12"></path><path d="M21 9v12"></path><path d="M7 16h10"></path></svg>,
-      features: [
-        "Medical credentials verification",
-        "Compliance and licensing tracking",
-        "Specialty-specific matching",
-        "Shift scheduling integration"
-      ],
-      bgColor: "bg-[#121236]/80"
-    },
-    {
-      title: "Financial Services",
-      description: "Tailored recruitment solutions for banking, finance, and insurance sectors.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="2" x2="22" y1="7" y2="7"></line><line x1="12" x2="12" y1="17" y2="11"></line><path d="M5 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"></path><path d="M15 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"></path></svg>,
-      features: [
-        "Financial certifications tracking",
-        "Compliance-focused screening",
-        "Risk assessment for candidates",
-        "Ethics and compliance screening"
-      ],
-      bgColor: "bg-[#121236]/80",
-      comingSoon: true
-    },
-    {
-      title: "Educational Institutions",
-      description: "Assessment solutions for academic hiring and student evaluation.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>,
-      features: [
-        "Faculty qualification assessment",
-        "Student skills evaluation",
-        "Research capability tracking",
-        "Educational credentialing verification"
-      ],
-      bgColor: "bg-[#121236]/80"
-    },
-    {
-      title: "Remote Team Building",
-      description: "Tools specialized for building distributed teams across different time zones.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M18 8a6 6 0 0 0-9.33-5"/><path d="m10.83 5.17 3.34-3.34"/><path d="M6 15a3 3 0 0 0 9.33 5"/><path d="m13.17 18.83-3.34 3.34"/><path d="M3 10h7"/><path d="m13 10 8 0"/><path d="m13 10-3-3"/><path d="m13 10-3 3"/></svg>,
-      features: [
-        "Remote work aptitude assessment",
-        "Cultural fit for distributed teams",
-        "Time zone compatibility matching",
-        "Digital collaboration skills evaluation"
-      ],
-      bgColor: "bg-[#121236]/80"
-    },
-    {
-      title: "Retail & Hospitality",
-      description: "Solutions for high-volume, customer-facing role recruitment.",
-      icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M3 2h18v10H3z"/><path d="m3 10 5-5"/><path d="m21 10-5-5"/><path d="M12 10v10"/><path d="M3 22h18"/><path d="M7 22v-5a2 2 0 0 1 4 0"/><path d="M17 22v-5a2 2 0 0 0-4 0"/></svg>,
-      features: [
-        "Customer service aptitude testing",
-        "High-volume candidate processing",
-        "Seasonal staffing optimization",
-        "Soft skills assessment"
-      ],
-      bgColor: "bg-[#121236]/80"
-    }
-  ];
-
+   {
+    title: "AI-Powered Recruitment Tools",
+    description: "Intelligent tools to streamline resume creation, analysis, and job matching.",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg>,
+    features: [
+      "Resume Builder AI - Smart CV generator",
+      "Resume Analyzer AI - Skill gap analysis",
+      "Job Description Generator AI",
+      "MatchMaker AI - JD vs Resume Matching"
+    ],
+    bgColor: "bg-[#121236]/80"
+  },
+  {
+    title: "Technical Assessments",
+    description: "Robust platforms for evaluating coding and technical skills.",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M19 9h-5a2 2 0 0 0-2 2v.5a.5.5 0 0 1-.5.5.5.5 0 0 1-.5-.5V11a2 2 0 0 0-2-2H4"></path><path d="M7 21h10"></path><path d="M12 11v10"></path><path d="M3 9v12"></path><path d="M21 9v12"></path><path d="M7 16h10"></path></svg>,
+    features: [
+      "Coding Assessment IDE - Python, C, C++ problems",
+      "Round 1: AI & Custom MCQs (Critical Thinking, Logic, Psychometrics)",
+      "Round 2: MERN Stack Coding Assessments"
+    ],
+    bgColor: "bg-[#121236]/80"
+  },
+  {
+    title: "Proctoring & Security",
+    description: "Advanced proctoring and compliance features for secure assessments.",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="2" x2="22" y1="7" y2="7"></line><line x1="12" x2="12" y1="17" y2="11"></line><path d="M5 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z"></path><path d="M15 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"></path></svg>,
+    features: [
+      "Proctoring Features: Face Detection, Object Detection, Multi-person Detection",
+      "Eye Tracking, Tab Switch Detection, Fullscreen Monitoring",
+      "Proctoring System: Custom AI Proctoring for Assessments",
+      "Resume Matchmaker AI & GDPR/SOC Compliance",
+      "SOC II Type 2 Compliance",
+      "Multi Factor Authentication"
+    ],
+    bgColor: "bg-[#121236]/80"
+  },
+  {
+    title: "Interview & Applicant Management",
+    description: "Tools to manage interviews and track applicants efficiently.",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>,
+    features: [
+      "Applicant Tracking System (ATS)",
+      "Round 3: AI-Human Video Interviews + Speech-to-Text",
+      "Proctoring Option - Custom for new rounds",
+      "One-Click Interview Invites & Multi-Format Report Downloads"
+    ],
+    bgColor: "bg-[#121236]/80"
+  },
+  {
+    title: "Job Intelligence & Career Planning",
+    description: "Tools to explore job trends and plan career paths.",
+    icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#E2FF55]"><path d="M18 8a6 6 0 0 0-9.33-5"/><path d="m10.83 5.17 3.34-3.34"/><path d="M6 15a3 3 0 0 0 9.33 5"/><path d="m13.17 18.83-3.34 3.34"/><path d="M3 10h7"/><path d="m13 10 8 0"/><path d="m13 10-3-3"/><path d="m13 10-3 3"/></svg>,
+    features: [
+      "Job Intelligence: FAANG, Big 7 Job Aggregator, Career Path Guide",
+      "Jobs Trending Dashboard - Job-based approach",
+      "Job Route Map - User can select a role to see how to reach the spot"
+    ],
+    bgColor: "bg-[#121236]/80",
+    comingSoon: true
+  }
+];
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
       {/* Background elements */}
@@ -292,7 +279,7 @@ const Solutions: React.FC = () => {
           <div className="container mx-auto">
             <div className="text-center mb-12">
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Industry-Specific <span className="text-[#E2FF55]">Solutions</span>
+                Talent Sync <span className="text-[#E2FF55]">Solutions</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-3xl mx-auto">
                 Tailored recruitment solutions that address the unique hiring challenges of different industries.
