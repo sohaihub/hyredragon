@@ -124,6 +124,11 @@ const AIProducts: React.FC = () => {
                   "Customizable matching criteria",
                   "Bias reduction algorithms"
                 ]}
+                button={{
+                  text: "Learn More",
+                  link: "/coming-soon"
+                }}
+                color="bg-[#E2FF55]/20"
               />
               
               <FeatureCard 
@@ -138,6 +143,11 @@ const AIProducts: React.FC = () => {
                   "Skills assessment integration",
                   "Video interview scheduling"
                 ]}
+                button={{
+                  text: "Learn More",
+                  link: "/coming-soon"
+                }}
+                color="bg-[#E2FF55]/20"
               />
               
               <FeatureCard 
@@ -155,6 +165,11 @@ const AIProducts: React.FC = () => {
                   "Structured interview templates",
                   "Candidate evaluation frameworks"
                 ]}
+                button={{
+                  text: "Learn More",
+                  link: "/coming-soon"
+                }}
+                color="bg-[#E2FF55]/20"
               />
               
               <FeatureCard 
@@ -171,6 +186,11 @@ const AIProducts: React.FC = () => {
                   "Recruitment funnel analytics",
                   "Data-driven hiring recommendations"
                 ]}
+                button={{
+                  text: "Learn More", 
+                  link: "/coming-soon"
+                }}
+                color="bg-[#E2FF55]/20"
               />
             </div>
           </div>
@@ -207,8 +227,8 @@ const AIProducts: React.FC = () => {
                   "Academic credential verification",
                   "Course-specific expertise matching",
                   "Teaching evaluation tools",
-                  "Faculty onboarding automation"
-                  "Student engagement analytics"
+                  "Faculty onboarding automation",
+                  "Student engagement analytics",
                   "Research profile compatibility assessment"
                 ]}
                 buttonType="coming-soon"
