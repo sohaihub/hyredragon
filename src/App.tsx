@@ -9,6 +9,7 @@ import ComingSoon from './pages/ComingSoon';
 import Resources from './pages/Resources';
 import RequestDemo from './pages/RequestDemo';
 import Login from './pages/Login';
+import ForgotPassword from './pages/ForgotPassword';
 import Index from './pages/Index';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
@@ -113,6 +114,7 @@ const App: React.FC = () => {
         <Route path="/resources" element={<Resources />} />
         <Route path="/request-demo" element={<RequestDemo />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Index />} />
         <Route path="/case-studies" element={<CaseStudies />} />

@@ -2,8 +2,6 @@
 import React from 'react';
 import Header from '@/components/Header';
 import PricingHero from '@/components/PricingHero';
-import PricingTiers from '@/components/PricingTiers';
-import PricingCTA from '@/components/PricingCTA';
 import PricingFAQs from '@/components/PricingFAQs';
 import FeatureComparison from '@/components/FeatureComparison';
 import Footer from '@/components/Footer';
@@ -17,13 +15,11 @@ const Index: React.FC = () => {
 
       <Header />
       <main className="flex-grow pt-20">
-        {/* Reduced space between heading and pricing tiers */}
+        {/* Only include PricingHero which already contains PricingTiers */}
         <div className="space-y-8 md:space-y-12">
           <PricingHero />
-          <PricingTiers />
           <FeatureComparison />
           <PricingFAQs />
-          <PricingCTA />
         </div>
       </main>
       <Footer />

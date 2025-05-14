@@ -83,38 +83,14 @@
     @apply pt-16;
   }
   
-  /* Shiny headings */
+  /* Removed shiny headings effect */
   h1, h2, h3 {
     position: relative;
-    overflow: hidden;
   }
   
-  h1::after, h2::after, h3::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(226, 255, 85, 0.3), transparent);
-    animation: shine 3s infinite;
-  }
-  
-  @keyframes shine {
-    0% {
-      left: -100%;
-    }
-    20% {
-      left: 100%;
-    }
-    100% {
-      left: 100%;
-    }
-  }
-  
-  /* Interactive elements cursor */
+  /* Interactive elements cursor with background */
   a, button, [role="button"], input, select, textarea {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='none' stroke='%23E2FF55' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='m15 15-6-6'/><path d='m15 9-6 6'/><circle cx='12' cy='12' r='10'/></svg>") 14 14, pointer;
+    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='%230A0A29' stroke='%23E2FF55' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M5 10l7-7m0 0l7 7m-7-7v18'/></svg>") 14 14, pointer;
   }
   
   /* Money particles effect */

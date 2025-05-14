@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -208,6 +207,7 @@ const Home: React.FC = () => {
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {/* Reason 1 */}
               <div className="relative p-6 animate-on-scroll">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#E2FF55]/20 blur-xl"></div>
                 <div className="relative z-10">
@@ -221,6 +221,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               
+              {/* Reason 2 */}
               <div className="relative p-6 animate-on-scroll">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#7B78FF]/20 blur-xl"></div>
                 <div className="relative z-10">
@@ -234,6 +235,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               
+              {/* Reason 3 */}
               <div className="relative p-6 animate-on-scroll">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#9b87f5]/20 blur-xl"></div>
                 <div className="relative z-10">
@@ -274,18 +276,27 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* News Headlines - Single Item with Fade Animation */}
+        {/* News Ticker - Updated to show one headline at a time with animation */}
         <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
           <div className="container mx-auto max-w-4xl">
-            <div className="flex items-center justify-center h-10 transition-all duration-500">
-              <div className="flex items-center animated-news-item">
-                <span className={`${newsItems[activeNewsIndex].tagColor} text-xs px-2 py-0.5 rounded-full font-bold mr-3`}>
-                  {newsItems[activeNewsIndex].tag}
-                </span>
-                <span className="text-white font-medium text-sm">
-                  {newsItems[activeNewsIndex].content}
-                </span>
-              </div>
+            <div className="flex items-center h-12 overflow-hidden relative">
+              {newsItems.map((item, index) => (
+                <div 
+                  key={index}
+                  className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
+                    activeNewsIndex === index ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  <div className="flex items-center justify-center w-full">
+                    <span className={`${item.tagColor} text-xs px-2 py-0.5 rounded-full font-bold mr-3`}>
+                      {item.tag}
+                    </span>
+                    <span className="text-white font-medium">
+                      {item.content}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

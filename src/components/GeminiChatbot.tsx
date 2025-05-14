@@ -23,7 +23,7 @@ const GeminiChatbot: React.FC = () => {
     You are Dragon, the official AI assistant for HyrDragon, an advanced AI-powered recruitment platform. 
     You should respond with a friendly, professional, and helpful tone. Always be concise but informative.
     
-    Here are the detailed features of HyreDragon that you should be well-versed in:
+    Here are the detailed features of HyrDragon that you should be well-versed in:
 
     1. AI-POWERED CANDIDATE MATCHING
        - Uses proprietary matching algorithm with 85%+ accuracy finding ideal candidates
@@ -138,27 +138,29 @@ const GeminiChatbot: React.FC = () => {
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group"
-          aria-label="Open chat"
+          className="w-16 h-16 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group"
+          aria-label="Open Dragon Assistant"
         >
           <div className="relative">
-            <MessageCircle className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
-            <Bot className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <Bot className="w-7 h-7" />
+            <span className="absolute -top-8 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+              Dragon Assistant
+            </span>
           </div>
         </Button>
       )}
       
       {/* Chat window */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-80 sm:w-96 h-[500px] transition-all">
+        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[400px] h-[550px] transition-all">
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2">
-                <Bot className="w-5 h-5 text-[#E2FF55]" />
+              <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-3">
+                <Bot className="w-6 h-6 text-[#E2FF55]" />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-sm">Dragon Assistant</h3>
+                <h3 className="text-white font-semibold">Dragon Assistant</h3>
                 <p className="text-gray-400 text-xs">HyrDragon AI</p>
               </div>
             </div>
@@ -183,8 +185,8 @@ const GeminiChatbot: React.FC = () => {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                    <Bot className="w-4 h-4 text-[#E2FF55]" />
+                  <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
+                    <Bot className="w-5 h-5 text-[#E2FF55]" />
                   </div>
                 )}
                 <div 
@@ -200,8 +202,8 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-8 h-8 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1">
-                  <Bot className="w-4 h-4 text-[#E2FF55]" />
+                <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1">
+                  <Bot className="w-5 h-5 text-[#E2FF55]" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-[#1A1A3D] text-white">
                   <div className="flex space-x-2 items-center">
@@ -215,7 +217,7 @@ const GeminiChatbot: React.FC = () => {
           </div>
           
           {/* Chat input */}
-          <div className="p-3 border-t border-gray-800 bg-[#080822] rounded-b-2xl">
+          <div className="p-4 border-t border-gray-800 bg-[#080822] rounded-b-2xl">
             <div className="flex items-center gap-2">
               <Input
                 value={input}
@@ -228,9 +230,9 @@ const GeminiChatbot: React.FC = () => {
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] p-1 w-8 h-8 flex items-center justify-center"
+                className="bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center"
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-5 h-5" />
               </Button>
             </div>
           </div>
