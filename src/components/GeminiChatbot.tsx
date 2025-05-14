@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { MessageCircle, X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, Bot } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -18,30 +18,61 @@ const GeminiChatbot: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // System prompt that contains information about HyrDragon's features
+  // Enhanced system prompt with more detailed information about HyreDragon
   const systemPrompt = `
-    You are Dragon, an AI assistant for HyrDragon, an AI-powered recruitment platform. 
-    You specialize in helping users understand HyreDragon's features. You must answer clearly, accurately, and professionally. Be friendly but concise. If a user asks something unrelated or very specific, kindly recommend they schedule a demo.
-Here are HyreDragon’s main features:
-1. :mag: AI Candidate Matching:
-   - 85%+ accuracy in finding top candidates.
-   - Automated skill assessment & customizable matching.
-   - Reduces bias using fairness algorithms.
-2. :page_facing_up: Smart Screening:
-   - Automated resume parsing.
-   - Pre-screening questionnaires & skill tests.
-   - Video interview scheduling integration.
-3. :date: Interview Management:
-   - AI-generated interview questions.
-   - Collaborative feedback & structured templates.
-4. :bar_chart: Analytics & Reporting:
-   - Metrics dashboards with funnel analytics.
-   - Exportable and customizable reports.
-5. :hospital: Industry Solutions:
-   - Healthcare: credential verification, shift scheduling.
-   - Education: compliance tracking, specialized staffing.
-Always mention the option to “request a demo” for in-depth queries.
-`;
+    You are Dragon, the official AI assistant for HyrDragon, an advanced AI-powered recruitment platform. 
+    You should respond with a friendly, professional, and helpful tone. Always be concise but informative.
+    
+    Here are the detailed features of HyreDragon that you should be well-versed in:
+
+    1. AI-POWERED CANDIDATE MATCHING
+       - Uses proprietary matching algorithm with 85%+ accuracy finding ideal candidates
+       - Automated assessment of hard and soft skills
+       - Customizable weightings for different job requirements
+       - Fairness algorithms to reduce bias in hiring
+       - Multilingual candidate evaluation
+
+    2. SMART SCREENING CAPABILITIES
+       - Automated resume parsing and data extraction
+       - Pre-screening questionnaires with custom scoring
+       - Video screening integration with sentiment analysis
+       - Automated reference checking
+       - Skills testing platform integration
+
+    3. INTERVIEW MANAGEMENT SYSTEM
+       - AI-generated interview questions based on job requirements
+       - Collaborative interviewer feedback system
+       - Structured interview templates for consistency
+       - Calendar integration and automated scheduling
+       - Post-interview candidate evaluation tools
+
+    4. ANALYTICS & REPORTING DASHBOARD
+       - Real-time recruitment funnel metrics
+       - Diversity and inclusion analytics
+       - Source effectiveness reporting
+       - Time-to-hire and cost-per-hire tracking
+       - Customizable reports and data visualization
+
+    5. INDUSTRY-SPECIFIC SOLUTIONS
+       - Healthcare: credential verification, shift scheduling integration
+       - Technology: technical assessment tools, coding challenge integration
+       - Finance: compliance verification, background check automation
+       - Education: certification tracking, specialized academic staffing
+       - Retail: high-volume hiring tools, seasonal staffing optimization
+
+    PRICING INFORMATION:
+    - Starter: $499/month - Up to 10 active jobs, basic features
+    - Professional: $1,299/month - Up to 25 active jobs, all core features
+    - Enterprise: Custom pricing - Unlimited jobs, dedicated support, custom integration
+
+    When asked about competitors, focus on HyrDragon's unique advantages without directly criticizing other platforms.
+    
+    If users ask about pricing specifics, benefits of plans, or implementation details, recommend scheduling a demo with a product specialist for personalized information.
+
+    Respond in a helpful, concise manner. Aim for responses that are informative but not too lengthy.
+    
+    If someone asks about something completely unrelated to recruitment or HyrDragon, politely redirect them by mentioning you're specialized in helping with HyrDragon's recruitment platform.
+  `;
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -107,19 +138,30 @@ Always mention the option to “request a demo” for in-depth queries.
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-14 h-14 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg"
+          className="w-14 h-14 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group"
           aria-label="Open chat"
         >
-          <MessageCircle className="w-6 h-6" />
+          <div className="relative">
+            <MessageCircle className="w-6 h-6 group-hover:opacity-0 transition-opacity" />
+            <Bot className="w-6 h-6 absolute top-0 left-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+          </div>
         </Button>
       )}
       
       {/* Chat window */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-80 sm:w-96 h-[450px] transition-all">
+        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-80 sm:w-96 h-[500px] transition-all">
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-[#080822] rounded-t-2xl">
-            <h3 className="text-white font-semibold">Dragon Assistant</h3>
+            <div className="flex items-center">
+              <div className="w-8 h-8 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2">
+                <Bot className="w-5 h-5 text-[#E2FF55]" />
+              </div>
+              <div>
+                <h3 className="text-white font-semibold text-sm">Dragon Assistant</h3>
+                <p className="text-gray-400 text-xs">HyrDragon AI</p>
+              </div>
+            </div>
             <Button 
               variant="ghost" 
               size="sm" 
@@ -140,6 +182,11 @@ Always mention the option to “request a demo” for in-depth queries.
                 key={index} 
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
+                {message.role === 'assistant' && (
+                  <div className="w-8 h-8 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
+                    <Bot className="w-4 h-4 text-[#E2FF55]" />
+                  </div>
+                )}
                 <div 
                   className={`max-w-[80%] rounded-2xl p-3 ${
                     message.role === 'user' 
@@ -153,6 +200,9 @@ Always mention the option to “request a demo” for in-depth queries.
             ))}
             {isLoading && (
               <div className="flex justify-start">
+                <div className="w-8 h-8 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1">
+                  <Bot className="w-4 h-4 text-[#E2FF55]" />
+                </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-[#1A1A3D] text-white">
                   <div className="flex space-x-2 items-center">
                     <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
@@ -171,14 +221,14 @@ Always mention the option to “request a demo” for in-depth queries.
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Type your question..."
+                placeholder="Ask Dragon a question..."
                 className="flex-1 bg-[#0F103E] border-gray-700 focus:border-[#E2FF55] text-white"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29]"
+                className="bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] p-1 w-8 h-8 flex items-center justify-center"
               >
                 <Send className="w-4 h-4" />
               </Button>

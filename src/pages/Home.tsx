@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,24 @@ import EnterpriseSolution from '@/components/EnterpriseSolution';
 import RecruitmentSteps from '@/components/RecruitmentSteps';
 
 const Home: React.FC = () => {
+  // News headlines
+  const newsItems = [
+    { tag: 'NEW', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'HyrDragon releases advanced AI matching algorithm' },
+    { tag: 'REPORT', tagColor: 'bg-[#7B78FF] text-white', content: 'Companies using AI recruitment see 65% faster time-to-hire' },
+    { tag: 'INSIGHT', tagColor: 'bg-white/20 text-white', content: 'Remote hiring challenges solved with intelligent recruitment platforms' }
+  ];
+  
+  const [activeNewsIndex, setActiveNewsIndex] = useState(0);
+  
+  // Rotate through news items
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveNewsIndex((prevIndex) => (prevIndex + 1) % newsItems.length);
+    }, 5000);
+    
+    return () => clearInterval(interval);
+  }, [newsItems.length]);
+  
   // Add scroll animation effect
   useEffect(() => {
     const observerOptions = {
@@ -73,6 +91,7 @@ const Home: React.FC = () => {
                     <Button 
                       size="lg"
                       className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
+                      data-trigger-money-effect="true"
                     >
                       Request a demo <ArrowRight className="w-5 h-5" />
                     </Button>
@@ -255,25 +274,19 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* News Headlines - Smaller Animated Ticker */}
+        {/* News Headlines - Single Item with Fade Animation */}
         <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
-          <div className="animate-marquee flex items-center whitespace-nowrap">
-            {[1, 2, 3].map((_, index) => (
-              <React.Fragment key={index}>
-                <div className="flex items-center mr-16">
-                  <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-0.5 rounded-full font-bold mr-3">NEW</span>
-                  <span className="text-white font-medium text-sm">HyrDragon releases advanced AI matching algorithm</span>
-                </div>
-                <div className="flex items-center mr-16">
-                  <span className="bg-[#7B78FF] text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">REPORT</span>
-                  <span className="text-white font-medium text-sm">Companies using AI recruitment see 65% faster time-to-hire</span>
-                </div>
-                <div className="flex items-center mr-16">
-                  <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">INSIGHT</span>
-                  <span className="text-white font-medium text-sm">Remote hiring challenges solved with intelligent recruitment platforms</span>
-                </div>
-              </React.Fragment>
-            ))}
+          <div className="container mx-auto max-w-4xl">
+            <div className="flex items-center justify-center h-10 transition-all duration-500">
+              <div className="flex items-center animated-news-item">
+                <span className={`${newsItems[activeNewsIndex].tagColor} text-xs px-2 py-0.5 rounded-full font-bold mr-3`}>
+                  {newsItems[activeNewsIndex].tag}
+                </span>
+                <span className="text-white font-medium text-sm">
+                  {newsItems[activeNewsIndex].content}
+                </span>
+              </div>
+            </div>
           </div>
         </section>
       </main>
