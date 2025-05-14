@@ -31,13 +31,10 @@ const Login: React.FC = () => {
     
     // Configure Google OAuth
     window.onload = () => {
-      if (window.google?.accounts?.id) {
-        window.google.accounts.id.initialize({
-          client_id: "790036429714-a5e6jsfhhbihs4qabh35n262prtd5bli.apps.googleusercontent.com",
-          callback: handleGoogleCallback,
-          auto_prompt: false
-        });
-      }
+      window.google?.accounts.id.initialize({
+        client_id: "790036429714-a5e6jsfhhbihs4qabh35n262prtd5bli.apps.googleusercontent.com",
+        callback: handleGoogleCallback
+      });
     };
   };
   
@@ -133,16 +130,7 @@ const Login: React.FC = () => {
   };
 
   const handleGoogleSignIn = () => {
-    if (window.google?.accounts?.id) {
-      window.google.accounts.id.prompt();
-    } else {
-      console.error("Google OAuth not initialized");
-      toast({
-        title: "Error",
-        description: "Google sign-in is not available right now. Please try again later.",
-        variant: "destructive",
-      });
-    }
+    window.google?.accounts.id.prompt();
   };
 
   return (
@@ -360,6 +348,14 @@ const Login: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* This div is where the Google Sign In button will be automatically rendered */}
+      <div id="g_id_onload" 
+        data-client_id="790036429714-a5e6jsfhhbihs4qabh35n262prtd5bli.apps.googleusercontent.com"
+        data-callback="handleGoogleCallback"
+        data-auto_prompt="false"
+        className="hidden">
       </div>
     </div>
   );

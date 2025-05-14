@@ -59,10 +59,10 @@ const Home: React.FC = () => {
           <div className="container mx-auto">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-6 mb-10 md:mb-0">
-                <div className="bg-gradient-to-r from-[#E2FF55]/20 to-transparent px-4 py-2 rounded-full inline-block mb-4 shimmer-bg">
+                <div className="bg-gradient-to-r from-[#E2FF55]/20 to-transparent px-4 py-2 rounded-full inline-block mb-4">
                   <span className="text-[#E2FF55] font-medium">AI-Powered Recruitment</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white highlight-shimmer">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                   Find the Right Talent, <span className="text-[#E2FF55]">Faster & Smarter</span> with AI
                 </h1>
                 <p className="text-xl text-gray-300 mb-8">
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
                   <Link to="/request-demo">
                     <Button 
                       size="lg"
-                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2 shimmer-bg"
+                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
                     >
                       Request a demo <ArrowRight className="w-5 h-5" />
                     </Button>
@@ -80,17 +80,17 @@ const Home: React.FC = () => {
                 </div>
                 <div className="mt-8 flex items-center gap-8 justify-start">
                   <div className="flex items-center">
-                    <div className="text-[#E2FF55] font-bold text-3xl highlight-shimmer">90%</div>
+                    <div className="text-[#E2FF55] font-bold text-3xl">90%</div>
                     <span className="text-gray-300 text-sm ml-2">Faster <br />Hiring</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="text-[#E2FF55] font-bold text-3xl highlight-shimmer">60%</div>
+                    <div className="text-[#E2FF55] font-bold text-3xl">60%</div>
                     <span className="text-gray-300 text-sm ml-2">Cost <br />Reduction</span>
                   </div>
                 </div>
               </div>
               <div className="md:w-1/2">
-                <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500 highlight-shimmer">
+                <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
                   <img 
                     src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
                     alt="HyrDragon Recruitment Analytics Dashboard" 
@@ -108,7 +108,7 @@ const Home: React.FC = () => {
         {/* Recruitment Steps - Updated with the vertical timeline visual */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto animate-on-scroll">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white highlight-shimmer">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
               Smarter Hiring in <span className="text-[#E2FF55]">4 Steps</span>
             </h2>
             
@@ -121,13 +121,13 @@ const Home: React.FC = () => {
         {/* Features */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll highlight-shimmer">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll">
               Features That <span className="text-[#E2FF55]">Recruiters Love</span>
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Feature 1 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll shimmer-bg">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <BarChart3 className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -138,7 +138,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 2 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll shimmer-bg">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <CheckCircle className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -149,7 +149,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 3 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll shimmer-bg">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <Users className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 4 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll shimmer-bg">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <Zap className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -184,12 +184,12 @@ const Home: React.FC = () => {
         <section className="py-16 md:py-24 px-4 relative bg-[#080820]">
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820] pointer-events-none"></div>
           <div className="container mx-auto relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll highlight-shimmer">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll">
               Why <span className="text-[#E2FF55]">HyrDragon</span>?
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              <div className="relative p-6 animate-on-scroll highlight-shimmer">
+              <div className="relative p-6 animate-on-scroll">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#E2FF55]/20 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center mb-4">
@@ -202,7 +202,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               
-              <div className="relative p-6 animate-on-scroll highlight-shimmer">
+              <div className="relative p-6 animate-on-scroll">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#7B78FF]/20 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#7B78FF] flex items-center justify-center mb-4">
@@ -215,7 +215,7 @@ const Home: React.FC = () => {
                 </div>
               </div>
               
-              <div className="relative p-6 animate-on-scroll highlight-shimmer">
+              <div className="relative p-6 animate-on-scroll">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#9b87f5]/20 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#9b87f5] flex items-center justify-center mb-4">
@@ -235,7 +235,7 @@ const Home: React.FC = () => {
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto">
             <div className="max-w-3xl mx-auto text-center animate-on-scroll">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white highlight-shimmer">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
                 Let's Make Hiring Feel Effortless
               </h2>
               <p className="text-gray-300 text-lg md:text-xl mb-8">
@@ -245,7 +245,7 @@ const Home: React.FC = () => {
                 <Link to="/request-demo">
                   <Button 
                     size="lg"
-                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2 shimmer-bg"
+                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
                   >
                     Request a demo <ArrowRight className="w-5 h-5" />
                   </Button>
@@ -256,26 +256,24 @@ const Home: React.FC = () => {
         </section>
         
         {/* News Headlines - Smaller Animated Ticker */}
-        <section className="py-2 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
-          <div className="news-ticker overflow-hidden">
-            <div className="animate-marquee flex items-center whitespace-nowrap">
-              {[1, 2, 3].map((_, index) => (
-                <React.Fragment key={index}>
-                  <div className="flex items-center mr-16">
-                    <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-0.5 rounded-full font-bold mr-3">NEW</span>
-                    <span className="text-white font-medium text-sm">HyrDragon releases advanced AI matching algorithm</span>
-                  </div>
-                  <div className="flex items-center mr-16">
-                    <span className="bg-[#7B78FF] text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">REPORT</span>
-                    <span className="text-white font-medium text-sm">Companies using AI recruitment see 65% faster time-to-hire</span>
-                  </div>
-                  <div className="flex items-center mr-16">
-                    <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">INSIGHT</span>
-                    <span className="text-white font-medium text-sm">Remote hiring challenges solved with intelligent recruitment platforms</span>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
+        <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
+          <div className="animate-marquee flex items-center whitespace-nowrap">
+            {[1, 2, 3].map((_, index) => (
+              <React.Fragment key={index}>
+                <div className="flex items-center mr-16">
+                  <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-0.5 rounded-full font-bold mr-3">NEW</span>
+                  <span className="text-white font-medium text-sm">HyrDragon releases advanced AI matching algorithm</span>
+                </div>
+                <div className="flex items-center mr-16">
+                  <span className="bg-[#7B78FF] text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">REPORT</span>
+                  <span className="text-white font-medium text-sm">Companies using AI recruitment see 65% faster time-to-hire</span>
+                </div>
+                <div className="flex items-center mr-16">
+                  <span className="bg-white/20 text-white text-xs px-2 py-0.5 rounded-full font-bold mr-3">INSIGHT</span>
+                  <span className="text-white font-medium text-sm">Remote hiring challenges solved with intelligent recruitment platforms</span>
+                </div>
+              </React.Fragment>
+            ))}
           </div>
         </section>
       </main>
