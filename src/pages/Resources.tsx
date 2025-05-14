@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -86,7 +87,7 @@ const Resources: React.FC = () => {
       title: "How AI is Transforming the Recruitment Industry",
       description: "Discover the ways artificial intelligence is revolutionizing hiring processes and improving candidate matches.",
       category: "Blog",
-      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=80&auto=format&fit=crop",
+      image: "/lovable-uploads/8efa0dbf-ae1e-4bef-8fa5-cf8c1411991e.png",
       link: "#",
       icon: <BookOpen className="h-3 w-3" />
     },
@@ -111,9 +112,9 @@ const Resources: React.FC = () => {
   const caseStudies = [
     {
       title: "TechCorp Reduces Time-to-Hire by 65%",
-      description: "How a leading tech company transformed their recruitment process using HyreDragon's AI platform.",
+      description: "How a leading tech company transformed their recruitment process using HyrDragon's AI platform.",
       category: "Case Study",
-      image: "https://images.unsplash.com/photo-1576267423048-15c0030e5605?q=80&auto=format&fit=crop",
+      image: "/lovable-uploads/2ac00526-118f-4870-a52a-ca8830559cc1.png",
       link: "#",
       icon: <FileText className="h-3 w-3" />
     },
@@ -129,8 +130,8 @@ const Resources: React.FC = () => {
   
   const videos = [
     {
-      title: "Getting Started with HyreDragon",
-      description: "A comprehensive walkthrough of setting up and using the HyreDragon AI recruitment platform.",
+      title: "Getting Started with HyrDragon",
+      description: "A comprehensive walkthrough of setting up and using the HyrDragon AI recruitment platform.",
       category: "Video",
       image: "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&auto=format&fit=crop",
       link: "#",
@@ -174,9 +175,9 @@ const Resources: React.FC = () => {
 
       <Header />
 
-      <main className="flex-grow relative z-10">
+      <main className="flex-grow relative z-10 pt-24">
         {/* Hero Section */}
-        <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-4">
+        <section className="pt-8 pb-16 md:pt-16 md:pb-24 px-4">
           <div className="container mx-auto">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
@@ -309,7 +310,7 @@ const Resources: React.FC = () => {
                 </Button>
               </div>
               <p className="text-xs text-gray-400 mt-4">
-                By subscribing, you agree to receive marketing emails from HyreDragon. You can unsubscribe at any time.
+                By subscribing, you agree to receive marketing emails from HyrDragon. You can unsubscribe at any time.
               </p>
             </div>
           </div>

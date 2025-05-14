@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -6,6 +7,7 @@ import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MetricsShowcase from '@/components/MetricsShowcase';
 import EnterpriseSolution from '@/components/EnterpriseSolution';
+import RecruitmentSteps from '@/components/RecruitmentSteps';
 
 const Home: React.FC = () => {
   // Add scroll animation effect
@@ -51,9 +53,9 @@ const Home: React.FC = () => {
       
       <Header />
       
-      <main className="flex-grow relative z-10">
+      <main className="flex-grow relative z-10 pt-24">
         {/* Hero Section */}
-        <section className="pt-20 pb-16 md:pt-32 md:pb-24 px-4 relative overflow-hidden">
+        <section className="pt-8 pb-16 md:pt-16 md:pb-24 px-4 relative overflow-hidden">
           <div className="container mx-auto">
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-6 mb-10 md:mb-0">
@@ -91,7 +93,7 @@ const Home: React.FC = () => {
                 <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
                   <img 
                     src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
-                    alt="HyreDragon Recruitment Analytics Dashboard" 
+                    alt="HyrDragon Recruitment Analytics Dashboard" 
                     className="w-full rounded-lg object-cover"
                   />
                 </div>
@@ -103,80 +105,15 @@ const Home: React.FC = () => {
         {/* Metrics Showcase */}
         <MetricsShowcase />
       
-        {/* Recruitment Steps */}
+        {/* Recruitment Steps - Updated with the vertical timeline visual shown in image */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto animate-on-scroll">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
               Smarter Hiring in <span className="text-[#E2FF55]">4 Steps</span>
             </h2>
             
-            <div className="flex flex-col max-w-4xl mx-auto relative">
-              {/* Vertical line */}
-              <div className="absolute left-6 top-0 bottom-0 w-1 bg-gradient-to-b from-[#E2FF55] via-[#7B78FF] to-[#9b87f5] md:left-1/2"></div>
-              
-              {/* Step 1 */}
-              <div className="flex mb-16 animate-on-scroll">
-                <div className="md:w-1/2 md:pr-16 self-center md:text-right order-2 md:order-1">
-                  <h3 className="text-xl font-bold text-white mb-3">1. Post Your Job</h3>
-                  <p className="text-gray-300">
-                    Create and publish your job opening in minutes with our intuitive platform.
-                  </p>
-                </div>
-                <div className="mr-8 md:mx-auto order-1 md:order-2 relative">
-                  <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center z-10 relative">
-                    <span className="text-[#0A0A29] font-bold">1</span>
-                  </div>
-                </div>
-                <div className="hidden md:block md:w-1/2 order-3"></div>
-              </div>
-              
-              {/* Step 2 */}
-              <div className="flex mb-16 animate-on-scroll">
-                <div className="hidden md:block md:w-1/2 order-1"></div>
-                <div className="mr-8 md:mx-auto order-1 md:order-2 relative">
-                  <div className="w-12 h-12 rounded-full bg-[#7B78FF] flex items-center justify-center z-10 relative">
-                    <span className="text-[#0A0A29] font-bold">2</span>
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-16 self-center order-2 md:order-3">
-                  <h3 className="text-xl font-bold text-white mb-3">2. AI Matches Candidates</h3>
-                  <p className="text-gray-300">
-                    Our AI evaluates candidates based on skills, experience, and cultural fit to find your perfect match.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Step 3 */}
-              <div className="flex mb-16 animate-on-scroll">
-                <div className="md:w-1/2 md:pr-16 self-center md:text-right order-2 md:order-1">
-                  <h3 className="text-xl font-bold text-white mb-3">3. Interview Process</h3>
-                  <p className="text-gray-300">
-                    Conduct structured interviews with AI-generated questions and real-time insights.
-                  </p>
-                </div>
-                <div className="mr-8 md:mx-auto order-1 md:order-2 relative">
-                  <div className="w-12 h-12 rounded-full bg-[#9b87f5] flex items-center justify-center z-10 relative">
-                    <span className="text-[#0A0A29] font-bold">3</span>
-                  </div>
-                </div>
-                <div className="hidden md:block md:w-1/2 order-3"></div>
-              </div>
-
-              {/* Step 4 */}
-              <div className="flex animate-on-scroll">
-                <div className="hidden md:block md:w-1/2 order-1"></div>
-                <div className="mr-8 md:mx-auto order-1 md:order-2 relative">
-                  <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center z-10 relative">
-                    <span className="text-[#0A0A29] font-bold">4</span>
-                  </div>
-                </div>
-                <div className="md:w-1/2 md:pl-16 self-center order-2 md:order-3">
-                  <h3 className="text-xl font-bold text-white mb-3">4. AI-Driven Feedback</h3>
-                  <p className="text-gray-300">
-                    Receive comprehensive AI-generated feedback and insights to make data-driven hiring decisions.
-                  </p>
-                </div>
-              </div>
+            <div className="max-w-4xl mx-auto">
+              <RecruitmentSteps />
             </div>
           </div>
         </section>
@@ -248,7 +185,7 @@ const Home: React.FC = () => {
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820] pointer-events-none"></div>
           <div className="container mx-auto relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll">
-              Why <span className="text-[#E2FF55]">HyreDragon</span>?
+              Why <span className="text-[#E2FF55]">HyrDragon</span>?
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -302,7 +239,7 @@ const Home: React.FC = () => {
                 Let's Make Hiring Feel Effortless
               </h2>
               <p className="text-gray-300 text-lg md:text-xl mb-8">
-                Join thousands of companies that have transformed their recruitment process with HyreDragon.
+                Join thousands of companies that have transformed their recruitment process with HyrDragon.
               </p>
               <div className="flex justify-center">
                 <Link to="/request-demo">
@@ -325,7 +262,7 @@ const Home: React.FC = () => {
               <React.Fragment key={index}>
                 <div className="flex items-center mr-16">
                   <span className="bg-[#E2FF55] text-[#0A0A29] text-xs px-2 py-1 rounded-full font-bold mr-3">NEW</span>
-                  <span className="text-white font-medium">HyreDragon releases advanced AI matching algorithm</span>
+                  <span className="text-white font-medium">HyrDragon releases advanced AI matching algorithm</span>
                 </div>
                 <div className="flex items-center mr-16">
                   <span className="bg-[#7B78FF] text-white text-xs px-2 py-1 rounded-full font-bold mr-3">REPORT</span>

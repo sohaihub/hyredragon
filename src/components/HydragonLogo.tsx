@@ -1,12 +1,13 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface HyreDragonLogoProps {
+interface HyrDragonLogoProps {
   size?: 'sm' | 'md' | 'lg';
   withText?: boolean;
 }
 
-const HyreDragonLogo: React.FC<HyreDragonLogoProps> = ({ 
+const HyrDragonLogo: React.FC<HyrDragonLogoProps> = ({ 
   size = 'md',
   withText = true
 }) => {
@@ -26,11 +27,11 @@ const HyreDragonLogo: React.FC<HyreDragonLogoProps> = ({
       </div>
       {withText && (
         <div className={`font-bold ${textSize} bg-gradient-to-r from-[#E2FF55] to-[#9b87f5] bg-clip-text text-transparent`}>
-          HyreDragon
+          HyrDragon
         </div>
       )}
     </Link>
   );
 };
 
-export default HyreDragonLogo;
+export default HyrDragonLogo;

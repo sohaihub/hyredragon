@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import HyreDragonLogo from './HydragonLogo';
+import HyrDragonLogo from './HydragonLogo';
 
 const Footer: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <div className="inline-block mb-4">
-              <HyreDragonLogo size="sm" withText={true} />
+              <HyrDragonLogo size="sm" withText={true} />
             </div>
             <p className="text-gray-400 text-sm max-w-xs">
               AI-powered recruitment platform that makes hiring smarter, faster, and more efficient.
@@ -33,10 +34,10 @@ const Footer: React.FC = () => {
               <div>
                 <h4 className="text-white font-medium mb-4">Resources</h4>
                 <ul className="space-y-2">
-                  <li><Link to="/resources/library" className="text-gray-400 hover:text-[#E2FF55] text-sm">Resource Library</Link></li>
-                  <li><Link to="/resources/blog" className="text-gray-400 hover:text-[#E2FF55] text-sm">Blog</Link></li>
-                  <li><Link to="/resources/case-studies" className="text-gray-400 hover:text-[#E2FF55] text-sm">Case Studies</Link></li>
-                  <li><Link to="/resources/guides" className="text-gray-400 hover:text-[#E2FF55] text-sm">Guides</Link></li>
+                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Resource Library</Link></li>
+                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Blog</Link></li>
+                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Case Studies</Link></li>
+                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Guides</Link></li>
                 </ul>
               </div>
               
@@ -45,7 +46,6 @@ const Footer: React.FC = () => {
                 <h4 className="text-white font-medium mb-4">Company</h4>
                 <ul className="space-y-2">
                   <li><Link to="/about" className="text-gray-400 hover:text-[#E2FF55] text-sm">About</Link></li>
-                  <li><Link to="/careers" className="text-gray-400 hover:text-[#E2FF55] text-sm">Careers</Link></li>
                   <li><Link to="/contact" className="text-gray-400 hover:text-[#E2FF55] text-sm">Contact Us</Link></li>
                 </ul>
               </div>
@@ -55,7 +55,7 @@ const Footer: React.FC = () => {
         
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            © 2025 HyreDragon. All rights reserved.
+            © 2025 HyrDragon. All rights reserved.
           </div>
           
           <div className="flex space-x-6">

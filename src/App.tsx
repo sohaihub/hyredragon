@@ -1,5 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import Solutions from './pages/Solutions';
 import AIProducts from './pages/AIProducts';
@@ -9,10 +10,27 @@ import Resources from './pages/Resources';
 import RequestDemo from './pages/RequestDemo';
 import Login from './pages/Login';
 import Index from './pages/Index';
+import Terms from './pages/Terms';
+import Privacy from './pages/Privacy';
+import Security from './pages/Security';
+import GeminiChatbot from './components/GeminiChatbot';
+import ScrollToTopButton from './components/ScrollToTopButton';
+
+// Scroll restoration component
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
+  return null;
+};
 
 const App: React.FC = () => {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/solutions" element={<Solutions />} />
@@ -24,13 +42,14 @@ const App: React.FC = () => {
         <Route path="/pricing" element={<Index />} />
         <Route path="/enterprise" element={<Contact />} />
         <Route path="/about" element={<Contact />} />
-        <Route path="/careers" element={<Contact />} />
-        <Route path="/terms" element={<Contact />} />
-        <Route path="/privacy" element={<Contact />} />
-        <Route path="/security" element={<Contact />} />
+        <Route path="/terms" element={<Terms />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/security" element={<Security />} />
         {/* Catch-all */}
         <Route path="*" element={<ComingSoon />} />
       </Routes>
+      <GeminiChatbot />
+      <ScrollToTopButton />
     </Router>
   );
 };
