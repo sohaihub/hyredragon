@@ -45,7 +45,7 @@ const GeminiChatbot: React.FC = () => {
   const handleSendMessage = async () => {
     if (!input.trim()) return;
     
-    const userMessage = { role: 'user', content: input };
+    const userMessage: Message = { role: 'user', content: input };
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
@@ -80,13 +80,15 @@ const GeminiChatbot: React.FC = () => {
         botResponse = "Sorry, I encountered an error. Please try again.";
       }
       
-      setMessages(prev => [...prev, { role: 'assistant', content: botResponse }]);
+      const assistantMessage: Message = { role: 'assistant', content: botResponse };
+      setMessages(prev => [...prev, assistantMessage]);
     } catch (error) {
       console.error('Error calling Gemini API:', error);
-      setMessages(prev => [...prev, { 
+      const errorMessage: Message = { 
         role: 'assistant', 
         content: "I'm having trouble connecting right now. Please try again later."
-      }]);
+      };
+      setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
