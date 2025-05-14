@@ -124,8 +124,6 @@ const AIProducts: React.FC = () => {
                   "Customizable matching criteria",
                   "Bias reduction algorithms"
                 ]}
-                button={{text: "Request a demo", link: "/request-demo"}}
-                color="bg-[#E2FF55]"
               />
               
               <FeatureCard 
@@ -140,8 +138,6 @@ const AIProducts: React.FC = () => {
                   "Skills assessment integration",
                   "Video interview scheduling"
                 ]}
-                button={{text: "Request a demo", link: "/request-demo"}}
-                color="bg-[#7B78FF]"
               />
               
               <FeatureCard 
@@ -159,8 +155,6 @@ const AIProducts: React.FC = () => {
                   "Structured interview templates",
                   "Candidate evaluation frameworks"
                 ]}
-                button={{text: "Request a demo", link: "/request-demo"}}
-                color="bg-[#E2FF55]"
               />
               
               <FeatureCard 
@@ -177,8 +171,6 @@ const AIProducts: React.FC = () => {
                   "Recruitment funnel analytics",
                   "Data-driven hiring recommendations"
                 ]}
-                button={{text: "Request a demo", link: "/request-demo"}}
-                color="bg-[#7B78FF]"
               />
             </div>
           </div>
@@ -216,6 +208,8 @@ const AIProducts: React.FC = () => {
                   "Course-specific expertise matching",
                   "Teaching evaluation tools",
                   "Faculty onboarding automation"
+                  "Student engagement analytics"
+                  "Research profile compatibility assessment"
                 ]}
                 buttonType="coming-soon"
                 color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
