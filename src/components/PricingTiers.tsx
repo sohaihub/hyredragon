@@ -1,3 +1,4 @@
+// PricingTiers.tsx
 import React from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,7 +13,7 @@ interface PricingTierProps {
   name: string;
   description: string;
   price: string;
-  priceDetail: string;
+  priceDetail?: string;
   features: PricingFeature[];
   highlighted?: boolean;
   buttonText?: string;
@@ -23,11 +24,11 @@ const PricingTier: React.FC<PricingTierProps> = ({
   name,
   description,
   price,
-  priceDetail,
+  priceDetail = '',
   features,
   highlighted = false,
-  buttonText = "Start free trial",
-  buttonUrl = "/request-demo"
+  buttonText = 'Start free trial',
+  buttonUrl = '/request-demo',
 }) => {
   return (
     <div
@@ -58,9 +59,11 @@ const PricingTier: React.FC<PricingTierProps> = ({
       <ul className="mt-2 space-y-3 flex-grow">
         {features.map((feature, index) => (
           <li key={index} className="flex items-start">
-            <div className={`flex-shrink-0 p-0.5 rounded-full ${
-              feature.included ? 'text-[#E2FF55]' : 'text-gray-600'
-            }`}>
+            <div
+              className={`flex-shrink-0 p-0.5 rounded-full ${
+                feature.included ? 'text-[#E2FF55]' : 'text-gray-600'
+              }`}
+            >
               <CheckIcon className="h-4 w-4" />
             </div>
             <span
@@ -93,14 +96,14 @@ const PricingTier: React.FC<PricingTierProps> = ({
 
 const EnterpriseSolution: React.FC = () => {
   const features = [
-    { text: "Everything in Premium plan", included: true },
-    { text: "Advanced security features", included: true },
-    { text: "Dedicated customer success team", included: true },
-    { text: "Service level agreement (SLA)", included: true },
-    { text: "Custom AI model fine-tuning", included: true },
-    { text: "Custom integrations", included: true },
-    { text: "Customized reporting", included: true },
-    { text: "Onboarding & training", included: true }
+    { text: 'Everything in Premium plan', included: true },
+    { text: 'Advanced security features', included: true },
+    { text: 'Dedicated customer success team', included: true },
+    { text: 'Service level agreement (SLA)', included: true },
+    { text: 'Custom AI model fine-tuning', included: true },
+    { text: 'Custom integrations', included: true },
+    { text: 'Customized reporting', included: true },
+    { text: 'Onboarding & training', included: true },
   ];
 
   return (
@@ -135,113 +138,37 @@ const EnterpriseSolution: React.FC = () => {
 };
 
 const PricingTiers: React.FC = () => {
+  const baseFeatures = [
+    { text: 'Detailed dashboard', included: true },
+    { text: 'Custom assessment', included: true },
+    { text: 'AI generated feedback report', included: true },
+    { text: 'AI proctoring system', included: true },
+    { text: 'Coding platform', included: true },
+    { text: 'Detailed insights', included: true },
+    { text: 'AI ATS Analyzer', included: true },
+    { text: 'AI Match maker', included: true },
+    { text: 'AI Question generation', included: true },
+    { text: 'MCQ platform', included: true },
+  ];
+
   const tiers = [
-    {
-      name: 'Starter',
-      description: '10 hours @ ₹1,000/hour',
-      price: '₹10000',
-      features: [
-        { text: 'Detailed dashboard', included: true },
-        { text: 'Custom assessment', included: true },
-        { text: 'AI generated feedback report', included: true },
-        { text: 'AI proctoring system', included: true },
-        { text: 'Coding platform', included: true },
-        { text: 'Detailed insights', included: true },
-        { text: 'AI ATS Analyzer', included: true },
-        { text: 'AI Match maker', included: true },
-        { text: 'AI Question generation', included: true },
-        { text: 'MCQ platform', included: true },
-      ],
-      buttonText: 'Choose Plan',
-    },
-    {
-      name: 'Basic',
-      description: '20 hours @ ₹1,000/hour',
-      price: '₹20000',
-      features: [
-        { text: 'Detailed dashboard', included: true },
-        { text: 'Custom assessment', included: true },
-        { text: 'AI generated feedback report', included: true },
-        { text: 'AI proctoring system', included: true },
-        { text: 'Coding platform', included: true },
-        { text: 'Detailed insights', included: true },
-        { text: 'AI ATS Analyzer', included: true },
-        { text: 'AI Match maker', included: true },
-        { text: 'AI Question generation', included: true },
-        { text: 'MCQ platform', included: true },
-      ],
-      buttonText: 'Choose Plan',
-    },
-    {
-      name: 'Standard',
-      description: '30 hours @ ₹1,000/hour',
-      price: '₹30000',
-      features: [
-        { text: 'Detailed dashboard', included: true },
-        { text: 'Custom assessment', included: true },
-        { text: 'AI generated feedback report', included: true },
-        { text: 'AI proctoring system', included: true },
-        { text: 'Coding platform', included: true },
-        { text: 'Detailed insights', included: true },
-        { text: 'AI ATS Analyzer', included: true },
-        { text: 'AI Match maker', included: true },
-        { text: 'AI Question generation', included: true },
-        { text: 'MCQ platform', included: true },
-      ],
-      buttonText: 'Choose Plan',
-      highlighted: true,
-    },
-    {
-      name: 'Professional',
-      description: '40 hours @ ₹1,000/hour',
-      price: '₹40000',
-      features: [
-        { text: 'Detailed dashboard', included: true },
-        { text: 'Custom assessment', included: true },
-        { text: 'AI generated feedback report', included: true },
-        { text: 'AI proctoring system', included: true },
-        { text: 'Coding platform', included: true },
-        { text: 'Detailed insights', included: true },
-        { text: 'AI ATS Analyzer', included: true },
-        { text: 'AI Match maker', included: true },
-        { text: 'AI Question generation', included: true },
-        { text: 'MCQ platform', included: true },
-      ],
-      buttonText: 'Choose Plan',
-    },
-    {
-      name: 'Premium',
-      description: '50 hours @ ₹1,000/hour',
-      price: '₹50000',
-      features: [
-        { text: 'Detailed dashboard', included: true },
-        { text: 'Custom assessment', included: true },
-        { text: 'AI generated feedback report', included: true },
-        { text: 'AI proctoring system', included: true },
-        { text: 'Coding platform', included: true },
-        { text: 'Detailed insights', included: true },
-        { text: 'AI ATS Analyzer', included: true },
-        { text: 'AI Match maker', included: true },
-        { text: 'AI Question generation', included: true },
-        { text: 'MCQ platform', included: true },
-      ],
-      buttonText: 'Choose Plan',
-    },
+    { name: 'Starter', description: '10 hours @ ₹1,000/hour', price: '₹10000', features: baseFeatures, buttonText: 'Choose Plan' },
+    { name: 'Basic', description: '20 hours @ ₹1,000/hour', price: '₹20000', features: baseFeatures, buttonText: 'Choose Plan' },
+    { name: 'Standard', description: '30 hours @ ₹1,000/hour', price: '₹30000', features: baseFeatures, buttonText: 'Choose Plan', highlighted: true },
+    { name: 'Professional', description: '40 hours @ ₹1,000/hour', price: '₹40000', features: baseFeatures, buttonText: 'Choose Plan' },
+    { name: 'Premium', description: '50 hours @ ₹1,000/hour', price: '₹50000', features: baseFeatures, buttonText: 'Choose Plan' },
   ];
 
   return (
     <div className="space-y-16 max-w-7xl mx-auto">
-      {/* Render Pricing Tiers */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
         {tiers.map((tier, i) => (
           <PricingTier key={i} {...tier} />
         ))}
       </div>
-      {/* Render Enterprise Solution */}
       <EnterpriseSolution />
     </div>
   );
 };
 
 export default PricingTiers;
-
