@@ -140,7 +140,6 @@ const PricingTiers: React.FC = () => {
       name: 'Starter',
       description: '10 hours @ ₹1,000/hour',
       price: '₹10000',
-      priceDetail: '',
       features: [
         { text: 'Detailed dashboard', included: true },
         { text: 'Custom assessment', included: true },
@@ -159,7 +158,6 @@ const PricingTiers: React.FC = () => {
       name: 'Basic',
       description: '20 hours @ ₹1,000/hour',
       price: '₹20000',
-      priceDetail: '',
       features: [
         { text: 'Detailed dashboard', included: true },
         { text: 'Custom assessment', included: true },
@@ -178,7 +176,6 @@ const PricingTiers: React.FC = () => {
       name: 'Standard',
       description: '30 hours @ ₹1,000/hour',
       price: '₹30000',
-      priceDetail: '',
       features: [
         { text: 'Detailed dashboard', included: true },
         { text: 'Custom assessment', included: true },
@@ -198,7 +195,6 @@ const PricingTiers: React.FC = () => {
       name: 'Professional',
       description: '40 hours @ ₹1,000/hour',
       price: '₹40000',
-      priceDetail: '',
       features: [
         { text: 'Detailed dashboard', included: true },
         { text: 'Custom assessment', included: true },
@@ -217,7 +213,6 @@ const PricingTiers: React.FC = () => {
       name: 'Premium',
       description: '50 hours @ ₹1,000/hour',
       price: '₹50000',
-      priceDetail: '',
       features: [
         { text: 'Detailed dashboard', included: true },
         { text: 'Custom assessment', included: true },
@@ -236,11 +231,13 @@ const PricingTiers: React.FC = () => {
 
   return (
     <div className="space-y-16 max-w-7xl mx-auto">
+      {/* Render Pricing Tiers */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
         {tiers.map((tier, i) => (
           <PricingTier key={i} {...tier} />
         ))}
       </div>
+      {/* Render Enterprise Solution */}
       <EnterpriseSolution />
     </div>
   );
