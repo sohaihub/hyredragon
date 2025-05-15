@@ -9,7 +9,7 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { toast } = useToast()
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,29 +20,12 @@ const Login: React.FC = () => {
         title: "Missing fields",
         description: "Please enter your email and password.",
         variant: "destructive",
-      })
+      });
       return;
     }
 
-    setIsSubmitting(true);
-
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      toast({
-        title: "Success",
-        description: "Logged in successfully!",
-      })
-    } catch (error) {
-      toast({
-        title: "Error",
-        description: "Invalid credentials",
-        variant: "destructive",
-      })
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Redirect to the specified URL
+    window.location.href = "https://hyrdragon.digitaldiffuse.in/recruiter/login";
   };
 
   return (
