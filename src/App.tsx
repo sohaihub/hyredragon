@@ -8,6 +8,7 @@ import ComingSoon from './pages/ComingSoon';
 import RequestDemo from './pages/RequestDemo';
 import Login from './pages/Login';
 import ForgotPassword from './pages/ForgotPassword';
+import ChangePassword from './pages/ChangePassword';
 import Index from './pages/Index';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
