@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -15,18 +14,20 @@ const Home: React.FC = () => {
   const newsItems = [
     { tag: 'NEW', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'HyrDragon releases advanced AI matching algorithm' },
     { tag: 'REPORT', tagColor: 'bg-[#7B78FF] text-white', content: 'Companies using AI recruitment see 65% faster time-to-hire' },
-    { tag: 'INSIGHT', tagColor: 'bg-white/20 text-white', content: 'Remote hiring challenges solved with intelligent recruitment platforms' }
+    { tag: 'INSIGHT', tagColor: 'bg-white/20 text-white', content: 'Remote hiring challenges solved with intelligent recruitment platforms' },
+    { tag: 'UPDATE', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'New features added to HyrDragon platform - Try them today!' },
+    { tag: 'WEBINAR', tagColor: 'bg-[#7B78FF] text-white', content: 'Join our upcoming webinar on AI-powered recruitment strategies' }
   ];
   
-  const [activeNewsIndex, setActiveNewsIndex] = useState(0);
+  // News ticker animation
+  const [newsPosition, setNewsPosition] = useState(0);
   
-  // Rotate through news items
   useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveNewsIndex((prevIndex) => (prevIndex + 1) % newsItems.length);
+    const tickerInterval = setInterval(() => {
+      setNewsPosition(prev => (prev + 1) % newsItems.length);
     }, 5000);
     
-    return () => clearInterval(interval);
+    return () => clearInterval(tickerInterval);
   }, [newsItems.length]);
   
   // Add scroll animation effect
@@ -125,7 +126,7 @@ const Home: React.FC = () => {
         {/* Metrics Showcase */}
         <MetricsShowcase />
       
-        {/* Recruitment Steps - Updated with the vertical timeline visual */}
+        {/* Recruitment Steps */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto animate-on-scroll">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white">
@@ -193,10 +194,10 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* Comparison Section (NEW) */}
+        {/* Comparison Section */}
         <ComparisonSection />
         
-        {/* Pricing Packages Section (NEW) */}
+        {/* Pricing Packages Section */}
         <PricingPackagesSection />
         
         {/* Why Choose Us */}
@@ -267,9 +268,10 @@ const Home: React.FC = () => {
                 <Link to="/request-demo">
                   <Button 
                     size="lg"
-                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
+                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2 relative overflow-hidden group"
                   >
-                    Request a demo <ArrowRight className="w-5 h-5" />
+                    <span className="relative z-10">Request a demo</span> <ArrowRight className="w-5 h-5 relative z-10" />
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
                   </Button>
                 </Link>
               </div>
@@ -277,27 +279,23 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* News Ticker - Updated to show one headline at a time with animation */}
+        {/* News Ticker - Updated with better animation */}
         <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
-          <div className="container mx-auto max-w-4xl">
-            <div className="flex items-center h-12 overflow-hidden relative">
-              {newsItems.map((item, index) => (
-                <div 
-                  key={index}
-                  className={`absolute inset-0 flex items-center justify-center transition-opacity duration-500 ${
-                    activeNewsIndex === index ? 'opacity-100' : 'opacity-0'
-                  }`}
-                >
-                  <div className="flex items-center justify-center w-full">
-                    <span className={`${item.tagColor} text-xs px-2 py-0.5 rounded-full font-bold mr-3`}>
+          <div className="container mx-auto">
+            <div className="flex items-center overflow-hidden relative h-12">
+              <div className="whitespace-nowrap animate-marquee inline-flex items-center gap-8">
+                {[...newsItems, ...newsItems].map((item, index) => (
+                  <div key={index} className="flex items-center gap-3">
+                    <span className={`${item.tagColor} text-xs px-2 py-0.5 rounded-full font-bold`}>
                       {item.tag}
                     </span>
                     <span className="text-white font-medium">
                       {item.content}
                     </span>
+                    <span className="text-gray-500 mx-4">•</span>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </section>

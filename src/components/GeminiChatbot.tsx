@@ -4,6 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { X, Send } from 'lucide-react';
 import DragonIcon from './DragonIcon';
+import { toast } from './ui/use-toast';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -124,6 +125,13 @@ const GeminiChatbot: React.FC = () => {
       
       const assistantMessage: Message = { role: 'assistant', content: botResponse };
       setMessages(prev => [...prev, assistantMessage]);
+      
+      // Show a toast notification
+      toast({
+        title: "Response received",
+        description: "Dragon Assistant has responded to your query.",
+        duration: 3000,
+      });
     } catch (error) {
       console.error('Error calling Gemini API:', error);
       const errorMessage: Message = { 
@@ -137,17 +145,17 @@ const GeminiChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-20 right-8 z-50">
+    <div className="fixed bottom-28 right-8 z-50">
       {/* Chat bubble button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group relative"
+          className="w-20 h-20 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group relative animate-pulse-light"
           aria-label="Open Dragon Assistant"
         >
-          <div className="relative">
-            <DragonIcon className="w-8 h-8 text-[#0A0A29]" />
-            <span className="absolute -top-10 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+          <div className="relative w-14 h-14 flex items-center justify-center">
+            <DragonIcon className="w-14 h-14" />
+            <span className="absolute -top-12 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
               Dragon Assistant
             </span>
           </div>
@@ -156,15 +164,15 @@ const GeminiChatbot: React.FC = () => {
       
       {/* Chat window */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[400px] h-[550px] transition-all">
+        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[450px] h-[600px] transition-all animate-scale-in">
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-[#E2FF55] flex items-center justify-center mr-3">
-                <DragonIcon className="w-6 h-6 text-[#0A0A29]" />
+              <div className="w-12 h-12 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-3 p-1">
+                <DragonIcon className="w-10 h-10" />
               </div>
               <div>
-                <h3 className="text-white font-semibold">Dragon Assistant</h3>
+                <h3 className="text-white font-semibold text-lg">Dragon Assistant</h3>
                 <p className="text-gray-400 text-xs">HyrDragon AI</p>
               </div>
             </div>
@@ -189,11 +197,11 @@ const GeminiChatbot: React.FC = () => {
             {messages.map((message, index) => (
               <div 
                 key={index} 
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                    <DragonIcon className="w-5 h-5 text-[#E2FF55]" />
+                  <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0 p-1">
+                    <DragonIcon className="w-8 h-8" />
                   </div>
                 )}
                 <div 
@@ -209,8 +217,8 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1">
-                  <DragonIcon className="w-5 h-5 text-[#E2FF55]" />
+                <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 p-1">
+                  <DragonIcon className="w-8 h-8" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">

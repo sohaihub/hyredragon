@@ -9,9 +9,9 @@ const Footer: React.FC = () => {
       <div className="container mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <div className="inline-block mb-4">
+            <Link to="/" className="inline-block mb-4 transform hover:scale-105 transition-transform duration-300">
               <HyrDragonLogo size="sm" withText={true} />
-            </div>
+            </Link>
             <p className="text-gray-400 text-sm max-w-xs">
               AI-powered recruitment platform that makes hiring smarter, faster, and more efficient.
             </p>
@@ -23,10 +23,10 @@ const Footer: React.FC = () => {
               <div>
                 <h4 className="text-white font-medium mb-4">Product</h4>
                 <ul className="space-y-2">
-                  <li><Link to="/solutions" className="text-gray-400 hover:text-[#E2FF55] text-sm">Solutions</Link></li>
-                  <li><Link to="/ai-products" className="text-gray-400 hover:text-[#E2FF55] text-sm">AI Products</Link></li>
-                  <li><Link to="/pricing" className="text-gray-400 hover:text-[#E2FF55] text-sm">Pricing</Link></li>
-                  <li><Link to="/enterprise" className="text-gray-400 hover:text-[#E2FF55] text-sm">Enterprise</Link></li>
+                  <li><Link to="/solutions" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Solutions</Link></li>
+                  <li><Link to="/ai-products" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">AI Products</Link></li>
+                  <li><Link to="/pricing" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Pricing</Link></li>
+                  <li><Link to="/request-demo" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Enterprise</Link></li>
                 </ul>
               </div>
               
@@ -34,10 +34,10 @@ const Footer: React.FC = () => {
               <div>
                 <h4 className="text-white font-medium mb-4">Resources</h4>
                 <ul className="space-y-2">
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Resource Library</Link></li>
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Blog</Link></li>
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Case Studies</Link></li>
-                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm">Guides</Link></li>
+                  <li><Link to="/resources" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Resource Library</Link></li>
+                  <li><Link to="/blog" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Blog</Link></li>
+                  <li><Link to="/case-studies" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Case Studies</Link></li>
+                  <li><Link to="/guides" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Guides</Link></li>
                 </ul>
               </div>
               
@@ -45,8 +45,8 @@ const Footer: React.FC = () => {
               <div>
                 <h4 className="text-white font-medium mb-4">Company</h4>
                 <ul className="space-y-2">
-                  <li><Link to="/about" className="text-gray-400 hover:text-[#E2FF55] text-sm">About</Link></li>
-                  <li><Link to="/contact" className="text-gray-400 hover:text-[#E2FF55] text-sm">Contact Us</Link></li>
+                  <li><Link to="/about" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">About</Link></li>
+                  <li><Link to="/contact" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Contact Us</Link></li>
                 </ul>
               </div>
             </div>
@@ -59,9 +59,9 @@ const Footer: React.FC = () => {
           </div>
           
           <div className="flex space-x-6">
-            <Link to="/terms" className="text-gray-400 hover:text-[#E2FF55] text-sm">Terms</Link>
-            <Link to="/privacy" className="text-gray-400 hover:text-[#E2FF55] text-sm">Privacy</Link>
-            <Link to="/security" className="text-gray-400 hover:text-[#E2FF55] text-sm">Security</Link>
+            <Link to="/terms" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300">Terms</Link>
+            <Link to="/privacy" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300">Privacy</Link>
+            <Link to="/security" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300">Security</Link>
           </div>
         </div>
       </div>

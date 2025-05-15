@@ -51,9 +51,9 @@
   transition: transform 0.2s ease-out;
 }
 
-/* Money falling animation */
+/* Money falling animation for promo sections */
 .money-particle {
-  position: fixed;
+  position: absolute;
   z-index: 999;
   top: -20px;
   animation: fall linear forwards;
@@ -61,29 +61,34 @@
 
 @keyframes fall {
   to {
-    transform: translateY(calc(100vh + 40px));
+    transform: translateY(calc(100vh + 40px)) rotate(720deg);
   }
 }
 
-/* News ticker animation */
+/* News ticker advanced animation */
+.news-ticker {
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.news-ticker-content {
+  display: inline-block;
+  white-space: nowrap;
+  padding-right: 100%;
+  animation: ticker 20s linear infinite;
+}
+
 @keyframes ticker {
   0% {
     transform: translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 1;
-  }
-  90% {
-    opacity: 1;
   }
   100% {
-    transform: translateX(-10px);
-    opacity: 0;
+    transform: translateX(-100%);
   }
 }
 
-/* Fade in animation */
+/* Enhanced Fade in animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -97,4 +102,64 @@
 
 .animate-fade-in {
   animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Hover shine effect for buttons and cards */
+.hover-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-25deg);
+  transition: all 0.75s;
+}
+
+.hover-shine:hover::after {
+  left: 100%;
+}
+
+/* Pulse animation for highlights */
+@keyframes pulse-highlight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(226, 255, 85, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(226, 255, 85, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(226, 255, 85, 0);
+  }
+}
+
+.pulse-highlight {
+  animation: pulse-highlight 2s infinite;
+}
+
+/* Dragon-themed glow for chat elements */
+.dragon-glow {
+  box-shadow: 0 0 15px rgba(226, 255, 85, 0.5);
+}
+
+/* Floating animation for special elements */
+@keyframes floating {
+  0% { transform: translate(0, 0px); }
+  50% { transform: translate(0, 8px); }
+  100% { transform: translate(0, 0px); }
+}
+
+.floating {
+  animation: floating 4s ease-in-out infinite;
 }
