@@ -140,7 +140,7 @@ const ScrollToTop = () => {
 
 // Handle redirection to external URL for login/register
 const handleLoginRedirect = () => {
-  window.location.href = "https://hyrdragon.digitaldiffuse.in/recruiter/login";
+  window.location.href = "https://hyrdragon.digitaldiffuse.in/";
   return null;
 };
 

@@ -1,17 +1,14 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface HyregramLogoProps {
   size?: 'sm' | 'md' | 'lg';
   withText?: boolean;
-  className?: string;
 }
 
 const HyregramLogo: React.FC<HyregramLogoProps> = ({ 
   size = 'md',
-  withText = true,
-  className = ''
+  withText = true
 }) => {
   // Define size dimensions based on prop
   const dimensions = {
@@ -23,7 +20,7 @@ const HyregramLogo: React.FC<HyregramLogoProps> = ({
   const { width, height, textSize } = dimensions[size];
   
   return (
-    <Link to="/" className={`flex items-center ${className}`}>
+    <Link to="/" className="flex items-center">
       <div className="relative">
         {/* Logo removed */}
       </div>
