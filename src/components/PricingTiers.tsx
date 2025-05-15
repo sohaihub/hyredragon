@@ -219,28 +219,28 @@ const PricingTiers: React.FC = () => {
   // Define all features from the image
   const features: PricingFeature[] = [
     { text: 'Basic', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'Job Posting', starter: '10', basic: '20', standard: true, professional: true, premium: true },
-    { text: 'Email Notification(Recruiter & Candidate)', starter: true, basic: true, standard: true, professional: true, premium: true },
-    { text: 'Candidate Tracking', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Job Posting', starter: '10', basic: '20', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Email Notification(Recruiter & Candidate)', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Candidate Tracking', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
     
     { text: 'AI', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
     { text: 'Match Making', starter: '100', basic: '200', standard: '300', professional: '400', premium: '500' },
     { text: 'Resume Analyzer', starter: '100', basic: '100', standard: '100', professional: '100', premium: '100' },
-    { text: 'Question Generation(Gemini)', starter: '100-150', basic: '150-200', standard: true, professional: true, premium: true },
-    { text: 'Question Generation(OpenAI)', starter: '10-20', basic: '20-30', standard: true, professional: true, premium: true },
+    { text: 'Question Generation(Gemini)', starter: '100-150', basic: '150-200', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Question Generation(OpenAI)', starter: '10-20', basic: '20-30', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
     { text: 'Proctoring', starter: '1', basic: '2', standard: '3', professional: '4', premium: '5' },
-    { text: 'Feedback Report', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Feedback Report', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
     
     { text: 'Analytics & Report', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'Analytic Dashboard', starter: true, basic: true, standard: true, professional: true, premium: true },
-    { text: 'Basic Reporting', starter: true, basic: true, standard: true, professional: true, premium: true },
-    { text: 'Advance Reporting', starter: false, basic: false, standard: true, professional: true, premium: true },
+    { text: 'Analytic Dashboard', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Basic Reporting', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Advance Reporting', starter: 'No', basic: 'No', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
     
     { text: 'Support & Training', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'E-mail', starter: true, basic: true, standard: true, professional: true, premium: true },
-    { text: 'Phone Support', starter: '1hr', basic: '2hr', standard: '3hr', professional: true, premium: true },
-    { text: 'Chat Support', starter: true, basic: true, standard: true, professional: true, premium: true },
-    { text: 'Training Session', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'E-mail', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Phone Support', starter: '1hr', basic: '2hr', standard: '3hr', professional: 'Yes', premium: 'Yes' },
+    { text: 'Chat Support', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { text: 'Training Session', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
     { text: 'Ticketing System', starter: '9AM-5PM', basic: '9AM-5PM', standard: '9AM-5PM', professional: '9AM-5PM', premium: '9AM-5PM' },
   ];
 
