@@ -100,9 +100,9 @@ const PricingPackagesSection: React.FC = () => {
         <div className="max-w-4xl mx-auto mb-8 perspective-800">
           <div className="bg-[#0F103E]/70 rounded-lg p-6 text-center relative overflow-hidden promo-container transform transition-transform duration-300">
             <div className="flex items-center justify-center gap-2 text-2xl font-bold animate-pulse">
-              <Zap className="h-6 w-6 text-[#E2FF55]" />
-              <span className="text-[#E2FF55]">FIRST 50 CUSTOMERS GET 3 FREE HOURS!</span>
-              <Zap className="h-6 w-6 text-[#E2FF55]" />
+              <span className="text-orange-500">🔥</span>
+              <span className="text-orange-500">FIRST 50 CUSTOMERS GET 3 FREE HOURS!</span>
+              <span className="text-orange-500">🔥</span>
             </div>
             
             {/* This div is for styling only, money particles will be added via JS */}
