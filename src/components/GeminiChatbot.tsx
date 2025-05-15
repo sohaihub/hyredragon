@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { X, Send } from 'lucide-react';
+import { MessageCircle, X, Send, Bot } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -61,17 +61,11 @@ const GeminiChatbot: React.FC = () => {
        - Retail: high-volume hiring tools, seasonal staffing optimization
 
     PRICING INFORMATION:
-    - Pay-per-hour model: Starting at ₹1,000/hour for assessments and ₹1,500/hour for video interviews
-    - Package discounts: 5% for 20 hours, 10% for 30 hours, 15% for 50 hours
-    - Minimum session: 0.5 hours with actual usage-based billing
-    - Remaining time rolls over to future sessions
-    - Custom pricing available for larger requirements
+    - Starter: $499/month - Up to 10 active jobs, basic features
+    - Professional: $1,299/month - Up to 25 active jobs, all core features
+    - Enterprise: Custom pricing - Unlimited jobs, dedicated support, custom integration
 
-    When asked about competitors like iMocha, TestDome, Spark Hire, or HackerEarth, highlight that HyreDragon:
-    - Is the only platform combining MCQ, coding, and video interviews in one tool
-    - Has built-in proctoring and real-time AI analytics
-    - Offers a flexible pay-per-use model without monthly commitments
-    - Provides comprehensive recruiting solutions instead of just individual features
+    When asked about competitors, focus on HyrDragon's unique advantages without directly criticizing other platforms.
     
     If users ask about pricing specifics, benefits of plans, or implementation details, recommend scheduling a demo with a product specialist for personalized information.
 
@@ -140,7 +134,7 @@ const GeminiChatbot: React.FC = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Chat bubble button with Dragon logo */}
+      {/* Chat bubble button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
@@ -148,13 +142,7 @@ const GeminiChatbot: React.FC = () => {
           aria-label="Open Dragon Assistant"
         >
           <div className="relative">
-            <div className="w-10 h-10 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/b6808d1d-a7e3-47ee-8875-c93cd221558a.png" 
-                alt="Dragon Assistant" 
-                className="w-full h-full object-contain"
-              />
-            </div>
+            <Bot className="w-7 h-7" />
             <span className="absolute -top-8 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
               Dragon Assistant
             </span>
@@ -168,12 +156,8 @@ const GeminiChatbot: React.FC = () => {
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3">
-                <img 
-                  src="/lovable-uploads/b6808d1d-a7e3-47ee-8875-c93cd221558a.png" 
-                  alt="Dragon Assistant" 
-                  className="w-full h-full object-contain"
-                />
+              <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-3">
+                <Bot className="w-6 h-6 text-[#E2FF55]" />
               </div>
               <div>
                 <h3 className="text-white font-semibold">Dragon Assistant</h3>
@@ -201,12 +185,8 @@ const GeminiChatbot: React.FC = () => {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                    <img 
-                      src="/lovable-uploads/b6808d1d-a7e3-47ee-8875-c93cd221558a.png" 
-                      alt="Dragon Assistant" 
-                      className="w-full h-full object-contain"
-                    />
+                  <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
+                    <Bot className="w-5 h-5 text-[#E2FF55]" />
                   </div>
                 )}
                 <div 
@@ -222,12 +202,8 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1">
-                  <img 
-                    src="/lovable-uploads/b6808d1d-a7e3-47ee-8875-c93cd221558a.png" 
-                    alt="Dragon Assistant" 
-                    className="w-full h-full object-contain"
-                  />
+                <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1">
+                  <Bot className="w-5 h-5 text-[#E2FF55]" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-[#1A1A3D] text-white">
                   <div className="flex space-x-2 items-center">
