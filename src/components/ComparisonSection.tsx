@@ -38,7 +38,7 @@ const ComparisonSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 md:py-24 px-4 relative">
+    <section className="py-16 md:py-24 px-4 relative overflow-hidden">
       <div className="container mx-auto">
         <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 text-white">
           HyreDragon's <span className="text-[#E2FF55]">Edge</span>: Slay the Competition
@@ -61,7 +61,7 @@ const ComparisonSection: React.FC = () => {
               {competitors.map((competitor, index) => (
                 <TableRow 
                   key={index} 
-                  className={`${competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'} border-0 hover:bg-[#0A0A29]/70`}
+                  className={`${competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'} border-0`}
                 >
                   <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-lg' : 'text-white text-lg'}>
                     {competitor.highlight ? (
@@ -87,8 +87,10 @@ const ComparisonSection: React.FC = () => {
           </Table>
         </div>
         
-        <div className="mt-8 p-6 bg-[#0F103E]/70 rounded-lg text-center border border-[#E2FF55] animate-pulse-light">
-          <p className="text-xl font-bold text-white">Only HyreDragon combines <span className="text-[#E2FF55]">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.</p>
+        <div className="mt-12 p-8 bg-[#0F103E]/80 rounded-lg border-2 border-[#E2FF55] shadow-[0_0_30px_rgba(226,255,85,0.2)]">
+          <p className="text-xl md:text-2xl font-bold text-white text-center">
+            Only HyreDragon combines <span className="text-[#E2FF55] animate-pulse">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
+          </p>
         </div>
       </div>
     </section>

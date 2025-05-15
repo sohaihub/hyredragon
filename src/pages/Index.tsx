@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import PricingHero from '@/components/PricingHero';
 import PricingFAQs from '@/components/PricingFAQs';
 import Footer from '@/components/Footer';
-import EnhancedFeatureComparison from '@/components/EnhancedFeatureComparison';
+import ComparisonSection from '@/components/ComparisonSection';
 
 const Index: React.FC = () => {
   // Add animation on scroll effect
@@ -52,7 +52,7 @@ const Index: React.FC = () => {
         {/* Only include PricingHero and PricingFAQs */}
         <div className="space-y-12 md:space-y-16 pb-20">
           <PricingHero />
-          <EnhancedFeatureComparison />
+          <ComparisonSection />
           <PricingFAQs />
         </div>
       </main>

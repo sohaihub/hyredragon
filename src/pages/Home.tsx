@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -7,7 +6,7 @@ import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MetricsShowcase from '@/components/MetricsShowcase';
 import RecruitmentSteps from '@/components/RecruitmentSteps';
-import EnhancedComparisonSection from '@/components/EnhancedComparisonSection';
+import ComparisonSection from '@/components/ComparisonSection';
 import PricingPackagesSection from '@/components/PricingPackagesSection';
 
 const Home: React.FC = () => {
@@ -142,8 +141,8 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* Enhanced Comparison Section */}
-        <EnhancedComparisonSection />
+        {/* Comparison Section - replacing the EnhancedComparisonSection */}
+        <ComparisonSection />
         
         {/* Features */}
         <section className="py-16 md:py-24 px-4 relative">
