@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -5,8 +6,9 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MetricsShowcase from '@/components/MetricsShowcase';
-import EnterpriseSolution from '@/components/EnterpriseSolution';
 import RecruitmentSteps from '@/components/RecruitmentSteps';
+import HiringPackageSection from '@/components/home/HiringPackageSection';
+import CompetitionComparisonSection from '@/components/home/CompetitionComparisonSection';
 
 const Home: React.FC = () => {
   // News headlines
@@ -191,12 +193,9 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* Enterprise Solution */}
-        <section className="py-16 md:py-24 px-4 relative">
-          <div className="container mx-auto animate-on-scroll">
-            <EnterpriseSolution />
-          </div>
-        </section>
+        {/* New Pricing Tables */}
+        <HiringPackageSection />
+        <CompetitionComparisonSection />
         
         {/* Why Choose Us */}
         <section className="py-16 md:py-24 px-4 relative bg-[#080820]">
@@ -276,7 +275,7 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* News Ticker - Updated to show one headline at a time with animation */}
+        {/* News Ticker - Single headline at a time with animation */}
         <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
           <div className="container mx-auto max-w-4xl">
             <div className="flex items-center h-12 overflow-hidden relative">
