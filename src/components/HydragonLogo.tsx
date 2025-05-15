@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom';
 interface HyrDragonLogoProps {
   size?: 'sm' | 'md' | 'lg';
   withText?: boolean;
+  className?: string;
 }
 
 const HyrDragonLogo: React.FC<HyrDragonLogoProps> = ({ 
   size = 'md',
-  withText = true
+  withText = true,
+  className = ''
 }) => {
   // Define size dimensions based on prop
   const dimensions = {
@@ -21,13 +23,13 @@ const HyrDragonLogo: React.FC<HyrDragonLogoProps> = ({
   const { width, height, textSize } = dimensions[size];
   
   return (
-    <Link to="/" className="flex items-center">
+    <Link to="/" className={`flex items-center ${className}`}>
       <div className="relative">
         {/* Logo removed */}
       </div>
       {withText && (
         <div className={`font-bold ${textSize} bg-gradient-to-r from-[#E2FF55] to-[#9b87f5] bg-clip-text text-transparent`}>
-          HyrDragon
+          HyreDragon
         </div>
       )}
     </Link>
