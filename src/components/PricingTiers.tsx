@@ -1,35 +1,39 @@
 
 // PricingTiers.tsx
 import React from 'react';
-import { CheckIcon } from 'lucide-react';
+import { CheckIcon, XIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 interface PricingFeature {
   text: string;
-  included: boolean;
+  starter: string | boolean;
+  basic: string | boolean;
+  standard: string | boolean;
+  professional: string | boolean;
+  premium: string | boolean;
+  category?: string;
+  isHighlighted?: boolean;
 }
 
 interface PricingTierProps {
   name: string;
   description: string;
   price: string;
-  priceDetail?: string;
-  features: PricingFeature[];
-  highlighted?: boolean;
+  duration: string;
   buttonText?: string;
   buttonUrl?: string;
+  highlighted?: boolean;
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
   name,
   description,
   price,
-  priceDetail = '',
-  features,
-  highlighted = false,
-  buttonText = 'Start free trial',
+  duration,
+  buttonText = 'Choose Plan',
   buttonUrl = '/request-demo',
+  highlighted = false,
 }) => {
   return (
     <div
@@ -53,32 +57,11 @@ const PricingTier: React.FC<PricingTierProps> = ({
       <div className="mt-4 mb-6">
         <div className="flex items-baseline">
           <span className="text-3xl font-bold text-white">{price}</span>
-          <span className="ml-1 text-gray-400 text-sm">{priceDetail}</span>
         </div>
+        <div className="text-sm text-gray-400 mt-1">{duration}</div>
       </div>
 
-      <ul className="mt-2 space-y-3 flex-grow">
-        {features.map((feature, index) => (
-          <li key={index} className="flex items-start">
-            <div
-              className={`flex-shrink-0 p-0.5 rounded-full ${
-                feature.included ? 'text-[#E2FF55]' : 'text-gray-600'
-              }`}
-            >
-              <CheckIcon className="h-4 w-4" />
-            </div>
-            <span
-              className={`ml-2 text-sm ${
-                feature.included ? 'text-gray-200' : 'text-gray-500'
-              }`}
-            >
-              {feature.text}
-            </span>
-          </li>
-        ))}
-      </ul>
-
-      <div className="mt-6">
+      <div className="mt-auto">
         <Link to={buttonUrl} className="w-full">
           <Button
             className={`w-full ${
@@ -95,18 +78,44 @@ const PricingTier: React.FC<PricingTierProps> = ({
   );
 };
 
-const EnterpriseSolution: React.FC = () => {
-  const features = [
-    { text: 'Everything in Premium plan', included: true },
-    { text: 'Advanced security features', included: true },
-    { text: 'Dedicated customer success team', included: true },
-    { text: 'Service level agreement (SLA)', included: true },
-    { text: 'Custom AI model fine-tuning', included: true },
-    { text: 'Custom integrations', included: true },
-    { text: 'Customized reporting', included: true },
-    { text: 'Onboarding & training', included: true },
-  ];
+// Feature display component
+const FeatureItem = ({ feature }: { feature: PricingFeature }) => {
+  const renderValue = (value: string | boolean) => {
+    if (typeof value === 'boolean') {
+      return value ? (
+        <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+      ) : (
+        <XIcon className="h-5 w-5 text-red-400" />
+      );
+    }
+    return <span className="text-[#E2FF55] font-medium">{value}</span>;
+  };
 
+  return (
+    <tr className={`border-b border-gray-800 ${feature.isHighlighted ? 'bg-[#0F103E]/40' : ''}`}>
+      <td className={`py-4 pl-4 text-base ${feature.category ? 'font-semibold text-[#E2FF55]' : 'text-white'}`}>
+        {feature.text}
+      </td>
+      <td className="py-4 text-center">
+        {renderValue(feature.starter)}
+      </td>
+      <td className="py-4 text-center">
+        {renderValue(feature.basic)}
+      </td>
+      <td className="py-4 text-center">
+        {renderValue(feature.standard)}
+      </td>
+      <td className="py-4 text-center">
+        {renderValue(feature.professional)}
+      </td>
+      <td className="py-4 text-center">
+        {renderValue(feature.premium)}
+      </td>
+    </tr>
+  );
+};
+
+const EnterpriseSolution: React.FC = () => {
   return (
     <div className="mt-16 rounded-xl border border-[#E2FF55] bg-[#080822]/70 p-8">
       <h2 className="text-2xl font-bold text-white text-center mb-8">Enterprise Solution</h2>
@@ -116,14 +125,42 @@ const EnterpriseSolution: React.FC = () => {
           <p className="text-gray-400 text-sm">Custom solution for large organizations</p>
         </div>
         <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {features.map((feature, index) => (
-            <div key={index} className="flex items-start">
-              <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
-                <CheckIcon className="h-4 w-4" />
-              </div>
-              <span className="ml-2 text-sm text-gray-200">{feature.text}</span>
+          <div className="flex items-start">
+            <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
+              <CheckIcon className="h-4 w-4" />
             </div>
-          ))}
+            <span className="ml-2 text-sm text-gray-200">Unlimited usage</span>
+          </div>
+          <div className="flex items-start">
+            <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
+              <CheckIcon className="h-4 w-4" />
+            </div>
+            <span className="ml-2 text-sm text-gray-200">Dedicated customer success team</span>
+          </div>
+          <div className="flex items-start">
+            <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
+              <CheckIcon className="h-4 w-4" />
+            </div>
+            <span className="ml-2 text-sm text-gray-200">Custom AI model fine-tuning</span>
+          </div>
+          <div className="flex items-start">
+            <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
+              <CheckIcon className="h-4 w-4" />
+            </div>
+            <span className="ml-2 text-sm text-gray-200">Custom integrations</span>
+          </div>
+          <div className="flex items-start">
+            <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
+              <CheckIcon className="h-4 w-4" />
+            </div>
+            <span className="ml-2 text-sm text-gray-200">Priority 24/7 support</span>
+          </div>
+          <div className="flex items-start">
+            <div className="flex-shrink-0 p-0.5 rounded-full text-[#E2FF55]">
+              <CheckIcon className="h-4 w-4" />
+            </div>
+            <span className="ml-2 text-sm text-gray-200">SLA guarantees</span>
+          </div>
         </div>
       </div>
       <div className="mt-8 flex flex-col md:flex-row items-center justify-between border-t border-gray-800 pt-8">
@@ -139,34 +176,104 @@ const EnterpriseSolution: React.FC = () => {
 };
 
 const PricingTiers: React.FC = () => {
-  const baseFeatures = [
-    { text: 'Detailed dashboard', included: true },
-    { text: 'Custom assessment', included: true },
-    { text: 'AI generated feedback report', included: true },
-    { text: 'AI proctoring system', included: true },
-    { text: 'Coding platform', included: true },
-    { text: 'Detailed insights', included: true },
-    { text: 'AI ATS Analyzer', included: true },
-    { text: 'AI Match maker', included: true },
-    { text: 'AI Question generation', included: true },
-    { text: 'MCQ platform', included: true },
+  // Define pricing tiers
+  const tiers = [
+    { 
+      name: 'Starter', 
+      description: 'For small teams starting out', 
+      price: '₹10,000', 
+      duration: '9hr+ 1hr',
+      buttonText: 'Choose Plan' 
+    },
+    { 
+      name: 'Basic', 
+      description: 'For growing businesses', 
+      price: '₹20,000', 
+      duration: '18hr+ 2hr',
+      buttonText: 'Choose Plan' 
+    },
+    { 
+      name: 'Standard', 
+      description: 'Our most popular plan', 
+      price: '₹30,000', 
+      duration: '27hr+ 3hr',
+      buttonText: 'Choose Plan', 
+      highlighted: true 
+    },
+    { 
+      name: 'Professional', 
+      description: 'For larger companies', 
+      price: '₹40,000', 
+      duration: '36hr+ 4hr',
+      buttonText: 'Choose Plan' 
+    },
+    { 
+      name: 'Premium', 
+      description: 'For enterprise needs', 
+      price: '₹50,000', 
+      duration: '45hr+ 5hr',
+      buttonText: 'Choose Plan' 
+    },
   ];
 
-  const tiers = [
-    { name: 'Starter', description: '10 hours @ ₹1,000/hour', price: '₹10000', features: baseFeatures, buttonText: 'Choose Plan' },
-    { name: 'Basic', description: '20 hours @ ₹1,000/hour', price: '₹20000', features: baseFeatures, buttonText: 'Choose Plan' },
-    { name: 'Standard', description: '30 hours @ ₹1,000/hour', price: '₹30000', features: baseFeatures, buttonText: 'Choose Plan', highlighted: true },
-    { name: 'Professional', description: '40 hours @ ₹1,000/hour', price: '₹40000', features: baseFeatures, buttonText: 'Choose Plan' },
-    { name: 'Premium', description: '50 hours @ ₹1,000/hour', price: '₹50000', features: baseFeatures, buttonText: 'Choose Plan' },
+  // Define all features from the image
+  const features: PricingFeature[] = [
+    { text: 'Basic', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
+    { text: 'Job Posting', starter: '10', basic: '20', standard: true, professional: true, premium: true },
+    { text: 'Email Notification(Recruiter & Candidate)', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Candidate Tracking', starter: true, basic: true, standard: true, professional: true, premium: true },
+    
+    { text: 'AI', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
+    { text: 'Match Making', starter: '100', basic: '200', standard: '300', professional: '400', premium: '500' },
+    { text: 'Resume Analyzer', starter: '100', basic: '100', standard: '100', professional: '100', premium: '100' },
+    { text: 'Question Generation(Gemini)', starter: '100-150', basic: '150-200', standard: true, professional: true, premium: true },
+    { text: 'Question Generation(OpenAI)', starter: '10-20', basic: '20-30', standard: true, professional: true, premium: true },
+    { text: 'Proctoring', starter: '1', basic: '2', standard: '3', professional: '4', premium: '5' },
+    { text: 'Feedback Report', starter: true, basic: true, standard: true, professional: true, premium: true },
+    
+    { text: 'Analytics & Report', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
+    { text: 'Analytic Dashboard', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Basic Reporting', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Advance Reporting', starter: false, basic: false, standard: true, professional: true, premium: true },
+    
+    { text: 'Support & Training', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
+    { text: 'E-mail', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Phone Support', starter: '1hr', basic: '2hr', standard: '3hr', professional: true, premium: true },
+    { text: 'Chat Support', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Training Session', starter: true, basic: true, standard: true, professional: true, premium: true },
+    { text: 'Ticketing System', starter: '9AM-5PM', basic: '9AM-5PM', standard: '9AM-5PM', professional: '9AM-5PM', premium: '9AM-5PM' },
   ];
 
   return (
     <div className="space-y-16 max-w-7xl mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+      {/* Tiers Cards */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {tiers.map((tier, i) => (
           <PricingTier key={i} {...tier} />
         ))}
       </div>
+
+      {/* Feature Comparison Table */}
+      <div className="mt-16 overflow-x-auto">
+        <table className="w-full text-left">
+          <thead className="bg-[#0F103E] sticky top-0">
+            <tr>
+              <th className="py-4 pl-4 text-lg text-white font-bold">Features</th>
+              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Starter<br/>(10k)</th>
+              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Basic<br/>(20k)</th>
+              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Standard<br/>(30k)</th>
+              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Professional<br/>(40k)</th>
+              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Premium<br/>(50k)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {features.map((feature, index) => (
+              <FeatureItem key={index} feature={feature} />
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       <EnterpriseSolution />
     </div>
   );

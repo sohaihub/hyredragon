@@ -22,39 +22,39 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
       <table className="w-full">
         <thead>
           <tr className="text-left">
-            <th className="py-2 w-1/3 md:w-2/5 text-white text-base">Feature</th>
-            <th className="py-2 text-center text-white text-base">Basic</th>
-            <th className="py-2 text-center text-white text-base">Standard</th>
-            <th className="py-2 text-center text-white text-base">Professional</th>
-            <th className="py-2 text-center text-white text-base">Premium</th>
+            <th className="py-2 w-1/3 md:w-2/5 text-white text-lg">Feature</th>
+            <th className="py-2 text-center text-white text-lg">Basic</th>
+            <th className="py-2 text-center text-white text-lg">Standard</th>
+            <th className="py-2 text-center text-white text-lg">Professional</th>
+            <th className="py-2 text-center text-white text-lg">Premium</th>
           </tr>
         </thead>
         <tbody>
           {features.map((feature, index) => (
-            <tr key={index} className="border-b border-gray-800">
-              <td className="py-3 text-white text-base">{feature.name}</td>
-              <td className="py-3 text-center">
+            <tr key={index} className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-colors duration-200">
+              <td className="py-4 text-white text-lg">{feature.name}</td>
+              <td className="py-4 text-center">
                 {feature.basic ? 
-                  <Check className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-5 w-5 text-gray-500 mx-auto" />
+                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                  <X className="h-6 w-6 text-gray-500 mx-auto" />
                 }
               </td>
-              <td className="py-3 text-center">
+              <td className="py-4 text-center">
                 {feature.standard ? 
-                  <Check className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-5 w-5 text-gray-500 mx-auto" />
+                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                  <X className="h-6 w-6 text-gray-500 mx-auto" />
                 }
               </td>
-              <td className="py-3 text-center">
+              <td className="py-4 text-center">
                 {feature.professional ? 
-                  <Check className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-5 w-5 text-gray-500 mx-auto" />
+                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                  <X className="h-6 w-6 text-gray-500 mx-auto" />
                 }
               </td>
-              <td className="py-3 text-center">
+              <td className="py-4 text-center">
                 {feature.premium ? 
-                  <Check className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-5 w-5 text-gray-500 mx-auto" />
+                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                  <X className="h-6 w-6 text-gray-500 mx-auto" />
                 }
               </td>
             </tr>
@@ -106,12 +106,22 @@ const FeatureComparison: React.FC = () => {
             Feature <span className="text-[#E2FF55]">Comparison</span>
           </h2>
           
-          <div className="overflow-x-auto">
-            <div className="inline-block min-w-full">
-              <FeatureCategory title="Basic Features" features={basicFeatures} />
-              <FeatureCategory title="AI-Powered Features" features={aiFeatures} />
-              <FeatureCategory title="Analytics & Reporting" features={analyticsFeatures} />
-              <FeatureCategory title="Support & Training" features={supportFeatures} />
+          <div className="border-2 border-[#0F103E] rounded-xl overflow-hidden bg-[#080820]/70 shadow-xl">
+            <div className="p-6 md:p-8 bg-gradient-to-r from-[#0F103E]/50 to-[#080820]/70">
+              <div className="bg-[#091030]/60 p-6 rounded-xl border border-[#E2FF55]/20 shadow-inner mb-8">
+                <p className="text-center text-lg md:text-xl text-white/80 font-medium">
+                  Only HyreDragon combines <span className="text-[#E2FF55]/90">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. <span className="text-[#E2FF55]/90 font-semibold">One tool. Total coverage.</span>
+                </p>
+              </div>
+            
+              <div className="overflow-x-auto">
+                <div className="inline-block min-w-full">
+                  <FeatureCategory title="Basic Features" features={basicFeatures} />
+                  <FeatureCategory title="AI-Powered Features" features={aiFeatures} />
+                  <FeatureCategory title="Analytics & Reporting" features={analyticsFeatures} />
+                  <FeatureCategory title="Support & Training" features={supportFeatures} />
+                </div>
+              </div>
             </div>
           </div>
         </div>

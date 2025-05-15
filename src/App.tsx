@@ -196,7 +196,8 @@ const App: React.FC = () => {
         <Route path="/security" element={<Security />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
-      <div className="fixed z-40 bottom-8 left-8">
+      {/* Moved the button to the right side at the bottom */}
+      <div className="fixed z-40 bottom-8 left-8 md:left-12">
         <ScrollToTopButton />
       </div>
       <GeminiChatbot />

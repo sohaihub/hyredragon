@@ -1,8 +1,7 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { X, Send } from 'lucide-react';
+import { X, Send, Flame } from 'lucide-react';
 import { toast } from './ui/use-toast';
 
 interface Message {
@@ -204,17 +203,25 @@ const GeminiChatbot: React.FC = () => {
     return result;
   };
 
+  // Dragon-themed flame icon
+  const DragonFlameIcon = () => (
+    <div className="relative">
+      <Flame className="w-6 h-6 text-[#E2FF55] animate-pulse" />
+      <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#FF9F5A]" />
+    </div>
+  );
+
   return (
     <div className="fixed bottom-8 right-8 z-50">
       {/* Chat bubble button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center relative"
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] hover:from-[#E2FF55]/90 hover:to-[#FF9F5A]/90 shadow-lg hover:shadow-xl flex items-center justify-center relative transition-all duration-300"
           aria-label="Open AI Assistant"
         >
-          <div className="relative w-12 h-12 flex items-center justify-center">
-            <span className="text-2xl">💬</span>
+          <div className="relative w-10 h-10 flex items-center justify-center">
+            <DragonFlameIcon />
           </div>
         </Button>
       )}
@@ -225,12 +232,12 @@ const GeminiChatbot: React.FC = () => {
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#E2FF55]/20 p-1">
-                <span className="text-xl">🤖</span>
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 p-1">
+                <DragonFlameIcon />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-lg">AI Assistant</h3>
-                <p className="text-gray-400 text-xs">HyreDragon AI</p>
+                <h3 className="text-white font-semibold text-lg">HyreDragon AI</h3>
+                <p className="text-gray-400 text-xs">Intelligent Assistant</p>
               </div>
             </div>
             <Button 
@@ -258,14 +265,14 @@ const GeminiChatbot: React.FC = () => {
                 onClick={() => setActiveThread(message.id || null)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-[#E2FF55]/20">
-                    <span className="text-sm">🤖</span>
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20">
+                    <Flame className="w-5 h-5 text-[#FF9F5A]" />
                   </div>
                 )}
                 <div 
                   className={`max-w-[80%] rounded-2xl p-3 cursor-pointer ${
                     message.role === 'user' 
-                      ? 'bg-[#E2FF55] text-[#0A0A29]' 
+                      ? 'bg-gradient-to-r from-[#E2FF55] to-[#E2FF55]/90 text-[#0A0A29]' 
                       : 'bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20'
                   } ${activeThread === message.id ? 'ring-2 ring-[#E2FF55]/50' : ''}`}
                 >
@@ -275,8 +282,8 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-[#E2FF55]/20">
-                  <span className="text-sm">🤖</span>
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20">
+                  <Flame className="w-5 h-5 text-[#FF9F5A] animate-pulse" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">
@@ -303,7 +310,7 @@ const GeminiChatbot: React.FC = () => {
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center"
+                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] hover:opacity-90 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center"
               >
                 <Send className="w-5 h-5" />
               </Button>

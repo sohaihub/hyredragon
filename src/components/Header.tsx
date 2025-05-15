@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
-import HyrDragonLogo from './HydragonLogo';
+import { ArrowRight, Flame } from 'lucide-react';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -18,7 +17,14 @@ const Header: React.FC = () => {
       <div className="container mx-auto">
         <div className="flex justify-between items-center">
           {/* Logo */}
-          <HyrDragonLogo size="md" withText={true} />
+          <Link to="/" className="flex items-center">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 p-1">
+              <Flame className="w-6 h-6 text-[#E2FF55]" />
+            </div>
+            <div className="font-bold text-xl bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] bg-clip-text text-transparent">
+              HyreDragon
+            </div>
+          </Link>
           
           {/* Centered Desktop menu */}
           <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
@@ -56,7 +62,7 @@ const Header: React.FC = () => {
             </a>
             <Link to="/request-demo">
               <Button 
-                className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 rounded-full flex items-center gap-2"
+                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#0A0A29] hover:opacity-90 rounded-full flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Request a demo <ArrowRight className="w-4 h-4" />
               </Button>
@@ -129,7 +135,7 @@ const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Button 
-                  className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full"
+                  className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#0A0A29] hover:opacity-90 w-full"
                 >
                   Request a demo
                 </Button>
