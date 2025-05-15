@@ -1,11 +1,10 @@
-
 import React from 'react';
 
 const RecruitmentSteps: React.FC = () => {
   return (
     <div className="relative py-8 md:py-16">
-      {/* Vertical line */}
-      <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#E2FF55] via-[#7B78FF] to-[#9b87f5] transform -translate-x-1/2"></div>
+      {/* Vertical line between steps */}
+      <div className="absolute left-1/2 top-[80px] bottom-[80px] w-1 bg-gradient-to-b from-[#E2FF55] via-[#7B78FF] to-[#9b87f5] transform -translate-x-1/2"></div>
       
       {/* Step 1 */}
       <div className="flex items-center mb-20 md:mb-32">
