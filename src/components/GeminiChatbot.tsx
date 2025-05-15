@@ -17,7 +17,7 @@ const GeminiChatbot: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'assistant', 
-      content: 'Hello! I\'m Dragon, your AI assistant. Ask me anything about HyreDragon\'s features and services.', 
+      content: 'Hello! I\'m your AI assistant. Ask me anything about HyreDragon\'s features and services.', 
       id: 'initial-message' 
     }
   ]);
@@ -27,7 +27,7 @@ const GeminiChatbot: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const systemPrompt = `
-    You are Dragon, the official AI assistant for HyreDragon, an advanced AI-powered recruitment platform. 
+    You are the official AI assistant for HyreDragon, an advanced AI-powered recruitment platform. 
     You should respond with a friendly, professional, and helpful tone. Always be concise but informative.
     
     Here are the detailed features of HyreDragon that you should be well-versed in:
@@ -167,7 +167,7 @@ const GeminiChatbot: React.FC = () => {
       // Show a toast notification
       toast({
         title: "Response received",
-        description: "Dragon Assistant has responded to your query.",
+        description: "AI Assistant has responded to your query.",
         duration: 3000,
       });
     } catch (error) {
@@ -205,20 +205,16 @@ const GeminiChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-28 right-8 z-50">
+    <div className="fixed bottom-8 right-8 z-50">
       {/* Chat bubble button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-24 h-24 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center relative"
-          aria-label="Open Dragon Assistant"
+          className="w-16 h-16 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center relative"
+          aria-label="Open AI Assistant"
         >
-          <div className="relative w-20 h-20 flex items-center justify-center">
-            <img 
-              src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
-              alt="Dragon Assistant" 
-              className="w-20 h-20 rounded-full" 
-            />
+          <div className="relative w-12 h-12 flex items-center justify-center">
+            <span className="text-2xl">💬</span>
           </div>
         </Button>
       )}
@@ -229,15 +225,11 @@ const GeminiChatbot: React.FC = () => {
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full flex items-center justify-center mr-3 p-1">
-                <img 
-                  src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
-                  alt="Dragon Assistant" 
-                  className="w-12 h-12 rounded-full" 
-                />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#E2FF55]/20 p-1">
+                <span className="text-xl">🤖</span>
               </div>
               <div>
-                <h3 className="text-white font-semibold text-lg">Dragon Assistant</h3>
+                <h3 className="text-white font-semibold text-lg">AI Assistant</h3>
                 <p className="text-gray-400 text-xs">HyreDragon AI</p>
               </div>
             </div>
@@ -266,12 +258,8 @@ const GeminiChatbot: React.FC = () => {
                 onClick={() => setActiveThread(message.id || null)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 p-1">
-                    <img 
-                      src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
-                      alt="Dragon Assistant" 
-                      className="w-10 h-10 rounded-full" 
-                    />
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-[#E2FF55]/20">
+                    <span className="text-sm">🤖</span>
                   </div>
                 )}
                 <div 
@@ -287,12 +275,8 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1 p-1">
-                  <img 
-                    src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
-                    alt="Dragon Assistant" 
-                    className="w-10 h-10 rounded-full" 
-                  />
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-[#E2FF55]/20">
+                  <span className="text-sm">🤖</span>
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">
@@ -312,7 +296,7 @@ const GeminiChatbot: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Ask Dragon a question..."
+                placeholder="Ask AI a question..."
                 className="flex-1 bg-[#0F103E] border-gray-700 focus:border-[#E2FF55] text-white"
               />
               <Button 

@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -111,17 +112,17 @@ const AIProducts: React.FC = () => {
       accentColor: "[#FF9F5A]"
     },
     {
-      title: "Compliance Guardian",
-      description: "Stay compliant with all hiring regulations while streamlining your recruitment.",
-      icon: <Shield className="w-6 h-6 text-[#4ECDC4]" />,
+      title: "AI Driven Feedback",
+      description: "Get real-time insights and feedback to make better hiring decisions.",
+      icon: <Flame className="w-6 h-6 text-[#4ECDC4]" />,
       features: [
-        "Automated compliance checks",
-        "Geographic regulation awareness",
-        "Documentation management",
-        "Audit trail generation",
-        "Regular compliance updates"
+        "Real-time feedback on responses",
+        "Sentiment analysis of interviews",
+        "Customized feedback templates",
+        "Automated performance insights",
+        "Bias detection and mitigation"
       ],
-      buttonText: "Ensure Compliance",
+      buttonText: "Explore AI Feedback",
       buttonUrl: "/request-demo",
       accentColor: "[#4ECDC4]"
     }
@@ -177,11 +178,11 @@ const AIProducts: React.FC = () => {
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820]/0"></div>
           <div className="container mx-auto relative z-10">
             <div className="max-w-4xl mx-auto">
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-8 md:p-10 animate-float">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+              <div className="bg-[#080822]/80 border-2 border-[#E2FF55] rounded-xl p-8 md:p-10 animate-pulse-light shadow-[0_0_30px_rgba(226,255,85,0.15)]">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
                   HyreDragon's Edge: <span className="text-[#E2FF55]">Slay the Competition</span>
                 </h2>
-                <p className="text-gray-300 mb-8">
+                <p className="text-gray-100 mb-8 text-center text-lg font-medium">
                   Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
                 </p>
                 
@@ -235,7 +236,7 @@ const AIProducts: React.FC = () => {
                   <Link to="/request-demo">
                     <Button 
                       size="lg"
-                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8"
+                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 button-highlight"
                     >
                       See It In Action <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>

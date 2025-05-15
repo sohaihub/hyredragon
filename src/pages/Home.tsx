@@ -17,7 +17,8 @@ const Home: React.FC = () => {
     { tag: 'REPORT', tagColor: 'bg-[#7B78FF] text-white', content: 'Companies using AI recruitment see 65% faster time-to-hire' },
     { tag: 'INSIGHT', tagColor: 'bg-white/20 text-white', content: 'Remote hiring challenges solved with intelligent recruitment platforms' },
     { tag: 'UPDATE', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'New features added to HyreDragon platform - Try them today!' },
-    { tag: 'WEBINAR', tagColor: 'bg-[#7B78FF] text-white', content: 'Join our upcoming webinar on AI-powered recruitment strategies' }
+    { tag: 'WEBINAR', tagColor: 'bg-[#7B78FF] text-white', content: 'Join our upcoming webinar on AI-powered recruitment strategies' },
+    { tag: 'OFFER', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'First 50 customers get 25% discount and priority onboarding!' }
   ];
   
   // News ticker animation
@@ -143,10 +144,10 @@ const Home: React.FC = () => {
         {/* Feature Highlight Section */}
         <section className="py-16 md:py-24 px-4 relative overflow-hidden">
           <div className="container mx-auto relative z-10">
-            <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-8 md:p-10 transform hover:translate-y-[-5px] transition-transform duration-500">
+            <div className="bg-[#080822]/80 border-2 border-[#E2FF55] rounded-xl p-8 md:p-10 transform hover:translate-y-[-5px] transition-transform duration-500 shadow-[0_0_30px_rgba(226,255,85,0.2)]">
               <div className="animated-text">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 animate-glow">
-                  Only HyreDragon combines <span className="text-[#E2FF55]">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 animate-glow text-center">
+                  Only HyreDragon combines <span className="text-[#E2FF55] text-3xl md:text-4xl font-extrabold">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
                 </h2>
               </div>
               

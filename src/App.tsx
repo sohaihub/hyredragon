@@ -12,9 +12,6 @@ import Index from './pages/Index';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Security from './pages/Security';
-import CaseStudies from './pages/CaseStudies';
-import Guides from './pages/Guides';
-import ChangePassword from './pages/ChangePassword';
 import Blog from './pages/Blog';
 import GeminiChatbot from './components/GeminiChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
@@ -162,6 +159,20 @@ const App: React.FC = () => {
     
     // Wait for DOM to be fully loaded
     setTimeout(setupMoneyEffect, 1000);
+    
+    // Add login link redirection
+    const setupLoginRedirect = () => {
+      const loginLinks = document.querySelectorAll('a[href="/login"]');
+      
+      loginLinks.forEach(link => {
+        link.setAttribute('href', 'https://hyrdragon.digitaldiffuse.in/recruiter/login');
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+      });
+    };
+    
+    // Setup login redirects
+    setTimeout(setupLoginRedirect, 1000);
   }, []);
 
   return (
@@ -177,18 +188,17 @@ const App: React.FC = () => {
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Index />} />
-        <Route path="/case-studies" element={<CaseStudies />} />
-        <Route path="/guides" element={<Guides />} />
+        <Route path="/blog" element={<Blog />} />
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/security" element={<Security />} />
-        <Route path="/blog" element={<Blog />} />
-        {/* Catch-all */}
         <Route path="*" element={<ComingSoon />} />
       </Routes>
+      <div className="fixed z-40 bottom-8 left-8">
+        <ScrollToTopButton />
+      </div>
       <GeminiChatbot />
-      <ScrollToTopButton />
     </Router>
   );
 };

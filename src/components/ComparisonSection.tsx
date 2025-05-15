@@ -29,7 +29,7 @@ const ComparisonSection: React.FC = () => {
       edge: 'Scalable hours; no monthly lock-in',
     },
     {
-      name: 'HyrDragon',
+      name: 'HyreDragon',
       pricing: 'Pay-per-hour, flexible',
       features: 'All-in-one platform',
       edge: 'The Complete Package',
@@ -51,29 +51,34 @@ const ComparisonSection: React.FC = () => {
           <Table className="w-full">
             <TableHeader className="bg-[#0F103E]">
               <TableRow className="border-0">
-                <TableHead className="text-white font-semibold text-base">Platform</TableHead>
-                <TableHead className="text-white font-semibold text-base">Pricing Model</TableHead>
-                <TableHead className="text-white font-semibold text-base">Key Features</TableHead>
-                <TableHead className="text-white font-semibold text-base">HyreDragon's Edge</TableHead>
+                <TableHead className="text-white font-semibold text-lg">Platform</TableHead>
+                <TableHead className="text-white font-semibold text-lg">Pricing Model</TableHead>
+                <TableHead className="text-white font-semibold text-lg">Key Features</TableHead>
+                <TableHead className="text-white font-semibold text-lg">HyreDragon's Edge</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {competitors.map((competitor, index) => (
                 <TableRow 
                   key={index} 
-                  className={`${competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'} border-0`}
+                  className={`${competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'} border-0 hover:bg-[#0A0A29]/70`}
                 >
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-base' : 'text-white text-base'}>
+                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-lg' : 'text-white text-lg'}>
                     {competitor.highlight ? (
                       <div className="flex items-center">
                         <span className="text-[#E2FF55] mr-2">🔥</span> 
                         {competitor.name}
+                        <span className="text-[#E2FF55] ml-2">🔥</span>
                       </div>
                     ) : competitor.name}
                   </TableCell>
-                  <TableCell className="text-white text-base">{competitor.pricing}</TableCell>
-                  <TableCell className="text-white text-base">{competitor.features}</TableCell>
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-base' : 'text-[#7B78FF] text-base'}>
+                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] text-lg' : 'text-white text-lg'}>
+                    {competitor.pricing}
+                  </TableCell>
+                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] text-lg' : 'text-white text-lg'}>
+                    {competitor.features}
+                  </TableCell>
+                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-lg' : 'text-white text-lg'}>
                     {competitor.edge}
                   </TableCell>
                 </TableRow>
@@ -82,8 +87,8 @@ const ComparisonSection: React.FC = () => {
           </Table>
         </div>
         
-        <div className="mt-8 p-6 bg-[#0F103E]/70 rounded-lg text-center text-white border border-[#E2FF55]/30 animate-pulse-light">
-          <p className="text-lg font-medium">Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.</p>
+        <div className="mt-8 p-6 bg-[#0F103E]/70 rounded-lg text-center border border-[#E2FF55] animate-pulse-light">
+          <p className="text-xl font-bold text-white">Only HyreDragon combines <span className="text-[#E2FF55]">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.</p>
         </div>
       </div>
     </section>
