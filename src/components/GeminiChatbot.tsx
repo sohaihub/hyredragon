@@ -2,7 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { MessageCircle, X, Send, Bot } from 'lucide-react';
+import { X, Send } from 'lucide-react';
+import DragonIcon from './DragonIcon';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -61,9 +62,12 @@ const GeminiChatbot: React.FC = () => {
        - Retail: high-volume hiring tools, seasonal staffing optimization
 
     PRICING INFORMATION:
-    - Starter: $499/month - Up to 10 active jobs, basic features
-    - Professional: $1,299/month - Up to 25 active jobs, all core features
-    - Enterprise: Custom pricing - Unlimited jobs, dedicated support, custom integration
+    - Starter: ₹10,000 - 10 hours, basic features
+    - Basic: ₹20,000 - 20 hours, all core features
+    - Standard: ₹30,000 - 30 hours, all features with priority support
+    - Professional: ₹40,000 - 40 hours, all features with dedicated support
+    - Premium: ₹50,000 - 50 hours, all features with custom integration
+    - Enterprise: Custom pricing - Unlimited hours, dedicated support, custom integration
 
     When asked about competitors, focus on HyrDragon's unique advantages without directly criticizing other platforms.
     
@@ -133,17 +137,17 @@ const GeminiChatbot: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-8 right-8 z-50">
+    <div className="fixed bottom-20 right-8 z-50">
       {/* Chat bubble button */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group"
+          className="w-16 h-16 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group relative"
           aria-label="Open Dragon Assistant"
         >
           <div className="relative">
-            <Bot className="w-7 h-7" />
-            <span className="absolute -top-8 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
+            <DragonIcon className="w-8 h-8 text-[#0A0A29]" />
+            <span className="absolute -top-10 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity">
               Dragon Assistant
             </span>
           </div>
@@ -154,10 +158,10 @@ const GeminiChatbot: React.FC = () => {
       {isOpen && (
         <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[400px] h-[550px] transition-all">
           {/* Chat header */}
-          <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-[#080822] rounded-t-2xl">
+          <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-3">
-                <Bot className="w-6 h-6 text-[#E2FF55]" />
+              <div className="w-10 h-10 rounded-full bg-[#E2FF55] flex items-center justify-center mr-3">
+                <DragonIcon className="w-6 h-6 text-[#0A0A29]" />
               </div>
               <div>
                 <h3 className="text-white font-semibold">Dragon Assistant</h3>
@@ -176,8 +180,11 @@ const GeminiChatbot: React.FC = () => {
           
           {/* Chat messages */}
           <div 
-            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent"
+            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-[#0A0A29] bg-opacity-95"
             ref={chatContainerRef}
+            style={{ 
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.05" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
+            }}
           >
             {messages.map((message, index) => (
               <div 
@@ -186,14 +193,14 @@ const GeminiChatbot: React.FC = () => {
               >
                 {message.role === 'assistant' && (
                   <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0">
-                    <Bot className="w-5 h-5 text-[#E2FF55]" />
+                    <DragonIcon className="w-5 h-5 text-[#E2FF55]" />
                   </div>
                 )}
                 <div 
                   className={`max-w-[80%] rounded-2xl p-3 ${
                     message.role === 'user' 
                       ? 'bg-[#E2FF55] text-[#0A0A29]' 
-                      : 'bg-[#1A1A3D] text-white'
+                      : 'bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20'
                   }`}
                 >
                   {message.content}
@@ -203,13 +210,13 @@ const GeminiChatbot: React.FC = () => {
             {isLoading && (
               <div className="flex justify-start">
                 <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1">
-                  <Bot className="w-5 h-5 text-[#E2FF55]" />
+                  <DragonIcon className="w-5 h-5 text-[#E2FF55]" />
                 </div>
-                <div className="max-w-[80%] rounded-2xl p-3 bg-[#1A1A3D] text-white">
+                <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse delay-100"></div>
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-pulse delay-200"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-pulse"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-pulse delay-100"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-pulse delay-200"></div>
                   </div>
                 </div>
               </div>

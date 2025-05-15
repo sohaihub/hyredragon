@@ -17,8 +17,69 @@ import Security from './pages/Security';
 import CaseStudies from './pages/CaseStudies';
 import Guides from './pages/Guides';
 import ChangePassword from './pages/ChangePassword';
+import Blog from './pages/Blog';
 import GeminiChatbot from './components/GeminiChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
+
+// Add custom cursor styles
+const CustomCursorStyles = () => {
+  useEffect(() => {
+    const addCustomCursor = () => {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        body {
+          cursor: default;
+        }
+        
+        a, button, [role="button"], label[for], select, input[type="submit"], input[type="image"], input[type="button"], input[type="reset"], input[type="checkbox"], input[type="radio"] {
+          cursor: pointer;
+        }
+        
+        .hover-effect {
+          position: fixed;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          pointer-events: none;
+          background-color: rgba(226, 255, 85, 0.3);
+          transform: translate(-50%, -50%);
+          transition: width 0.2s, height 0.2s, background-color 0.2s;
+          z-index: 9999;
+          mix-blend-mode: difference;
+        }
+        
+        a:hover ~ .hover-effect,
+        button:hover ~ .hover-effect,
+        [role="button"]:hover ~ .hover-effect {
+          width: 50px;
+          height: 50px;
+          background-color: rgba(226, 255, 85, 0.4);
+        }
+      `;
+      document.head.appendChild(style);
+      
+      const hoverEffect = document.createElement('div');
+      hoverEffect.className = 'hover-effect';
+      document.body.appendChild(hoverEffect);
+      
+      document.addEventListener('mousemove', (e) => {
+        hoverEffect.style.left = e.clientX + 'px';
+        hoverEffect.style.top = e.clientY + 'px';
+      });
+    };
+    
+    addCustomCursor();
+    
+    return () => {
+      const hoverEffect = document.querySelector('.hover-effect');
+      if (hoverEffect) {
+        hoverEffect.remove();
+      }
+    };
+  }, []);
+  
+  return null;
+};
 
 // Add money falling effect
 const MoneyFallEffect = () => {
@@ -106,6 +167,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <ScrollToTop />
+      <CustomCursorStyles />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -123,6 +185,7 @@ const App: React.FC = () => {
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/security" element={<Security />} />
+        <Route path="/blog" element={<Blog />} />
         {/* Catch-all */}
         <Route path="*" element={<ComingSoon />} />
       </Routes>
