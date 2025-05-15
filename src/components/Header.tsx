@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -20,8 +19,8 @@ const Header: React.FC = () => {
           {/* Logo */}
           <HyrDragonLogo size="md" withText={true} />
           
-          {/* Desktop menu */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Centered Desktop menu */}
+          <nav className="hidden md:flex items-center space-x-8 absolute left-1/2 transform -translate-x-1/2">
             <Link 
               to="/ai-products" 
               className={`transition-colors duration-300 font-medium ${
