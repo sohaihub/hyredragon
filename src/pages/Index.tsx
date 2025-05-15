@@ -5,6 +5,8 @@ import PricingHero from '@/components/PricingHero';
 import PricingFAQs from '@/components/PricingFAQs';
 import Footer from '@/components/Footer';
 import ComparisonSection from '@/components/ComparisonSection';
+import PricingTiers from '@/components/PricingTiers';
+import PricingCTA from '@/components/PricingCTA';
 
 const Index: React.FC = () => {
   // Add animation on scroll effect
@@ -49,11 +51,12 @@ const Index: React.FC = () => {
 
       <Header />
       <main className="flex-grow pt-20 relative z-10">
-        {/* Only include PricingHero and PricingFAQs */}
         <div className="space-y-12 md:space-y-16 pb-20">
           <PricingHero />
+          <PricingTiers />
           <ComparisonSection />
           <PricingFAQs />
+          <PricingCTA />
         </div>
       </main>
       <Footer />

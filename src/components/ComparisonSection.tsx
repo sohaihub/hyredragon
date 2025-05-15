@@ -1,41 +1,57 @@
 
 import React from 'react';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { Check, X } from 'lucide-react';
 
 const ComparisonSection: React.FC = () => {
-  const competitors = [
+  const features = [
     {
-      name: 'iMocha',
-      pricing: 'Subscription, ₹664/assessment',
-      features: 'AI-based skill assessments',
-      edge: 'Pay-per-use + AI + Proctoring',
+      category: 'Basic',
+      items: [
+        { name: 'Job Posting', starter: '10', basic: '20', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Email Notification (Recruiter & Candidate)', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Candidate Tracking', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' }
+      ]
     },
     {
-      name: 'TestDome',
-      pricing: '₹581-1,680/candidate',
-      features: 'Coding assessments',
-      edge: 'Hour-based billing + proctoring',
+      category: 'AI',
+      items: [
+        { name: 'Match Making', starter: '100', basic: '200', standard: '300', professional: '400', premium: '500' },
+        { name: 'Resume Analyzer', starter: '100', basic: '100', standard: '100', professional: '100', premium: '100' },
+        { name: 'Question Generation (Gemini)', starter: '100-150', basic: '150-200', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Question Generation (OpenAI)', starter: '10-20', basic: '20-30', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Proctoring', starter: '1', basic: '2', standard: '3', professional: '4', premium: '5' },
+        { name: 'Feedback Report', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' }
+      ]
     },
     {
-      name: 'Spark Hire',
-      pricing: '₹12,367-₹41,231/month',
-      features: 'Video interviews',
-      edge: '₹1,500/hr AI-enhanced video',
+      category: 'Analytics & Report',
+      items: [
+        { name: 'Analytic Dashboard', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Basic Reporting', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Advanced Reporting', starter: 'No', basic: 'No', standard: 'Yes', professional: 'Yes', premium: 'Yes' }
+      ]
     },
     {
-      name: 'HackerEarth',
-      pricing: '₹209/month for startups',
-      features: 'Coding tests + remote hiring',
-      edge: 'Scalable hours; no monthly lock-in',
-    },
-    {
-      name: 'HyreDragon',
-      pricing: 'Pay-per-hour, flexible',
-      features: 'All-in-one platform',
-      edge: 'The Complete Package',
-      highlight: true,
-    },
+      category: 'Support & Training',
+      items: [
+        { name: 'Email Support', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Phone Support', starter: '1hr', basic: '2hr', standard: '3hr', professional: 'Yes', premium: 'Yes' },
+        { name: 'Chat Support', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Training Session', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+        { name: 'Ticketing System', starter: '9AM-5PM', basic: '9AM-5PM', standard: '9AM-5PM', professional: '9AM-5PM', premium: '9AM-5PM' }
+      ]
+    }
   ];
+
+  const renderValue = (value: string) => {
+    if (value === 'Yes') {
+      return <Check className="h-5 w-5 text-[#E2FF55] mx-auto" />;
+    } else if (value === 'No') {
+      return <X className="h-5 w-5 text-red-400 mx-auto" />;
+    } else {
+      return value;
+    }
+  };
 
   return (
     <section className="py-16 md:py-24 px-4 relative overflow-hidden">
@@ -48,43 +64,39 @@ const ComparisonSection: React.FC = () => {
         </p>
         
         <div className="overflow-x-auto">
-          <Table className="w-full">
-            <TableHeader className="bg-[#0F103E]">
-              <TableRow className="border-0">
-                <TableHead className="text-white font-semibold text-lg">Platform</TableHead>
-                <TableHead className="text-white font-semibold text-lg">Pricing Model</TableHead>
-                <TableHead className="text-white font-semibold text-lg">Key Features</TableHead>
-                <TableHead className="text-white font-semibold text-lg">HyreDragon's Edge</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {competitors.map((competitor, index) => (
-                <TableRow 
-                  key={index} 
-                  className={`${competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'} border-0`}
-                >
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-lg' : 'text-white text-lg'}>
-                    {competitor.highlight ? (
-                      <div className="flex items-center">
-                        <span className="text-[#E2FF55] mr-2">🔥</span> 
-                        {competitor.name}
-                        <span className="text-[#E2FF55] ml-2">🔥</span>
-                      </div>
-                    ) : competitor.name}
-                  </TableCell>
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] text-lg' : 'text-white text-lg'}>
-                    {competitor.pricing}
-                  </TableCell>
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] text-lg' : 'text-white text-lg'}>
-                    {competitor.features}
-                  </TableCell>
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-lg' : 'text-white text-lg'}>
-                    {competitor.edge}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <div className="min-w-[800px] bg-[#0A0A29]/90 border border-[#E2FF55]/30 rounded-xl shadow-xl shadow-[#E2FF55]/5 p-6">
+            {features.map((featureGroup, groupIndex) => (
+              <div key={groupIndex} className="mb-12 last:mb-0">
+                <h3 className="text-xl font-bold mb-6 text-[#E2FF55] border-b border-[#E2FF55]/20 pb-2">
+                  {featureGroup.category}
+                </h3>
+                <div className="grid grid-cols-6 gap-4 mb-1">
+                  <div className="col-span-2 text-white font-semibold">Feature</div>
+                  <div className="text-white font-semibold text-center">Starter</div>
+                  <div className="text-white font-semibold text-center">Basic</div>
+                  <div className="text-white font-semibold text-center">Standard</div>
+                  <div className="text-white font-semibold text-center">Pro/Premium</div>
+                </div>
+                
+                {featureGroup.items.map((feature, featureIndex) => (
+                  <div 
+                    key={featureIndex} 
+                    className={`grid grid-cols-6 gap-4 py-3 ${
+                      featureIndex % 2 === 0 ? 'bg-[#0F103E]/30' : ''
+                    } rounded-lg`}
+                  >
+                    <div className="col-span-2 text-white flex items-center">
+                      {feature.name}
+                    </div>
+                    <div className="text-center text-gray-300">{renderValue(feature.starter)}</div>
+                    <div className="text-center text-gray-300">{renderValue(feature.basic)}</div>
+                    <div className="text-center text-gray-300">{renderValue(feature.standard)}</div>
+                    <div className="text-center text-gray-300">{renderValue(feature.professional)}</div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
         
         <div className="mt-12 p-8 bg-[#0F103E]/80 rounded-lg border-2 border-[#E2FF55] shadow-[0_0_30px_rgba(226,255,85,0.2)]">
