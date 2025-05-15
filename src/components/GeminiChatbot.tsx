@@ -2,9 +2,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { X, Send, Flame, MessageCircle } from 'lucide-react';
+import { X, Send, MessageCircle } from 'lucide-react';
 import { toast } from './ui/use-toast';
-import DragonIcon from './DragonIcon';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -235,17 +234,14 @@ const GeminiChatbot: React.FC = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Chat bubble button - with enhanced animation */}
+      {/* Chat bubble button - with simple chat icon */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] shadow-lg flex items-center justify-center relative overflow-hidden animate-pulse hover:animate-none hover:scale-110 transition-all duration-300"
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] shadow-lg flex items-center justify-center"
           aria-label="Open AI Assistant"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 animate-[shine_3s_ease-in-out_infinite]"></div>
-          <div className="w-10 h-10 flex items-center justify-center">
-            <DragonIcon className="w-7 h-7" />
-          </div>
+          <MessageCircle className="w-7 h-7 text-[#080820]" />
         </Button>
       )}
       
@@ -254,10 +250,9 @@ const GeminiChatbot: React.FC = () => {
         <div className="bg-[#0A0A29] border-2 border-[#E2FF55] rounded-2xl shadow-2xl shadow-[#E2FF55]/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-[scale-in_0.3s_ease-out]">
           {/* Chat header - updated with theme colors */}
           <div className="p-4 border-b-2 border-[#E2FF55]/50 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#E2FF55]/10 to-transparent opacity-30 animate-[shine_3s_ease-in-out_infinite]"></div>
             <div className="flex items-center relative z-10">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1 animate-pulse">
-                <DragonIcon className="w-7 h-7" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
+                <MessageCircle className="w-7 h-7 text-[#E2FF55]" />
               </div>
               <div>
                 <h3 className="text-white font-semibold text-lg">HyreDragon AI</h3>
@@ -290,8 +285,8 @@ const GeminiChatbot: React.FC = () => {
                 onClick={() => setActiveThread(message.id)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 group-hover:from-[#E2FF55]/30 group-hover:to-[#FF9F5A]/30 transition-all duration-300">
-                    <DragonIcon className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
+                    <MessageCircle className="w-5 h-5 text-[#E2FF55]" />
                   </div>
                 )}
                 <div 
@@ -312,8 +307,8 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start animate-[fadeIn_0.3s_ease-out]">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30">
-                  <DragonIcon className="w-5 h-5 animate-pulse" />
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
+                  <MessageCircle className="w-5 h-5 text-[#E2FF55]" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">
@@ -340,9 +335,8 @@ const GeminiChatbot: React.FC = () => {
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] hover:opacity-90 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center rounded-full transform hover:scale-105 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] hover:opacity-90 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center rounded-full transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 animate-[shine_3s_ease-in-out_infinite]"></div>
                 <Send className="w-5 h-5 relative z-10" />
               </Button>
             </div>

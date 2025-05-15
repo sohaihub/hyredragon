@@ -230,34 +230,6 @@ const PricingTiers: React.FC = () => {
     },
   ];
 
-  // Define all features for the table comparison
-  const features: PricingFeature[] = [
-    { text: 'Basic', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'Job Posting', starter: '10', basic: '20', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Email Notification(Recruiter & Candidate)', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Candidate Tracking', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    
-    { text: 'AI', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'Match Making', starter: '100', basic: '200', standard: '300', professional: '400', premium: '500' },
-    { text: 'Resume Analyzer', starter: '100', basic: '100', standard: '100', professional: '100', premium: '100' },
-    { text: 'Question Generation(Gemini)', starter: '100-150', basic: '150-200', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Question Generation(OpenAI)', starter: '10-20', basic: '20-30', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Proctoring', starter: '1', basic: '2', standard: '3', professional: '4', premium: '5' },
-    { text: 'Feedback Report', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    
-    { text: 'Analytics & Report', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'Analytic Dashboard', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Basic Reporting', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Advance Reporting', starter: 'No', basic: 'No', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    
-    { text: 'Support & Training', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
-    { text: 'E-mail', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Phone Support', starter: '1hr', basic: '2hr', standard: '3hr', professional: 'Yes', premium: 'Yes' },
-    { text: 'Chat Support', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Training Session', starter: 'Yes', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
-    { text: 'Ticketing System', starter: '9AM-5PM', basic: '9AM-5PM', standard: '9AM-5PM', professional: '9AM-5PM', premium: '9AM-5PM' },
-  ];
-
   return (
     <div className="space-y-16 max-w-7xl mx-auto">
       {/* Tiers Cards - New Design based on image */}
@@ -268,54 +240,71 @@ const PricingTiers: React.FC = () => {
       </div>
 
       <div className="bg-[#091030]/60 p-6 rounded-xl border border-[#E2FF55]/20 shadow-inner">
-        <p className="text-center text-lg md:text-xl text-white/80 font-medium">
-          HyreDragon's Edge: <span className="text-[#E2FF55]/90">Slay the Competition</span>
-        </p>
-        <p className="text-center text-base text-white/70 mt-2">
-          Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
-        </p>
+        <h3 className="text-2xl font-bold text-white text-center mb-5">Key Features Across All Plans</h3>
         
-        <div className="grid md:grid-cols-2 gap-8 mt-8">
-          <div className="border border-gray-800 rounded-lg p-4">
-            <h3 className="text-lg font-medium text-white mb-4">Traditional Platforms</h3>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="border border-gray-800 rounded-lg p-4 bg-[#080822]/40">
+            <h4 className="text-lg font-medium text-[#E2FF55] mb-3">Core Features</h4>
             <ul className="space-y-2">
               <li className="flex items-center text-gray-300">
-                <span className="text-red-400 mr-2">•</span>
-                Multiple tools required
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Job Posting & Management
               </li>
               <li className="flex items-center text-gray-300">
-                <span className="text-red-400 mr-2">•</span>
-                Complex integrations
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Email Notifications
               </li>
               <li className="flex items-center text-gray-300">
-                <span className="text-red-400 mr-2">•</span>
-                Higher total cost
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Candidate Tracking
               </li>
               <li className="flex items-center text-gray-300">
-                <span className="text-red-400 mr-2">•</span>
-                Inconsistent user experience
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Detailed Analytics Dashboard
               </li>
             </ul>
           </div>
           
-          <div className="border border-gray-800 rounded-lg p-4">
-            <h3 className="text-lg font-medium text-white mb-4">HyreDragon Advantage</h3>
+          <div className="border border-gray-800 rounded-lg p-4 bg-[#080822]/40">
+            <h4 className="text-lg font-medium text-[#E2FF55] mb-3">AI-Powered Features</h4>
             <ul className="space-y-2">
               <li className="flex items-center text-gray-300">
                 <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                All-in-one platform
+                AI Candidate Matching
               </li>
               <li className="flex items-center text-gray-300">
                 <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Seamless experience
+                AI Resume Parsing
               </li>
               <li className="flex items-center text-gray-300">
                 <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Cost-effective solution
+                Question Generation
               </li>
               <li className="flex items-center text-gray-300">
                 <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Unified data analytics
+                AI Feedback Reports
+              </li>
+            </ul>
+          </div>
+          
+          <div className="border border-gray-800 rounded-lg p-4 bg-[#080822]/40">
+            <h4 className="text-lg font-medium text-[#E2FF55] mb-3">Advanced Features</h4>
+            <ul className="space-y-2">
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Proctoring System
+              </li>
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Coding Assessment Platform
+              </li>
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Multi-format Interviews
+              </li>
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                24/7 Support (Premium)
               </li>
             </ul>
           </div>
