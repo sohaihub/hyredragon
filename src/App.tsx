@@ -39,12 +39,12 @@ const CustomCursorStyles = () => {
           height: 30px;
           border-radius: 50%;
           pointer-events: none;
-          background-color: rgba(226, 255, 85, 0.3);
+          background-color: rgba(226, 255, 85, 0.4);
           transform: translate(-50%, -50%);
           transition: width 0.2s, height 0.2s, background-color 0.2s;
           z-index: 9999;
           mix-blend-mode: difference;
-          box-shadow: 0 0 10px rgba(226, 255, 85, 0.7), 0 0 20px rgba(226, 255, 85, 0.5);
+          box-shadow: 0 0 15px rgba(226, 255, 85, 0.8), 0 0 30px rgba(226, 255, 85, 0.5);
         }
         
         a:hover ~ .hover-effect,
@@ -52,8 +52,8 @@ const CustomCursorStyles = () => {
         [role="button"]:hover ~ .hover-effect {
           width: 50px;
           height: 50px;
-          background-color: rgba(226, 255, 85, 0.4);
-          box-shadow: 0 0 15px rgba(226, 255, 85, 0.8), 0 0 30px rgba(226, 255, 85, 0.6);
+          background-color: rgba(226, 255, 85, 0.5);
+          box-shadow: 0 0 20px rgba(226, 255, 85, 0.9), 0 0 40px rgba(226, 255, 85, 0.6);
         }
       `;
       document.head.appendChild(style);
@@ -90,7 +90,7 @@ const MoneyFallEffect = () => {
       if (!effectActivated) return;
       
       const container = document.body;
-      const symbols = ['$', '€', '£', '¥'];
+      const symbols = ['$', '€', '£', '¥', '₹'];
       const particle = document.createElement('div');
       particle.className = 'money-particle';
       
@@ -138,6 +138,12 @@ const ScrollToTop = () => {
   return null;
 };
 
+// Handle redirection to external URL for login/register
+const handleLoginRedirect = () => {
+  window.location.href = "https://hyrdragon.digitaldiffuse.in/";
+  return null;
+};
+
 const App: React.FC = () => {
   // Initialize the money effect on first render
   useEffect(() => {
@@ -173,7 +179,7 @@ const App: React.FC = () => {
         <Route path="/" element={<Home />} />
         <Route path="/ai-products" element={<AIProducts />} />
         <Route path="/request-demo" element={<RequestDemo />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/login" element={handleLoginRedirect()} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/pricing" element={<Index />} />
