@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -25,7 +26,7 @@ const HyregramLogo: React.FC<HyregramLogoProps> = ({
         {/* Logo removed */}
       </div>
       {withText && (
-        <div className={`font-semibold ${textSize} bg-gradient-to-r from-[#E2FF55] to-[#9b87f5] bg-clip-text text-transparent`}>
+        <div className={`font-semibold ${textSize} bg-gradient-to-r from-[#E2FF55] to-[#9b87f5] bg-clip-text text-transparent animate-text-shimmer hover:animate-pulse-slow transition-all duration-300`}>
           Hyregram
         </div>
       )}

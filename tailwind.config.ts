@@ -71,6 +71,13 @@ export default {
 					'purple': '#9b87f5',
 					'purple-dark': '#7E69AB',
 					'purple-vivid': '#8B5CF6',
+				},
+				// New neon theme colors
+				neon: {
+					'green': '#E2FF55',
+					'green-glow': 'rgba(226, 255, 85, 0.6)',
+					'purple': '#9b87f5',
+					'purple-glow': 'rgba(155, 135, 245, 0.6)',
 				}
 			},
 			borderRadius: {
@@ -127,6 +134,29 @@ export default {
 					'0%': { transform: 'scale(0.8)', opacity: '0.8' },
 					'50%': { transform: 'scale(1.2)', opacity: '0' },
 					'100%': { transform: 'scale(0.8)', opacity: '0' },
+				},
+				'neon-pulse': {
+					'0%, 100%': { 
+						boxShadow: '0 0 5px #E2FF55, 0 0 10px #E2FF55, 0 0 15px #E2FF55, 0 0 20px #E2FF55'
+					},
+					'50%': { 
+						boxShadow: '0 0 10px #E2FF55, 0 0 20px #E2FF55, 0 0 30px #E2FF55, 0 0 40px #E2FF55'
+					}
+				},
+				'neon-click': {
+					'0%': { transform: 'scale(1)', opacity: '1' },
+					'50%': { transform: 'scale(1.5)', opacity: '0.5' },
+					'100%': { transform: 'scale(2)', opacity: '0' }
+				},
+				'promo-pulse': {
+					'0%, 100%': { 
+						transform: 'scale(1)',
+						textShadow: '0 0 5px #E2FF55, 0 0 10px #E2FF55'
+					},
+					'50%': { 
+						transform: 'scale(1.02)',
+						textShadow: '0 0 10px #E2FF55, 0 0 20px #E2FF55, 0 0 30px #E2FF55'
+					}
 				}
 			},
 			animation: {
@@ -139,7 +169,10 @@ export default {
 				'shine': 'shine 2s linear infinite',
 				'bounce-subtle': 'bounce-subtle 2s ease infinite',
 				'spin-slow': 'spin-slow 8s linear infinite',
-				'pulse-ring': 'pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite'
+				'pulse-ring': 'pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite',
+				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
+				'neon-click': 'neon-click 0.6s ease-out',
+				'promo-pulse': 'promo-pulse 2s ease-in-out infinite'
 			},
 			backgroundImage: {
 				'hyregram-gradient': 'linear-gradient(135deg, #1A1F2C 0%, #141824 100%)',

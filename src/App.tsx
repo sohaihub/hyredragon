@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
 import AIProducts from './pages/AIProducts';
@@ -18,41 +18,77 @@ import GeminiChatbot from './components/GeminiChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Add custom cursor styles
-const CustomCursorStyles = () => {
+// Custom cursor component
+const NeonCursor = () => {
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorDotRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
-    const addCustomCursor = () => {
-      const style = document.createElement('style');
-      style.innerHTML = `
-        body {
-          cursor: default;
-        }
-        
-        a, button, [role="button"], label[for], select, input[type="submit"], input[type="image"], input[type="button"], input[type="reset"], input[type="checkbox"], input[type="radio"] {
-          cursor: pointer;
-        }
-        
-        .hover-effect {
-          position: fixed;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          pointer-events: none;
-          background-color: rgba(226, 255, 85, 0.3);
-          transform: translate(-50%, -50%);
-          transition: width 0.2s, height 0.2s, background-color 0.2s;
-          z-index: 9999;
-          mix-blend-mode: difference;
-          box-shadow: 0 0 10px rgba(226, 255, 85, 0.7), 0 0 20px rgba(226, 255, 85, 0.5);
-        }
-      `;
-      document.head.appendChild(style);
+    const cursor = cursorRef.current;
+    const cursorDot = cursorDotRef.current;
+    
+    if (!cursor || !cursorDot) return;
+    
+    const moveCursor = (e: MouseEvent) => {
+      cursor.style.left = `${e.clientX}px`;
+      cursor.style.top = `${e.clientY}px`;
+      cursorDot.style.left = `${e.clientX}px`;
+      cursorDot.style.top = `${e.clientY}px`;
     };
     
-    addCustomCursor();
+    const enlargeCursor = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const isClickable = 
+        target.tagName.toLowerCase() === 'a' || 
+        target.tagName.toLowerCase() === 'button' || 
+        target.closest('a') || 
+        target.closest('button') || 
+        target.closest('[role="button"]') ||
+        target.closest('input[type="submit"]') ||
+        target.closest('input[type="button"]') ||
+        target.closest('label[for]');
+      
+      if (isClickable) {
+        cursor.classList.add('scale-150');
+      } else {
+        cursor.classList.remove('scale-150');
+      }
+    };
+    
+    const createClickEffect = (e: MouseEvent) => {
+      const clickEffect = document.createElement('div');
+      clickEffect.className = 'neon-click-effect';
+      clickEffect.style.width = '20px';
+      clickEffect.style.height = '20px';
+      clickEffect.style.left = `${e.clientX}px`;
+      clickEffect.style.top = `${e.clientY}px`;
+      
+      document.body.appendChild(clickEffect);
+      
+      setTimeout(() => {
+        if (clickEffect && clickEffect.parentNode === document.body) {
+          document.body.removeChild(clickEffect);
+        }
+      }, 600);
+    };
+    
+    document.addEventListener('mousemove', moveCursor);
+    document.addEventListener('mouseover', enlargeCursor);
+    document.addEventListener('click', createClickEffect);
+    
+    return () => {
+      document.removeEventListener('mousemove', moveCursor);
+      document.removeEventListener('mouseover', enlargeCursor);
+      document.removeEventListener('click', createClickEffect);
+    };
   }, []);
-  
-  return null;
+
+  return (
+    <>
+      <div ref={cursorRef} className="neon-cursor transition-transform duration-150"></div>
+      <div ref={cursorDotRef} className="neon-cursor-dot"></div>
+    </>
+  );
 };
 
 // Add money falling effect
@@ -169,7 +205,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <PageSetup />
-      <CustomCursorStyles />
+      <NeonCursor />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />

@@ -98,11 +98,13 @@ const PricingPackagesSection: React.FC = () => {
         </p>
         
         <div className="max-w-4xl mx-auto mb-8 perspective-800">
-          <div className="bg-[#0F103E]/70 rounded-lg p-6 text-center relative overflow-hidden promo-container transform transition-transform duration-300">
-            <div className="flex items-center justify-center gap-2 text-2xl font-bold animate-pulse">
-              <span className="text-orange-500">🔥</span>
-              <span className="text-orange-500">FIRST 50 CUSTOMERS GET 3 FREE HOURS!</span>
-              <span className="text-orange-500">🔥</span>
+          <div className="promo-box promo-container text-center relative overflow-hidden transform transition-transform duration-300">
+            <div className="flex items-center justify-center gap-2 text-2xl">
+              <span className="text-neon-green">🔥</span>
+              <span className="promo-text tracking-wide font-bold bg-gradient-to-r from-[#E2FF55] to-[#7B78FF] bg-clip-text text-transparent animate-text-shimmer">
+                FIRST 50 CUSTOMERS GET 3 FREE HOURS!
+              </span>
+              <span className="text-neon-green">🔥</span>
             </div>
             
             {/* This div is for styling only, money particles will be added via JS */}
@@ -139,7 +141,7 @@ const PricingPackagesSection: React.FC = () => {
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-[#0F103E]/70 rounded-lg p-6 transform transition-transform duration-300">
+          <div className="neon-border bg-[#0F103E]/70 p-6 transform transition-transform duration-300 hover:shadow-[0_0_20px_rgba(226,255,85,0.4)]">
             <h3 className="text-xl font-bold text-white mb-4">Billing Notes</h3>
             <ul className="space-y-3">
               {billingNotes.map((note, index) => (
@@ -150,13 +152,13 @@ const PricingPackagesSection: React.FC = () => {
               ))}
             </ul>
           </div>
-          <div className="bg-[#0F103E]/70 rounded-lg p-6 transform transition-transform duration-300">
+          <div className="neon-border bg-[#0F103E]/70 p-6 transform transition-transform duration-300 hover:shadow-[0_0_20px_rgba(226,255,85,0.4)]">
             <h3 className="text-xl font-bold text-white mb-4">Ready To Get Started?</h3>
             <p className="text-gray-300 mb-6">
               Sign up today and receive our exclusive early adopter benefits. No credit card required.
             </p>
             <Link to="/pricing">
-              <Button className="w-full bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 py-6 group relative overflow-hidden">
+              <Button className="w-full neon-button py-6 group relative overflow-hidden">
                 <span className="relative z-10">Explore Pricing</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
               </Button>

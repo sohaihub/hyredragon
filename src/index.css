@@ -70,21 +70,51 @@
 @layer base {
   * {
     @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-    @apply pt-0;
+    cursor: none !important; /* Hide default cursor */
   }
   html {
-    @apply scroll-smooth;
+    @apply relative scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground relative;
+    @apply pt-0;
   }
   main {
     @apply pt-16;
   }
 
-  /* Interactive elements cursor with background */
-  a, button, [role="button"], input, select, textarea {
-    cursor: pointer;
+  /* Custom cursor */
+  .neon-cursor {
+    @apply fixed w-6 h-6 rounded-full bg-neon-green/50 pointer-events-none z-[9999] mix-blend-difference;
+    box-shadow: 0 0 10px #E2FF55, 0 0 20px #E2FF55;
+    transform: translate(-50%, -50%);
+    transition: width 0.1s, height 0.1s;
+  }
+
+  .neon-cursor-dot {
+    @apply fixed w-2 h-2 rounded-full bg-neon-green pointer-events-none z-[10000];
+    transform: translate(-50%, -50%);
+  }
+
+  /* Button and interactive element styles */
+  button, a, [role="button"], input[type="submit"], input[type="button"], label[for], select, .interactive {
+    @apply relative overflow-hidden;
+  }
+
+  button:hover, a:hover, [role="button"]:hover, input[type="submit"]:hover, input[type="button"]:hover, .interactive:hover {
+    @apply after:absolute after:inset-0 after:bg-neon-green/10 after:animate-neon-pulse;
+  }
+
+  button:active, a:active, [role="button"]:active, input[type="submit"]:active, input[type="button"]:active, .interactive:active {
+    @apply after:absolute after:inset-0 after:bg-neon-green/20 after:animate-none;
+  }
+
+  /* Click effect */
+  .neon-click-effect {
+    @apply absolute rounded-full pointer-events-none;
+    background: radial-gradient(circle, rgba(226, 255, 85, 0.8) 0%, rgba(226, 255, 85, 0) 70%);
+    transform: translate(-50%, -50%);
+    animation: neon-click 0.6s ease-out forwards;
   }
 
   /* Money particles effect */
@@ -186,6 +216,41 @@
   .animated-text:hover {
     color: #E2FF55;
     text-shadow: 0 0 8px rgba(226, 255, 85, 0.5);
+  }
+  
+  /* Promo text styling */
+  .promo-text {
+    @apply font-bold text-neon-green;
+    text-shadow: 0 0 5px #E2FF55, 0 0 10px #E2FF55;
+    animation: promo-pulse 2s ease-in-out infinite;
+    letter-spacing: 0.5px;
+  }
+  
+  .promo-box {
+    @apply rounded-lg border border-neon-green/50 bg-[#0F103E]/70 p-4 relative overflow-hidden;
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.3);
+    animation: neon-pulse 3s ease-in-out infinite;
+  }
+  
+  /* Neon theme elements */
+  .neon-border {
+    @apply border border-neon-green/50 rounded-lg overflow-hidden;
+    box-shadow: 0 0 10px rgba(226, 255, 85, 0.5);
+  }
+  
+  .neon-text {
+    @apply text-neon-green;
+    text-shadow: 0 0 5px rgba(226, 255, 85, 0.8), 0 0 10px rgba(226, 255, 85, 0.5);
+  }
+  
+  .neon-button {
+    @apply bg-neon-green/90 text-[#0A0A29] px-4 py-2 rounded-lg transition-all duration-300;
+    box-shadow: 0 0 10px rgba(226, 255, 85, 0.5), 0 0 20px rgba(226, 255, 85, 0.3);
+  }
+  
+  .neon-button:hover {
+    @apply bg-neon-green;
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.7), 0 0 30px rgba(226, 255, 85, 0.5);
   }
 }
 
