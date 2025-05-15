@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { MessageCircle, Flame } from 'lucide-react';
+import DragonIcon from './DragonIcon';
 
 const PricingFAQs: React.FC = () => {
   const faqs = [
@@ -35,13 +36,14 @@ const PricingFAQs: React.FC = () => {
 
   return (
     <section className="py-16 md:py-20 px-4 relative overflow-hidden">
-      {/* Background neon circles */}
-      <div className="absolute top-1/3 right-1/4 w-72 h-72 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
-      <div className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
+      {/* Enhanced animated background */}
+      <div className="absolute top-1/3 right-1/4 w-72 h-72 rounded-full bg-[#E2FF55]/10 blur-3xl animate-[pulse_8s_ease-in-out_infinite]"></div>
+      <div className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl animate-[pulse_12s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
       
       <div className="container mx-auto relative z-10 max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center">
-          Frequently Asked <span className="text-[#E2FF55]">Questions</span>
+        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center relative inline-block w-full">
+          Frequently Asked <span className="text-[#E2FF55] animate-[glow_3s_ease-in-out_infinite]">Questions</span>
+          <div className="absolute -bottom-2 left-1/4 w-1/2 h-1 bg-gradient-to-r from-transparent via-[#E2FF55] to-transparent opacity-60 animate-[pulse_4s_ease-in-out_infinite]"></div>
         </h2>
         
         <Accordion type="single" collapsible className="space-y-4">
@@ -49,12 +51,13 @@ const PricingFAQs: React.FC = () => {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="border border-[#7B78FF]/30 rounded-lg bg-[#0A0A29]/60 overflow-hidden"
+              className="border border-[#7B78FF]/30 rounded-lg bg-[#0A0A29]/60 overflow-hidden transform transition-all duration-300 hover:shadow-md hover:shadow-[#7B78FF]/20 hover:border-[#7B78FF]/50 animate-[fadeIn_0.5s_ease-out]"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <AccordionTrigger className="px-6 py-4 text-white hover:text-[#E2FF55] text-lg font-medium">
-                {faq.question}
+              <AccordionTrigger className="px-6 py-4 text-white hover:text-[#E2FF55] text-lg font-medium group">
+                <span className="group-hover:translate-x-1 transition-transform duration-300">{faq.question}</span>
               </AccordionTrigger>
-              <AccordionContent className="px-6 pb-4 text-gray-300">
+              <AccordionContent className="px-6 pb-4 text-gray-300 animate-[fadeIn_0.3s_ease-out]">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -65,7 +68,7 @@ const PricingFAQs: React.FC = () => {
           <p className="text-white text-lg mb-4">Still have questions?</p>
           
           <Button 
-            className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#080820] px-6 py-6 rounded-full flex items-center gap-2 border-2 border-transparent hover:border-[#E2FF55]/50 transition-all duration-300"
+            className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#080820] px-6 py-6 rounded-full flex items-center gap-2 border-2 border-transparent hover:border-[#E2FF55]/50 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-[#E2FF55]/30 overflow-hidden relative group"
             onClick={() => {
               // This would trigger the chatbot to open
               const chatbotButton = document.querySelector('.fixed.bottom-8.right-8 button');
@@ -74,11 +77,11 @@ const PricingFAQs: React.FC = () => {
               }
             }}
           >
-            <div className="relative">
-              <Flame className="w-6 h-6" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#7B78FF] rounded-full border-2 border-[#080820]"></div>
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shine_1s_ease-out]"></span>
+            <div className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center">
+              <DragonIcon className="w-6 h-6" />
             </div>
-            <span className="font-medium">Chat with HyreDragon Assistant</span>
+            <span className="font-medium relative z-10">Chat with HyreDragon Assistant</span>
           </Button>
         </div>
       </div>

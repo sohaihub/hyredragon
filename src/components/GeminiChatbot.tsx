@@ -4,12 +4,14 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { X, Send, Flame, MessageCircle } from 'lucide-react';
 import { toast } from './ui/use-toast';
+import DragonIcon from './DragonIcon';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
   content: string;
-  id?: string;
+  id: string;
   parentId?: string;
+  timestamp: number;
 }
 
 const GeminiChatbot: React.FC = () => {
@@ -18,12 +20,13 @@ const GeminiChatbot: React.FC = () => {
     { 
       role: 'assistant', 
       content: 'Hello! I\'m your AI assistant. Ask me anything about HyreDragon\'s features and services.', 
-      id: 'initial-message' 
+      id: 'initial-message',
+      timestamp: Date.now()
     }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [activeThread, setActiveThread] = useState<string | null>('initial-message');
+  const [activeThread, setActiveThread] = useState<string>('initial-message');
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const systemPrompt = `
@@ -111,7 +114,8 @@ const GeminiChatbot: React.FC = () => {
       role: 'user', 
       content: input,
       id: messageId,
-      parentId: activeThread
+      parentId: activeThread,
+      timestamp: Date.now()
     };
     
     setMessages(prev => [...prev, userMessage]);
@@ -158,7 +162,8 @@ const GeminiChatbot: React.FC = () => {
         role: 'assistant', 
         content: botResponse,
         id: assistantMessageId,
-        parentId: messageId
+        parentId: messageId,
+        timestamp: Date.now()
       };
       
       setMessages(prev => [...prev, assistantMessage]);
@@ -176,7 +181,8 @@ const GeminiChatbot: React.FC = () => {
         role: 'assistant', 
         content: "I'm having trouble connecting right now. Please try again later.",
         id: generateMessageId(),
-        parentId: messageId
+        parentId: messageId,
+        timestamp: Date.now()
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
@@ -184,11 +190,11 @@ const GeminiChatbot: React.FC = () => {
     }
   };
 
-  const getConversationThread = (threadId: string | null) => {
+  const getConversationThread = (threadId: string) => {
     if (!threadId) return [messages[0]]; // Return initial greeting if no thread
     
     const result: Message[] = [];
-    let currentId = threadId;
+    let currentId: string | undefined = threadId;
     
     // Traverse up the thread to reconstruct the conversation
     while (currentId) {
@@ -197,44 +203,61 @@ const GeminiChatbot: React.FC = () => {
         result.unshift(message);
         currentId = message.parentId;
       } else {
-        currentId = null;
+        currentId = undefined;
       }
     }
     
     return result;
   };
 
-  // Dragon-themed flame icon
-  const DragonFlameIcon = () => (
-    <div className="relative">
-      <Flame className="w-6 h-6 text-[#E2FF55]" />
-      <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#FF9F5A]" />
-    </div>
-  );
+  // Group messages by threads for better visualization
+  const getThreadedMessages = () => {
+    const threads: Record<string, Message[]> = {};
+    
+    // First pass: organize messages by their parentId
+    messages.forEach(message => {
+      const parentId = message.parentId || 'root';
+      if (!threads[parentId]) {
+        threads[parentId] = [];
+      }
+      threads[parentId].push(message);
+    });
+    
+    // Find root messages (those without parents or with non-existent parents)
+    const rootMessages = messages.filter(message => 
+      !message.parentId || !messages.some(m => m.id === message.parentId)
+    );
+    
+    return rootMessages.sort((a, b) => a.timestamp - b.timestamp);
+  };
+
+  const threadedMessages = getThreadedMessages();
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Chat bubble button - updated to be stable, no hover effects */}
+      {/* Chat bubble button - with enhanced animation */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] shadow-lg flex items-center justify-center relative"
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] shadow-lg flex items-center justify-center relative overflow-hidden animate-pulse hover:animate-none hover:scale-110 transition-all duration-300"
           aria-label="Open AI Assistant"
         >
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 animate-[shine_3s_ease-in-out_infinite]"></div>
           <div className="w-10 h-10 flex items-center justify-center">
-            <MessageCircle className="w-7 h-7 text-[#080820]" />
+            <DragonIcon className="w-7 h-7" />
           </div>
         </Button>
       )}
       
-      {/* Chat window */}
+      {/* Chat window with advanced animations */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border border-[#E2FF55] rounded-2xl shadow-xl flex flex-col w-96 sm:w-[500px] h-[650px] animate-scale-in">
+        <div className="bg-[#0A0A29] border-2 border-[#E2FF55] rounded-2xl shadow-2xl shadow-[#E2FF55]/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-[scale-in_0.3s_ease-out]">
           {/* Chat header - updated with theme colors */}
-          <div className="p-4 border-b border-[#E2FF55]/30 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
-            <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
-                <DragonFlameIcon />
+          <div className="p-4 border-b-2 border-[#E2FF55]/50 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#E2FF55]/10 to-transparent opacity-30 animate-[shine_3s_ease-in-out_infinite]"></div>
+            <div className="flex items-center relative z-10">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1 animate-pulse">
+                <DragonIcon className="w-7 h-7" />
               </div>
               <div>
                 <h3 className="text-white font-semibold text-lg">HyreDragon AI</h3>
@@ -245,13 +268,13 @@ const GeminiChatbot: React.FC = () => {
               variant="ghost" 
               size="sm" 
               onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white"
+              className="text-gray-400 hover:text-white relative z-10 hover:bg-[#E2FF55]/10 transition-all duration-300"
             >
               <X className="w-5 h-5" />
             </Button>
           </div>
           
-          {/* Chat messages */}
+          {/* Chat messages with improved threading and animations */}
           <div 
             className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#E2FF55]/20 scrollbar-track-transparent bg-[#0A0A29] bg-opacity-95"
             ref={chatContainerRef}
@@ -262,58 +285,65 @@ const GeminiChatbot: React.FC = () => {
             {messages.map((message, index) => (
               <div 
                 key={index} 
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
-                onClick={() => setActiveThread(message.id || null)}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-[fadeIn_0.3s_ease-out] ${message.parentId ? 'ml-6' : ''}`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+                onClick={() => setActiveThread(message.id)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30">
-                    <Flame className="w-5 h-5 text-[#FF9F5A]" />
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 group-hover:from-[#E2FF55]/30 group-hover:to-[#FF9F5A]/30 transition-all duration-300">
+                    <DragonIcon className="w-5 h-5" />
                   </div>
                 )}
                 <div 
-                  className={`max-w-[80%] rounded-2xl p-3 cursor-pointer ${
+                  className={`max-w-[80%] rounded-2xl p-3 cursor-pointer group transition-all duration-300 ${
                     message.role === 'user' 
-                      ? 'bg-gradient-to-r from-[#E2FF55] to-[#E2FF55]/90 text-[#0A0A29]' 
-                      : 'bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20'
-                  } ${activeThread === message.id ? 'ring-2 ring-[#E2FF55]/50' : ''}`}
+                      ? 'bg-gradient-to-r from-[#E2FF55] to-[#E2FF55]/90 text-[#0A0A29] hover:shadow-md hover:shadow-[#E2FF55]/20' 
+                      : 'bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20 hover:border-[#7B78FF]/40 hover:shadow-md hover:shadow-[#7B78FF]/20'
+                  } ${activeThread === message.id ? 'ring-2 ring-[#E2FF55]/50 transform scale-[1.02]' : ''}`}
                 >
                   {message.content}
+                  <div className="mt-1 text-right">
+                    <span className={`text-xs ${message.role === 'user' ? 'text-[#0A0A29]/70' : 'text-gray-400'}`}>
+                      {new Date(message.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                    </span>
+                  </div>
                 </div>
               </div>
             ))}
             {isLoading && (
-              <div className="flex justify-start">
+              <div className="flex justify-start animate-[fadeIn_0.3s_ease-out]">
                 <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30">
-                  <Flame className="w-5 h-5 text-[#FF9F5A] animate-pulse" />
+                  <DragonIcon className="w-5 h-5 animate-pulse" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">
-                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-pulse"></div>
-                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-pulse delay-100"></div>
-                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-pulse delay-200"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-[pulse_0.8s_ease-in-out_infinite]"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-[pulse_0.8s_ease-in-out_infinite_0.2s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-[pulse_0.8s_ease-in-out_infinite_0.4s]"></div>
                   </div>
                 </div>
               </div>
             )}
           </div>
           
-          {/* Chat input - updated with theme colors */}
-          <div className="p-4 border-t border-[#E2FF55]/30 bg-[#080822] rounded-b-2xl">
-            <div className="flex items-center gap-2">
+          {/* Chat input - enhanced with animations */}
+          <div className="p-4 border-t-2 border-[#E2FF55]/30 bg-[#080822] rounded-b-2xl">
+            <div className="flex items-center gap-2 relative">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
+                onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                 placeholder="Ask about HyreDragon features..."
-                className="flex-1 bg-[#0F103E] border-[#E2FF55]/30 focus:border-[#E2FF55] text-white"
+                className="flex-1 bg-[#0F103E] border-[#E2FF55]/30 focus:border-[#E2FF55] text-white focus:ring-[#E2FF55]/30 transition-all duration-300"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] hover:opacity-90 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center"
+                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] hover:opacity-90 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center rounded-full transform hover:scale-105 transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
               >
-                <Send className="w-5 h-5" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 animate-[shine_3s_ease-in-out_infinite]"></div>
+                <Send className="w-5 h-5 relative z-10" />
               </Button>
             </div>
           </div>
