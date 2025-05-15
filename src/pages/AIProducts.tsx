@@ -3,310 +3,268 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const FeatureCard: React.FC<{
-  icon: React.ReactNode;
+interface ProductCardProps {
   title: string;
   description: string;
+  icon: React.ReactNode;
   features: string[];
-  button: {
-    text: string;
-    link: string;
-  };
-  color: string;
-}> = ({ icon, title, description, features, button, color }) => {
-  return (
-    <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-8 hover:border-[#E2FF55]/20 transition-all duration-300">
-      <div className={`inline-block p-4 ${color} rounded-xl mb-6`}>
-        {icon}
+  buttonText: string;
+  buttonUrl: string;
+  accentColor: string;
+  isPopular?: boolean;
+}
+
+const ProductCard: React.FC<ProductCardProps> = ({
+  title,
+  description,
+  icon,
+  features,
+  buttonText,
+  buttonUrl,
+  accentColor,
+  isPopular = false
+}) => (
+  <div className={`relative bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-${accentColor} transition-all duration-300 animate-on-scroll`}>
+    {isPopular && (
+      <div className="absolute top-0 right-6 transform -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
+        Most Popular
       </div>
-      <h3 className="text-2xl font-bold text-white mb-4">{title}</h3>
-      <p className="text-gray-300 mb-6">{description}</p>
-      
-      <div className="space-y-3 mb-8">
-        {features.map((feature, index) => (
-          <div key={index} className="flex items-start">
-            <CheckCircle className="w-5 h-5 text-[#E2FF55] mr-3 flex-shrink-0 mt-0.5" />
-            <span className="text-gray-200">{feature}</span>
-          </div>
-        ))}
-      </div>
-      
-      <Link to={button.link}>
-        <Button className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/80 w-full flex items-center justify-center gap-2">
-          {button.text} <ArrowRight className="w-4 h-4" />
+    )}
+    <div className={`inline-block p-3 bg-${accentColor}/20 rounded-xl mb-4`}>
+      {icon}
+    </div>
+    <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
+    <p className="text-gray-300 mb-6">{description}</p>
+    
+    <h4 className="text-sm font-semibold text-gray-400 mb-3">FEATURES:</h4>
+    <ul className="space-y-2 mb-8">
+      {features.map((feature, index) => (
+        <li key={index} className="flex items-start">
+          <CheckCircle className={`h-5 w-5 text-${accentColor} mr-2 flex-shrink-0`} />
+          <span className="text-gray-300 text-sm">{feature}</span>
+        </li>
+      ))}
+    </ul>
+    
+    <div className="mt-auto">
+      <Link to={buttonUrl}>
+        <Button 
+          variant="outline"
+          className={`w-full border-${accentColor} text-${accentColor} hover:bg-${accentColor}/20`}
+        >
+          {buttonText}
+          <ArrowRight className="ml-2 h-4 w-4" />
         </Button>
       </Link>
     </div>
-  );
-};
-
-const IndustryCard: React.FC<{
-  title: string;
-  description: string;
-  features: string[];
-  buttonType: 'request-demo' | 'coming-soon';
-  color: string;
-}> = ({ title, description, features, buttonType, color }) => {
-  return (
-    <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/20 transition-all duration-300">
-      <div className={`h-2 ${color} rounded-full mb-6`}></div>
-      <h3 className="text-xl font-bold text-white mb-3">{title}</h3>
-      <p className="text-gray-300 mb-4">{description}</p>
-      
-      <div className="space-y-2 mb-6">
-        {features.map((feature, index) => (
-          <div key={index} className="flex items-start">
-            <CheckCircle className="w-4 h-4 text-[#E2FF55] mr-2 flex-shrink-0 mt-0.5" />
-            <span className="text-gray-200 text-sm">{feature}</span>
-          </div>
-        ))}
-      </div>
-      
-      {buttonType === 'request-demo' ? (
-        <Link to="/request-demo">
-          <Button className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/80 w-full text-sm">
-            Request a demo
-          </Button>
-        </Link>
-      ) : (
-        <Button disabled className="bg-gray-700/50 text-gray-400 w-full text-sm cursor-not-allowed">
-          Coming Soon
-        </Button>
-      )}
-    </div>
-  );
-};
+  </div>
+);
 
 const AIProducts: React.FC = () => {
+  const products = [
+    {
+      title: "AI Assessment Suite",
+      description: "Conduct comprehensive skill evaluations with our adaptive AI testing platform.",
+      icon: <FileSpreadsheet className="w-6 h-6 text-[#7B78FF]" />,
+      features: [
+        "Customizable test templates",
+        "Automated grading",
+        "Anti-cheating mechanisms",
+        "Detailed performance analytics",
+        "Integration with ATS systems"
+      ],
+      buttonText: "Explore Assessment Suite",
+      buttonUrl: "/request-demo",
+      accentColor: "[#7B78FF]",
+      isPopular: true
+    },
+    {
+      title: "Pre-Screened Talent Pool",
+      description: "Access a curated database of pre-vetted candidates ready for your opportunities.",
+      icon: <Users className="w-6 h-6 text-[#E2FF55]" />,
+      features: [
+        "AI-filtered candidate profiles",
+        "Advanced search capabilities",
+        "Skill verification badges",
+        "Direct messaging system",
+        "Candidate availability tracking"
+      ],
+      buttonText: "Browse Talent Pool",
+      buttonUrl: "/request-demo",
+      accentColor: "[#E2FF55]"
+    },
+    {
+      title: "AI Video Interview",
+      description: "Streamline your interviewing process with our intelligent video platform.",
+      icon: <Zap className="w-6 h-6 text-[#FF9F5A]" />,
+      features: [
+        "Automated interview scheduling",
+        "AI sentiment analysis",
+        "Built-in recording capabilities",
+        "Collaborative interview scoring",
+        "Candidate engagement metrics"
+      ],
+      buttonText: "Try Video Interviews",
+      buttonUrl: "/request-demo",
+      accentColor: "[#FF9F5A]"
+    },
+    {
+      title: "Compliance Guardian",
+      description: "Stay compliant with all hiring regulations while streamlining your recruitment.",
+      icon: <Shield className="w-6 h-6 text-[#4ECDC4]" />,
+      features: [
+        "Automated compliance checks",
+        "Geographic regulation awareness",
+        "Documentation management",
+        "Audit trail generation",
+        "Regular compliance updates"
+      ],
+      buttonText: "Ensure Compliance",
+      buttonUrl: "/request-demo",
+      accentColor: "[#4ECDC4]"
+    }
+  ];
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
       {/* Background elements */}
-      <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
-        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
-        <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
-        <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
+      <div className="fixed top-0 left-0 w-full h-full">
+        {/* Background circular gradients */}
+        <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
+        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
       </div>
       
       <Header />
       
       <main className="flex-grow relative z-10 pt-24">
         {/* Hero Section */}
-        <section className="py-12 mb-16 px-4">
-          <div className="container mx-auto">
-            <div className="text-center max-w-3xl mx-auto">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                AI-Powered <span className="text-[#E2FF55]">Recruitment Products</span>
-              </h1>
-              <p className="text-xl text-gray-300 mb-8">
-                Discover our suite of advanced AI tools designed to transform your recruitment process from start to finish
-              </p>
-            </div>
+        <section className="py-12 md:py-20 px-4 text-center">
+          <div className="container mx-auto max-w-4xl">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
+              HyreDragon's <span className="text-[#E2FF55] animate-glow">AI Products</span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
+              Our suite of intelligent recruitment tools designed to revolutionize your hiring process, reduce bias, and find the perfect candidates faster.
+            </p>
           </div>
         </section>
         
-        {/* Main Features */}
+        {/* Products Grid */}
         <section className="py-12 px-4">
           <div className="container mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12 text-white">Core Products</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <FeatureCard 
-                icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M20 6L9 17L4 12" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>}
-                title="AI Candidate Matching"
-                description="Find the perfect candidates faster with our advanced AI matching algorithm."
-                features={[
-                  "85%+ accuracy in candidate-job matching",
-                  "Automated skill assessment and ranking",
-                  "Customizable matching criteria",
-                  "Bias reduction algorithms"
-                ]}
-                button={{
-                  text: "Learn More",
-                  link: "/coming-soon"
-                }}
-                color="bg-[#E2FF55]/20"
-              />
-              
-              <FeatureCard 
-                icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M22 12H18L15 21L9 3L6 12H2" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>}
-                title="Smart Screening Process"
-                description="Automate initial candidate screening to save time and focus on quality candidates."
-                features={[
-                  "Automated resume parsing and analysis",
-                  "Pre-screening questionnaires",
-                  "Skills assessment integration",
-                  "Video interview scheduling"
-                ]}
-                button={{
-                  text: "Learn More",
-                  link: "/coming-soon"
-                }}
-                color="bg-[#E2FF55]/20"
-              />
-              
-              <FeatureCard 
-                icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 21V19C17 16.7909 15.2091 15 13 15H5C2.79086 15 1 16.7909 1 19V21" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M23 21V19C22.9986 17.1771 21.765 15.5857 20 15.13" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M16 3.13C17.7699 3.58317 19.0078 5.17798 19.0078 7.005C19.0078 8.83202 17.7699 10.4268 16 10.88" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>}
-                title="Interview Management"
-                description="Streamline your interview process with AI-assisted tools and collaboration features."
-                features={[
-                  "AI-generated interview questions",
-                  "Collaborative interview feedback",
-                  "Structured interview templates",
-                  "Candidate evaluation frameworks"
-                ]}
-                button={{
-                  text: "Learn More",
-                  link: "/coming-soon"
-                }}
-                color="bg-[#E2FF55]/20"
-              />
-              
-              <FeatureCard 
-                icon={<svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M18 20V10" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M12 20V4" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M6 20V14" stroke="#0A0A29" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>}
-                title="Analytics & Reporting"
-                description="Gain valuable insights into your recruitment process with advanced analytics."
-                features={[
-                  "Comprehensive recruitment metrics dashboard",
-                  "Customizable reporting",
-                  "Recruitment funnel analytics",
-                  "Data-driven hiring recommendations"
-                ]}
-                button={{
-                  text: "Learn More", 
-                  link: "/coming-soon"
-                }}
-                color="bg-[#E2FF55]/20"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+              {products.map((product, index) => (
+                <ProductCard
+                  key={index}
+                  title={product.title}
+                  description={product.description}
+                  icon={product.icon}
+                  features={product.features}
+                  buttonText={product.buttonText}
+                  buttonUrl={product.buttonUrl}
+                  accentColor={product.accentColor}
+                  isPopular={product.isPopular}
+                />
+              ))}
             </div>
           </div>
         </section>
         
-        {/* Industry-specific solutions */}
-        <section className="py-12 px-4 bg-[#07071D]/50">
-          <div className="container mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-white mb-4">Industry-Specific Solutions</h2>
-              <p className="text-gray-300 max-w-2xl mx-auto">
-                Specialized recruitment solutions tailored for the unique challenges of different industries
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              <IndustryCard 
-                title="Tech Talent Acquisition"
-                description="Specialized solutions for recruiting tech professionals and developers."
-                features={[
-                  "Technical skills assessment",
-                  "Code challenge integration",
-                  "Tech stack matching",
-                  "Developer community integration"
-                ]}
-                buttonType="request-demo"
-                color="bg-gradient-to-r from-[#E2FF55] to-[#7B78FF]"
-              />
-              
-              <IndustryCard 
-                title="Educational Institutions"
-                description="Specialized solutions for educational staffing and faculty recruitment."
-                features={[
-                  "Academic credential verification",
-                  "Course-specific expertise matching",
-                  "Teaching evaluation tools",
-                  "Faculty onboarding automation",
-                  "Student engagement analytics",
-                  "Research profile compatibility assessment"
-                ]}
-                buttonType="coming-soon"
-                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
-              />
-              
-              <IndustryCard 
-                title="Healthcare Staffing Solutions"
-                description="Solutions for healthcare organizations to find qualified medical professionals."
-                features={[
-                  "Medical credentials verification",
-                  "Compliance and licensing tracking",
-                  "Specialty-specific matching",
-                  "Shift scheduling integration"
-                ]}
-                buttonType="coming-soon"
-                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
-              />
-              
-              <IndustryCard 
-                title="Pre-Screened Talent Pool:"
-                description="ccess a vetted database of candidates who've completed skill assessments & video interviews."
-                features={[
-                  "Skip initial screening rounds",
-                  "fast-track to final interviews or offers",
-                  "Digital collaboration skills evaluation"
-                ]}
-                buttonType="coming-soon"
-                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
-              />
-              
-              <IndustryCard 
-                title="Retail & Hospitality"
-                description="Solutions for high-volume, customer-facing role recruitment."
-                features={[
-                  "Customer service aptitude testing",
-                  "High-volume candidate processing",
-                  "Seasonal staffing optimization",
-                  "Soft skills assessment"
-                ]}
-                buttonType="coming-soon"
-                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
-              />
-              
-              <IndustryCard 
-                title="Financial Services"
-                description="Specialized recruitment for banking, insurance, and financial institutions."
-                features={[
-                  "Regulatory compliance verification",
-                  "Financial certification tracking",
-                  "Risk assessment profiling",
-                  "Ethics and compliance screening"
-                ]}
-                buttonType="coming-soon"
-                color="bg-gradient-to-r from-[#9b87f5] to-[#E2FF55]"
-              />
+        {/* Feature Highlight */}
+        <section className="py-16 md:py-24 px-4 relative overflow-hidden">
+          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820]/0"></div>
+          <div className="container mx-auto relative z-10">
+            <div className="max-w-4xl mx-auto">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-8 md:p-10 animate-float">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
+                  HyreDragon's Edge: <span className="text-[#E2FF55]">Slay the Competition</span>
+                </h2>
+                <p className="text-gray-300 mb-8">
+                  Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
+                </p>
+                
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="p-5 bg-[#0A0A29]/50 rounded-lg border border-gray-800">
+                    <h3 className="font-semibold text-white mb-4">Traditional Platforms</h3>
+                    <ul className="space-y-3">
+                      <li className="flex items-center">
+                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                        <span className="text-gray-400">Multiple tools required</span>
+                      </li>
+                      <li className="flex items-center">
+                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                        <span className="text-gray-400">Complex integrations</span>
+                      </li>
+                      <li className="flex items-center">
+                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                        <span className="text-gray-400">Higher total cost</span>
+                      </li>
+                      <li className="flex items-center">
+                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                        <span className="text-gray-400">Inconsistent user experience</span>
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-5 bg-[#0F103E]/80 rounded-lg border border-[#E2FF55]/30">
+                    <h3 className="font-semibold text-[#E2FF55] mb-4">HyreDragon Advantage</h3>
+                    <ul className="space-y-3">
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                        <span className="text-white">All-in-one platform</span>
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                        <span className="text-white">Seamless experience</span>
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                        <span className="text-white">Cost-effective solution</span>
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                        <span className="text-white">Unified data analytics</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className="mt-8 text-center">
+                  <Link to="/request-demo">
+                    <Button 
+                      size="lg"
+                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8"
+                    >
+                      See It In Action <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
         
         {/* CTA Section */}
-        <section className="py-20 px-4">
+        <section className="py-16 md:py-20 px-4">
           <div className="container mx-auto">
-            <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-8 md:p-12 text-center max-w-4xl mx-auto">
-              <h2 className="text-3xl font-bold text-white mb-4">Ready to Transform Your Hiring Process?</h2>
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-                Join thousands of organizations that have revolutionized their recruitment with HyrDragon's AI-powered platform.
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
+                Ready to Transform Your Recruitment?
+              </h2>
+              <p className="text-xl text-gray-300 mb-8">
+                Join the companies already using HyreDragon to build better teams faster.
               </p>
-              <div className="flex justify-center">
-                <Link to="/request-demo">
-                  <Button 
-                    size="lg"
-                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 font-medium px-8 py-6 rounded-full flex items-center gap-2"
-                  >
-                    Request a demo <ArrowRight className="w-5 h-5" />
-                  </Button>
-                </Link>
-              </div>
+              <Link to="/request-demo">
+                <Button 
+                  size="lg"
+                  className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 px-8 rounded-full button-highlight relative overflow-hidden"
+                >
+                  Schedule a Demo
+                </Button>
+              </Link>
             </div>
           </div>
         </section>

@@ -23,16 +23,6 @@ const Header: React.FC = () => {
           {/* Desktop menu */}
           <nav className="hidden md:flex items-center space-x-8">
             <Link 
-              to="/solutions" 
-              className={`transition-colors duration-300 font-medium ${
-                isActive('/solutions') 
-                  ? 'text-[#E2FF55]' 
-                  : 'text-white hover:text-[#E2FF55]'
-              }`}
-            >
-              Solutions
-            </Link>
-            <Link 
               to="/ai-products" 
               className={`transition-colors duration-300 font-medium ${
                 isActive('/ai-products') 
@@ -41,16 +31,6 @@ const Header: React.FC = () => {
               }`}
             >
               AI Products
-            </Link>
-            <Link 
-              to="/resources" 
-              className={`transition-colors duration-300 font-medium ${
-                isActive('/resources') 
-                  ? 'text-[#E2FF55]' 
-                  : 'text-white hover:text-[#E2FF55]'
-              }`}
-            >
-              Resources
             </Link>
             <Link 
               to="/pricing" 
@@ -66,14 +46,14 @@ const Header: React.FC = () => {
           
           {/* Desktop buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Link to="/login">
+            <a href="https://hyrdragon.digitaldiffuse.in/" target="_blank" rel="noopener noreferrer">
               <Button 
                 variant="outline" 
                 className="border-white text-white hover:bg-white/10 bg-transparent transition-colors rounded-full"
               >
                 Login/Register
               </Button>
-            </Link>
+            </a>
             <Link to="/request-demo">
               <Button 
                 className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 rounded-full flex items-center gap-2"
@@ -110,17 +90,6 @@ const Header: React.FC = () => {
           <div className="md:hidden mt-4 bg-[#0A0A29]/95 p-4 rounded-lg backdrop-blur-lg absolute left-4 right-4 z-30 border border-gray-800">
             <nav className="flex flex-col space-y-4">
               <Link 
-                to="/solutions" 
-                className={`transition-colors duration-300 ${
-                  isActive('/solutions') 
-                    ? 'text-[#E2FF55]' 
-                    : 'text-white hover:text-[#E2FF55]'
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Solutions
-              </Link>
-              <Link 
                 to="/ai-products" 
                 className={`transition-colors duration-300 ${
                   isActive('/ai-products') 
@@ -130,17 +99,6 @@ const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 AI Products
-              </Link>
-              <Link 
-                to="/resources" 
-                className={`transition-colors duration-300 ${
-                  isActive('/resources') 
-                    ? 'text-[#E2FF55]' 
-                    : 'text-white hover:text-[#E2FF55]'
-                }`}
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Resources
               </Link>
               <Link 
                 to="/pricing" 
@@ -153,8 +111,10 @@ const Header: React.FC = () => {
               >
                 Pricing
               </Link>
-              <Link 
-                to="/login" 
+              <a 
+                href="https://hyrdragon.digitaldiffuse.in/" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Button 
@@ -163,7 +123,7 @@ const Header: React.FC = () => {
                 >
                   Login/Register
                 </Button>
-              </Link>
+              </a>
               <Link 
                 to="/request-demo" 
                 onClick={() => setIsMobileMenuOpen(false)}

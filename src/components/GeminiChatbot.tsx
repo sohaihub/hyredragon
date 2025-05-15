@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { X, Send } from 'lucide-react';
-import DragonIcon from './DragonIcon';
 import { toast } from './ui/use-toast';
 
 interface Message {
@@ -14,18 +13,17 @@ interface Message {
 const GeminiChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I\'m Dragon, your AI assistant. Ask me anything about HyrDragon\'s features and services.' }
+    { role: 'assistant', content: 'Hello! I\'m Dragon, your AI assistant. Ask me anything about HyreDragon\'s features and services.' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Enhanced system prompt with more detailed information about HyreDragon
   const systemPrompt = `
-    You are Dragon, the official AI assistant for HyrDragon, an advanced AI-powered recruitment platform. 
+    You are Dragon, the official AI assistant for HyreDragon, an advanced AI-powered recruitment platform. 
     You should respond with a friendly, professional, and helpful tone. Always be concise but informative.
     
-    Here are the detailed features of HyrDragon that you should be well-versed in:
+    Here are the detailed features of HyreDragon that you should be well-versed in:
 
     1. AI-POWERED CANDIDATE MATCHING
        - Uses proprietary matching algorithm with 85%+ accuracy finding ideal candidates
@@ -70,13 +68,13 @@ const GeminiChatbot: React.FC = () => {
     - Premium: ₹50,000 - 50 hours, all features with custom integration
     - Enterprise: Custom pricing - Unlimited hours, dedicated support, custom integration
 
-    When asked about competitors, focus on HyrDragon's unique advantages without directly criticizing other platforms.
+    When asked about competitors, focus on HyreDragon's unique advantages without directly criticizing other platforms.
     
     If users ask about pricing specifics, benefits of plans, or implementation details, recommend scheduling a demo with a product specialist for personalized information.
 
     Respond in a helpful, concise manner. Aim for responses that are informative but not too lengthy.
     
-    If someone asks about something completely unrelated to recruitment or HyrDragon, politely redirect them by mentioning you're specialized in helping with HyrDragon's recruitment platform.
+    If someone asks about something completely unrelated to recruitment or HyreDragon, politely redirect them by mentioning you're specialized in helping with HyreDragon's recruitment platform.
   `;
 
   useEffect(() => {
@@ -150,30 +148,35 @@ const GeminiChatbot: React.FC = () => {
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-20 h-20 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center group relative animate-pulse-light"
+          className="w-24 h-24 rounded-full bg-[#E2FF55] hover:bg-[#E2FF55]/80 text-[#0A0A29] shadow-lg flex items-center justify-center relative"
           aria-label="Open Dragon Assistant"
         >
-          <div className="relative w-14 h-14 flex items-center justify-center">
-            <DragonIcon className="w-14 h-14" />
-            <span className="absolute -top-12 whitespace-nowrap bg-[#0A0A29] text-[#E2FF55] px-3 py-1 rounded-full text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity">
-              Dragon Assistant
-            </span>
+          <div className="relative w-20 h-20 flex items-center justify-center">
+            <img 
+              src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
+              alt="Dragon Assistant" 
+              className="w-20 h-20 rounded-full" 
+            />
           </div>
         </Button>
       )}
       
       {/* Chat window */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[450px] h-[600px] transition-all animate-scale-in">
+        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[500px] h-[650px] transition-all animate-scale-in">
           {/* Chat header */}
           <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-12 h-12 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-3 p-1">
-                <DragonIcon className="w-10 h-10" />
+              <div className="w-12 h-12 rounded-full flex items-center justify-center mr-3 p-1">
+                <img 
+                  src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
+                  alt="Dragon Assistant" 
+                  className="w-12 h-12 rounded-full" 
+                />
               </div>
               <div>
                 <h3 className="text-white font-semibold text-lg">Dragon Assistant</h3>
-                <p className="text-gray-400 text-xs">HyrDragon AI</p>
+                <p className="text-gray-400 text-xs">HyreDragon AI</p>
               </div>
             </div>
             <Button 
@@ -200,8 +203,12 @@ const GeminiChatbot: React.FC = () => {
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 flex-shrink-0 p-1">
-                    <DragonIcon className="w-8 h-8" />
+                  <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 p-1">
+                    <img 
+                      src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
+                      alt="Dragon Assistant" 
+                      className="w-10 h-10 rounded-full" 
+                    />
                   </div>
                 )}
                 <div 
@@ -217,8 +224,12 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-10 h-10 rounded-full bg-[#E2FF55]/20 flex items-center justify-center mr-2 mt-1 p-1">
-                  <DragonIcon className="w-8 h-8" />
+                <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1 p-1">
+                  <img 
+                    src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
+                    alt="Dragon Assistant" 
+                    className="w-10 h-10 rounded-full" 
+                  />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
                   <div className="flex space-x-2 items-center">

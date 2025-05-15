@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,10 +13,10 @@ import PricingPackagesSection from '@/components/PricingPackagesSection';
 const Home: React.FC = () => {
   // News headlines
   const newsItems = [
-    { tag: 'NEW', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'HyrDragon releases advanced AI matching algorithm' },
+    { tag: 'NEW', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'HyreDragon releases advanced AI matching algorithm' },
     { tag: 'REPORT', tagColor: 'bg-[#7B78FF] text-white', content: 'Companies using AI recruitment see 65% faster time-to-hire' },
     { tag: 'INSIGHT', tagColor: 'bg-white/20 text-white', content: 'Remote hiring challenges solved with intelligent recruitment platforms' },
-    { tag: 'UPDATE', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'New features added to HyrDragon platform - Try them today!' },
+    { tag: 'UPDATE', tagColor: 'bg-[#E2FF55] text-[#0A0A29]', content: 'New features added to HyreDragon platform - Try them today!' },
     { tag: 'WEBINAR', tagColor: 'bg-[#7B78FF] text-white', content: 'Join our upcoming webinar on AI-powered recruitment strategies' }
   ];
   
@@ -85,7 +86,7 @@ const Home: React.FC = () => {
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
                   Find the Right Talent, <span className="text-[#E2FF55]">Faster & Smarter</span> with AI
                 </h1>
-                <p className="text-xl text-gray-300 mb-8">
+                <p className="text-xl text-gray-300 mb-8 animated-text hover:animate-glow">
                   Transform your hiring process with our AI-powered recruitment platform. Save time, reduce bias, and hire better candidates.
                 </p>
                 <div className="flex justify-start mb-8">
@@ -114,7 +115,7 @@ const Home: React.FC = () => {
                 <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
                   <img 
                     src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
-                    alt="HyrDragon Recruitment Analytics Dashboard" 
+                    alt="HyreDragon Recruitment Analytics Dashboard" 
                     className="w-full rounded-lg object-cover"
                   />
                 </div>
@@ -139,6 +140,65 @@ const Home: React.FC = () => {
           </div>
         </section>
         
+        {/* Feature Highlight Section */}
+        <section className="py-16 md:py-24 px-4 relative overflow-hidden">
+          <div className="container mx-auto relative z-10">
+            <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-8 md:p-10 transform hover:translate-y-[-5px] transition-transform duration-500">
+              <div className="animated-text">
+                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 animate-glow">
+                  Only HyreDragon combines <span className="text-[#E2FF55]">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
+                </h2>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-6 mt-8">
+                <div className="p-5 bg-[#0A0A29]/50 rounded-lg border border-gray-800">
+                  <h3 className="font-semibold text-white mb-4">Traditional Platforms</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                      <span className="text-gray-400">Multiple tools required</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                      <span className="text-gray-400">Complex integrations</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                      <span className="text-gray-400">Higher total cost</span>
+                    </li>
+                    <li className="flex items-center">
+                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
+                      <span className="text-gray-400">Inconsistent user experience</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div className="p-5 bg-[#0F103E]/80 rounded-lg border border-[#E2FF55]/30">
+                  <h3 className="font-semibold text-[#E2FF55] mb-4">HyreDragon Advantage</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                      <span className="text-white">All-in-one platform</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                      <span className="text-white">Seamless experience</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                      <span className="text-white">Cost-effective solution</span>
+                    </li>
+                    <li className="flex items-center">
+                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
+                      <span className="text-white">Unified data analytics</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
         {/* Features */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto">
@@ -148,7 +208,7 @@ const Home: React.FC = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Feature 1 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <BarChart3 className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -159,7 +219,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 2 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <CheckCircle className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -170,7 +230,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 3 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <Users className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -181,7 +241,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 4 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-[#E2FF55]/50 transition-all duration-300 animate-on-scroll">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <Zap className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -205,12 +265,12 @@ const Home: React.FC = () => {
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820] pointer-events-none"></div>
           <div className="container mx-auto relative z-10">
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll">
-              Why <span className="text-[#E2FF55]">HyrDragon</span>?
+              Why <span className="text-[#E2FF55]">HyreDragon</span>?
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {/* Reason 1 */}
-              <div className="relative p-6 animate-on-scroll">
+              <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#E2FF55]/20 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center mb-4">
@@ -224,7 +284,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Reason 2 */}
-              <div className="relative p-6 animate-on-scroll">
+              <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#7B78FF]/20 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#7B78FF] flex items-center justify-center mb-4">
@@ -238,7 +298,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Reason 3 */}
-              <div className="relative p-6 animate-on-scroll">
+              <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
                 <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#9b87f5]/20 blur-xl"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#9b87f5] flex items-center justify-center mb-4">
@@ -262,7 +322,7 @@ const Home: React.FC = () => {
                 Let's Make Hiring Feel Effortless
               </h2>
               <p className="text-gray-300 text-lg md:text-xl mb-8">
-                Join thousands of companies that have transformed their recruitment process with HyrDragon.
+                Join thousands of companies that have transformed their recruitment process with HyreDragon.
               </p>
               <div className="flex justify-center">
                 <Link to="/request-demo">

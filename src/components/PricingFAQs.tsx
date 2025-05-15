@@ -10,7 +10,7 @@ import {
 const PricingFAQs: React.FC = () => {
   const faqs = [
     {
-      question: "How does Hyregram's AI matching technology work?",
+      question: "How does HyreDragon's AI matching technology work?",
       answer: "Our AI technology analyzes candidate profiles against your job requirements using advanced machine learning algorithms. It considers skills, experience, cultural fit, and other factors to provide high-quality matches, significantly reducing time-to-hire and improving candidate quality."
     },
     {
@@ -23,7 +23,7 @@ const PricingFAQs: React.FC = () => {
     },
     {
       question: "Is there a trial period available?",
-      answer: "Yes, we offer a 14-day free trial on our Pro plan so you can experience the full power of Hyregram before committing. No credit card is required to start your trial."
+      answer: "Yes, we offer a 14-day free trial on our Pro plan so you can experience the full power of HyreDragon before committing. No credit card is required to start your trial."
     },
     {
       question: "What kind of support is included with each plan?",
