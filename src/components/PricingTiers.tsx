@@ -1,18 +1,18 @@
 
 // PricingTiers.tsx
 import React from 'react';
-import { CheckIcon, XIcon } from 'lucide-react';
+import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
 interface PricingFeature {
   text: string;
-  starter: string | boolean;
-  basic: string | boolean;
-  standard: string | boolean;
-  professional: string | boolean;
-  premium: string | boolean;
-  category?: string;
+  starter: string;
+  basic: string;
+  standard: string;
+  professional: string;
+  premium: string;
+  category?: boolean;
   isHighlighted?: boolean;
 }
 
@@ -20,7 +20,8 @@ interface PricingTierProps {
   name: string;
   description: string;
   price: string;
-  duration: string;
+  perHour: string;
+  features: string[];
   buttonText?: string;
   buttonUrl?: string;
   highlighted?: boolean;
@@ -30,41 +31,51 @@ const PricingTier: React.FC<PricingTierProps> = ({
   name,
   description,
   price,
-  duration,
+  perHour,
+  features,
   buttonText = 'Choose Plan',
   buttonUrl = '/request-demo',
   highlighted = false,
 }) => {
   return (
     <div
-      className={`rounded-xl border ${
+      className={`rounded-xl ${
         highlighted
-          ? 'border-[#E2FF55] bg-[#E2FF55]/5'
-          : 'border-gray-800 bg-[#080822]/70'
-      } p-6 shadow-lg flex flex-col h-full relative`}
+          ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl'
+          : 'border border-gray-800 bg-[#080822]/70'
+      } p-6 flex flex-col h-full`}
     >
       {highlighted && (
-        <div className="absolute top-0 right-8 -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
-          Most Popular
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
+          MOST POPULAR
         </div>
       )}
 
-      <div>
-        <h3 className="text-xl font-semibold text-white">{name}</h3>
-        <p className="mt-2 text-gray-400 text-sm">{description}</p>
+      <div className="text-center mb-4">
+        <h3 className="text-2xl font-bold text-white">{name}</h3>
+        <p className="text-gray-400 text-sm mt-1">{description}</p>
       </div>
 
-      <div className="mt-4 mb-6">
-        <div className="flex items-baseline">
-          <span className="text-3xl font-bold text-white">{price}</span>
-        </div>
-        <div className="text-sm text-gray-400 mt-1">{duration}</div>
+      <div className="text-center mb-6 pb-4 border-b border-gray-800">
+        <div className="text-[#E2FF55] text-4xl font-bold">{price}</div>
+        <div className="text-gray-400 text-sm mt-1">{perHour}</div>
       </div>
 
-      <div className="mt-auto">
-        <Link to={buttonUrl} className="w-full">
+      <div className="flex-grow">
+        <ul className="space-y-3">
+          {features.map((feature, index) => (
+            <li key={index} className="flex items-start">
+              <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-2 mt-0.5 flex-shrink-0" />
+              <span className="text-white text-sm">{feature}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-6">
+        <Link to={buttonUrl} className="w-full block">
           <Button
-            className={`w-full ${
+            className={`w-full py-5 ${
               highlighted
                 ? 'bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90'
                 : 'bg-white/10 text-white hover:bg-white/20'
@@ -75,43 +86,6 @@ const PricingTier: React.FC<PricingTierProps> = ({
         </Link>
       </div>
     </div>
-  );
-};
-
-// Feature display component
-const FeatureItem = ({ feature }: { feature: PricingFeature }) => {
-  const renderValue = (value: string | boolean) => {
-    if (typeof value === 'boolean') {
-      return value ? (
-        <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-      ) : (
-        <XIcon className="h-5 w-5 text-red-400" />
-      );
-    }
-    return <span className="text-[#E2FF55] font-medium">{value}</span>;
-  };
-
-  return (
-    <tr className={`border-b border-gray-800 ${feature.isHighlighted ? 'bg-[#0F103E]/40' : ''}`}>
-      <td className={`py-4 pl-4 text-base ${feature.category ? 'font-semibold text-[#E2FF55]' : 'text-white'}`}>
-        {feature.text}
-      </td>
-      <td className="py-4 text-center">
-        {renderValue(feature.starter)}
-      </td>
-      <td className="py-4 text-center">
-        {renderValue(feature.basic)}
-      </td>
-      <td className="py-4 text-center">
-        {renderValue(feature.standard)}
-      </td>
-      <td className="py-4 text-center">
-        {renderValue(feature.professional)}
-      </td>
-      <td className="py-4 text-center">
-        {renderValue(feature.premium)}
-      </td>
-    </tr>
   );
 };
 
@@ -176,47 +150,87 @@ const EnterpriseSolution: React.FC = () => {
 };
 
 const PricingTiers: React.FC = () => {
-  // Define pricing tiers
+  // Define pricing tiers based on the image
   const tiers = [
     { 
       name: 'Starter', 
-      description: 'For small teams starting out', 
+      description: '10 hours @ ₹1,000/hour', 
       price: '₹10,000', 
-      duration: '9hr+ 1hr',
+      perHour: '9hr+ 1hr free',
+      features: [
+        'Detailed dashboard',
+        'Custom assessment',
+        'AI generated feedback report',
+        'AI proctoring system',
+        'Coding platform',
+        '10 interviews'
+      ],
       buttonText: 'Choose Plan' 
     },
     { 
       name: 'Basic', 
-      description: 'For growing businesses', 
+      description: '20 hours @ ₹1,000/hour', 
       price: '₹20,000', 
-      duration: '18hr+ 2hr',
+      perHour: '18hr+ 2hr free',
+      features: [
+        'Detailed dashboard',
+        'Custom assessment',
+        'AI generated feedback report',
+        'AI proctoring system',
+        'Coding platform',
+        '20 interviews'
+      ],
       buttonText: 'Choose Plan' 
     },
     { 
       name: 'Standard', 
-      description: 'Our most popular plan', 
+      description: '30 hours @ ₹1,000/hour', 
       price: '₹30,000', 
-      duration: '27hr+ 3hr',
+      perHour: '27hr+ 3hr free',
+      features: [
+        'Detailed dashboard',
+        'Custom assessment',
+        'AI generated feedback report',
+        'AI proctoring system',
+        'Coding platform',
+        '30 interviews'
+      ],
       buttonText: 'Choose Plan', 
       highlighted: true 
     },
     { 
       name: 'Professional', 
-      description: 'For larger companies', 
+      description: '40 hours @ ₹1,000/hour', 
       price: '₹40,000', 
-      duration: '36hr+ 4hr',
+      perHour: '36hr+ 4hr free',
+      features: [
+        'Detailed dashboard',
+        'Custom assessment',
+        'AI generated feedback report',
+        'AI proctoring system',
+        'Coding platform',
+        '40 interviews'
+      ],
       buttonText: 'Choose Plan' 
     },
     { 
       name: 'Premium', 
-      description: 'For enterprise needs', 
+      description: '50 hours @ ₹1,000/hour', 
       price: '₹50,000', 
-      duration: '45hr+ 5hr',
+      perHour: '45hr+ 5hr free',
+      features: [
+        'Detailed dashboard',
+        'Custom assessment',
+        'AI generated feedback report',
+        'AI proctoring system',
+        'Coding platform',
+        '50 interviews'
+      ],
       buttonText: 'Choose Plan' 
     },
   ];
 
-  // Define all features from the image
+  // Define all features for the table comparison
   const features: PricingFeature[] = [
     { text: 'Basic', starter: '', basic: '', standard: '', professional: '', premium: '', category: true, isHighlighted: true },
     { text: 'Job Posting', starter: '10', basic: '20', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
@@ -246,32 +260,74 @@ const PricingTiers: React.FC = () => {
 
   return (
     <div className="space-y-16 max-w-7xl mx-auto">
-      {/* Tiers Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      {/* Tiers Cards - New Design based on image */}
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {tiers.map((tier, i) => (
           <PricingTier key={i} {...tier} />
         ))}
       </div>
 
-      {/* Feature Comparison Table */}
-      <div className="mt-16 overflow-x-auto">
-        <table className="w-full text-left">
-          <thead className="bg-[#0F103E] sticky top-0">
-            <tr>
-              <th className="py-4 pl-4 text-lg text-white font-bold">Features</th>
-              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Starter<br/>(10k)</th>
-              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Basic<br/>(20k)</th>
-              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Standard<br/>(30k)</th>
-              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Professional<br/>(40k)</th>
-              <th className="py-4 text-center text-lg text-white font-bold bg-[#FF9F5A]/80">Premium<br/>(50k)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {features.map((feature, index) => (
-              <FeatureItem key={index} feature={feature} />
-            ))}
-          </tbody>
-        </table>
+      <div className="bg-[#091030]/60 p-6 rounded-xl border border-[#E2FF55]/20 shadow-inner">
+        <p className="text-center text-lg md:text-xl text-white/80 font-medium">
+          HyreDragon's Edge: <span className="text-[#E2FF55]/90">Slay the Competition</span>
+        </p>
+        <p className="text-center text-base text-white/70 mt-2">
+          Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
+        </p>
+        
+        <div className="grid md:grid-cols-2 gap-8 mt-8">
+          <div className="border border-gray-800 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-white mb-4">Traditional Platforms</h3>
+            <ul className="space-y-2">
+              <li className="flex items-center text-gray-300">
+                <span className="text-red-400 mr-2">•</span>
+                Multiple tools required
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-red-400 mr-2">•</span>
+                Complex integrations
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-red-400 mr-2">•</span>
+                Higher total cost
+              </li>
+              <li className="flex items-center text-gray-300">
+                <span className="text-red-400 mr-2">•</span>
+                Inconsistent user experience
+              </li>
+            </ul>
+          </div>
+          
+          <div className="border border-gray-800 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-white mb-4">HyreDragon Advantage</h3>
+            <ul className="space-y-2">
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                All-in-one platform
+              </li>
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Seamless experience
+              </li>
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Cost-effective solution
+              </li>
+              <li className="flex items-center text-gray-300">
+                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
+                Unified data analytics
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="mt-8 text-center">
+          <Link to="/request-demo">
+            <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/80 px-6 py-2">
+              See It In Action
+            </Button>
+          </Link>
+        </div>
       </div>
 
       <EnterpriseSolution />

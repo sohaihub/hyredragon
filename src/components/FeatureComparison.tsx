@@ -1,13 +1,15 @@
 
 import React from 'react';
 import { Check, X } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 interface Feature {
   name: string;
-  basic: boolean;
-  standard: boolean;
-  professional: boolean;
-  premium: boolean;
+  basic: boolean | string;
+  standard: boolean | string;
+  professional: boolean | string;
+  premium: boolean | string;
 }
 
 interface FeatureCategoryProps {
@@ -17,16 +19,17 @@ interface FeatureCategoryProps {
 
 const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) => {
   return (
-    <div className="mb-10">
+    <div className="mb-8">
       <h3 className="text-xl font-bold mb-4 text-white border-b border-gray-800 pb-2">{title}</h3>
       <table className="w-full">
         <thead>
           <tr className="text-left">
             <th className="py-2 w-1/3 md:w-2/5 text-white text-lg">Feature</th>
-            <th className="py-2 text-center text-white text-lg">Basic</th>
-            <th className="py-2 text-center text-white text-lg">Standard</th>
-            <th className="py-2 text-center text-white text-lg">Professional</th>
-            <th className="py-2 text-center text-white text-lg">Premium</th>
+            <th className="py-2 text-center text-white text-lg">Starter<br/>(10k)</th>
+            <th className="py-2 text-center text-white text-lg">Basic<br/>(20k)</th>
+            <th className="py-2 text-center text-white text-lg">Standard<br/>(30k)</th>
+            <th className="py-2 text-center text-white text-lg">Professional<br/>(40k)</th>
+            <th className="py-2 text-center text-white text-lg">Premium<br/>(50k)</th>
           </tr>
         </thead>
         <tbody>
@@ -34,28 +37,40 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
             <tr key={index} className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-colors duration-200">
               <td className="py-4 text-white text-lg">{feature.name}</td>
               <td className="py-4 text-center">
-                {feature.basic ? 
-                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-6 w-6 text-gray-500 mx-auto" />
-                }
+                {typeof feature.basic === 'boolean' ? (
+                  feature.basic ? 
+                    <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                    <X className="h-6 w-6 text-gray-500 mx-auto" />
+                ) : (
+                  <span className="text-[#E2FF55]">{feature.basic}</span>
+                )}
               </td>
               <td className="py-4 text-center">
-                {feature.standard ? 
-                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-6 w-6 text-gray-500 mx-auto" />
-                }
+                {typeof feature.standard === 'boolean' ? (
+                  feature.standard ? 
+                    <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                    <X className="h-6 w-6 text-gray-500 mx-auto" />
+                ) : (
+                  <span className="text-[#E2FF55]">{feature.standard}</span>
+                )}
               </td>
               <td className="py-4 text-center">
-                {feature.professional ? 
-                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-6 w-6 text-gray-500 mx-auto" />
-                }
+                {typeof feature.professional === 'boolean' ? (
+                  feature.professional ? 
+                    <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                    <X className="h-6 w-6 text-gray-500 mx-auto" />
+                ) : (
+                  <span className="text-[#E2FF55]">{feature.professional}</span>
+                )}
               </td>
               <td className="py-4 text-center">
-                {feature.premium ? 
-                  <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
-                  <X className="h-6 w-6 text-gray-500 mx-auto" />
-                }
+                {typeof feature.premium === 'boolean' ? (
+                  feature.premium ? 
+                    <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                    <X className="h-6 w-6 text-gray-500 mx-auto" />
+                ) : (
+                  <span className="text-[#E2FF55]">{feature.premium}</span>
+                )}
               </td>
             </tr>
           ))}
@@ -67,43 +82,41 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
 
 const FeatureComparison: React.FC = () => {
   const basicFeatures: Feature[] = [
-    { name: 'Job Posting', basic: true, standard: true, professional: true, premium: true },
-    { name: 'Candidate Database', basic: true, standard: true, professional: true, premium: true },
-    { name: 'Email Notifications', basic: true, standard: true, professional: true, premium: true },
-    { name: 'Basic Job Templates', basic: true, standard: true, professional: true, premium: true },
-    { name: 'Candidate Tracking', basic: true, standard: true, professional: true, premium: true },
+    { name: 'Job Posting', basic: '10', standard: '20', professional: 'Yes', premium: 'Yes' },
+    { name: 'Interviews', basic: '10', standard: '20', professional: '30', premium: '50' },
+    { name: 'Email Notifications', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { name: 'Candidate Tracking', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
   ];
 
   const aiFeatures: Feature[] = [
-    { name: 'AI Candidate Matching', basic: true, standard: true, professional: true, premium: true },
-    { name: 'AI Resume Parsing', basic: false, standard: true, professional: true, premium: true },
-    { name: 'AI Job Description Generation', basic: false, standard: false, professional: true, premium: true },
-    { name: 'AI Interview Question Generation', basic: false, standard: false, professional: true, premium: true },
-    { name: 'AI Driven Feedback', basic: false, standard: false, professional: false, premium: true },
+    { name: 'AI Candidate Matching', basic: '100', standard: '200', professional: '300', premium: '500' },
+    { name: 'AI Resume Parsing', basic: '100', standard: '100', professional: '100', premium: '100' },
+    { name: 'Question Gen (Gemini)', basic: '100-150', standard: '150-200', professional: 'Yes', premium: 'Yes' },
+    { name: 'Question Gen (OpenAI)', basic: '10-20', standard: '20-30', professional: 'Yes', premium: 'Yes' },
+    { name: 'Proctoring Sessions', basic: '1', standard: '2', professional: '4', premium: '5' },
+    { name: 'AI Feedback Reports', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
   ];
 
   const analyticsFeatures: Feature[] = [
-    { name: 'Basic Analytics Dashboard', basic: true, standard: true, professional: true, premium: true },
-    { name: 'Advanced Reporting', basic: false, standard: true, professional: true, premium: true },
-    { name: 'Custom Reports', basic: false, standard: false, professional: true, premium: true },
-    { name: 'Predictive Analytics', basic: false, standard: false, professional: false, premium: true },
-    { name: 'Hiring Pattern Insights', basic: false, standard: false, professional: true, premium: true },
+    { name: 'Analytics Dashboard', basic: 'Basic', standard: 'Advanced', professional: 'Premium', premium: 'Premium+' },
+    { name: 'Basic Reporting', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { name: 'Advanced Reporting', basic: 'No', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
   ];
 
   const supportFeatures: Feature[] = [
-    { name: 'Email Support', basic: true, standard: true, professional: true, premium: true },
-    { name: 'Chat Support', basic: false, standard: true, professional: true, premium: true },
-    { name: 'Phone Support', basic: false, standard: false, professional: true, premium: true },
-    { name: 'Dedicated Account Manager', basic: false, standard: false, professional: false, premium: true },
-    { name: 'Training Sessions', basic: false, standard: false, professional: true, premium: true },
+    { name: 'Email Support', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { name: 'Phone Support', basic: '1hr', standard: '2hr', professional: 'Yes', premium: 'Yes' },
+    { name: 'Chat Support', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { name: 'Training Sessions', basic: 'Yes', standard: 'Yes', professional: 'Yes', premium: 'Yes' },
+    { name: 'Support Hours', basic: '9AM-5PM', standard: '9AM-5PM', professional: '9AM-5PM', premium: '24/7' },
   ];
 
   return (
-    <section className="py-16 md:py-20 px-4">
+    <section className="py-12 md:py-16 px-4">
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center text-white">
-            Feature <span className="text-[#E2FF55]">Comparison</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-white">
+            Choose Your <span className="text-[#E2FF55]">Plan</span>
           </h2>
           
           <div className="border-2 border-[#0F103E] rounded-xl overflow-hidden bg-[#080820]/70 shadow-xl">
@@ -121,6 +134,14 @@ const FeatureComparison: React.FC = () => {
                   <FeatureCategory title="Analytics & Reporting" features={analyticsFeatures} />
                   <FeatureCategory title="Support & Training" features={supportFeatures} />
                 </div>
+              </div>
+              
+              <div className="mt-10 flex justify-center">
+                <Link to="/request-demo">
+                  <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/80 px-8 py-2 text-lg font-medium rounded-md">
+                    Request a Demo
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>

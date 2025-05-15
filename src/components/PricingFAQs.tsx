@@ -6,6 +6,8 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
+import { MessageCircle } from 'lucide-react';
 
 const PricingFAQs: React.FC = () => {
   const faqs = [
@@ -58,6 +60,21 @@ const PricingFAQs: React.FC = () => {
             </AccordionItem>
           ))}
         </Accordion>
+
+        <div className="mt-12 text-center">
+          <p className="text-white text-lg mb-4">Still have questions?</p>
+          
+          <Button 
+            className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/80 px-6 py-6 rounded-full flex items-center gap-2 group transition-all duration-300 hover:shadow-[0_0_15px_rgba(226,255,85,0.5)]"
+          >
+            <div className="relative">
+              <MessageCircle className="w-6 h-6" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-[#FF9F5A] rounded-full border-2 border-[#080820]"></div>
+            </div>
+            <span className="font-medium">Chat with HyreDragon Assistant</span>
+            <div className="absolute inset-0 bg-gradient-to-r from-[#E2FF55]/0 via-white/10 to-[#E2FF55]/0 rounded-full opacity-0 group-hover:opacity-100 group-hover:animate-[shine_1.5s_ease-out] pointer-events-none"></div>
+          </Button>
+        </div>
       </div>
     </section>
   );
