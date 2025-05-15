@@ -156,7 +156,7 @@ const PricingTiers: React.FC = () => {
       name: 'Starter', 
       description: '10 hours @ ₹1,000/hour', 
       price: '₹10,000', 
-      perHour: '9hr+ 1hr free',
+      perHour: '9hr+ 1hr free proctoring',
       features: [
         'Detailed dashboard',
         'Custom assessment',
@@ -171,7 +171,7 @@ const PricingTiers: React.FC = () => {
       name: 'Basic', 
       description: '20 hours @ ₹1,000/hour', 
       price: '₹20,000', 
-      perHour: '18hr+ 2hr free',
+      perHour: '18hr+ 2hr free proctoring',
       features: [
         'Detailed dashboard',
         'Custom assessment',
@@ -186,7 +186,7 @@ const PricingTiers: React.FC = () => {
       name: 'Standard', 
       description: '30 hours @ ₹1,000/hour', 
       price: '₹30,000', 
-      perHour: '27hr+ 3hr free',
+      perHour: '27hr+ 3hr free proctoring',
       features: [
         'Detailed dashboard',
         'Custom assessment',
@@ -202,7 +202,7 @@ const PricingTiers: React.FC = () => {
       name: 'Professional', 
       description: '40 hours @ ₹1,000/hour', 
       price: '₹40,000', 
-      perHour: '36hr+ 4hr free',
+      perHour: '36hr+ 4hr free proctoring',
       features: [
         'Detailed dashboard',
         'Custom assessment',
@@ -217,7 +217,7 @@ const PricingTiers: React.FC = () => {
       name: 'Premium', 
       description: '50 hours @ ₹1,000/hour', 
       price: '₹50,000', 
-      perHour: '45hr+ 5hr free',
+      perHour: '45hr+ 5hr free proctoring',
       features: [
         'Detailed dashboard',
         'Custom assessment',
