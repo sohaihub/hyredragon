@@ -1,9 +1,8 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users, Flame } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
