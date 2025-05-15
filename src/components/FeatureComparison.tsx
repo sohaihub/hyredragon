@@ -22,17 +22,17 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
       <table className="w-full">
         <thead>
           <tr className="text-left">
-            <th className="py-2 w-1/3 md:w-2/5 text-gray-400 text-sm">Feature</th>
-            <th className="py-2 text-center text-gray-400 text-sm">Basic</th>
-            <th className="py-2 text-center text-gray-400 text-sm">Standard</th>
-            <th className="py-2 text-center text-gray-400 text-sm">Professional</th>
-            <th className="py-2 text-center text-gray-400 text-sm">Premium</th>
+            <th className="py-2 w-1/3 md:w-2/5 text-white text-base">Feature</th>
+            <th className="py-2 text-center text-white text-base">Basic</th>
+            <th className="py-2 text-center text-white text-base">Standard</th>
+            <th className="py-2 text-center text-white text-base">Professional</th>
+            <th className="py-2 text-center text-white text-base">Premium</th>
           </tr>
         </thead>
         <tbody>
           {features.map((feature, index) => (
             <tr key={index} className="border-b border-gray-800">
-              <td className="py-3 text-white">{feature.name}</td>
+              <td className="py-3 text-white text-base">{feature.name}</td>
               <td className="py-3 text-center">
                 {feature.basic ? 
                   <Check className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
@@ -79,7 +79,7 @@ const FeatureComparison: React.FC = () => {
     { name: 'AI Resume Parsing', basic: false, standard: true, professional: true, premium: true },
     { name: 'AI Job Description Generation', basic: false, standard: false, professional: true, premium: true },
     { name: 'AI Interview Question Generation', basic: false, standard: false, professional: true, premium: true },
-    { name: 'Custom AI Model Training', basic: false, standard: false, professional: false, premium: true },
+    { name: 'AI Driven Feedback', basic: false, standard: false, professional: false, premium: true },
   ];
 
   const analyticsFeatures: Feature[] = [

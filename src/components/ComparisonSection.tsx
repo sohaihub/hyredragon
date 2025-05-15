@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { CheckCircle } from 'lucide-react';
 
 const ComparisonSection: React.FC = () => {
   const competitors = [
@@ -51,20 +50,20 @@ const ComparisonSection: React.FC = () => {
         <div className="overflow-x-auto">
           <Table className="w-full">
             <TableHeader className="bg-[#0F103E]">
-              <TableRow>
-                <TableHead className="text-white font-semibold">Platform</TableHead>
-                <TableHead className="text-white font-semibold">Pricing Model</TableHead>
-                <TableHead className="text-white font-semibold">Key Features</TableHead>
-                <TableHead className="text-white font-semibold">HyreDragon's Edge</TableHead>
+              <TableRow className="border-0">
+                <TableHead className="text-white font-semibold text-base">Platform</TableHead>
+                <TableHead className="text-white font-semibold text-base">Pricing Model</TableHead>
+                <TableHead className="text-white font-semibold text-base">Key Features</TableHead>
+                <TableHead className="text-white font-semibold text-base">HyreDragon's Edge</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {competitors.map((competitor, index) => (
                 <TableRow 
                   key={index} 
-                  className={competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'}
+                  className={`${competitor.highlight ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'} border-0`}
                 >
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold' : 'text-white'}>
+                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-base' : 'text-white text-base'}>
                     {competitor.highlight ? (
                       <div className="flex items-center">
                         <span className="text-[#E2FF55] mr-2">🔥</span> 
@@ -72,9 +71,9 @@ const ComparisonSection: React.FC = () => {
                       </div>
                     ) : competitor.name}
                   </TableCell>
-                  <TableCell className="text-gray-300">{competitor.pricing}</TableCell>
-                  <TableCell className="text-gray-300">{competitor.features}</TableCell>
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold' : 'text-[#7B78FF]'}>
+                  <TableCell className="text-white text-base">{competitor.pricing}</TableCell>
+                  <TableCell className="text-white text-base">{competitor.features}</TableCell>
+                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-base' : 'text-[#7B78FF] text-base'}>
                     {competitor.edge}
                   </TableCell>
                 </TableRow>
@@ -83,8 +82,8 @@ const ComparisonSection: React.FC = () => {
           </Table>
         </div>
         
-        <div className="mt-8 p-4 bg-[#0F103E]/70 rounded-lg text-center text-white">
-          <p>Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.</p>
+        <div className="mt-8 p-6 bg-[#0F103E]/70 rounded-lg text-center text-white border border-[#E2FF55]/30 animate-pulse-light">
+          <p className="text-lg font-medium">Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.</p>
         </div>
       </div>
     </section>

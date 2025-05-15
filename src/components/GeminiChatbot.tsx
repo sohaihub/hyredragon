@@ -8,15 +8,22 @@ import { toast } from './ui/use-toast';
 interface Message {
   role: 'user' | 'system' | 'assistant';
   content: string;
+  id?: string;
+  parentId?: string;
 }
 
 const GeminiChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: 'Hello! I\'m Dragon, your AI assistant. Ask me anything about HyreDragon\'s features and services.' }
+    { 
+      role: 'assistant', 
+      content: 'Hello! I\'m Dragon, your AI assistant. Ask me anything about HyreDragon\'s features and services.', 
+      id: 'initial-message' 
+    }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [activeThread, setActiveThread] = useState<string | null>('initial-message');
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const systemPrompt = `
@@ -60,6 +67,13 @@ const GeminiChatbot: React.FC = () => {
        - Education: certification tracking, specialized academic staffing
        - Retail: high-volume hiring tools, seasonal staffing optimization
 
+    6. AI DRIVEN FEEDBACK
+       - Real-time feedback on candidate responses
+       - Sentiment analysis of interviews
+       - Customized feedback templates
+       - Automated performance insights
+       - Bias detection and mitigation recommendations
+
     PRICING INFORMATION:
     - Starter: ₹10,000 - 10 hours, basic features
     - Basic: ₹20,000 - 20 hours, all core features
@@ -67,6 +81,8 @@ const GeminiChatbot: React.FC = () => {
     - Professional: ₹40,000 - 40 hours, all features with dedicated support
     - Premium: ₹50,000 - 50 hours, all features with custom integration
     - Enterprise: Custom pricing - Unlimited hours, dedicated support, custom integration
+
+    SPECIAL OFFER: First 50 customers get a 25% discount and priority onboarding.
 
     When asked about competitors, focus on HyreDragon's unique advantages without directly criticizing other platforms.
     
@@ -83,17 +99,33 @@ const GeminiChatbot: React.FC = () => {
     }
   }, [messages]);
 
+  const generateMessageId = () => {
+    return `msg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  };
+
   const handleSendMessage = async () => {
     if (!input.trim()) return;
     
-    const userMessage: Message = { role: 'user', content: input };
+    const messageId = generateMessageId();
+    const userMessage: Message = { 
+      role: 'user', 
+      content: input,
+      id: messageId,
+      parentId: activeThread
+    };
+    
     setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+    setActiveThread(messageId);
     
     try {
+      // Get the conversation history for context
+      const conversationHistory = getConversationThread(activeThread);
+      
       // Format messages for the API
-      const prompt = `${systemPrompt}\n\nUser: ${input}\nAssistant:`;
+      const conversationContext = conversationHistory.map(msg => `${msg.role === 'user' ? 'User' : 'Assistant'}: ${msg.content}`).join('\n');
+      const prompt = `${systemPrompt}\n\nConversation history:\n${conversationContext}\n\nUser: ${input}\nAssistant:`;
       
       const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent', {
         method: 'POST',
@@ -121,8 +153,16 @@ const GeminiChatbot: React.FC = () => {
         botResponse = "Sorry, I encountered an error. Please try again.";
       }
       
-      const assistantMessage: Message = { role: 'assistant', content: botResponse };
+      const assistantMessageId = generateMessageId();
+      const assistantMessage: Message = { 
+        role: 'assistant', 
+        content: botResponse,
+        id: assistantMessageId,
+        parentId: messageId
+      };
+      
       setMessages(prev => [...prev, assistantMessage]);
+      setActiveThread(assistantMessageId);
       
       // Show a toast notification
       toast({
@@ -134,12 +174,34 @@ const GeminiChatbot: React.FC = () => {
       console.error('Error calling Gemini API:', error);
       const errorMessage: Message = { 
         role: 'assistant', 
-        content: "I'm having trouble connecting right now. Please try again later."
+        content: "I'm having trouble connecting right now. Please try again later.",
+        id: generateMessageId(),
+        parentId: messageId
       };
       setMessages(prev => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const getConversationThread = (threadId: string | null) => {
+    if (!threadId) return [messages[0]]; // Return initial greeting if no thread
+    
+    const result: Message[] = [];
+    let currentId = threadId;
+    
+    // Traverse up the thread to reconstruct the conversation
+    while (currentId) {
+      const message = messages.find(m => m.id === currentId);
+      if (message) {
+        result.unshift(message);
+        currentId = message.parentId;
+      } else {
+        currentId = null;
+      }
+    }
+    
+    return result;
   };
 
   return (
@@ -201,6 +263,7 @@ const GeminiChatbot: React.FC = () => {
               <div 
                 key={index} 
                 className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
+                onClick={() => setActiveThread(message.id || null)}
               >
                 {message.role === 'assistant' && (
                   <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 p-1">
@@ -212,11 +275,11 @@ const GeminiChatbot: React.FC = () => {
                   </div>
                 )}
                 <div 
-                  className={`max-w-[80%] rounded-2xl p-3 ${
+                  className={`max-w-[80%] rounded-2xl p-3 cursor-pointer ${
                     message.role === 'user' 
                       ? 'bg-[#E2FF55] text-[#0A0A29]' 
                       : 'bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20'
-                  }`}
+                  } ${activeThread === message.id ? 'ring-2 ring-[#E2FF55]/50' : ''}`}
                 >
                   {message.content}
                 </div>
