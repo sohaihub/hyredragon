@@ -16,6 +16,7 @@ import Security from './pages/Security';
 import Blog from './pages/Blog';
 import GeminiChatbot from './components/GeminiChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
+import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
 // Add custom cursor styles
 const CustomCursorStyles = () => {
@@ -44,36 +45,11 @@ const CustomCursorStyles = () => {
           mix-blend-mode: difference;
           box-shadow: 0 0 10px rgba(226, 255, 85, 0.7), 0 0 20px rgba(226, 255, 85, 0.5);
         }
-        
-        a:hover ~ .hover-effect,
-        button:hover ~ .hover-effect,
-        [role="button"]:hover ~ .hover-effect {
-          width: 50px;
-          height: 50px;
-          background-color: rgba(226, 255, 85, 0.4);
-          box-shadow: 0 0 15px rgba(226, 255, 85, 0.8), 0 0 30px rgba(226, 255, 85, 0.6);
-        }
       `;
       document.head.appendChild(style);
-      
-      const hoverEffect = document.createElement('div');
-      hoverEffect.className = 'hover-effect';
-      document.body.appendChild(hoverEffect);
-      
-      document.addEventListener('mousemove', (e) => {
-        hoverEffect.style.left = e.clientX + 'px';
-        hoverEffect.style.top = e.clientY + 'px';
-      });
     };
     
     addCustomCursor();
-    
-    return () => {
-      const hoverEffect = document.querySelector('.hover-effect');
-      if (hoverEffect) {
-        hoverEffect.remove();
-      }
-    };
   }, []);
   
   return null;
@@ -125,12 +101,26 @@ const MoneyFallEffect = () => {
   return null;
 };
 
-// Scroll restoration component
-const ScrollToTop = () => {
+// Page transitions and animation setup
+const PageSetup = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    // Set up animations on page load
     window.scrollTo(0, 0);
+    
+    // Initialize counting animations
+    const countObserver = setupCountUpAnimation();
+    
+    // Initialize highlight animations
+    setupHighlightAnimations();
+    
+    // Cleanup
+    return () => {
+      if (countObserver) {
+        countObserver.disconnect();
+      }
+    };
   }, [pathname]);
 
   return null;
@@ -178,7 +168,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <ScrollToTop />
+      <PageSetup />
       <CustomCursorStyles />
       <MoneyFallEffect />
       <Routes>

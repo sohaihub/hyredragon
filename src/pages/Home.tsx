@@ -7,7 +7,7 @@ import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MetricsShowcase from '@/components/MetricsShowcase';
 import RecruitmentSteps from '@/components/RecruitmentSteps';
-import ComparisonSection from '@/components/ComparisonSection';
+import EnhancedComparisonSection from '@/components/EnhancedComparisonSection';
 import PricingPackagesSection from '@/components/PricingPackagesSection';
 
 const Home: React.FC = () => {
@@ -65,12 +65,11 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Background elements */}
-      <div className="fixed top-0 left-0 w-full h-full">
-        {/* Background circular gradients */}
-        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
-        <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl"></div>
-        <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
+      {/* Enhanced animated background elements */}
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-[#E2FF55]/15 to-[#E2FF55]/5 blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/15 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
       </div>
       
       <Header />
@@ -82,10 +81,10 @@ const Home: React.FC = () => {
             <div className="flex flex-col md:flex-row items-center">
               <div className="md:w-1/2 md:pr-6 mb-10 md:mb-0">
                 <div className="bg-gradient-to-r from-[#E2FF55]/20 to-transparent px-4 py-2 rounded-full inline-block mb-4">
-                  <span className="text-[#E2FF55] font-medium">AI-Powered Recruitment</span>
+                  <span className="text-[#E2FF55] font-medium animate-pulse">AI-Powered Recruitment</span>
                 </div>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-                  Find the Right Talent, <span className="text-[#E2FF55]">Faster & Smarter</span> with AI
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white animate-fade-in">
+                  Find the Right Talent, <span className="text-[#E2FF55] animate-glow">Faster & Smarter</span> with AI
                 </h1>
                 <p className="text-xl text-gray-300 mb-8 animated-text hover:animate-glow">
                   Transform your hiring process with our AI-powered recruitment platform. Save time, reduce bias, and hire better candidates.
@@ -94,26 +93,28 @@ const Home: React.FC = () => {
                   <Link to="/request-demo">
                     <Button 
                       size="lg"
-                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2"
+                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2 group relative overflow-hidden"
                       data-trigger-money-effect="true"
                     >
-                      Request a demo <ArrowRight className="w-5 h-5" />
+                      <span className="relative z-10">Request a demo</span> 
+                      <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
                     </Button>
                   </Link>
                 </div>
                 <div className="mt-8 flex items-center gap-8 justify-start">
                   <div className="flex items-center">
-                    <div className="text-[#E2FF55] font-bold text-3xl">90%</div>
+                    <div className="text-[#E2FF55] font-bold text-3xl animate-count-up" data-value="90">90%</div>
                     <span className="text-gray-300 text-sm ml-2">Faster <br />Hiring</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="text-[#E2FF55] font-bold text-3xl">60%</div>
+                    <div className="text-[#E2FF55] font-bold text-3xl animate-count-up" data-value="60">60%</div>
                     <span className="text-gray-300 text-sm ml-2">Cost <br />Reduction</span>
                   </div>
                 </div>
               </div>
               <div className="md:w-1/2">
-                <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform hover:scale-105 transition-all duration-500">
+                <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(123,120,255,0.3)]">
                   <img 
                     src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
                     alt="HyreDragon Recruitment Analytics Dashboard" 
@@ -141,64 +142,8 @@ const Home: React.FC = () => {
           </div>
         </section>
         
-        {/* Feature Highlight Section */}
-        <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-          <div className="container mx-auto relative z-10">
-            <div className="bg-[#080822]/80 border-2 border-[#E2FF55] rounded-xl p-8 md:p-10 transform hover:translate-y-[-5px] transition-transform duration-500 shadow-[0_0_30px_rgba(226,255,85,0.2)]">
-              <div className="animated-text">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 animate-glow text-center">
-                  Only HyreDragon combines <span className="text-[#E2FF55] text-3xl md:text-4xl font-extrabold">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
-                </h2>
-              </div>
-              
-              <div className="grid md:grid-cols-2 gap-6 mt-8">
-                <div className="p-5 bg-[#0A0A29]/50 rounded-lg border border-gray-800">
-                  <h3 className="font-semibold text-white mb-4">Traditional Platforms</h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                      <span className="text-gray-400">Multiple tools required</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                      <span className="text-gray-400">Complex integrations</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                      <span className="text-gray-400">Higher total cost</span>
-                    </li>
-                    <li className="flex items-center">
-                      <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                      <span className="text-gray-400">Inconsistent user experience</span>
-                    </li>
-                  </ul>
-                </div>
-                
-                <div className="p-5 bg-[#0F103E]/80 rounded-lg border border-[#E2FF55]/30">
-                  <h3 className="font-semibold text-[#E2FF55] mb-4">HyreDragon Advantage</h3>
-                  <ul className="space-y-3">
-                    <li className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                      <span className="text-white">All-in-one platform</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                      <span className="text-white">Seamless experience</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                      <span className="text-white">Cost-effective solution</span>
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                      <span className="text-white">Unified data analytics</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Enhanced Comparison Section */}
+        <EnhancedComparisonSection />
         
         {/* Features */}
         <section className="py-16 md:py-24 px-4 relative">
@@ -209,7 +154,7 @@ const Home: React.FC = () => {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
               {/* Feature 1 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px] hover:shadow-[0_0_20px_rgba(226,255,85,0.1)]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <BarChart3 className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -220,7 +165,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 2 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px] hover:shadow-[0_0_20px_rgba(226,255,85,0.1)]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <CheckCircle className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -231,7 +176,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 3 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px] hover:shadow-[0_0_20px_rgba(226,255,85,0.1)]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <Users className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -242,7 +187,7 @@ const Home: React.FC = () => {
               </div>
               
               {/* Feature 4 */}
-              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px]">
+              <div className="bg-[#080822]/80 border border-gray-800 rounded-xl p-6 transition-all duration-300 animate-on-scroll transform hover:translate-y-[-5px] hover:shadow-[0_0_20px_rgba(226,255,85,0.1)]">
                 <div className="inline-block p-3 bg-gradient-to-br from-[#E2FF55] to-[#7B78FF] rounded-xl mb-4">
                   <Zap className="w-6 h-6 text-[#0A0A29]" />
                 </div>
@@ -254,9 +199,6 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-        
-        {/* Comparison Section */}
-        <ComparisonSection />
         
         {/* Pricing Packages Section */}
         <PricingPackagesSection />
@@ -272,7 +214,7 @@ const Home: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
               {/* Reason 1 */}
               <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
-                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#E2FF55]/20 blur-xl"></div>
+                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#E2FF55]/20 blur-xl animate-pulse"></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center mb-4">
                     <span className="text-[#0A0A29] font-bold">1</span>
@@ -286,7 +228,7 @@ const Home: React.FC = () => {
               
               {/* Reason 2 */}
               <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
-                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#7B78FF]/20 blur-xl"></div>
+                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#7B78FF]/20 blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#7B78FF] flex items-center justify-center mb-4">
                     <span className="text-[#0A0A29] font-bold">2</span>
@@ -300,7 +242,7 @@ const Home: React.FC = () => {
               
               {/* Reason 3 */}
               <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
-                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#9b87f5]/20 blur-xl"></div>
+                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#9b87f5]/20 blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
                 <div className="relative z-10">
                   <div className="w-12 h-12 rounded-full bg-[#9b87f5] flex items-center justify-center mb-4">
                     <span className="text-[#0A0A29] font-bold">3</span>
@@ -331,7 +273,7 @@ const Home: React.FC = () => {
                     size="lg"
                     className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 text-lg px-8 py-6 rounded-full flex items-center gap-2 relative overflow-hidden group"
                   >
-                    <span className="relative z-10">Request a demo</span> <ArrowRight className="w-5 h-5 relative z-10" />
+                    <span className="relative z-10">Request a demo</span> <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
                   </Button>
                 </Link>
