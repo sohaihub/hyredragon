@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { X, Send, Flame } from 'lucide-react';
+import { X, Send, Flame, MessageCircle } from 'lucide-react';
 import { toast } from './ui/use-toast';
 
 interface Message {
@@ -206,38 +207,38 @@ const GeminiChatbot: React.FC = () => {
   // Dragon-themed flame icon
   const DragonFlameIcon = () => (
     <div className="relative">
-      <Flame className="w-6 h-6 text-[#E2FF55] animate-pulse" />
+      <Flame className="w-6 h-6 text-[#E2FF55]" />
       <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#FF9F5A]" />
     </div>
   );
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Chat bubble button */}
+      {/* Chat bubble button - updated to be stable, no hover effects */}
       {!isOpen && (
         <Button 
           onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] hover:from-[#E2FF55]/90 hover:to-[#FF9F5A]/90 shadow-lg hover:shadow-xl flex items-center justify-center relative transition-all duration-300"
+          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] shadow-lg flex items-center justify-center relative"
           aria-label="Open AI Assistant"
         >
-          <div className="relative w-10 h-10 flex items-center justify-center">
-            <DragonFlameIcon />
+          <div className="w-10 h-10 flex items-center justify-center">
+            <MessageCircle className="w-7 h-7 text-[#080820]" />
           </div>
         </Button>
       )}
       
       {/* Chat window */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border border-gray-800 rounded-2xl shadow-xl flex flex-col w-96 sm:w-[500px] h-[650px] transition-all animate-scale-in">
-          {/* Chat header */}
-          <div className="p-4 border-b border-gray-800 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
+        <div className="bg-[#0A0A29] border border-[#E2FF55] rounded-2xl shadow-xl flex flex-col w-96 sm:w-[500px] h-[650px] animate-scale-in">
+          {/* Chat header - updated with theme colors */}
+          <div className="p-4 border-b border-[#E2FF55]/30 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl">
             <div className="flex items-center">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 p-1">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
                 <DragonFlameIcon />
               </div>
               <div>
                 <h3 className="text-white font-semibold text-lg">HyreDragon AI</h3>
-                <p className="text-gray-400 text-xs">Intelligent Assistant</p>
+                <p className="text-[#E2FF55] text-xs">Recruitment Assistant</p>
               </div>
             </div>
             <Button 
@@ -252,7 +253,7 @@ const GeminiChatbot: React.FC = () => {
           
           {/* Chat messages */}
           <div 
-            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent bg-[#0A0A29] bg-opacity-95"
+            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#E2FF55]/20 scrollbar-track-transparent bg-[#0A0A29] bg-opacity-95"
             ref={chatContainerRef}
             style={{ 
               backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.05" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
@@ -265,7 +266,7 @@ const GeminiChatbot: React.FC = () => {
                 onClick={() => setActiveThread(message.id || null)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20">
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30">
                     <Flame className="w-5 h-5 text-[#FF9F5A]" />
                   </div>
                 )}
@@ -282,7 +283,7 @@ const GeminiChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30">
                   <Flame className="w-5 h-5 text-[#FF9F5A] animate-pulse" />
                 </div>
                 <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
@@ -296,15 +297,15 @@ const GeminiChatbot: React.FC = () => {
             )}
           </div>
           
-          {/* Chat input */}
-          <div className="p-4 border-t border-gray-800 bg-[#080822] rounded-b-2xl">
+          {/* Chat input - updated with theme colors */}
+          <div className="p-4 border-t border-[#E2FF55]/30 bg-[#080822] rounded-b-2xl">
             <div className="flex items-center gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
-                placeholder="Ask AI a question..."
-                className="flex-1 bg-[#0F103E] border-gray-700 focus:border-[#E2FF55] text-white"
+                placeholder="Ask about HyreDragon features..."
+                className="flex-1 bg-[#0F103E] border-[#E2FF55]/30 focus:border-[#E2FF55] text-white"
               />
               <Button 
                 onClick={handleSendMessage} 

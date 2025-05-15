@@ -3,7 +3,7 @@ import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users, Flame } from 'lucide-react';
+import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users, Flame, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 interface ProductCardProps {
@@ -15,6 +15,7 @@ interface ProductCardProps {
   buttonUrl: string;
   accentColor: string;
   isPopular?: boolean;
+  isComingSoon?: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -25,12 +26,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
   buttonText,
   buttonUrl,
   accentColor,
-  isPopular = false
+  isPopular = false,
+  isComingSoon = false
 }) => (
-  <div className={`relative bg-[#080822]/80 border border-gray-800 rounded-xl p-6 hover:border-${accentColor} transition-all duration-300 animate-on-scroll`}>
+  <div className={`relative bg-[#080822]/80 border border-gray-800 rounded-xl p-6 ${isComingSoon ? 'border-gray-700' : `border-${accentColor}`}`}>
     {isPopular && (
       <div className="absolute top-0 right-6 transform -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
         Most Popular
+      </div>
+    )}
+    {isComingSoon && (
+      <div className="absolute top-0 right-6 transform -translate-y-1/2 bg-[#FF9F5A] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
+        Coming Soon
       </div>
     )}
     <div className={`inline-block p-3 bg-${accentColor}/20 rounded-xl mb-4`}>
@@ -53,10 +60,15 @@ const ProductCard: React.FC<ProductCardProps> = ({
       <Link to={buttonUrl}>
         <Button 
           variant="outline"
-          className={`w-full border-${accentColor} text-${accentColor} hover:bg-${accentColor}/20`}
+          className={`w-full ${
+            isComingSoon 
+              ? 'border-gray-700 text-gray-400 cursor-not-allowed' 
+              : `border-${accentColor} text-${accentColor} hover:bg-${accentColor}/20`
+          }`}
+          disabled={isComingSoon}
         >
-          {buttonText}
-          <ArrowRight className="ml-2 h-4 w-4" />
+          {isComingSoon ? "Coming Soon" : buttonText}
+          {!isComingSoon && <ArrowRight className="ml-2 h-4 w-4" />}
         </Button>
       </Link>
     </div>
@@ -94,7 +106,8 @@ const AIProducts: React.FC = () => {
       ],
       buttonText: "Browse Talent Pool",
       buttonUrl: "/request-demo",
-      accentColor: "[#E2FF55]"
+      accentColor: "[#E2FF55]",
+      isComingSoon: true
     },
     {
       title: "AI Video Interview",
@@ -130,7 +143,7 @@ const AIProducts: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Background elements */}
+      {/* Background elements - static, no hover effect */}
       <div className="fixed top-0 left-0 w-full h-full">
         {/* Background circular gradients */}
         <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
@@ -144,7 +157,7 @@ const AIProducts: React.FC = () => {
         <section className="py-12 md:py-20 px-4 text-center">
           <div className="container mx-auto max-w-4xl">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white">
-              HyreDragon's <span className="text-[#E2FF55] animate-glow">AI Products</span>
+              HyreDragon's <span className="text-[#E2FF55]">AI Products</span>
             </h1>
             <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
               Our suite of intelligent recruitment tools designed to revolutionize your hiring process, reduce bias, and find the perfect candidates faster.
@@ -167,6 +180,7 @@ const AIProducts: React.FC = () => {
                   buttonUrl={product.buttonUrl}
                   accentColor={product.accentColor}
                   isPopular={product.isPopular}
+                  isComingSoon={product.isComingSoon}
                 />
               ))}
             </div>
@@ -178,7 +192,7 @@ const AIProducts: React.FC = () => {
           <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820]/0"></div>
           <div className="container mx-auto relative z-10">
             <div className="max-w-4xl mx-auto">
-              <div className="bg-[#080822]/80 border-2 border-[#E2FF55] rounded-xl p-8 md:p-10 animate-pulse-light shadow-[0_0_30px_rgba(226,255,85,0.15)]">
+              <div className="bg-[#080822]/80 border-2 border-[#E2FF55] rounded-xl p-8 md:p-10 shadow-[0_0_30px_rgba(226,255,85,0.15)]">
                 <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
                   HyreDragon's Edge: <span className="text-[#E2FF55]">Slay the Competition</span>
                 </h2>
@@ -236,7 +250,7 @@ const AIProducts: React.FC = () => {
                   <Link to="/request-demo">
                     <Button 
                       size="lg"
-                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 button-highlight"
+                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8"
                     >
                       See It In Action <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
@@ -260,7 +274,7 @@ const AIProducts: React.FC = () => {
               <Link to="/request-demo">
                 <Button 
                   size="lg"
-                  className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 px-8 rounded-full button-highlight relative overflow-hidden"
+                  className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 px-8 rounded-full relative overflow-hidden"
                 >
                   Schedule a Demo
                 </Button>
