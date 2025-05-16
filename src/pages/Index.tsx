@@ -102,6 +102,10 @@ const Index: React.FC = () => {
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/10 blur-3xl animate-pulse"></div>
         <div className="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] rounded-full bg-gradient-to-tr from-[#E2FF55]/10 to-[#7B78FF]/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         <div className="absolute top-1/3 left-1/4 w-48 h-48 rounded-full bg-[#7B78FF]/10 blur-2xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        
+        {/* Add more subtle background effects */}
+        <div className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        <div className="absolute bottom-1/4 right-1/3 w-40 h-40 rounded-full bg-[#FF9F5A]/5 blur-3xl animate-pulse" style={{ animationDelay: '2.5s' }}></div>
       </div>
 
       <Header />
@@ -109,10 +113,12 @@ const Index: React.FC = () => {
         {/* Only include PricingHero and PricingFAQs */}
         <div className="space-y-10 md:space-y-14 pb-16">
           <PricingHero />
-          <PricingFeatureList />
-          <PricingFAQs />
-          
-
+          <div className="backdrop-blur-sm bg-[#080822]/30 rounded-xl p-6 mx-4 md:mx-10 shadow-xl">
+            <PricingFeatureList />
+          </div>
+          <div className="backdrop-blur-sm bg-[#080822]/30 rounded-xl p-6 mx-4 md:mx-10 shadow-xl">
+            <PricingFAQs />
+          </div>
         </div>
       </main>
       <Footer />

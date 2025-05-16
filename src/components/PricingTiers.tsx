@@ -35,8 +35,8 @@ const PricingTier: React.FC<PricingTierProps> = ({
       ref={tierRef}
       className={`rounded-xl ${
         highlighted
-          ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl'
-          : 'border border-gray-800 bg-[#080822]/70'
+          ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl backdrop-blur-sm'
+          : 'border border-gray-800 bg-[#080822]/70 backdrop-blur-sm'
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
       {highlighted && (
@@ -85,7 +85,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
 
 const EnterpriseSolution: React.FC = () => {
   return (
-    <div className="mt-16 rounded-xl border border-[#E2FF55] bg-[#080822]/70 p-8">
+    <div className="mt-16 rounded-xl border border-[#E2FF55] bg-[#080822]/70 backdrop-blur-sm p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
       <h2 className="text-2xl font-bold text-white text-center mb-8">Enterprise Solution</h2>
       <div className="grid md:grid-cols-3 gap-8">
         <div>
@@ -242,7 +242,7 @@ const PricingTiers: React.FC = () => {
 
       <EnterpriseSolution />
 
-      <div id="feature-comparison">
+      <div id="feature-comparison" className="glass-effect rounded-xl p-6 mt-12">
         <FeatureComparisonTable />
       </div>
     </div>
