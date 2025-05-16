@@ -41,9 +41,6 @@ const PricingTier: React.FC<PricingTierProps> = ({
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
       {(highlighted || badgeText) && (
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md ring-2 ring-[#080820] z-20">
-          {badgeText ?? 'POPULAR'}
-        </div>
       )}
 
       <div className="text-center mb-4">
