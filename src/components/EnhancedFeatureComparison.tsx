@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Check, X, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -21,19 +22,19 @@ interface FeatureCategoryProps {
 
 const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) => {
   return (
-    <div className="mb-7 animate-fade-in">
-      <h3 className="text-xl font-bold mb-4 text-white bg-gradient-to-r from-[#0F103E] to-transparent border-b border-[#3D3D5C]/30 pb-2 pl-3">
+    <div className="mb-8 animate-fade-in">
+      <h3 className="text-xl font-bold mb-4 text-white bg-gradient-to-r from-[#0F103E] to-transparent border-b border-[#E2FF55]/30 pb-2 pl-3">
         {title}
       </h3>
       <div className="overflow-x-auto">
         <table className="w-full">
           <thead>
             <tr className="text-left">
-              <th className="py-2 w-1/3 md:w-2/5 text-white text-base bg-[#080820] sticky left-0">Feature</th>
+              <th className="py-2 w-1/3 md:w-2/5 text-white text-lg bg-[#080820] sticky left-0">Feature</th>
               <th className="py-2 text-center text-white">Starter<br/>(10k)</th>
               <th className="py-2 text-center text-white">Basic<br/>(20k)</th>
               <th className="py-2 text-center text-white">Standard<br/>(30k)</th>
-              <th className="py-2 text-center text-white">Pro<br/>(40k)</th>
+              <th className="py-2 text-center text-white">Professional<br/>(40k)</th>
               <th className="py-2 text-center text-white">Premium<br/>(50k)</th>
             </tr>
           </thead>
@@ -41,62 +42,62 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
             {features.map((feature, index) => (
               <tr 
                 key={index} 
-                className="border-b border-[#3D3D5C]/20 hover:bg-[#0F103E]/20 transition-all"
+                className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all"
               >
                 <td className={cn(
-                  "py-3 text-white sticky left-0 bg-[#080820]",
+                  "py-4 text-white text-lg sticky left-0 bg-[#080820]",
                   feature.comingSoon && "opacity-80"
                 )}>
                   {feature.name}
                   {feature.comingSoon && (
-                    <span className="ml-2 text-xs px-1.5 py-0.5 bg-[#7B78FF]/90 text-white rounded-full inline-block align-middle animate-subtle-pulse">
+                    <span className="ml-2 text-xs px-1.5 py-0.5 bg-[#E2FF55] text-[#0A0A29] rounded-full inline-block align-middle animate-pulse">
                       Coming Soon
                     </span>
                   )}
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-4 text-center">
                   {typeof feature.starter === 'boolean' ? (
                     feature.starter ? 
-                      <Check className="h-5 w-5 text-[#7B78FF] mx-auto" /> : 
-                      <X className="h-5 w-5 text-gray-500 mx-auto" />
+                      <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                      <X className="h-6 w-6 text-gray-500 mx-auto" />
                   ) : (
-                    <span className="text-[#7B78FF]">{feature.starter}</span>
+                    <span className="text-[#E2FF55]">{feature.starter}</span>
                   )}
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-4 text-center">
                   {typeof feature.basic === 'boolean' ? (
                     feature.basic ? 
-                      <Check className="h-5 w-5 text-[#7B78FF] mx-auto" /> : 
-                      <X className="h-5 w-5 text-gray-500 mx-auto" />
+                      <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                      <X className="h-6 w-6 text-gray-500 mx-auto" />
                   ) : (
-                    <span className="text-[#7B78FF]">{feature.basic}</span>
+                    <span className="text-[#E2FF55]">{feature.basic}</span>
                   )}
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-4 text-center">
                   {typeof feature.standard === 'boolean' ? (
                     feature.standard ? 
-                      <Check className="h-5 w-5 text-[#7B78FF] mx-auto" /> : 
-                      <X className="h-5 w-5 text-gray-500 mx-auto" />
+                      <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                      <X className="h-6 w-6 text-gray-500 mx-auto" />
                   ) : (
-                    <span className="text-[#7B78FF]">{feature.standard}</span>
+                    <span className="text-[#E2FF55]">{feature.standard}</span>
                   )}
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-4 text-center">
                   {typeof feature.professional === 'boolean' ? (
                     feature.professional ? 
-                      <Check className="h-5 w-5 text-[#7B78FF] mx-auto" /> : 
-                      <X className="h-5 w-5 text-gray-500 mx-auto" />
+                      <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                      <X className="h-6 w-6 text-gray-500 mx-auto" />
                   ) : (
-                    <span className="text-[#7B78FF]">{feature.professional}</span>
+                    <span className="text-[#E2FF55]">{feature.professional}</span>
                   )}
                 </td>
-                <td className="py-3 text-center">
+                <td className="py-4 text-center">
                   {typeof feature.premium === 'boolean' ? (
                     feature.premium ? 
-                      <Check className="h-5 w-5 text-[#7B78FF] mx-auto" /> : 
-                      <X className="h-5 w-5 text-gray-500 mx-auto" />
+                      <Check className="h-6 w-6 text-[#E2FF55] mx-auto" /> : 
+                      <X className="h-6 w-6 text-gray-500 mx-auto" />
                   ) : (
-                    <span className="text-[#7B78FF]">{feature.premium}</span>
+                    <span className="text-[#E2FF55]">{feature.premium}</span>
                   )}
                 </td>
               </tr>
@@ -151,29 +152,28 @@ const EnhancedFeatureComparison: React.FC = () => {
   ];
 
   return (
-    <section className="py-10 md:py-14 px-4 relative">
-      {/* Subtle animated background */}
+    <section className="py-12 md:py-16 px-4 relative">
+      {/* Animated background */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-[#7B78FF]/3 blur-3xl animate-pulse-light"></div>
-        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 rounded-full bg-[#7B78FF]/3 blur-3xl animate-pulse-light" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-72 h-72 rounded-full bg-[#7B78FF]/5 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
       </div>
 
       <div className="container mx-auto relative z-10">
         <div 
-          className={`max-w-6xl mx-auto transition-all duration-800 ease-premium pricing-card ${
-            animateTable ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+          className={`max-w-6xl mx-auto transition-all duration-1000 ${
+            animateTable ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
-          data-pricing="true"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-8 text-white">
-            Choose Your <span className="text-[#7B78FF]">Plan</span>
+          <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-white">
+            Choose Your <span className="text-[#E2FF55]">Plan</span>
           </h2>
           
-          <div className="border border-[#3D3D5C]/30 rounded-lg overflow-hidden bg-[#080820]/90 shadow-xl backdrop-blur-sm">
-            <div className="p-6 md:p-7 bg-gradient-to-r from-[#0F103E]/40 to-[#080820]/60">
-              <div className="bg-[#091030]/40 p-5 rounded-md border border-[#3D3D5C]/20 shadow-inner mb-7 transition-all duration-400 ease-premium hover:border-[#3D3D5C]/40">
-                <p className="text-left text-base md:text-lg text-white/80 font-normal">
-                  Only HyreDragon combines <span className="text-[#7B78FF] font-medium">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. <span className="text-[#7B78FF] font-medium">One tool. Total coverage.</span>
+          <div className="border-2 border-[#0F103E] rounded-xl overflow-hidden bg-[#080820]/70 shadow-xl backdrop-blur-sm">
+            <div className="p-6 md:p-8 bg-gradient-to-r from-[#0F103E]/50 to-[#080820]/70">
+              <div className="bg-[#091030]/60 p-6 rounded-xl border border-[#E2FF55]/20 shadow-inner mb-8 transform hover:scale-[1.01] transition-all duration-300">
+                <p className="text-center text-lg md:text-xl text-white/80 font-medium">
+                  Only HyreDragon combines <span className="text-[#E2FF55]/90 font-semibold">MCQ, coding, and video interviews</span> — with built-in proctoring and real-time AI analytics. <span className="text-[#E2FF55]/90 font-semibold">One tool. Total coverage.</span>
                 </p>
               </div>
               
@@ -186,12 +186,12 @@ const EnhancedFeatureComparison: React.FC = () => {
                 </div>
               </div>
               
-              <div className="mt-8 flex justify-center">
+              <div className="mt-10 flex justify-center">
                 <Link to="/request-demo">
-                  <Button className="bg-gradient-to-r from-[#7B78FF] to-[#6A67EE] text-white hover:bg-[#7B78FF]/90 px-7 py-5 text-base font-medium rounded-md flex items-center gap-2 group relative overflow-hidden">
+                  <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/80 px-8 py-6 text-lg font-medium rounded-md flex items-center gap-2 group relative overflow-hidden">
                     <span className="relative z-10">Request a Demo</span>
                     <ArrowRight className="relative z-10 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 -translate-x-full group-hover:translate-x-full transition-all duration-1000 ease-out"></div>
+                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
                   </Button>
                 </Link>
               </div>

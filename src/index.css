@@ -70,6 +70,7 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: default !important; /* Keep default cursor */
   }
   html {
     @apply relative scroll-smooth;
@@ -79,83 +80,83 @@
     @apply pt-0;
   }
   main {
-    @apply pt-14; /* Reduced from pt-16 (10-15% reduction as requested) */
+    @apply pt-16;
   }
 
-  /* Refined cursor effect - subtle glow around default cursor */
+  /* Custom cursor - more subtle with default cursor preserved */
   .neon-cursor {
-    @apply fixed w-6 h-6 rounded-full bg-transparent pointer-events-none z-[9999] border border-[#7B78FF]/40;
-    box-shadow: 0 0 6px rgba(123, 120, 255, 0.25);
+    @apply fixed w-8 h-8 rounded-full bg-transparent pointer-events-none z-[9999] border border-neon-green/30;
+    box-shadow: 0 0 8px rgba(226, 255, 85, 0.3);
     transform: translate(-50%, -50%);
-    transition: width 0.2s, height 0.2s, opacity 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-    opacity: 0.6;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0;
   }
 
   .neon-cursor.active {
-    opacity: 0.8;
-    width: 2rem;
-    height: 2rem;
+    opacity: 0.6;
   }
 
-  /* Simplified button and interactive element styles */
+  /* Button and interactive element styles - more subtle */
   button, a, [role="button"], input[type="submit"], input[type="button"], label[for], select, .interactive {
-    @apply relative overflow-hidden transition-all duration-300 ease-premium;
+    @apply relative overflow-hidden transition-all duration-300;
   }
 
   button:hover, a:hover, [role="button"]:hover, input[type="submit"]:hover, input[type="button"]:hover, .interactive:hover {
+    @apply after:absolute after:inset-0 after:bg-white/5;
     transform: translateY(-1px);
   }
 
   button:active, a:active, [role="button"]:active, input[type="submit"]:active, input[type="button"]:active, .interactive:active {
+    @apply after:absolute after:inset-0 after:bg-black/5;
     transform: translateY(1px);
   }
 
-  /* More subtle click effect */
+  /* Click effect - more subtle */
   .neon-click-effect {
     @apply absolute rounded-full pointer-events-none;
-    background: radial-gradient(circle, rgba(123, 120, 255, 0.15) 0%, rgba(123, 120, 255, 0) 70%);
+    background: radial-gradient(circle, rgba(226, 255, 85, 0.2) 0%, rgba(226, 255, 85, 0) 70%);
     transform: translate(-50%, -50%);
-    animation: subtle-click 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: subtle-click 0.8s ease-out forwards;
   }
 
   @keyframes subtle-click {
     0% {
-      opacity: 0.6;
+      opacity: 0.8;
       width: 0px;
       height: 0px;
     }
     100% {
       opacity: 0;
-      width: 80px;
-      height: 80px;
+      width: 100px;
+      height: 100px;
     }
   }
 
-  /* Money particles effect - made more subtle */
+  /* Money particles effect */
   .money-particle {
     position: fixed;
     z-index: 9999;
     pointer-events: none;
-    animation: moneyFall 2.5s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: moneyFall linear;
     opacity: 0;
-    filter: drop-shadow(0 0 3px rgba(123, 120, 255, 0.3));
+    filter: drop-shadow(0 0 4px rgba(226, 255, 85, 0.5));
   }
 
   @keyframes moneyFall {
     0% {
       transform: translateY(-5vh) rotate(0deg);
-      opacity: 0.3;
+      opacity: 0.5;
     }
     80% {
-      opacity: 0.2;
+      opacity: 0.4;
     }
     100% {
-      transform: translateY(105vh) rotate(360deg);
+      transform: translateY(105vh) rotate(720deg);
       opacity: 0;
     }
   }
   
-  /* News ticker animation - smoother easing */
+  /* News ticker animation */
   @keyframes marquee {
     0% {
       transform: translateX(0);
@@ -166,19 +167,19 @@
   }
   
   .animate-marquee {
-    animation: marquee 30s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    animation: marquee 30s linear infinite;
   }
   
-  /* Refined content box hover with magnetic effect */
+  /* Advanced content box hover animations */
   .content-box {
-    @apply relative overflow-hidden transition-all duration-500 ease-premium;
+    @apply relative overflow-hidden transition-all duration-500;
   }
   
   .content-box::before {
     content: '';
-    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    @apply absolute inset-0 opacity-0 transition-opacity duration-700;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(123, 120, 255, 0.04) 0%, 
+                rgba(226, 255, 85, 0.07) 0%, 
                 transparent 70%);
     z-index: 0;
     pointer-events: none;
@@ -188,22 +189,18 @@
     @apply opacity-100;
   }
 
-  .content-box:hover {
-    transform: scale(1.01);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  }
-
-  /* Early user promo styling - more refined */
+  /* Early user promo styling - sophisticated */
   .promo-text {
-    @apply font-medium text-white relative inline-block;
-    letter-spacing: 0.25px;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply font-bold text-white relative inline-block;
+    text-shadow: 0 0 3px rgba(226, 255, 85, 0.3);
+    letter-spacing: 0.5px;
+    transition: all 0.5s ease;
   }
   
   .promo-text::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-white/30;
-    transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-neon-green/70;
+    transition: width 0.7s ease;
   }
   
   .promo-text:hover::after {
@@ -211,144 +208,92 @@
   }
   
   .promo-box {
-    @apply rounded-md bg-[#0F103E]/70 p-3 relative overflow-hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    @apply rounded-lg bg-[#0F103E]/70 p-4 relative overflow-hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
   
   .promo-box::before {
     content: '';
-    @apply absolute inset-0 opacity-0 bg-gradient-to-r from-white/5 to-transparent;
-    transition: opacity 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply absolute inset-0 opacity-0 bg-gradient-to-r from-neon-green/5 to-transparent;
+    transition: opacity 0.6s ease;
   }
   
   .promo-box:hover::before {
     @apply opacity-100;
   }
   
-  /* Enhanced UI components with better transitions */
+  /* Enhanced UI components */
   .scale-card {
-    @apply transition-all duration-400 ease-premium;
+    @apply transition-all duration-500;
     transform-style: preserve-3d;
     transform: perspective(1000px);
   }
   
   .scale-card:hover {
-    transform: perspective(1000px) translateY(-4px);
+    transform: perspective(1000px) translateY(-5px);
   }
   
-  /* More subtle neon elements */
+  /* Sophistication for neon elements */
   .neon-border {
-    @apply border border-[#3D3D5C]/30 rounded-md overflow-hidden;
-    box-shadow: 0 0 8px rgba(123, 120, 255, 0.1);
-    transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply border border-neon-green/20 rounded-lg overflow-hidden;
+    box-shadow: 0 0 10px rgba(226, 255, 85, 0.15);
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
   }
   
   .neon-border:hover {
-    @apply border-[#3D3D5C]/50;
-    box-shadow: 0 0 12px rgba(123, 120, 255, 0.15);
+    @apply border-neon-green/30;
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.2);
   }
   
   .neon-text {
     @apply text-white;
-    text-shadow: 0 0 2px rgba(123, 120, 255, 0.3);
-    transition: text-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    text-shadow: 0 0 3px rgba(226, 255, 85, 0.5);
+    transition: text-shadow 0.5s ease;
   }
   
   .neon-button {
-    @apply bg-gradient-to-r from-[#7B78FF] to-[#6A67EE] text-white px-4 py-2 rounded-md transition-all duration-400 ease-premium;
-    box-shadow: 0 4px 10px rgba(123, 120, 255, 0.2);
+    @apply bg-neon-green/90 text-[#0A0A29] px-4 py-2 rounded-lg transition-all duration-500;
+    box-shadow: 0 0 10px rgba(226, 255, 85, 0.2);
   }
   
   .neon-button:hover {
-    box-shadow: 0 6px 15px rgba(123, 120, 255, 0.3);
+    @apply bg-neon-green;
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.3), 0 0 30px rgba(226, 255, 85, 0.1);
     transform: translateY(-2px);
   }
   
   .neon-button:active {
     transform: translateY(1px);
-    box-shadow: 0 2px 5px rgba(123, 120, 255, 0.2);
+    box-shadow: 0 0 8px rgba(226, 255, 85, 0.2);
   }
 
-  /* Form input improvements */
-  input, textarea, select {
-    @apply transition-all duration-300 ease-premium;
+  /* Dragon assistant specific styles */
+  .dragon-assistant-button {
+    @apply relative overflow-hidden rounded-full;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   
-  input:focus, textarea:focus, select:focus {
-    @apply ring-[#7B78FF]/20 border-[#7B78FF]/30;
-    transform: translateY(-1px);
+  .dragon-assistant-button:hover {
+    transform: scale(1.05);
   }
   
-  /* Better spacing and alignment */
-  h1, h2, h3, h4, h5, h6 {
-    @apply mb-5; /* Reduced from mb-6 (15% reduction) */
-  }
-  
-  .section {
-    @apply py-10 md:py-14; /* Reduced from py-12/py-16 */
-  }
-  
-  .container {
-    @apply px-4 md:px-6;
-  }
-
-  /* Timeline refinements */
-  .timeline-step {
-    @apply relative;
-  }
-
-  .timeline-step .timeline-connector {
-    @apply absolute h-full w-0.5 bg-[#3D3D5C]/50 left-4 top-0 -translate-x-1/2;
-    height: calc(100% - 2rem); /* Trim the connector as requested */
-    top: 2rem;
-  }
-
-  .timeline-step:first-child .timeline-connector,
-  .timeline-step:last-child .timeline-connector {
-    height: calc(50% - 1rem);
-  }
-
-  .timeline-step:first-child .timeline-connector {
-    top: 2rem;
-  }
-
-  .timeline-step:last-child .timeline-connector {
-    top: 0;
-  }
-
-  .timeline-step .timeline-circle {
-    @apply w-8 h-8 rounded-full bg-[#1A1A3D] border border-[#3D3D5C]/50 flex items-center justify-center relative z-10;
-    transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .timeline-step:hover .timeline-circle {
-    @apply border-[#7B78FF]/40;
-    box-shadow: 0 0 0 4px rgba(123, 120, 255, 0.1);
-  }
-
-  .timeline-step:hover .timeline-circle::before {
+  .dragon-assistant-button::before {
     content: '';
-    @apply absolute inset-1 rounded-full bg-[#7B78FF]/10;
-    animation: pulse-inner 2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+    @apply absolute inset-0 opacity-0 rounded-full;
+    background: radial-gradient(circle, rgba(226, 255, 85, 0.2) 0%, transparent 70%);
+    transition: opacity 0.5s ease;
   }
-
-  @keyframes pulse-inner {
-    0%, 100% {
-      opacity: 0.2;
-      transform: scale(0.8);
-    }
-    50% {
-      opacity: 0.6;
-      transform: scale(1);
-    }
+  
+  .dragon-assistant-button:hover::before {
+    @apply opacity-100;
   }
 }
 
-/* Refined animations with premium cubic-bezier easing */
+/* Enhanced animations */
 @keyframes fade-in {
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
   }
   100% {
     opacity: 1;
@@ -357,7 +302,7 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation: fade-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes float-up-down {
@@ -365,7 +310,7 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-6px);
+    transform: translateY(-8px);
   }
 }
 
@@ -375,52 +320,52 @@
 
 @keyframes glow {
   0%, 100% {
-    text-shadow: 0 0 2px rgba(123, 120, 255, 0.2);
+    text-shadow: 0 0 3px rgba(226, 255, 85, 0.3);
   }
   50% {
-    text-shadow: 0 0 6px rgba(123, 120, 255, 0.3);
+    text-shadow: 0 0 10px rgba(226, 255, 85, 0.5);
   }
 }
 
 .animate-glow {
-  animation: glow 3s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  animation: glow 3s ease-in-out infinite;
 }
 
-/* Improved parallax and layered scroll effects */
+/* Parallax and layered scroll effects */
 .parallax-layer {
   @apply fixed pointer-events-none transition-transform;
   transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .parallax-slow {
-  transform: translateY(calc(var(--scroll-y, 0) * 0.08px));
+  transform: translateY(calc(var(--scroll-y, 0) * 0.1px));
 }
 
 .parallax-medium {
-  transform: translateY(calc(var(--scroll-y, 0) * 0.15px));
+  transform: translateY(calc(var(--scroll-y, 0) * 0.2px));
 }
 
 .parallax-fast {
-  transform: translateY(calc(var(--scroll-y, 0) * 0.22px));
+  transform: translateY(calc(var(--scroll-y, 0) * 0.3px));
 }
 
-/* Refined hover effects */
+/* Advanced hover effects */
 .hover-lift {
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), 
-              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hover-lift:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
 .hover-highlight {
-  transition: background-color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .hover-highlight:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 /* Button micro-interactions */
@@ -432,16 +377,16 @@
 .micro-button::before {
   content: '';
   @apply absolute inset-0 opacity-0 bg-white;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   mix-blend-mode: overlay;
 }
 
 .micro-button:hover::before {
-  @apply opacity-5;
+  @apply opacity-10;
 }
 
 .micro-button:active::before {
-  @apply opacity-10;
+  @apply opacity-20;
 }
 
 /* Content styles */
@@ -449,42 +394,4 @@
   max-width: 65ch;
   color: rgba(255, 255, 255, 0.9);
   /* ... keep existing code */
-}
-
-/* Ease premium - custom cubic bezier for consistent premium feel */
-.ease-premium {
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* Focus state improvements for forms */
-input:focus-visible, 
-textarea:focus-visible, 
-select:focus-visible {
-  @apply outline-none ring-2 ring-[#7B78FF]/20;
-}
-
-/* Add a subtle grow underline animation for inputs */
-.input-underline {
-  @apply relative;
-}
-
-.input-underline::after {
-  content: '';
-  @apply absolute left-0 bottom-0 h-0.5 w-0 bg-[#7B78FF]/30;
-  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.input-underline:focus-within::after {
-  @apply w-full;
-}
-
-/* Pricing box magnetic hover */
-.pricing-card {
-  @apply transition-all duration-400 ease-premium relative;
-  transform-style: preserve-3d;
-}
-
-.pricing-card:hover {
-  transform: perspective(1000px) translateY(-5px) scale(1.02);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
