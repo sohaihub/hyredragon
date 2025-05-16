@@ -34,23 +34,23 @@ const FeatureComparisonTable: React.FC = () => {
                 <TableHead className="p-4 text-left text-white border-b border-gray-700 w-1/4">Feature</TableHead>
                 <TableHead className={cn("p-4 text-center text-white border-b border-gray-700", planColors.starter)}>
                   <div className="font-bold">Starter</div>
-                  <div>(10k)</div>
+                  <div>(10K) - Free Trial for 14 days</div>
                 </TableHead>
                 <TableHead className={cn("p-4 text-center text-white border-b border-gray-700", planColors.basic)}>
                   <div className="font-bold">Basic</div>
-                  <div>(20k)</div>
+                  <div>(20K)</div>
                 </TableHead>
                 <TableHead className={cn("p-4 text-center text-white border-b border-gray-700", planColors.standard)}>
                   <div className="font-bold">Standard</div>
-                  <div>(30k)</div>
+                  <div>(30K)</div>
                 </TableHead>
                 <TableHead className={cn("p-4 text-center text-white border-b border-gray-700", planColors.professional)}>
                   <div className="font-bold">Professional</div>
-                  <div>(40k)</div>
+                  <div>(40K)</div>
                 </TableHead>
                 <TableHead className={cn("p-4 text-center text-white border-b border-gray-700", planColors.premium)}>
                   <div className="font-bold">Premium</div>
-                  <div>(50k)</div>
+                  <div>(50K)</div>
                 </TableHead>
               </TableRow>
             </TableHeader>
@@ -58,11 +58,11 @@ const FeatureComparisonTable: React.FC = () => {
               {/* Package Duration */}
               <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
                 <TableCell className="p-4 text-white font-medium bg-[#0F103E]/50">Package Duration</TableCell>
-                <TableCell className="p-4 text-white text-center">9hr + 1hr</TableCell>
-                <TableCell className="p-4 text-white text-center">18hr + 2hr</TableCell>
-                <TableCell className="p-4 text-white text-center">27hr + 3hr</TableCell>
-                <TableCell className="p-4 text-white text-center">36hr + 4hr</TableCell>
-                <TableCell className="p-4 text-white text-center">45hr + 5hr</TableCell>
+                <TableCell className="p-4 text-white text-center">10 hours</TableCell>
+                <TableCell className="p-4 text-white text-center">20 hours</TableCell>
+                <TableCell className="p-4 text-white text-center">30 hours</TableCell>
+                <TableCell className="p-4 text-white text-center">40 hours</TableCell>
+                <TableCell className="p-4 text-white text-center">50 hours</TableCell>
               </TableRow>
 
               {/* Basic Section */}
@@ -73,220 +73,552 @@ const FeatureComparisonTable: React.FC = () => {
                 <TableCell className="p-4 text-white">Job Posting</TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">5 Jobs</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>5 Jobs</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">20 Jobs</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>20 Jobs</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">30 Jobs</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>30 Jobs</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">40 Jobs</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>40 Jobs</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">50 Jobs</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>50 Jobs</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Assessment Rounds</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>Round 1 - MCQ or Round 2 - Coding</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>Round 1 - MCQ + Round 2 - Coding</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>Round 1 - MCQ + Round 2 - Coding</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>Round 1 - MCQ + Round 2 - Coding</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>Round 1 - MCQ + Round 2 - Coding</span>
                   </div>
                 </TableCell>
               </TableRow>
               <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
                 <TableCell className="p-4 text-white">Email Notifications (Recruiter & Candidate)</TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
               </TableRow>
               <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
                 <TableCell className="p-4 text-white">Candidate Tracking</TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
               </TableRow>
 
-              {/* AI Features */}
+              {/* AI Features Section */}
               <TableRow className="bg-gray-800/30">
                 <TableCell colSpan={6} className="p-4 text-white font-bold">AI Features</TableCell>
               </TableRow>
               <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
-                <TableCell className="p-4 text-white">Match Making</TableCell>
+                <TableCell className="p-4 text-white">Proctoring - full features on tests</TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100 applications</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>1 hour for proctoring 9 hours on tests</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">200 applications</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>2 hour for proctoring 18 hours on tests</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">300 applications</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>3 hour for proctoring 27 hours on tests</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">400 applications</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>4 hours for proctoring 36 hours on tests</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">500 applications</span>
-                  </div>
-                </TableCell>
-              </TableRow>
-              
-              {/* AI Resume Parsing */}
-              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
-                <TableCell className="p-4 text-white">AI Resume Parsing</TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>5 hours for proctoring 45 hours on tests</span>
                   </div>
                 </TableCell>
               </TableRow>
-              
-              {/* Question Gen (Gemini) */}
               <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
-                <TableCell className="p-4 text-white">Question Gen (Gemini)</TableCell>
+                <TableCell className="p-4 text-white">AI - Match Making - ATS</TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">100-150</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>100 applications</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">150-200</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" />
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" />
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" />
-                </TableCell>
-              </TableRow>
-              
-              {/* Question Gen (OpenAI) */}
-              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
-                <TableCell className="p-4 text-white">Question Gen (OpenAI)</TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">10-20</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>200 applications</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">20-30</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" />
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" />
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" />
-                </TableCell>
-              </TableRow>
-              
-              {/* Proctoring Sessions */}
-              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
-                <TableCell className="p-4 text-white">Proctoring Sessions</TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">1</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>300 applications</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">2</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>400 applications</span>
                   </div>
                 </TableCell>
                 <TableCell className="p-4 text-center">
                   <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">3</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">4</span>
-                  </div>
-                </TableCell>
-                <TableCell className="p-4 text-center">
-                  <div className="flex items-center justify-center">
-                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
-                    <span className="ml-1">5</span>
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>500 applications</span>
                   </div>
                 </TableCell>
               </TableRow>
-              
-              {/* AI Feedback Reports */}
               <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
-                <TableCell className="p-4 text-white">AI Feedback Reports</TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
-                <TableCell className="p-4 text-center"><CheckIcon className="h-5 w-5 text-[#E2FF55] mx-auto" /></TableCell>
+                <TableCell className="p-4 text-white">AI - Resume Analyzer - ATS</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>100 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>200 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>300 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>400 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>500 applications</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">AI - Question Generation (OpenAI)</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>500 questions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>1000 questions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>1500 questions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>2000 questions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>3000 questions</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">AI - Job Description Generator</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>10 Job Descriptions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>20 Job Descriptions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>30 Job Descriptions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>40 Job Descriptions</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>50 Job Descriptions</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">AI Candidate Feedback</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>100 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>200 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>300 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>400 applications</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>500 applications</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+
+              {/* Analytics & Report Section */}
+              <TableRow className="bg-gray-800/30">
+                <TableCell colSpan={6} className="p-4 text-white font-bold">Analytics & Report</TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Analytic Dashboard</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Basic Reporting</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55]" />
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Advance Reporting</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <XIcon className="h-5 w-5 text-red-500" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <XIcon className="h-5 w-5 text-red-500" />
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <span>Downloadable</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <span>Downloadable</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <span>Downloadable</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+
+              {/* Support & Training Section */}
+              <TableRow className="bg-gray-800/30">
+                <TableCell colSpan={6} className="p-4 text-white font-bold">Support & Training</TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">E-mail</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>8 hours turn around time</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>4 hours turn around time</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>2 hours turn around time</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>1 hour turn around time</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>30 mins TAT</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Phone Support</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 1 hr</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 2 hr</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 3 hr</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 4 hrs</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 5 hrs</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Chat Support</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 1 hr</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 2 hr</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 3 hr</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 4 hrs</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>upto 5 hrs</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+              <TableRow className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all duration-200">
+                <TableCell className="p-4 text-white">Training Session</TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>9 AM - 9 PM</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>9 AM - 9 PM</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>24 x 7 submission</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>24 x 7 submission</span>
+                  </div>
+                </TableCell>
+                <TableCell className="p-4 text-center">
+                  <div className="flex items-center justify-center">
+                    <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-1" />
+                    <span>24 x 7 submission</span>
+                  </div>
+                </TableCell>
               </TableRow>
             </TableBody>
           </Table>
