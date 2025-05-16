@@ -2,8 +2,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { X, Send, MessageCircle } from 'lucide-react';
+import { X, Send, Sparkles } from 'lucide-react';
 import { toast } from './ui/use-toast';
+import DragonIcon from './DragonIcon';
 
 interface Message {
   role: 'user' | 'system' | 'assistant';
@@ -13,12 +14,12 @@ interface Message {
   timestamp: number;
 }
 
-const GeminiChatbot: React.FC = () => {
+const DragonChatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     { 
       role: 'assistant', 
-      content: 'Hello! I\'m your AI assistant. Ask me anything about HyreDragon\'s features and services.', 
+      content: 'Hello! I\'m your Dragon Assistant. Ask me anything about our AI recruitment platform and features.', 
       id: 'initial-message',
       timestamp: Date.now()
     }
@@ -29,10 +30,10 @@ const GeminiChatbot: React.FC = () => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
   const systemPrompt = `
-    You are the official AI assistant for HyreDragon, an advanced AI-powered recruitment platform. 
+    You are Dragon, the official AI assistant for our advanced AI-powered recruitment platform. 
     You should respond with a friendly, professional, and helpful tone. Always be concise but informative.
     
-    Here are the detailed features of HyreDragon that you should be well-versed in:
+    Here are the detailed features of our platform that you should be well-versed in:
 
     1. AI-POWERED CANDIDATE MATCHING
        - Uses proprietary matching algorithm with 85%+ accuracy finding ideal candidates
@@ -69,13 +70,6 @@ const GeminiChatbot: React.FC = () => {
        - Education: certification tracking, specialized academic staffing
        - Retail: high-volume hiring tools, seasonal staffing optimization
 
-    6. AI DRIVEN FEEDBACK
-       - Real-time feedback on candidate responses
-       - Sentiment analysis of interviews
-       - Customized feedback templates
-       - Automated performance insights
-       - Bias detection and mitigation recommendations
-
     PRICING INFORMATION:
     - Starter: ₹10,000 - 10 hours, basic features
     - Basic: ₹20,000 - 20 hours, all core features
@@ -84,15 +78,15 @@ const GeminiChatbot: React.FC = () => {
     - Premium: ₹50,000 - 50 hours, all features with custom integration
     - Enterprise: Custom pricing - Unlimited hours, dedicated support, custom integration
 
-    SPECIAL OFFER: First 50 customers get a 25% discount and priority onboarding.
+    SPECIAL OFFER: First 50 customers get 3 free hours and priority onboarding.
 
-    When asked about competitors, focus on HyreDragon's unique advantages without directly criticizing other platforms.
+    When asked about competitors, focus on our unique advantages without directly criticizing other platforms.
     
     If users ask about pricing specifics, benefits of plans, or implementation details, recommend scheduling a demo with a product specialist for personalized information.
 
     Respond in a helpful, concise manner. Aim for responses that are informative but not too lengthy.
     
-    If someone asks about something completely unrelated to recruitment or HyreDragon, politely redirect them by mentioning you're specialized in helping with HyreDragon's recruitment platform.
+    If someone asks about something completely unrelated to recruitment or our platform, politely redirect them by mentioning you're specialized in helping with our recruitment platform.
   `;
 
   useEffect(() => {
@@ -171,7 +165,7 @@ const GeminiChatbot: React.FC = () => {
       // Show a toast notification
       toast({
         title: "Response received",
-        description: "AI Assistant has responded to your query.",
+        description: "Dragon Assistant has responded to your query.",
         duration: 3000,
       });
     } catch (error) {
@@ -234,71 +228,83 @@ const GeminiChatbot: React.FC = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Chat bubble button - with simple chat icon */}
+      {/* Dragon Assistant chat bubble button */}
       {!isOpen && (
-        <Button 
-          onClick={() => setIsOpen(true)}
-          className="w-16 h-16 rounded-full bg-gradient-to-br from-[#E2FF55] to-[#FF9F5A] shadow-lg flex items-center justify-center"
-          aria-label="Open AI Assistant"
-        >
-          <MessageCircle className="w-7 h-7 text-[#080820]" />
-        </Button>
+        <div className="dragon-assistant-button">
+          <Button 
+            onClick={() => setIsOpen(true)}
+            className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1A1A3D] to-[#080820] shadow-lg flex items-center justify-center border border-[#E2FF55]/10 micro-button"
+            aria-label="Open Dragon Assistant"
+          >
+            <Sparkles className="w-6 h-6 text-[#E2FF55]" />
+          </Button>
+          <div className="absolute -top-10 right-0 whitespace-nowrap bg-[#080820] text-white px-3 py-1 rounded-full text-sm shadow-lg scale-0 origin-bottom-right transition-transform duration-300 group-hover:scale-100">
+            <div className="promo-text">Dragon</div>
+          </div>
+        </div>
       )}
       
-      {/* Chat window with advanced animations */}
+      {/* Premium chat window with subtle animations */}
       {isOpen && (
-        <div className="bg-[#0A0A29] border-2 border-[#E2FF55] rounded-2xl shadow-2xl shadow-[#E2FF55]/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-[scale-in_0.3s_ease-out]">
-          {/* Chat header - updated with theme colors */}
-          <div className="p-4 border-b-2 border-[#E2FF55]/50 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] rounded-t-2xl relative overflow-hidden">
+        <div className="bg-[#080820] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
+          {/* Chat header - updated with Dragon theme */}
+          <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
             <div className="flex items-center relative z-10">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
-                <MessageCircle className="w-7 h-7 text-[#E2FF55]" />
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
+                <Sparkles className="w-5 h-5 text-[#E2FF55]" />
               </div>
               <div>
-                <h3 className="text-white font-semibold text-lg">HyreDragon AI</h3>
-                <p className="text-[#E2FF55] text-xs">Recruitment Assistant</p>
+                <h3 className="text-white font-semibold text-lg">Dragon</h3>
+                <p className="text-[#E2FF55]/70 text-xs">Recruitment Assistant</p>
               </div>
             </div>
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white relative z-10 hover:bg-[#E2FF55]/10 transition-all duration-300"
+              className="text-gray-400 hover:text-white relative z-10 hover:bg-white/5 transition-all duration-300 micro-button"
             >
               <X className="w-5 h-5" />
             </Button>
+            
+            {/* Early adopter promo notification */}
+            <div className="absolute -top-1 left-0 right-0 px-3 py-0.5 bg-gradient-to-r from-[#E2FF55]/10 to-transparent opacity-0 animate-fade-in" style={{animationDelay: '0.5s', animationFillMode: 'forwards'}}>
+              <p className="text-xs text-center">
+                <span className="promo-text text-xs">First 50 customers get 3 free hours</span>
+              </p>
+            </div>
           </div>
           
-          {/* Chat messages with improved threading and animations */}
+          {/* Chat messages with refined animations */}
           <div 
-            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-[#E2FF55]/20 scrollbar-track-transparent bg-[#0A0A29] bg-opacity-95"
+            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
             ref={chatContainerRef}
             style={{ 
-              backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.05" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
+              backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.03" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
             }}
           >
             {messages.map((message, index) => (
               <div 
                 key={index} 
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-[fadeIn_0.3s_ease-out] ${message.parentId ? 'ml-6' : ''}`}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in ${message.parentId ? 'ml-6' : ''}`}
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => setActiveThread(message.id)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
-                    <MessageCircle className="w-5 h-5 text-[#E2FF55]" />
+                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
+                    <Sparkles className="w-4 h-4 text-[#E2FF55]" />
                   </div>
                 )}
                 <div 
-                  className={`max-w-[80%] rounded-2xl p-3 cursor-pointer group transition-all duration-300 ${
+                  className={`max-w-[80%] rounded-2xl p-3 cursor-pointer transition-all duration-300 hover-lift ${
                     message.role === 'user' 
-                      ? 'bg-gradient-to-r from-[#E2FF55] to-[#E2FF55]/90 text-[#0A0A29] hover:shadow-md hover:shadow-[#E2FF55]/20' 
-                      : 'bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20 hover:border-[#7B78FF]/40 hover:shadow-md hover:shadow-[#7B78FF]/20'
-                  } ${activeThread === message.id ? 'ring-2 ring-[#E2FF55]/50 transform scale-[1.02]' : ''}`}
+                      ? 'bg-gradient-to-r from-[#1A1A3D] to-[#232349] text-white border border-white/5' 
+                      : 'bg-gradient-to-r from-[#0F103E] to-[#151535] text-white border border-[#E2FF55]/10'
+                  } ${activeThread === message.id ? 'ring-1 ring-[#E2FF55]/20 transform scale-[1.02]' : ''}`}
                 >
                   {message.content}
                   <div className="mt-1 text-right">
-                    <span className={`text-xs ${message.role === 'user' ? 'text-[#0A0A29]/70' : 'text-gray-400'}`}>
+                    <span className="text-xs text-gray-400">
                       {new Date(message.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                     </span>
                   </div>
@@ -306,38 +312,38 @@ const GeminiChatbot: React.FC = () => {
               </div>
             ))}
             {isLoading && (
-              <div className="flex justify-start animate-[fadeIn_0.3s_ease-out]">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 border border-[#E2FF55]/30 p-1">
-                  <MessageCircle className="w-5 h-5 text-[#E2FF55]" />
+              <div className="flex justify-start animate-fade-in">
+                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
+                  <Sparkles className="w-4 h-4 text-[#E2FF55]" />
                 </div>
-                <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#1A1A3D] to-[#1A1A40] text-white border border-[#7B78FF]/20">
+                <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#0F103E] to-[#151535] text-white border border-[#E2FF55]/10">
                   <div className="flex space-x-2 items-center">
-                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-[pulse_0.8s_ease-in-out_infinite]"></div>
-                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-[pulse_0.8s_ease-in-out_infinite_0.2s]"></div>
-                    <div className="w-2 h-2 rounded-full bg-[#E2FF55] animate-[pulse_0.8s_ease-in-out_infinite_0.4s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-white/50 animate-[pulse_0.8s_ease-in-out_infinite]"></div>
+                    <div className="w-2 h-2 rounded-full bg-white/50 animate-[pulse_0.8s_ease-in-out_infinite_0.2s]"></div>
+                    <div className="w-2 h-2 rounded-full bg-white/50 animate-[pulse_0.8s_ease-in-out_infinite_0.4s]"></div>
                   </div>
                 </div>
               </div>
             )}
           </div>
           
-          {/* Chat input - enhanced with animations */}
-          <div className="p-4 border-t-2 border-[#E2FF55]/30 bg-[#080822] rounded-b-2xl">
+          {/* Chat input - refined design */}
+          <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#080822]">
             <div className="flex items-center gap-2 relative">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                placeholder="Ask about HyreDragon features..."
-                className="flex-1 bg-[#0F103E] border-[#E2FF55]/30 focus:border-[#E2FF55] text-white focus:ring-[#E2FF55]/30 transition-all duration-300"
+                placeholder="Ask Dragon about our features..."
+                className="flex-1 bg-[#080820] border-[#E2FF55]/10 focus:border-[#E2FF55]/30 text-white focus:ring-[#E2FF55]/10 transition-all duration-300"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] hover:opacity-90 text-[#0A0A29] p-1 w-10 h-10 flex items-center justify-center rounded-full transition-transform duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden"
+                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden micro-button"
               >
-                <Send className="w-5 h-5 relative z-10" />
+                <Send className="w-4 h-4 relative z-10" />
               </Button>
             </div>
           </div>
@@ -347,4 +353,4 @@ const GeminiChatbot: React.FC = () => {
   );
 };
 
-export default GeminiChatbot;
+export default DragonChatbot;

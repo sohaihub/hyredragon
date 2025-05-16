@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -14,31 +13,27 @@ import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
 import Security from './pages/Security';
 import Blog from './pages/Blog';
-import GeminiChatbot from './components/GeminiChatbot';
+import DragonChatbot from './components/DragonChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component
-const NeonCursor = () => {
+// Custom cursor component - modified for subtle effect
+const SubtleCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
-  const cursorDotRef = useRef<HTMLDivElement>(null);
-
+  
   useEffect(() => {
     const cursor = cursorRef.current;
-    const cursorDot = cursorDotRef.current;
     
-    if (!cursor || !cursorDot) return;
+    if (!cursor) return;
     
     const moveCursor = (e: MouseEvent) => {
       cursor.style.left = `${e.clientX}px`;
       cursor.style.top = `${e.clientY}px`;
-      cursorDot.style.left = `${e.clientX}px`;
-      cursorDot.style.top = `${e.clientY}px`;
     };
     
-    const enlargeCursor = (e: MouseEvent) => {
+    const handleInteractiveHover = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const isClickable = 
+      const isInteractive = 
         target.tagName.toLowerCase() === 'a' || 
         target.tagName.toLowerCase() === 'button' || 
         target.closest('a') || 
@@ -48,18 +43,16 @@ const NeonCursor = () => {
         target.closest('input[type="button"]') ||
         target.closest('label[for]');
       
-      if (isClickable) {
-        cursor.classList.add('scale-150');
+      if (isInteractive) {
+        cursor.classList.add('active');
       } else {
-        cursor.classList.remove('scale-150');
+        cursor.classList.remove('active');
       }
     };
     
     const createClickEffect = (e: MouseEvent) => {
       const clickEffect = document.createElement('div');
       clickEffect.className = 'neon-click-effect';
-      clickEffect.style.width = '20px';
-      clickEffect.style.height = '20px';
       clickEffect.style.left = `${e.clientX}px`;
       clickEffect.style.top = `${e.clientY}px`;
       
@@ -69,25 +62,52 @@ const NeonCursor = () => {
         if (clickEffect && clickEffect.parentNode === document.body) {
           document.body.removeChild(clickEffect);
         }
-      }, 600);
+      }, 800);
+    };
+    
+    // Track mouse position for content box hover effects
+    const trackMousePosition = (e: MouseEvent) => {
+      const hoveredBox = (e.target as HTMLElement).closest('.content-box');
+      
+      if (hoveredBox) {
+        const rect = hoveredBox.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width) * 100;
+        const y = ((e.clientY - rect.top) / rect.height) * 100;
+        
+        (hoveredBox as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
+        (hoveredBox as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
+      }
     };
     
     document.addEventListener('mousemove', moveCursor);
-    document.addEventListener('mouseover', enlargeCursor);
+    document.addEventListener('mousemove', handleInteractiveHover);
+    document.addEventListener('mousemove', trackMousePosition);
     document.addEventListener('click', createClickEffect);
+    
+    // Initialize content boxes
+    const initContentBoxes = () => {
+      document.querySelectorAll('.content-box').forEach(box => {
+        box.addEventListener('mouseenter', () => {
+          (box as HTMLElement).style.setProperty('--mouse-x', '50%');
+          (box as HTMLElement).style.setProperty('--mouse-y', '50%');
+        });
+      });
+    };
+    
+    // Call once and also after a delay to ensure all DOM elements are loaded
+    initContentBoxes();
+    setTimeout(initContentBoxes, 1000);
     
     return () => {
       document.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mouseover', enlargeCursor);
+      document.removeEventListener('mousemove', handleInteractiveHover);
+      document.removeEventListener('mousemove', trackMousePosition);
       document.removeEventListener('click', createClickEffect);
     };
   }, []);
 
   return (
-    <>
-      <div ref={cursorRef} className="neon-cursor transition-transform duration-150"></div>
-      <div ref={cursorDotRef} className="neon-cursor-dot"></div>
-    </>
+    <div ref={cursorRef} className="neon-cursor transition-transform duration-150"></div>
   );
 };
 
@@ -151,11 +171,47 @@ const PageSetup = () => {
     // Initialize highlight animations
     setupHighlightAnimations();
     
+    // Setup parallax effects
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      document.documentElement.style.setProperty('--scroll-y', String(scrollY));
+    };
+    
+    window.addEventListener('scroll', handleScroll);
+    
+    // Apply content-box class to appropriate elements
+    const contentSelectors = [
+      '.bg-[#080822]',
+      '.bg-[#0F103E]',
+      '.bg-[#0A0A29]',
+      '.card', 
+      '.rounded-xl', 
+      '.rounded-lg',
+      'section > div > div'
+    ];
+    
+    contentSelectors.forEach(selector => {
+      document.querySelectorAll(selector).forEach(el => {
+        if (!el.classList.contains('content-box')) {
+          el.classList.add('content-box');
+        }
+      });
+    });
+    
+    // Add fade-in animations
+    document.querySelectorAll('section').forEach((section, index) => {
+      if (!section.classList.contains('animate-fade-in')) {
+        section.classList.add('animate-fade-in');
+        (section as HTMLElement).style.animationDelay = `${index * 0.1}s`;
+      }
+    });
+    
     // Cleanup
     return () => {
       if (countObserver) {
         countObserver.disconnect();
       }
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [pathname]);
 
@@ -205,7 +261,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <PageSetup />
-      <NeonCursor />
+      <SubtleCursor />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -226,7 +282,7 @@ const App: React.FC = () => {
       <div className="fixed z-40 bottom-8 left-8 md:left-12">
         <ScrollToTopButton />
       </div>
-      <GeminiChatbot />
+      <DragonChatbot />
     </Router>
   );
 };

@@ -1,17 +1,17 @@
 
 import React from 'react';
+import { Sparkles } from 'lucide-react';
 
 interface DragonIconProps {
   className?: string;
 }
 
 const DragonIcon: React.FC<DragonIconProps> = ({ className }) => {
+  // Replace with just an icon rather than an image
   return (
-    <img 
-      src="/lovable-uploads/348d92b6-ed38-4d34-8bd2-0d39c2ebbd1e.png" 
-      alt="Dragon Assistant" 
-      className={className || "w-full h-full"}
-    />
+    <div className={`flex items-center justify-center ${className || "w-full h-full"}`}>
+      <Sparkles className="text-[#E2FF55] w-full h-full" />
+    </div>
   );
 };
 

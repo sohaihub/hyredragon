@@ -137,10 +137,10 @@ export default {
 				},
 				'neon-pulse': {
 					'0%, 100%': { 
-						boxShadow: '0 0 5px #E2FF55, 0 0 10px #E2FF55, 0 0 15px #E2FF55, 0 0 20px #E2FF55'
+						boxShadow: '0 0 5px rgba(226, 255, 85, 0.2), 0 0 10px rgba(226, 255, 85, 0.1)'
 					},
 					'50%': { 
-						boxShadow: '0 0 10px #E2FF55, 0 0 20px #E2FF55, 0 0 30px #E2FF55, 0 0 40px #E2FF55'
+						boxShadow: '0 0 10px rgba(226, 255, 85, 0.3), 0 0 20px rgba(226, 255, 85, 0.2)'
 					}
 				},
 				'neon-click': {
@@ -148,23 +148,41 @@ export default {
 					'50%': { transform: 'scale(1.5)', opacity: '0.5' },
 					'100%': { transform: 'scale(2)', opacity: '0' }
 				},
-				'promo-pulse': {
+				'subtle-pulse': {
 					'0%, 100%': { 
-						transform: 'scale(1)',
-						textShadow: '0 0 5px #E2FF55, 0 0 10px #E2FF55'
+						opacity: '0.7',
+						transform: 'scale(1)'
 					},
 					'50%': { 
-						transform: 'scale(1.02)',
-						textShadow: '0 0 10px #E2FF55, 0 0 20px #E2FF55, 0 0 30px #E2FF55'
+						opacity: '1',
+						transform: 'scale(1.01)'
+					}
+				},
+				'subtle-glow': {
+					'0%, 100%': {
+						textShadow: '0 0 3px rgba(226, 255, 85, 0.3)'
+					},
+					'50%': {
+						textShadow: '0 0 8px rgba(226, 255, 85, 0.5)'
+					}
+				},
+				'line-appear': {
+					'0%': {
+						width: '0%',
+						opacity: '0'
+					},
+					'100%': {
+						width: '100%',
+						opacity: '0.5'
 					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'float': 'float 6s ease-in-out infinite',
+				'float': 'float 6s cubic-bezier(0.45, 0, 0.55, 1) infinite',
 				'pulse-light': 'pulse-light 3s ease-in-out infinite',
-				'fade-in': 'fade-in 0.6s ease-out forwards',
+				'fade-in': 'fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards',
 				'marquee': 'marquee 30s linear infinite',
 				'shine': 'shine 2s linear infinite',
 				'bounce-subtle': 'bounce-subtle 2s ease infinite',
@@ -172,14 +190,22 @@ export default {
 				'pulse-ring': 'pulse-ring 1.5s cubic-bezier(0.24, 0, 0.38, 1) infinite',
 				'neon-pulse': 'neon-pulse 2s ease-in-out infinite',
 				'neon-click': 'neon-click 0.6s ease-out',
-				'promo-pulse': 'promo-pulse 2s ease-in-out infinite'
+				'subtle-pulse': 'subtle-pulse 3s ease-in-out infinite',
+				'subtle-glow': 'subtle-glow 2.5s ease-in-out infinite',
+				'line-appear': 'line-appear 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards'
 			},
 			backgroundImage: {
 				'hyregram-gradient': 'linear-gradient(135deg, #1A1F2C 0%, #141824 100%)',
 				'neon-gradient': 'linear-gradient(135deg, #F2FCE2 0%, #D4FCBD 100%)',
 				'purple-neon-gradient': 'linear-gradient(135deg, #9b87f5 0%, #8B5CF6 100%)',
 				'dragon-gradient': 'linear-gradient(135deg, #E2FF55 0%, #7B78FF 100%)',
-				'shine-gradient': 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0) 100%)',
+				'shine-gradient': 'linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 50%, rgba(255, 255, 255, 0) 100%)',
+				'premium-dark': 'linear-gradient(135deg, #080820 0%, #1A1A3D 100%)',
+				'premium-button': 'linear-gradient(135deg, #191932 0%, #252547 100%)',
+				'premium-card': 'linear-gradient(135deg, #0F103E 0%, #191932 100%)',
+			},
+			transitionTimingFunction: {
+				'premium': 'cubic-bezier(0.22, 1, 0.36, 1)'
 			}
 		}
 	},

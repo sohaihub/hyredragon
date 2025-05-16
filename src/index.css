@@ -70,7 +70,7 @@
 @layer base {
   * {
     @apply border-border;
-    cursor: none !important; /* Hide default cursor */
+    cursor: default !important; /* Keep default cursor */
   }
   html {
     @apply relative scroll-smooth;
@@ -83,38 +83,53 @@
     @apply pt-16;
   }
 
-  /* Custom cursor */
+  /* Custom cursor - more subtle with default cursor preserved */
   .neon-cursor {
-    @apply fixed w-6 h-6 rounded-full bg-neon-green/50 pointer-events-none z-[9999] mix-blend-difference;
-    box-shadow: 0 0 10px #E2FF55, 0 0 20px #E2FF55;
+    @apply fixed w-8 h-8 rounded-full bg-transparent pointer-events-none z-[9999] border border-neon-green/30;
+    box-shadow: 0 0 8px rgba(226, 255, 85, 0.3);
     transform: translate(-50%, -50%);
-    transition: width 0.1s, height 0.1s;
+    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0;
   }
 
-  .neon-cursor-dot {
-    @apply fixed w-2 h-2 rounded-full bg-neon-green pointer-events-none z-[10000];
-    transform: translate(-50%, -50%);
+  .neon-cursor.active {
+    opacity: 0.6;
   }
 
-  /* Button and interactive element styles */
+  /* Button and interactive element styles - more subtle */
   button, a, [role="button"], input[type="submit"], input[type="button"], label[for], select, .interactive {
-    @apply relative overflow-hidden;
+    @apply relative overflow-hidden transition-all duration-300;
   }
 
   button:hover, a:hover, [role="button"]:hover, input[type="submit"]:hover, input[type="button"]:hover, .interactive:hover {
-    @apply after:absolute after:inset-0 after:bg-neon-green/10 after:animate-neon-pulse;
+    @apply after:absolute after:inset-0 after:bg-white/5;
+    transform: translateY(-1px);
   }
 
   button:active, a:active, [role="button"]:active, input[type="submit"]:active, input[type="button"]:active, .interactive:active {
-    @apply after:absolute after:inset-0 after:bg-neon-green/20 after:animate-none;
+    @apply after:absolute after:inset-0 after:bg-black/5;
+    transform: translateY(1px);
   }
 
-  /* Click effect */
+  /* Click effect - more subtle */
   .neon-click-effect {
     @apply absolute rounded-full pointer-events-none;
-    background: radial-gradient(circle, rgba(226, 255, 85, 0.8) 0%, rgba(226, 255, 85, 0) 70%);
+    background: radial-gradient(circle, rgba(226, 255, 85, 0.2) 0%, rgba(226, 255, 85, 0) 70%);
     transform: translate(-50%, -50%);
-    animation: neon-click 0.6s ease-out forwards;
+    animation: subtle-click 0.8s ease-out forwards;
+  }
+
+  @keyframes subtle-click {
+    0% {
+      opacity: 0.8;
+      width: 0px;
+      height: 0px;
+    }
+    100% {
+      opacity: 0;
+      width: 100px;
+      height: 100px;
+    }
   }
 
   /* Money particles effect */
@@ -124,16 +139,16 @@
     pointer-events: none;
     animation: moneyFall linear;
     opacity: 0;
-    filter: drop-shadow(0 0 8px rgba(226, 255, 85, 0.8));
+    filter: drop-shadow(0 0 4px rgba(226, 255, 85, 0.5));
   }
 
   @keyframes moneyFall {
     0% {
       transform: translateY(-5vh) rotate(0deg);
-      opacity: 1;
+      opacity: 0.5;
     }
     80% {
-      opacity: 1;
+      opacity: 0.4;
     }
     100% {
       transform: translateY(105vh) rotate(720deg);
@@ -155,102 +170,122 @@
     animation: marquee 30s linear infinite;
   }
   
-  /* Dragon chatbot animations */
-  .animate-pulse-light {
-    animation: pulse-light 2s ease-in-out infinite;
+  /* Advanced content box hover animations */
+  .content-box {
+    @apply relative overflow-hidden transition-all duration-500;
   }
   
-  @keyframes pulse-light {
-    0%, 100% {
-      box-shadow: 0 0 0 0 rgba(226, 255, 85, 0.4);
-    }
-    50% {
-      box-shadow: 0 0 0 15px rgba(226, 255, 85, 0);
-    }
-  }
-  
-  .animate-scale-in {
-    animation: scale-in 0.3s ease-out forwards;
-  }
-  
-  @keyframes scale-in {
-    0% {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-  
-  /* Perspective for 3D effects */
-  .perspective-800 {
-    perspective: 800px;
-  }
-
-  /* Animated highlighted text */
-  .animated-text {
-    position: relative;
-    display: inline-block;
-    transition: all 0.3s ease;
-  }
-
-  .animated-text::before {
+  .content-box::before {
     content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #E2FF55;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s ease;
-  }
-
-  .animated-text:hover::before {
-    transform: scaleX(1);
-  }
-
-  .animated-text:hover {
-    color: #E2FF55;
-    text-shadow: 0 0 8px rgba(226, 255, 85, 0.5);
+    @apply absolute inset-0 opacity-0 transition-opacity duration-700;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
+                rgba(226, 255, 85, 0.07) 0%, 
+                transparent 70%);
+    z-index: 0;
+    pointer-events: none;
   }
   
-  /* Promo text styling */
+  .content-box:hover::before {
+    @apply opacity-100;
+  }
+
+  /* Early user promo styling - sophisticated */
   .promo-text {
-    @apply font-bold text-neon-green;
-    text-shadow: 0 0 5px #E2FF55, 0 0 10px #E2FF55;
-    animation: promo-pulse 2s ease-in-out infinite;
+    @apply font-bold text-white relative inline-block;
+    text-shadow: 0 0 3px rgba(226, 255, 85, 0.3);
     letter-spacing: 0.5px;
+    transition: all 0.5s ease;
+  }
+  
+  .promo-text::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-neon-green/70;
+    transition: width 0.7s ease;
+  }
+  
+  .promo-text:hover::after {
+    @apply w-full;
   }
   
   .promo-box {
-    @apply rounded-lg border border-neon-green/50 bg-[#0F103E]/70 p-4 relative overflow-hidden;
-    box-shadow: 0 0 15px rgba(226, 255, 85, 0.3);
-    animation: neon-pulse 3s ease-in-out infinite;
+    @apply rounded-lg bg-[#0F103E]/70 p-4 relative overflow-hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   }
   
-  /* Neon theme elements */
+  .promo-box::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 bg-gradient-to-r from-neon-green/5 to-transparent;
+    transition: opacity 0.6s ease;
+  }
+  
+  .promo-box:hover::before {
+    @apply opacity-100;
+  }
+  
+  /* Enhanced UI components */
+  .scale-card {
+    @apply transition-all duration-500;
+    transform-style: preserve-3d;
+    transform: perspective(1000px);
+  }
+  
+  .scale-card:hover {
+    transform: perspective(1000px) translateY(-5px);
+  }
+  
+  /* Sophistication for neon elements */
   .neon-border {
-    @apply border border-neon-green/50 rounded-lg overflow-hidden;
-    box-shadow: 0 0 10px rgba(226, 255, 85, 0.5);
+    @apply border border-neon-green/20 rounded-lg overflow-hidden;
+    box-shadow: 0 0 10px rgba(226, 255, 85, 0.15);
+    transition: box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+  
+  .neon-border:hover {
+    @apply border-neon-green/30;
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.2);
   }
   
   .neon-text {
-    @apply text-neon-green;
-    text-shadow: 0 0 5px rgba(226, 255, 85, 0.8), 0 0 10px rgba(226, 255, 85, 0.5);
+    @apply text-white;
+    text-shadow: 0 0 3px rgba(226, 255, 85, 0.5);
+    transition: text-shadow 0.5s ease;
   }
   
   .neon-button {
-    @apply bg-neon-green/90 text-[#0A0A29] px-4 py-2 rounded-lg transition-all duration-300;
-    box-shadow: 0 0 10px rgba(226, 255, 85, 0.5), 0 0 20px rgba(226, 255, 85, 0.3);
+    @apply bg-neon-green/90 text-[#0A0A29] px-4 py-2 rounded-lg transition-all duration-500;
+    box-shadow: 0 0 10px rgba(226, 255, 85, 0.2);
   }
   
   .neon-button:hover {
     @apply bg-neon-green;
-    box-shadow: 0 0 15px rgba(226, 255, 85, 0.7), 0 0 30px rgba(226, 255, 85, 0.5);
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.3), 0 0 30px rgba(226, 255, 85, 0.1);
+    transform: translateY(-2px);
+  }
+  
+  .neon-button:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 8px rgba(226, 255, 85, 0.2);
+  }
+
+  /* Dragon assistant specific styles */
+  .dragon-assistant-button {
+    @apply relative overflow-hidden rounded-full;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  
+  .dragon-assistant-button:hover {
+    transform: scale(1.05);
+  }
+  
+  .dragon-assistant-button::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 rounded-full;
+    background: radial-gradient(circle, rgba(226, 255, 85, 0.2) 0%, transparent 70%);
+    transition: opacity 0.5s ease;
+  }
+  
+  .dragon-assistant-button:hover::before {
+    @apply opacity-100;
   }
 }
 
@@ -258,7 +293,7 @@
 @keyframes fade-in {
   0% {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(15px);
   }
   100% {
     opacity: 1;
@@ -267,7 +302,7 @@
 }
 
 .animate-fade-in {
-  animation: fade-in 0.5s ease-out forwards;
+  animation: fade-in 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 @keyframes float-up-down {
@@ -275,135 +310,88 @@
     transform: translateY(0);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-8px);
   }
 }
 
 .animate-float {
-  animation: float-up-down 3s ease-in-out infinite;
+  animation: float-up-down 4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
 @keyframes glow {
   0%, 100% {
-    text-shadow: 0 0 5px rgba(226, 255, 85, 0.5);
+    text-shadow: 0 0 3px rgba(226, 255, 85, 0.3);
   }
   50% {
-    text-shadow: 0 0 20px rgba(226, 255, 85, 0.8), 0 0 30px rgba(226, 255, 85, 0.5);
+    text-shadow: 0 0 10px rgba(226, 255, 85, 0.5);
   }
 }
 
 .animate-glow {
-  animation: glow 2s ease-in-out infinite;
+  animation: glow 3s ease-in-out infinite;
 }
 
-/* New animations */
-@keyframes pulse-slow {
-  0%, 100% {
-    opacity: 0.9;
-    box-shadow: 0 0 10px rgba(226, 255, 85, 0.3);
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 20px rgba(226, 255, 85, 0.5);
-  }
+/* Parallax and layered scroll effects */
+.parallax-layer {
+  @apply fixed pointer-events-none transition-transform;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.animate-pulse-slow {
-  animation: pulse-slow 4s ease-in-out infinite;
+.parallax-slow {
+  transform: translateY(calc(var(--scroll-y, 0) * 0.1px));
 }
 
-@keyframes text-shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
+.parallax-medium {
+  transform: translateY(calc(var(--scroll-y, 0) * 0.2px));
 }
 
-.animate-text-shimmer {
-  background: linear-gradient(90deg, #E2FF55 0%, #FFFFFF 25%, #E2FF55 50%, #FFFFFF 75%, #E2FF55 100%);
-  background-size: 200% auto;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: text-shimmer 3s linear infinite;
+.parallax-fast {
+  transform: translateY(calc(var(--scroll-y, 0) * 0.3px));
 }
 
-/* Highlight effect for quotes */
-.highlight-quote {
-  transition: all 0.5s ease;
+/* Advanced hover effects */
+.hover-lift {
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
+              box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.highlight-quote blockquote {
-  position: relative;
-  overflow: hidden;
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.highlight-quote blockquote::after {
+.hover-highlight {
+  transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hover-highlight:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Button micro-interactions */
+.micro-button {
+  @apply relative overflow-hidden transition-all;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.micro-button::before {
   content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(226, 255, 85, 0.2), transparent);
-  animation: quote-shine 3s linear infinite;
+  @apply absolute inset-0 opacity-0 bg-white;
+  transition: opacity 0.4s ease;
+  mix-blend-mode: overlay;
 }
 
-@keyframes quote-shine {
-  0% {
-    left: -100%;
-  }
-  100% {
-    left: 100%;
-  }
+.micro-button:hover::before {
+  @apply opacity-10;
 }
 
-/* Enhanced UI animations */
-.shadow-pulse {
-  animation: shadow-pulse 3s infinite;
-}
-
-@keyframes shadow-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(226, 255, 85, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 10px rgba(226, 255, 85, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(226, 255, 85, 0);
-  }
+.micro-button:active::before {
+  @apply opacity-20;
 }
 
 /* Content styles */
 .prose {
   max-width: 65ch;
   color: rgba(255, 255, 255, 0.9);
-}
-
-.prose h1, .prose h2, .prose h3, .prose h4 {
-  color: white;
-  margin-top: 2em;
-  margin-bottom: 1em;
-}
-
-.prose p {
-  margin-top: 1.25em;
-  margin-bottom: 1.25em;
-}
-
-.prose a {
-  color: #E2FF55;
-  text-decoration: underline;
-}
-
-.prose ul {
-  list-style-type: disc;
-  padding-left: 1.625em;
-}
-
-.prose li {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+  /* ... keep existing code */
 }
