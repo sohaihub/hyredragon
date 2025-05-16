@@ -80,6 +80,37 @@ const Index: React.FC = () => {
         }
       }, 500);
     }
+    
+    // Add particle effect for pricing elements
+    const addPricingParticles = () => {
+      const pricingElements = document.querySelectorAll('.price-highlight');
+      
+      if (pricingElements.length) {
+        pricingElements.forEach(element => {
+          element.addEventListener('mouseenter', (e: MouseEvent) => {
+            const rect = (element as HTMLElement).getBoundingClientRect();
+            for (let i = 0; i < 5; i++) {
+              setTimeout(() => {
+                const particle = document.createElement('span');
+                particle.classList.add('particle', 'absolute', 'w-1', 'h-1', 'rounded-full', 'bg-[#E2FF55]');
+                particle.style.left = `${Math.random() * rect.width + rect.left}px`;
+                particle.style.top = `${rect.top}px`;
+                document.body.appendChild(particle);
+                
+                setTimeout(() => {
+                  if (particle.parentNode) {
+                    document.body.removeChild(particle);
+                  }
+                }, 3000);
+              }, i * 200);
+            }
+          });
+        });
+      }
+    };
+    
+    // Add pricing particles effect
+    setTimeout(addPricingParticles, 1000);
 
     return () => {
       animatedElements.forEach(el => {
@@ -106,6 +137,11 @@ const Index: React.FC = () => {
         {/* Add more subtle background effects */}
         <div className="absolute top-1/2 right-1/4 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
         <div className="absolute bottom-1/4 right-1/3 w-40 h-40 rounded-full bg-[#FF9F5A]/5 blur-3xl animate-pulse" style={{ animationDelay: '2.5s' }}></div>
+        
+        {/* Add floating particles for enhanced visual effect */}
+        <div className="absolute w-2 h-2 rounded-full bg-[#E2FF55]/60 top-1/4 left-1/4 floating"></div>
+        <div className="absolute w-3 h-3 rounded-full bg-[#7B78FF]/60 bottom-1/3 right-1/3 floating" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute w-2 h-2 rounded-full bg-[#E2FF55]/60 top-2/3 right-1/4 floating" style={{ animationDelay: '3s' }}></div>
       </div>
 
       <Header />
@@ -113,10 +149,10 @@ const Index: React.FC = () => {
         {/* Only include PricingHero and PricingFAQs */}
         <div className="space-y-10 md:space-y-14 pb-16">
           <PricingHero />
-          <div className="backdrop-blur-sm bg-[#080822]/30 rounded-xl p-6 mx-4 md:mx-10 shadow-xl">
+          <div className="backdrop-blur-sm bg-[#080822]/30 rounded-xl p-6 mx-4 md:mx-10 shadow-xl hover:shadow-[0_0_30px_rgba(123,120,255,0.15)] transition-all duration-500 animate-on-scroll">
             <PricingFeatureList />
           </div>
-          <div className="backdrop-blur-sm bg-[#080822]/30 rounded-xl p-6 mx-4 md:mx-10 shadow-xl">
+          <div className="backdrop-blur-sm bg-[#080822]/30 rounded-xl p-6 mx-4 md:mx-10 shadow-xl hover:shadow-[0_0_30px_rgba(226,255,85,0.1)] transition-all duration-500 animate-on-scroll">
             <PricingFAQs />
           </div>
         </div>
