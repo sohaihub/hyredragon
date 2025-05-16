@@ -1,3 +1,4 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -157,22 +158,17 @@ const AIProducts = () => {
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-[#E2FF55]/15 to-[#E2FF55]/5 blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/15 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
-        
-        {/* Additional animated background elements */}
-        <div className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full bg-[#7B78FF]/10 blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute bottom-1/4 right-1/3 w-72 h-72 rounded-full bg-gradient-to-br from-[#7B78FF]/10 to-[#E2FF55]/5 blur-3xl animate-subtle-pulse"></div>
       </div>
 
       <Header />
 
       <main className="flex-grow relative z-10 pt-24">
-        {/* Products Section - with enhanced background effects */}
-        <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080820]/60 to-[#0A0A29]/90 z-0"></div>
-          <div className="container mx-auto relative z-10">
-            <div className="text-center mb-16 backdrop-blur-sm bg-[#080822]/30 p-8 rounded-xl shadow-lg animate-on-scroll">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white animate-fade-in">
-                Our <span className="text-[#E2FF55] animate-subtle-glow">AI-Powered</span> Solutions
+        {/* Products Section */}
+        <section className="py-16 md:py-24 bg-[#080820] px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Our <span className="text-[#E2FF55]">AI-Powered</span> Solutions
               </h2>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto">
                 Transform every stage of your hiring process with our innovative AI tools
@@ -183,8 +179,7 @@ const AIProducts = () => {
               {products.map((product, index) => (
                 <div
                   key={index}
-                  className="bg-[#0F103E]/80 backdrop-blur-md border border-gray-800 rounded-xl p-6 transform hover:translate-y-[-4px] transition-all duration-300 hover:shadow-lg hover:shadow-[#E2FF55]/10 flex flex-col animate-on-scroll"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="bg-[#0F103E] border border-gray-800 rounded-xl p-6 transform hover:translate-y-[-4px] transition-all duration-300 hover:shadow-lg hover:shadow-[#E2FF55]/10 flex flex-col"
                 >
                   <div className="mb-4">{product.icon}</div>
                   <h3 className="text-xl font-bold mb-2 text-white">{product.name}</h3>
@@ -216,13 +211,12 @@ const AIProducts = () => {
           </div>
         </section>
 
-        {/* Benefits Section - with enhanced background effects */}
-        <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-t from-[#080820]/80 to-transparent z-0"></div>
-          <div className="container mx-auto relative z-10">
-            <div className="text-center mb-16 backdrop-blur-sm bg-[#080822]/30 p-8 rounded-xl shadow-lg animate-on-scroll">
+        {/* Benefits Section */}
+        <section className="py-16 md:py-24 px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                Why Choose <span className="text-[#E2FF55] animate-subtle-glow">AI-Powered</span> Recruitment?
+                Why Choose <span className="text-[#E2FF55]">AI-Powered</span> Recruitment?
               </h2>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto">
                 Our solutions deliver measurable improvements to your hiring outcomes
@@ -233,8 +227,7 @@ const AIProducts = () => {
               {benefits.map((benefit, index) => (
                 <div
                   key={index}
-                  className="flex items-start p-6 bg-[#0F103E]/50 backdrop-blur-md border border-gray-800 rounded-xl transform hover:translate-y-[-4px] transition-all duration-300 animate-on-scroll"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="flex items-start p-6 bg-[#0F103E]/50 border border-gray-800 rounded-xl transform hover:translate-y-[-4px] transition-all duration-300"
                 >
                   <div className="mr-4 mt-1">
                     {benefit.icon}
@@ -249,22 +242,21 @@ const AIProducts = () => {
           </div>
         </section>
 
-        {/* Updated Comparison Table - with enhanced background effects */}
-        <section id="comparison" className="py-16 md:py-24 px-4 relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-b from-[#080820]/90 to-[#0A0A29]/80 z-0"></div>
-          <div className="container mx-auto relative z-10">
-            <div className="text-center mb-16 backdrop-blur-sm bg-[#080822]/30 p-8 rounded-xl shadow-lg animate-on-scroll">
+        {/* Updated Comparison Table */}
+        <section id="comparison" className="py-16 md:py-24 bg-[#080820] px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-                AI vs. Traditional <span className="text-[#E2FF55] animate-subtle-glow">Recruitment</span>
+                AI vs. Traditional <span className="text-[#E2FF55]">Recruitment</span>
               </h2>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto">
                 See how AI-powered solutions outperform traditional recruiting methods
               </p>
             </div>
             
-            <div className="max-w-5xl mx-auto animate-on-scroll">
+            <div className="max-w-5xl mx-auto">
               {/* Enhanced Comparison Table */}
-              <div className="bg-[#0F103E]/30 backdrop-blur-md border border-gray-800 rounded-xl overflow-hidden shadow-xl hover:shadow-[0_0_20px_rgba(226,255,85,0.1)] transition-all duration-500">
+              <div className="bg-[#0F103E]/30 border border-gray-800 rounded-xl overflow-hidden">
                 {/* Table Header */}
                 <div className="grid grid-cols-3 bg-[#0F103E] border-b border-gray-800">
                   <div className="p-4 font-semibold text-lg text-white">Features</div>
@@ -320,10 +312,9 @@ const AIProducts = () => {
               {/* CTA Button */}
               <div className="mt-10 text-center">
                 <Link to="/pricing">
-                  <Button className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 py-6 text-lg font-medium rounded-md flex items-center gap-2 mx-auto group relative overflow-hidden">
-                    <span className="relative z-10">See Our Pricing</span>
-                    <ArrowRight className="h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-                    <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
+                  <Button className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 py-6 text-lg font-medium rounded-md flex items-center gap-2 mx-auto">
+                    See Our Pricing
+                    <ArrowRight className="h-5 w-5" />
                   </Button>
                 </Link>
               </div>
@@ -333,11 +324,7 @@ const AIProducts = () => {
       </main>
 
       <Footer />
-      
-      {/* Add the scroll to top button */}
-      <div className="fixed bottom-8 left-8 z-40">
-        <ScrollToTopButton />
-      </div>
+      <ScrollToTopButton />
     </div>
   );
 };

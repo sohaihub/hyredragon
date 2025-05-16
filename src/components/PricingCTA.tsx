@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -23,15 +22,15 @@ const PricingCTA: React.FC<PricingCTAProps> = ({
         <p className="text-gray-300 mb-6 max-w-md">{description}</p>
         <Link to={buttonLink}>
           <Button 
-            className="bg-green-500 hover:bg-green-600 text-white px-10 py-8 rounded-full text-lg font-medium shadow-lg transition-all duration-300 hover:shadow-[0_0_15px_rgba(74,222,128,0.4)] hover:scale-105"
+            className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-8 py-6 rounded-full text-lg font-medium shadow-lg"
           >
             {buttonText}
           </Button>
         </Link>
       </div>
       
-      {/* Enhanced subtle background effect with animation */}
-      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-[#E2FF55]/5 to-transparent -translate-y-1/2 translate-x-1/2 rounded-full blur-3xl animate-pulse"></div>
+      {/* Subtle background effect */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-[#E2FF55]/5 to-transparent -translate-y-1/2 translate-x-1/2 rounded-full blur-3xl"></div>
     </div>
   );
 };
