@@ -236,7 +236,7 @@ const DragonChatbot: React.FC = () => {
             aria-label="Open Dragon Assistant"
           >
             <Sparkles className="w-5 h-5 text-[#E2FF55]" />
-            <span className="text-white font-medium">Chat with Dragon Assistant</span>
+            <span className="text-white font-medium">Chat with Dragon  </span>
           </Button>
         </div>
       )}
