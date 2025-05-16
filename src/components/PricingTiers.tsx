@@ -14,6 +14,7 @@ interface PricingTierProps {
   buttonUrl?: string;
   highlighted?: boolean;
   colorClass?: string;
+  badgeText?: string; // Add badgeText for custom badge
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -26,6 +27,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
   buttonUrl = '/contact',
   highlighted = false,
   colorClass = 'text-[#E2FF55]',
+  badgeText,
 }) => {
   const tierRef = useRef<HTMLDivElement>(null);
 
@@ -38,6 +40,12 @@ const PricingTier: React.FC<PricingTierProps> = ({
           : 'border border-gray-800 bg-[#080822]/70 backdrop-blur-sm'
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
+      {(highlighted || badgeText) && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
+          {badgeText || 'FEATURED'}
+        </div>
+      )}
+
       <div className="text-center mb-4">
         <h3 className={`text-2xl font-bold ${colorClass}`}>{name}</h3>
         <p className="text-gray-400 text-sm mt-1">{description}</p>
@@ -186,6 +194,7 @@ const PricingTiers: React.FC = () => {
       buttonText: 'Choose Plan',
       highlighted: true,
       colorClass: 'text-[#E2FF55]',
+      badgeText: 'POPULAR', // Add badge for Standard plan
     },
     {
       name: 'Professional',
@@ -237,6 +246,56 @@ const PricingTiers: React.FC = () => {
 
       <div id="feature-comparison" className="glass-effect rounded-xl p-6 mt-12">
         <FeatureComparisonTable />
+      </div>
+      
+      {/* Add plan overview section after feature comparison table */}
+      <div className="mt-16 py-12 bg-gradient-to-b from-[#080822]/80 to-[#0A0A29]/80 rounded-xl border border-gray-800 backdrop-blur-sm">
+        <div className="max-w-5xl mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center text-white mb-10">
+            Ready to <span className="text-[#E2FF55]">Get Started?</span>
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-10">
+            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-gray-800 hover:border-[#E2FF55]/30 transition-all">
+              <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Starter & Basic</h3>
+              <p className="text-gray-300 mb-4">Perfect for small teams and startups just beginning to scale hiring.</p>
+              <p className="text-white text-2xl font-bold mb-4">₹10K - ₹20K</p>
+              <Link to="/contact">
+                <Button className="bg-white/10 text-white hover:bg-white/20 w-full">Choose Plan</Button>
+              </Link>
+            </div>
+            
+            <div className="text-center p-6 bg-[#E2FF55]/5 rounded-xl border-2 border-[#E2FF55] relative transform scale-105">
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
+                POPULAR
+              </div>
+              <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
+              <p className="text-gray-300 mb-4">Ideal for growing companies with regular hiring needs.</p>
+              <p className="text-white text-2xl font-bold mb-4">₹30,000</p>
+              <Link to="/contact">
+                <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90 w-full">Choose Plan</Button>
+              </Link>
+            </div>
+            
+            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-gray-800 hover:border-[#E2FF55]/30 transition-all">
+              <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Professional & Premium</h3>
+              <p className="text-gray-300 mb-4">For established companies with high-volume hiring requirements.</p>
+              <p className="text-white text-2xl font-bold mb-4">₹40K - ₹50K</p>
+              <Link to="/contact">
+                <Button className="bg-white/10 text-white hover:bg-white/20 w-full">Choose Plan</Button>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="text-center">
+            <p className="text-gray-300 mb-6">Need a custom solution? Our enterprise plan is tailored to your specific requirements.</p>
+            <Link to="/contact">
+              <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90 px-8 py-2 text-lg">
+                Contact Sales
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );
