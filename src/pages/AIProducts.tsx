@@ -13,25 +13,29 @@ const AIProducts = () => {
       name: "AI Assessment Suite",
       icon: <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500"><MonitorSmartphone className="h-5 w-5" /></div>,
       description: "Our adaptive testing platform evaluates technical skills, problem-solving abilities, and job-specific knowledge.",
-      features: ["Customized test templates", "Automated scoring", "Anti-cheating mechanisms", "Advanced analytics", "24/7 support"]
+      features: ["Customized test templates", "Automated scoring", "Anti-cheating mechanisms", "Advanced analytics", "24/7 support"],
+      status: "available"
     },
     {
       name: "AI Video Interviews",
       icon: <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center text-green-500"><Users className="h-5 w-5" /></div>,
       description: "Conduct seamless remote interviews with AI-assisted evaluation and candidate assessment.",
-      features: ["Automated scheduling", "AI sentiment analysis", "Candidate engagement metrics", "Recording & playback", "Team collaboration"]
+      features: ["Automated scheduling", "AI sentiment analysis", "Candidate engagement metrics", "Recording & playback", "Team collaboration"],
+      status: "coming-soon"
     },
     {
       name: "Candidate Matching",
       icon: <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-500"><Star className="h-5 w-5" /></div>,
       description: "Our AI algorithms match candidates to your job requirements with exceptional accuracy.",
-      features: ["Skill-based matching", "Cultural fit assessment", "Bias reduction", "Candidate ranking", "Integration with ATS"]
+      features: ["Skill-based matching", "Cultural fit assessment", "Bias reduction", "Candidate ranking", "Integration with ATS"],
+      status: "available"
     },
     {
       name: "Pre-vetted Talent Pool",
       icon: <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500"><Shield className="h-5 w-5" /></div>,
       description: "Access our database of pre-screened candidates who are ready to interview.",
-      features: ["Verified credentials", "Skill certifications", "Technical assessments", "Availability tracking", "Direct messaging"]
+      features: ["Verified credentials", "Skill certifications", "Technical assessments", "Availability tracking", "Direct messaging"],
+      status: "coming-soon"
     }
   ];
 
@@ -103,52 +107,7 @@ const AIProducts = () => {
       <Header />
       
       <main className="flex-grow relative z-10 pt-24">
-        {/* Hero Section */}
-        <section className="py-16 md:py-24 px-4">
-          <div className="container mx-auto">
-            <div className="flex flex-col-reverse md:flex-row items-center">
-              <div className="md:w-1/2 md:pr-8">
-                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
-                  Reimagine Recruitment with <span className="text-[#E2FF55]">AI-Powered</span> Solutions
-                </h1>
-                <p className="text-xl text-gray-300 mb-8">
-                  Our AI products transform every stage of your hiring process - from sourcing and screening to interviewing and onboarding.
-                </p>
-                <div className="flex flex-wrap gap-4 mb-8">
-                  <Link to="/request-demo">
-                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full flex items-center gap-2 text-lg">
-                      Get Started <ArrowRight className="w-5 h-5" />
-                    </Button>
-                  </Link>
-                  <Link to="/pricing">
-                    <Button variant="outline" className="border-[#E2FF55] text-[#E2FF55] hover:bg-[#E2FF55]/10 px-6 py-6 rounded-full flex items-center gap-2 text-lg">
-                      View Pricing
-                    </Button>
-                  </Link>
-                </div>
-                <div className="flex items-center gap-4">
-                  <div className="flex -space-x-2">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className={`w-8 h-8 rounded-full border-2 border-[#0A0A29] bg-gradient-to-br from-gray-${i*100} to-gray-${i*100+100}`}></div>
-                    ))}
-                  </div>
-                  <p className="text-gray-300">
-                    <span className="font-bold text-white">500+</span> companies already using our AI tools
-                  </p>
-                </div>
-              </div>
-              <div className="md:w-1/2 mb-8 md:mb-0">
-                <div className="bg-[#0F103E] border border-gray-800 rounded-xl p-4 transform hover:scale-[1.02] transition-all duration-500 shadow-xl">
-                  <img 
-                    src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
-                    alt="AI-Powered Recruitment Dashboard" 
-                    className="rounded-lg w-full h-auto"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        {/* Hero Section - REMOVED as requested */}
         
         {/* Products Section */}
         <section className="py-16 md:py-24 bg-[#080820] px-4">
@@ -166,12 +125,12 @@ const AIProducts = () => {
               {products.map((product, index) => (
                 <div 
                   key={index}
-                  className="bg-[#0F103E] border border-gray-800 rounded-xl p-6 transform hover:translate-y-[-4px] transition-all duration-300 hover:shadow-lg hover:shadow-[#E2FF55]/10"
+                  className="bg-[#0F103E] border border-gray-800 rounded-xl p-6 transform hover:translate-y-[-4px] transition-all duration-300 hover:shadow-lg hover:shadow-[#E2FF55]/10 flex flex-col"
                 >
                   <div className="mb-4">{product.icon}</div>
                   <h3 className="text-xl font-bold mb-2 text-white">{product.name}</h3>
                   <p className="text-gray-300 mb-4">{product.description}</p>
-                  <ul className="space-y-2">
+                  <ul className="space-y-2 mb-6 flex-grow">
                     {product.features.map((feature, i) => (
                       <li key={i} className="flex items-center">
                         <CheckCircle className="h-4 w-4 text-[#E2FF55] mr-2 flex-shrink-0" />
@@ -179,6 +138,17 @@ const AIProducts = () => {
                       </li>
                     ))}
                   </ul>
+                  <div className="mt-auto">
+                    {product.status === "available" ? (
+                      <Button className="w-full bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] flex items-center justify-center gap-2">
+                        Try {product.name} <ArrowRight className="h-4 w-4" />
+                      </Button>
+                    ) : (
+                      <Button disabled className="w-full bg-gray-700 hover:bg-gray-700 text-white flex items-center justify-center">
+                        Coming Soon
+                      </Button>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
@@ -254,7 +224,7 @@ const AIProducts = () => {
           </div>
         </section>
         
-        {/* CTA Section - Updated with new image */}
+        {/* CTA Section - Updated with new recruitment image */}
         <section className="py-16 md:py-20 px-4">
           <div className="container mx-auto">
             <div className="max-w-4xl mx-auto bg-[#0F103E] rounded-xl overflow-hidden shadow-lg border border-[#E2FF55]/10 transform transition-all duration-500 hover:shadow-xl hover:shadow-[#E2FF55]/20">
@@ -271,8 +241,8 @@ const AIProducts = () => {
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
                   <img 
-                    src="/lovable-uploads/3420832d-d75f-46bf-8164-2cd0b8d420ae.png" 
-                    alt="HyreDragon Dashboard Demo" 
+                    src="/lovable-uploads/74eba21e-1914-4a75-be66-8a196720ed5c.png" 
+                    alt="HyreDragon Recruitment" 
                     className="rounded-lg shadow-xl max-w-full h-auto border border-gray-800/30"
                   />
                 </div>
@@ -284,8 +254,8 @@ const AIProducts = () => {
       
       <Footer />
       
-      {/* Add the scroll to top button positioned away from chatbot */}
-      <div className="fixed bottom-8 right-24 z-40">
+      {/* Repositioned scroll to top button to the left side */}
+      <div className="fixed bottom-8 left-8 z-40">
         <ScrollToTopButton />
       </div>
     </div>

@@ -128,8 +128,8 @@ const Index: React.FC = () => {
       </main>
       <Footer />
       
-      {/* Add the scroll to top button positioned away from chatbot */}
-      <div className="fixed bottom-8 right-24 z-40">
+      {/* Add the scroll to top button positioned away from chatbot - moved to left side */}
+      <div className="fixed bottom-8 left-8 z-40">
         <ScrollToTopButton />
       </div>
     </div>

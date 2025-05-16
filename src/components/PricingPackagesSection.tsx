@@ -126,10 +126,10 @@ const PricingPackagesSection: React.FC = () => {
               <TableBody>
                 {packages.map((pkg, index) => (
                   <TableRow key={index} className={index === 2 ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'}>
-                    <TableCell className="text-white text-lg font-medium py-4">{pkg.hours}</TableCell>
-                    <TableCell className="text-white text-lg py-4">{pkg.assessments}</TableCell>
-                    <TableCell className="text-white text-lg py-4">{pkg.interviews}</TableCell>
-                    <TableCell className={`text-white text-lg py-4 ${
+                    <TableCell className="text-white text-lg font-medium py-4 px-4">{pkg.hours}</TableCell>
+                    <TableCell className="text-white text-lg py-4 px-4">{pkg.assessments}</TableCell>
+                    <TableCell className="text-white text-lg py-4 px-4">{pkg.interviews}</TableCell>
+                    <TableCell className={`text-white text-lg py-4 px-4 ${
                       pkg.discount === 'Negotiable' ? 'text-[#E2FF55] font-semibold' : 
                       pkg.discount !== 'None' ? 'text-[#E2FF55] font-semibold' : ''
                     }`}>
