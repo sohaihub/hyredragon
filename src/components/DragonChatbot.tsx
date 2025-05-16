@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -228,79 +227,71 @@ const DragonChatbot: React.FC = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Dragon Assistant chat bubble button */}
+      {/* Dragon Assistant chat button - updated to match image */}
       {!isOpen && (
-        <div className="dragon-assistant-button">
-          <Button 
-            onClick={() => setIsOpen(true)}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1A1A3D] to-[#080820] shadow-lg flex items-center justify-center border border-[#E2FF55]/10 micro-button"
-            aria-label="Open Dragon Assistant"
-          >
-            <Sparkles className="w-6 h-6 text-[#E2FF55]" />
-          </Button>
-          <div className="absolute -top-10 right-0 whitespace-nowrap bg-[#080820] text-white px-3 py-1 rounded-full text-sm shadow-lg scale-0 origin-bottom-right transition-transform duration-300 group-hover:scale-100">
-            <div className="promo-text">Dragon</div>
-          </div>
-        </div>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="flex items-center gap-2 py-3 px-5 rounded-full bg-[#1A1A3D] text-white transition-all duration-300 border border-[#3D3D5C] shadow-lg hover:shadow-[0_0_15px_rgba(123,120,255,0.3)] transform hover:scale-[1.02]"
+        >
+          <Sparkles className="w-5 h-5 text-[#E2FF55]" />
+          <span className="font-medium text-sm whitespace-nowrap">Chat with Dragon Assistant</span>
+        </button>
       )}
       
       {/* Premium chat window with subtle animations */}
       {isOpen && (
-        <div className="bg-[#080820] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
+        <div className="bg-[#0A0A29] border border-[#3D3D5C]/30 rounded-xl shadow-xl flex flex-col w-96 sm:w-[400px] h-[550px] animate-fade-in overflow-hidden">
           {/* Chat header - updated with Dragon theme */}
-          <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
+          <div className="p-4 border-b border-[#3D3D5C]/20 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#0A0A29] relative overflow-hidden">
             <div className="flex items-center relative z-10">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
-                <Sparkles className="w-5 h-5 text-[#E2FF55]" />
+              <div className="w-8 h-8 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#3D3D5C]/30 p-1">
+                <Sparkles className="w-4 h-4 text-[#E2FF55]" />
               </div>
-              <div>
-                <h3 className="text-white font-semibold text-lg">Dragon</h3>
-                <p className="text-[#E2FF55]/70 text-xs">Recruitment Assistant</p>
+              <div className="text-left">
+                <h3 className="text-white font-medium text-md">Dragon Assistant</h3>
+                <p className="text-white/50 text-xs">Recruitment Guide</p>
               </div>
             </div>
             <Button 
               variant="ghost" 
               size="sm" 
               onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white relative z-10 hover:bg-white/5 transition-all duration-300 micro-button"
+              className="text-gray-400 hover:text-white relative z-10 hover:bg-white/5"
             >
               <X className="w-5 h-5" />
             </Button>
             
             {/* Early adopter promo notification */}
-            <div className="absolute -top-1 left-0 right-0 px-3 py-0.5 bg-gradient-to-r from-[#E2FF55]/10 to-transparent opacity-0 animate-fade-in" style={{animationDelay: '0.5s', animationFillMode: 'forwards'}}>
+            <div className="absolute -top-1 left-0 right-0 px-3 py-0.5 bg-gradient-to-r from-[#3D3D5C]/20 to-transparent opacity-0 animate-fade-in" style={{animationDelay: '0.5s', animationFillMode: 'forwards'}}>
               <p className="text-xs text-center">
-                <span className="promo-text text-xs">First 50 customers get 3 free hours</span>
+                <span className="text-white/80 text-xs">First 50 customers get 3 free hours</span>
               </p>
             </div>
           </div>
           
           {/* Chat messages with refined animations */}
           <div 
-            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
+            className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#0A0A29]"
             ref={chatContainerRef}
-            style={{ 
-              backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.03" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
-            }}
           >
             {messages.map((message, index) => (
               <div 
                 key={index} 
-                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in ${message.parentId ? 'ml-6' : ''}`}
+                className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'} animate-fade-in`}
                 style={{ animationDelay: `${index * 0.1}s` }}
                 onClick={() => setActiveThread(message.id)}
               >
                 {message.role === 'assistant' && (
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
-                    <Sparkles className="w-4 h-4 text-[#E2FF55]" />
+                  <div className="w-6 h-6 rounded-full flex items-center justify-center mr-2 mt-1 flex-shrink-0 bg-[#1A1A3D] border border-[#3D3D5C]/30 p-1">
+                    <Sparkles className="w-3 h-3 text-[#E2FF55]" />
                   </div>
                 )}
                 <div 
-                  className={`max-w-[80%] rounded-2xl p-3 cursor-pointer transition-all duration-300 hover-lift ${
+                  className={`max-w-[80%] rounded-lg p-3 ${
                     message.role === 'user' 
-                      ? 'bg-gradient-to-r from-[#1A1A3D] to-[#232349] text-white border border-white/5' 
-                      : 'bg-gradient-to-r from-[#0F103E] to-[#151535] text-white border border-[#E2FF55]/10'
-                  } ${activeThread === message.id ? 'ring-1 ring-[#E2FF55]/20 transform scale-[1.02]' : ''}`}
+                      ? 'bg-[#1A1A3D] text-white' 
+                      : 'bg-[#0F103E] text-white'
+                  } ${activeThread === message.id ? 'shadow-sm' : ''}`}
                 >
                   {message.content}
                   <div className="mt-1 text-right">
@@ -313,10 +304,10 @@ const DragonChatbot: React.FC = () => {
             ))}
             {isLoading && (
               <div className="flex justify-start animate-fade-in">
-                <div className="w-8 h-8 rounded-full flex items-center justify-center mr-2 mt-1 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
-                  <Sparkles className="w-4 h-4 text-[#E2FF55]" />
+                <div className="w-6 h-6 rounded-full flex items-center justify-center mr-2 mt-1 bg-[#1A1A3D] border border-[#3D3D5C]/30 p-1">
+                  <Sparkles className="w-3 h-3 text-[#E2FF55]" />
                 </div>
-                <div className="max-w-[80%] rounded-2xl p-3 bg-gradient-to-r from-[#0F103E] to-[#151535] text-white border border-[#E2FF55]/10">
+                <div className="max-w-[80%] rounded-lg p-3 bg-[#0F103E] text-white">
                   <div className="flex space-x-2 items-center">
                     <div className="w-2 h-2 rounded-full bg-white/50 animate-[pulse_0.8s_ease-in-out_infinite]"></div>
                     <div className="w-2 h-2 rounded-full bg-white/50 animate-[pulse_0.8s_ease-in-out_infinite_0.2s]"></div>
@@ -328,22 +319,22 @@ const DragonChatbot: React.FC = () => {
           </div>
           
           {/* Chat input - refined design */}
-          <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#080822]">
-            <div className="flex items-center gap-2 relative">
+          <div className="p-3 border-t border-[#3D3D5C]/20 bg-[#0A0A29]">
+            <div className="flex items-center gap-2">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
-                placeholder="Ask Dragon about our features..."
-                className="flex-1 bg-[#080820] border-[#E2FF55]/10 focus:border-[#E2FF55]/30 text-white focus:ring-[#E2FF55]/10 transition-all duration-300"
+                placeholder="Ask about our features..."
+                className="flex-1 bg-[#0F103E]/50 border-[#3D3D5C]/30 text-white focus-visible:ring-1 focus-visible:ring-[#7B78FF]/30 transition-all duration-300"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden micro-button"
+                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-9 h-9 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                <Send className="w-4 h-4 relative z-10" />
+                <Send className="w-4 h-4" />
               </Button>
             </div>
           </div>

@@ -18,7 +18,7 @@ import DragonChatbot from './components/DragonChatbot';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component - modified for subtle effect
+// Refined subtle cursor component
 const SubtleCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   
@@ -42,7 +42,9 @@ const SubtleCursor = () => {
         target.closest('[role="button"]') ||
         target.closest('input[type="submit"]') ||
         target.closest('input[type="button"]') ||
-        target.closest('label[for]');
+        target.closest('label[for]') ||
+        target.closest('input') ||
+        target.closest('textarea');
       
       if (isInteractive) {
         cursor.classList.add('active');
@@ -63,15 +65,28 @@ const SubtleCursor = () => {
         if (clickEffect && clickEffect.parentNode === document.body) {
           document.body.removeChild(clickEffect);
         }
-      }, 800);
+      }, 600);
     };
     
-    // Track mouse position for content box hover effects
+    // Track mouse position for magnetic hover effects
     const trackMousePosition = (e: MouseEvent) => {
-      const hoveredBox = (e.target as HTMLElement).closest('.content-box');
+      const hoveredBox = (e.target as HTMLElement).closest('.pricing-card') || 
+                         (e.target as HTMLElement).closest('.content-box');
       
       if (hoveredBox) {
         const rect = hoveredBox.getBoundingClientRect();
+        
+        // Calculate distance from center
+        const centerX = rect.left + rect.width / 2;
+        const centerY = rect.top + rect.height / 2;
+        
+        const deltaX = (e.clientX - centerX) / 20; // Reduce the effect by dividing
+        const deltaY = (e.clientY - centerY) / 20;
+        
+        // Apply subtle magnetic movement
+        (hoveredBox as HTMLElement).style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+        
+        // Store mouse position for hover glow effect
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         const y = ((e.clientY - rect.top) / rect.height) * 100;
         
@@ -80,39 +95,53 @@ const SubtleCursor = () => {
       }
     };
     
+    // Reset transform when mouse leaves
+    const resetTransform = (e: MouseEvent) => {
+      const element = e.target as HTMLElement;
+      const boxes = document.querySelectorAll('.pricing-card, .content-box');
+      
+      boxes.forEach(box => {
+        if (!box.contains(element)) {
+          (box as HTMLElement).style.transform = '';
+        }
+      });
+    };
+    
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mousemove', handleInteractiveHover);
     document.addEventListener('mousemove', trackMousePosition);
+    document.addEventListener('mouseleave', resetTransform);
     document.addEventListener('click', createClickEffect);
     
-    // Initialize content boxes
-    const initContentBoxes = () => {
-      document.querySelectorAll('.content-box').forEach(box => {
-        box.addEventListener('mouseenter', () => {
-          (box as HTMLElement).style.setProperty('--mouse-x', '50%');
-          (box as HTMLElement).style.setProperty('--mouse-y', '50%');
-        });
+    // Initialize hover effects
+    const initHoverEffects = () => {
+      // Add pricing-card class to pricing elements
+      document.querySelectorAll('.pricing-tier, [data-pricing="true"]').forEach(el => {
+        if (!el.classList.contains('pricing-card')) {
+          el.classList.add('pricing-card');
+        }
       });
     };
     
     // Call once and also after a delay to ensure all DOM elements are loaded
-    initContentBoxes();
-    setTimeout(initContentBoxes, 1000);
+    initHoverEffects();
+    setTimeout(initHoverEffects, 1000);
     
     return () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mousemove', handleInteractiveHover);
       document.removeEventListener('mousemove', trackMousePosition);
+      document.removeEventListener('mouseleave', resetTransform);
       document.removeEventListener('click', createClickEffect);
     };
   }, []);
 
   return (
-    <div ref={cursorRef} className="neon-cursor transition-transform duration-150"></div>
+    <div ref={cursorRef} className="neon-cursor"></div>
   );
 };
 
-// Add money falling effect
+// Add money falling effect - refined for subtlety
 const MoneyFallEffect = () => {
   useEffect(() => {
     const createMoneyParticle = () => {
@@ -131,12 +160,12 @@ const MoneyFallEffect = () => {
       
       // Random position, size, and animation duration
       const posX = Math.random() * window.innerWidth;
-      const size = Math.random() * 30 + 20;
-      const duration = Math.random() * 3 + 2;
+      const size = Math.random() * 20 + 16;
+      const duration = Math.random() * 2 + 1.5;
       
       particle.style.left = `${posX}px`;
       particle.style.fontSize = `${size}px`;
-      particle.style.color = '#E2FF55';
+      particle.style.color = '#7B78FF';
       particle.style.animationDuration = `${duration}s`;
       
       container.appendChild(particle);
@@ -150,7 +179,7 @@ const MoneyFallEffect = () => {
     };
     
     // Create particles at random intervals
-    const interval = setInterval(createMoneyParticle, 200);
+    const interval = setInterval(createMoneyParticle, 300);
     
     return () => clearInterval(interval);
   }, []);
@@ -203,11 +232,42 @@ const PageSetup = () => {
       }
     });
     
-    // Add fade-in animations
+    // Add staggered fade-in animations
     document.querySelectorAll('section').forEach((section, index) => {
-      if (!section.classList.contains('animate-fade-in')) {
-        section.classList.add('animate-fade-in');
-        (section as HTMLElement).style.animationDelay = `${index * 0.1}s`;
+      if (!section.classList.contains('animate-slide-up')) {
+        section.classList.add('animate-slide-up');
+        section.classList.add('opacity-0');
+        (section as HTMLElement).style.animationDelay = `${index * 0.15}s`;
+        (section as HTMLElement).style.animationFillMode = 'forwards';
+      }
+    });
+    
+    // Add timeline class to recruitment step elements
+    document.querySelectorAll('.recruitment-step').forEach((step, index) => {
+      step.classList.add('timeline-step');
+      
+      const connector = document.createElement('div');
+      connector.classList.add('timeline-connector');
+      step.appendChild(connector);
+      
+      const circle = step.querySelector('.step-number, .step-circle');
+      if (circle) {
+        circle.classList.add('timeline-circle');
+      }
+    });
+    
+    // Improve spacing
+    document.querySelectorAll('section').forEach(section => {
+      // Reduce vertical spacing between sections
+      if (section.classList.contains('py-16')) {
+        section.classList.remove('py-16');
+        section.classList.add('py-14');
+      } else if (section.classList.contains('py-20')) {
+        section.classList.remove('py-20');
+        section.classList.add('py-16');
+      } else if (section.classList.contains('py-12')) {
+        section.classList.remove('py-12');
+        section.classList.add('py-10');
       }
     });
     
@@ -261,6 +321,40 @@ const App: React.FC = () => {
     
     // Setup login redirects
     setTimeout(setupLoginRedirect, 1000);
+    
+    // Add form input enhancements
+    const setupFormEnhancements = () => {
+      document.querySelectorAll('input, textarea').forEach(input => {
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('input-underline');
+        
+        if (input.parentNode) {
+          input.parentNode.insertBefore(wrapper, input);
+          wrapper.appendChild(input);
+        }
+      });
+    };
+    
+    // Enhance form inputs
+    setTimeout(setupFormEnhancements, 1000);
+    
+    // Consistent text alignment
+    const alignText = () => {
+      // Target only hero titles and section headings that should be left-aligned
+      document.querySelectorAll('.text-center').forEach(element => {
+        const nodeName = element.nodeName.toLowerCase();
+        // Only align left non-heading elements in sections to preserve centered headers
+        if (!element.closest('header') && !(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'].includes(nodeName))) {
+          if (window.innerWidth > 768) { // Only on desktop
+            element.classList.remove('text-center');
+            element.classList.add('text-left');
+          }
+        }
+      });
+    };
+    
+    setTimeout(alignText, 1500);
+    
   }, []);
 
   return (
@@ -283,7 +377,6 @@ const App: React.FC = () => {
         <Route path="/security" element={<Security />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
-      {/* Moved the button to the right side at the bottom */}
       <div className="fixed z-40 bottom-8 left-8 md:left-12">
         <ScrollToTopButton />
       </div>
