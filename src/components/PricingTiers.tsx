@@ -1,21 +1,8 @@
-
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import FeatureComparisonTable from './FeatureComparisonTable';
-import { cn } from '@/lib/utils';
-
-interface PricingFeature {
-  text: string;
-  starter: string;
-  basic: string;
-  standard: string;
-  professional: string;
-  premium: string;
-  category?: boolean;
-  isHighlighted?: boolean;
-}
 
 interface PricingTierProps {
   name: string;
@@ -41,7 +28,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
   colorClass = 'text-[#E2FF55]',
 }) => {
   const tierRef = useRef<HTMLDivElement>(null);
-  
+
   return (
     <div
       ref={tierRef}
@@ -52,7 +39,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
       {highlighted && (
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
+        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
           POPULAR
         </div>
       )}
@@ -156,21 +143,11 @@ const EnterpriseSolution: React.FC = () => {
 };
 
 const PricingTiers: React.FC = () => {
-  // Define plan color classes
-  const planColorClasses = {
-    starter: 'text-[#E2FF55]',
-    basic: 'text-[#E2FF55]',
-    standard: 'text-[#E2FF55]',
-    professional: 'text-[#E2FF55]',
-    premium: 'text-[#E2FF55]',
-  };
-
-  // Define pricing tiers based on the image
   const tiers = [
-    { 
-      name: 'Starter', 
-      description: '10 hours @ ₹1,000/hour', 
-      price: '₹10,000', 
+    {
+      name: 'Starter',
+      description: '10 hours @ ₹1,000/hour',
+      price: '₹10,000',
       perHour: '9hr+ 1hr free proctoring',
       features: [
         'Detailed dashboard',
@@ -178,15 +155,15 @@ const PricingTiers: React.FC = () => {
         'AI generated feedback report',
         'AI proctoring system',
         'Coding platform',
-        '10 interviews'
+        '10 interviews',
       ],
       buttonText: 'Choose Plan',
-      colorClass: planColorClasses.starter 
+      colorClass: 'text-[#E2FF55]',
     },
-    { 
-      name: 'Basic', 
-      description: '20 hours @ ₹1,000/hour', 
-      price: '₹20,000', 
+    {
+      name: 'Basic',
+      description: '20 hours @ ₹1,000/hour',
+      price: '₹20,000',
       perHour: '18hr+ 2hr free proctoring',
       features: [
         'Detailed dashboard',
@@ -194,15 +171,15 @@ const PricingTiers: React.FC = () => {
         'AI generated feedback report',
         'AI proctoring system',
         'Coding platform',
-        '20 interviews'
+        '20 interviews',
       ],
       buttonText: 'Choose Plan',
-      colorClass: planColorClasses.basic
+      colorClass: 'text-[#E2FF55]',
     },
-    { 
-      name: 'Standard', 
-      description: '30 hours @ ₹1,000/hour', 
-      price: '₹30,000', 
+    {
+      name: 'Standard',
+      description: '30 hours @ ₹1,000/hour',
+      price: '₹30,000',
       perHour: '27hr+ 3hr free proctoring',
       features: [
         'Detailed dashboard',
@@ -210,16 +187,16 @@ const PricingTiers: React.FC = () => {
         'AI generated feedback report',
         'AI proctoring system',
         'Coding platform',
-        '30 interviews'
+        '30 interviews',
       ],
       buttonText: 'Choose Plan',
       highlighted: true,
-      colorClass: planColorClasses.standard
+      colorClass: 'text-[#E2FF55]',
     },
-    { 
-      name: 'Professional', 
-      description: '40 hours @ ₹1,000/hour', 
-      price: '₹40,000', 
+    {
+      name: 'Professional',
+      description: '40 hours @ ₹1,000/hour',
+      price: '₹40,000',
       perHour: '36hr+ 4hr free proctoring',
       features: [
         'Detailed dashboard',
@@ -227,15 +204,15 @@ const PricingTiers: React.FC = () => {
         'AI generated feedback report',
         'AI proctoring system',
         'Coding platform',
-        '40 interviews'
+        '40 interviews',
       ],
       buttonText: 'Choose Plan',
-      colorClass: planColorClasses.professional
+      colorClass: 'text-[#E2FF55]',
     },
-    { 
-      name: 'Premium', 
-      description: '50 hours @ ₹1,000/hour', 
-      price: '₹50,000', 
+    {
+      name: 'Premium',
+      description: '50 hours @ ₹1,000/hour',
+      price: '₹50,000',
       perHour: '45hr+ 5hr free proctoring',
       features: [
         'Detailed dashboard',
@@ -243,10 +220,10 @@ const PricingTiers: React.FC = () => {
         'AI generated feedback report',
         'AI proctoring system',
         'Coding platform',
-        '50 interviews'
+        '50 interviews',
       ],
       buttonText: 'Choose Plan',
-      colorClass: planColorClasses.premium
+      colorClass: 'text-[#E2FF55]',
     },
   ];
 
@@ -256,17 +233,14 @@ const PricingTiers: React.FC = () => {
         Choose the plan that's right for your recruitment needs
       </h2>
 
-      {/* Tiers Cards - New Design based on image */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {tiers.map((tier, i) => (
           <PricingTier key={i} {...tier} />
         ))}
       </div>
 
-      {/* Enterprise Solution */}
       <EnterpriseSolution />
-      
-      {/* Feature Comparison Table - Replaces Key Features Section */}
+
       <div id="feature-comparison">
         <FeatureComparisonTable />
       </div>
