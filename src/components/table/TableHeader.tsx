@@ -2,14 +2,13 @@
 import React from 'react';
 import {
   TableHead,
-  TableHeader,
+  TableHeader as UITableHeader,
   TableRow
 } from '@/components/ui/table';
-import { cn } from '@/lib/utils';
 
-const TableHeader: React.FC = () => {
+const ComparisonTableHeader: React.FC = () => {
   return (
-    <TableHeader>
+    <UITableHeader>
       <TableRow className="bg-[#080822]">
         <TableHead className="p-4 text-left text-white border-b border-r border-gray-700 w-1/5"></TableHead>
         <TableHead className="p-4 text-center text-white border-b border-r border-gray-700 bg-[#E2FF55]/10 w-1/5">
@@ -29,8 +28,8 @@ const TableHeader: React.FC = () => {
           <div className="font-bold">Premium (50k)</div>
         </TableHead>
       </TableRow>
-    </TableHeader>
+    </UITableHeader>
   );
 };
 
-export default TableHeader;
+export default ComparisonTableHeader;

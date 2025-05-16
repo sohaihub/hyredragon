@@ -4,7 +4,7 @@ import {
   Table,
   TableBody,
 } from '@/components/ui/table';
-import TableHeader from './table/TableHeader';
+import ComparisonTableHeader from './table/TableHeader';
 import CategoryHeader from './table/CategoryHeader';
 import TableFeatureRow from './table/TableFeatureRow';
 import {
@@ -25,7 +25,7 @@ const FeatureComparisonTable: React.FC = () => {
 
         <div className="overflow-x-auto rounded-lg border border-gray-800 bg-[#080822]/90 backdrop-blur-sm shadow-2xl">
           <Table className="w-full border-collapse">
-            <TableHeader />
+            <ComparisonTableHeader />
             <TableBody>
               {/* Package Duration */}
               <TableFeatureRow 
