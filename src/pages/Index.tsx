@@ -112,29 +112,7 @@ const Index: React.FC = () => {
           <PricingFeatureList />
           <PricingFAQs />
           
-          {/* Updated CTA section with new image and layout */}
-          <section className="max-w-5xl mx-auto px-4 py-10">
-            <div className="rounded-lg bg-[#0F103E] border border-[#E2FF55]/10 p-6 md:p-8">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-                <div className="md:w-3/5">
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Ready to revolutionize your hiring?</h2>
-                  <p className="text-gray-300 mb-4">Join the companies that have transformed their recruitment process with HyreDragon.</p>
-                  <Link to="/request-demo">
-                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full font-medium text-lg flex items-center gap-2">
-                      Start Free Trial
-                      <ArrowRight className="w-5 h-5" />
-                    </Button>
-                  </Link>
-                </div>
-                <div className="md:w-2/5 flex justify-center">
-                  <div className="relative w-full max-w-[280px] h-[180px] md:h-[220px] rounded-lg overflow-hidden border border-[#E2FF55]/10">
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0F103E]/80 to-transparent z-10"></div>
-                    <div className="absolute inset-0 bg-[url('/lovable-uploads/348d92b6-ed38-4d34-8bd2-0d39c2ebbd1e.png')] bg-cover bg-center transform hover:scale-110 transition-transform duration-700"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
+
         </div>
       </main>
       <Footer />
