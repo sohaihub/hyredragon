@@ -22,7 +22,7 @@ const PricingCTA: React.FC<PricingCTAProps> = ({
         <p className="text-gray-300 mb-6 max-w-md">{description}</p>
         <Link to={buttonLink}>
           <Button 
-            className="bg-green-500 hover:bg-green-600 text-white px-8 py-6 rounded-full text-lg font-medium shadow-lg"
+            className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-8 py-6 rounded-full text-lg font-medium shadow-lg"
           >
             {buttonText}
           </Button>
