@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -87,10 +88,10 @@ const PricingTier: React.FC<PricingTierProps> = ({
 const EnterpriseSolution: React.FC = () => {
   return (
     <div className="mt-16 rounded-xl border border-[#E2FF55] bg-[#080822]/70 backdrop-blur-sm p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-      <h2 className="text-2xl font-bold text-white text-center mb-8">Enterprise Solution</h2>
+      <h2 className="text-3xl font-bold text-white text-center mb-8">Enterprise Solution</h2>
       <div className="grid md:grid-cols-3 gap-8">
         <div>
-          <h3 className="text-xl font-semibold text-white mb-2">Enterprise</h3>
+          <h3 className="text-2xl font-semibold text-white mb-2">Enterprise</h3>
           <p className="text-gray-400 text-sm">Custom solution for large organizations</p>
         </div>
         <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -133,7 +134,7 @@ const EnterpriseSolution: React.FC = () => {
         </div>
       </div>
       <div className="mt-8 flex flex-col md:flex-row items-center justify-between border-t border-gray-800 pt-8">
-        <p className="text-white text-lg mb-4 md:mb-0">Custom pricing based on your needs</p>
+        <p className="text-white text-xl mb-4 md:mb-0">Custom pricing based on your needs</p>
         <Link to="/contact">
           <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90 px-8">
             Contact Sales
@@ -194,7 +195,7 @@ const PricingTiers: React.FC = () => {
       buttonText: 'Choose Plan',
       highlighted: true,
       colorClass: 'text-[#E2FF55]',
-      badgeText: 'MOST POPULAR', // Add badge for Standard plan
+      badgeText: 'POPULAR', // Add badge for Standard plan
     },
     {
       name: 'Professional',

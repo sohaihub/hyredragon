@@ -5,7 +5,6 @@ import {
   TableHeader as UITableHeader,
   TableRow
 } from '@/components/ui/table';
-import { Badge } from '@/components/ui/badge';
 
 const ComparisonTableHeader: React.FC = () => {
   return (
@@ -18,10 +17,7 @@ const ComparisonTableHeader: React.FC = () => {
         <TableHead className="p-4 text-center text-white border-b border-r border-gray-700 w-1/5">
           <div className="font-bold">Basic (20k)</div>
         </TableHead>
-        <TableHead className="p-4 text-center text-white border-b border-r border-gray-700 w-1/5 relative">
-          <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-            <Badge className="bg-[#E2FF55] text-[#080822] px-3 text-xs font-semibold">POPULAR</Badge>
-          </div>
+        <TableHead className="p-4 text-center text-white border-b border-r border-gray-700 w-1/5">
           <div className="font-bold">Standard (30k)</div>
         </TableHead>
         <TableHead className="p-4 text-center text-white border-b border-r border-gray-700 w-1/5">

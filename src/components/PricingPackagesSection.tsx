@@ -160,7 +160,7 @@ const PricingPackagesSection: React.FC = () => {
               Sign up today and receive our exclusive early adopter benefits. No credit card required.
             </p>
             <Link to="/pricing">
-              <Button className="w-full neon-button py-6 group relative overflow-hidden">
+              <Button className="w-full bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90 py-6 group relative overflow-hidden">
                 <span className="relative z-10">Explore Pricing</span>
                 <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
               </Button>
