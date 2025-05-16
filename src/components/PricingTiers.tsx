@@ -14,6 +14,7 @@ interface PricingTierProps {
   buttonUrl?: string;
   highlighted?: boolean;
   colorClass?: string;
+  badgeText?: string; // Add badgeText for custom badge
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -26,6 +27,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
   buttonUrl = '/request-demo',
   highlighted = false,
   colorClass = 'text-[#E2FF55]',
+  badgeText,
 }) => {
   const tierRef = useRef<HTMLDivElement>(null);
 
@@ -34,13 +36,13 @@ const PricingTier: React.FC<PricingTierProps> = ({
       ref={tierRef}
       className={`rounded-xl ${
         highlighted
-          ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl backdrop-blur-sm'
+          ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl backdrop-blur-sm z-10'
           : 'border border-gray-800 bg-[#080822]/70 backdrop-blur-sm'
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
-      {highlighted && (
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-lg">
-          Popular
+      {(highlighted || badgeText) && (
+        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md ring-2 ring-[#080820] z-20">
+          {badgeText ?? 'POPULAR'}
         </div>
       )}
 
@@ -190,8 +192,9 @@ const PricingTiers: React.FC = () => {
         '30 interviews',
       ],
       buttonText: 'Choose Plan',
-      highlighted: true, // Marked as popular
+      highlighted: true,
       colorClass: 'text-[#E2FF55]',
+      badgeText: 'MOST POPULAR', // Add badge for Standard plan
     },
     {
       name: 'Professional',
