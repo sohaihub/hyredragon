@@ -86,7 +86,7 @@ const Index: React.FC = () => {
       animatedElements.forEach(el => {
         observer.unobserve(el);
       });
-      
+
       // Remove event listeners on cleanup
       const pricingCards = document.querySelectorAll('.hover-lift');
       pricingCards.forEach(card => {
@@ -139,11 +139,7 @@ const Index: React.FC = () => {
                     Request a Demo <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                 </Link>
-                <Link to="#feature-comparison">
-                  <Button size="lg" variant="outline" className="border-[#E2FF55]/50 text-[#E2FF55] hover:bg-[#E2FF55]/10 px-8 py-6 text-lg font-medium">
-                    Compare Plans
-                  </Button>
-                </Link>
+
               </div>
             </div>
           </div>
