@@ -7,10 +7,12 @@ import Footer from '@/components/Footer';
 import PricingFeatureList from '@/components/PricingFeatureList';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const Index: React.FC = () => {
+  const location = useLocation();
+  
   // Add animation on scroll effect
   useEffect(() => {
     const observerOptions = {
@@ -68,6 +70,16 @@ const Index: React.FC = () => {
     
     // Add magnetic effect after a short delay to ensure content is rendered
     setTimeout(addMagneticEffect, 500);
+    
+    // Handle direct navigation to feature comparison section
+    if (location.hash === '#feature-comparison') {
+      setTimeout(() => {
+        const featureSection = document.getElementById('feature-comparison');
+        if (featureSection) {
+          featureSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 500);
+    }
 
     return () => {
       animatedElements.forEach(el => {
@@ -81,7 +93,7 @@ const Index: React.FC = () => {
         card.removeEventListener('mouseleave', () => {});
       });
     };
-  }, []);
+  }, [location]);
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
@@ -93,7 +105,7 @@ const Index: React.FC = () => {
       </div>
 
       <Header />
-      <main className="flex-grow pt-20 relative z-10">
+      <main className="flex-grow relative z-10">
         {/* Only include PricingHero and PricingFAQs */}
         <div className="space-y-10 md:space-y-14 pb-16">
           <PricingHero />

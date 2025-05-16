@@ -138,7 +138,7 @@ const FeatureComparison: React.FC = () => {
       <div className="container mx-auto">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold mb-10 text-center text-white">
-            Choose Your <span className="text-[#E2FF55]">Plan</span>
+            Feature <span className="text-[#E2FF55]">Comparison</span>
           </h2>
           
           <div className="border-2 border-[#0F103E] rounded-xl overflow-hidden bg-[#080820]/70 shadow-xl">

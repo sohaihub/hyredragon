@@ -53,7 +53,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
     >
       {highlighted && (
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
-          MOST POPULAR
+          POPULAR
         </div>
       )}
 
@@ -159,9 +159,9 @@ const PricingTiers: React.FC = () => {
   // Define plan color classes
   const planColorClasses = {
     starter: 'text-[#E2FF55]',
-    basic: 'text-[#8B5CF6]',
-    standard: 'text-[#0EA5E9]',
-    professional: 'text-[#F97316]',
+    basic: 'text-[#E2FF55]',
+    standard: 'text-[#E2FF55]',
+    professional: 'text-[#E2FF55]',
     premium: 'text-[#E2FF55]',
   };
 
@@ -252,6 +252,10 @@ const PricingTiers: React.FC = () => {
 
   return (
     <div className="space-y-14 max-w-7xl mx-auto">
+      <h2 className="text-3xl font-bold text-center text-white mb-8">
+        Choose the plan that's right for your recruitment needs
+      </h2>
+
       {/* Tiers Cards - New Design based on image */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {tiers.map((tier, i) => (
@@ -263,7 +267,9 @@ const PricingTiers: React.FC = () => {
       <EnterpriseSolution />
       
       {/* Feature Comparison Table - Replaces Key Features Section */}
-      <FeatureComparisonTable />
+      <div id="feature-comparison">
+        <FeatureComparisonTable />
+      </div>
     </div>
   );
 };
