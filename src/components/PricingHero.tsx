@@ -15,7 +15,6 @@ const PricingHero = () => {
             Pricing Plans
           </h1>
           <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-            Choose the plan that's right for your recruitment needs
           </p>
         </div>
         
