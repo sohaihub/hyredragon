@@ -62,6 +62,7 @@ const PricingFAQs: React.FC = () => {
           ))}
         </Accordion>
         <div className="flex items-center justify-center gap-6 mt-8">
+          <span className="text-white font-bold">Have more questions?</span>
           <Button 
             onClick={() => {}}
             className="px-6 py-3 rounded-full bg-[#0A0A29] border border-[#E2FF55]/20 shadow-lg flex items-center justify-center gap-2 hover:shadow-[0_0_15px_rgba(226,255,85,0.2)] transition-all duration-300"
@@ -69,7 +70,6 @@ const PricingFAQs: React.FC = () => {
             <Sparkles className="w-5 h-5 text-[#E2FF55]" />
             <span className="text-white font-medium">Chat with AI Assistant</span>
           </Button>
-          <span className="text-white font-bold">Have more questions?</span>
         </div>
       </div>
     </section>
