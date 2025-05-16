@@ -35,7 +35,7 @@ const PricingPackagesSection: React.FC = () => {
       hours: '>50 Hours',
       assessments: 'Custom Pricing',
       interviews: 'Custom Pricing',
-      discount: 'Negotiable'
+      discount: 'Contact Sales'
     }
   ];
 
