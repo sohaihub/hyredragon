@@ -113,12 +113,15 @@ const Home: React.FC = () => {
                 </div>
               </div>
               <div className="md:w-1/2">
-                <div className="bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(123,120,255,0.3)]">
-                  <img 
-                    src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
-                    alt="HyreDragon Recruitment Analytics Dashboard" 
+                <div className="relative bg-[#0F103E]/80 border border-gray-700 rounded-xl p-4 backdrop-blur-lg shadow-2xl transform transition-all duration-500 hover:scale-[1.02] hover:shadow-[0_0_30px_rgba(123,120,255,0.3)]">
+                  <video 
                     className="w-full rounded-lg object-cover"
-                  />
+                    src="/lovable-uploads/VN20250515_174745 (2) (1).mp4"
+                    poster="/lovable-uploads/Screenshot 2025-05-16 110543.png"
+                    controls
+                  >
+                    Your browser does not support the video tag.
+                  </video>
                 </div>
               </div>
             </div>
@@ -202,60 +205,6 @@ const Home: React.FC = () => {
         {/* Pricing Packages Section */}
         <PricingPackagesSection />
         
-        {/* Why Choose Us */}
-        <section className="py-16 md:py-24 px-4 relative bg-[#080820]">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820] pointer-events-none"></div>
-          <div className="container mx-auto relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-white animate-on-scroll">
-              Why <span className="text-[#E2FF55]">HyreDragon</span>?
-            </h2>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {/* Reason 1 */}
-              <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
-                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#E2FF55]/20 blur-xl animate-pulse"></div>
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-full bg-[#E2FF55] flex items-center justify-center mb-4">
-                    <span className="text-[#0A0A29] font-bold">1</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">Powerful AI Matching</h3>
-                  <p className="text-gray-300">
-                    Our proprietary AI algorithm precisely matches candidates to job requirements, saving you countless hours of manual screening.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Reason 2 */}
-              <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
-                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#7B78FF]/20 blur-xl animate-pulse" style={{ animationDelay: '1s' }}></div>
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-full bg-[#7B78FF] flex items-center justify-center mb-4">
-                    <span className="text-[#0A0A29] font-bold">2</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">Bias-Reducing Technology</h3>
-                  <p className="text-gray-300">
-                    Our platform helps eliminate unconscious bias in your hiring process, leading to more diverse and effective teams.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Reason 3 */}
-              <div className="relative p-6 animate-on-scroll transform hover:translate-y-[-5px] transition-transform duration-300">
-                <div className="absolute -top-4 -left-4 w-20 h-20 rounded-full bg-[#9b87f5]/20 blur-xl animate-pulse" style={{ animationDelay: '2s' }}></div>
-                <div className="relative z-10">
-                  <div className="w-12 h-12 rounded-full bg-[#9b87f5] flex items-center justify-center mb-4">
-                    <span className="text-[#0A0A29] font-bold">3</span>
-                  </div>
-                  <h3 className="text-xl font-bold text-white mb-3">Data-Driven Insights</h3>
-                  <p className="text-gray-300">
-                    Gain valuable insights into your hiring process with real-time analytics and actionable recommendations.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        
         {/* Call To Action */}
         <section className="py-16 md:py-24 px-4 relative">
           <div className="container mx-auto">
@@ -276,27 +225,6 @@ const Home: React.FC = () => {
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
                   </Button>
                 </Link>
-              </div>
-            </div>
-          </div>
-        </section>
-        
-        {/* News Ticker - Updated with better animation */}
-        <section className="py-4 bg-[#080820]/80 border-y border-gray-800 overflow-hidden">
-          <div className="container mx-auto">
-            <div className="flex items-center overflow-hidden relative h-12">
-              <div className="whitespace-nowrap animate-marquee inline-flex items-center gap-8">
-                {[...newsItems, ...newsItems].map((item, index) => (
-                  <div key={index} className="flex items-center gap-3">
-                    <span className={`${item.tagColor} text-xs px-2 py-0.5 rounded-full font-bold`}>
-                      {item.tag}
-                    </span>
-                    <span className="text-white font-medium">
-                      {item.content}
-                    </span>
-                    <span className="text-gray-500 mx-4">•</span>
-                  </div>
-                ))}
               </div>
             </div>
           </div>
