@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -7,9 +8,17 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
+  const [selectedPlan, setSelectedPlan] = useState<string>("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,6 +86,23 @@ const Contact: React.FC = () => {
                       placeholder="Your company name"
                       className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                     />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label htmlFor="plan" className="text-white">Select Plan</Label>
+                    <Select value={selectedPlan} onValueChange={setSelectedPlan}>
+                      <SelectTrigger className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white">
+                        <SelectValue placeholder="Select a plan" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#080820] border-gray-800 text-white">
+                        <SelectItem value="starter">Starter (₹10,000)</SelectItem>
+                        <SelectItem value="basic">Basic (₹20,000)</SelectItem>
+                        <SelectItem value="standard">Standard (₹30,000)</SelectItem>
+                        <SelectItem value="professional">Professional (₹40,000)</SelectItem>
+                        <SelectItem value="premium">Premium (₹50,000)</SelectItem>
+                        <SelectItem value="enterprise">Enterprise (Custom)</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
