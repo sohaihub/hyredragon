@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -191,7 +190,7 @@ const PricingTiers: React.FC = () => {
         '30 interviews',
       ],
       buttonText: 'Choose Plan',
-      highlighted: true,
+      highlighted: true, // Marked as popular
       colorClass: 'text-[#E2FF55]',
     },
     {
