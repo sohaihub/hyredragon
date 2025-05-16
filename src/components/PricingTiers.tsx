@@ -40,12 +40,6 @@ const PricingTier: React.FC<PricingTierProps> = ({
           : 'border border-gray-800 bg-[#080822]/70 backdrop-blur-sm'
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
-      {(highlighted || badgeText) && (
-        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md ring-2 ring-[#080820] z-20">
-          {badgeText || 'POPULAR'}
-        </div>
-      )}
-
       <div className="text-center mb-4">
         <h3 className={`text-2xl font-bold ${colorClass}`}>{name}</h3>
         <p className="text-gray-400 text-sm mt-1">{description}</p>
@@ -197,7 +191,6 @@ const PricingTiers: React.FC = () => {
       buttonUrl: '/contact',
       highlighted: true,
       colorClass: 'text-[#E2FF55]',
-      badgeText: 'POPULAR', // Ensure this is set
     },
     {
       name: 'Professional',
@@ -270,9 +263,6 @@ const PricingTiers: React.FC = () => {
             </div>
             
             <div className="text-center p-6 bg-[#E2FF55]/5 rounded-xl border-2 border-[#E2FF55] relative transform scale-105">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
-                POPULAR
-              </div>
               <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
               <p className="text-gray-300 mb-4">Ideal for growing companies with regular hiring needs.</p>
               <p className="text-white text-2xl font-bold mb-4">₹30,000</p>

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -131,91 +130,6 @@ const GreenCursor = () => {
   );
 };
 
-// Add money falling effect with slower animation
-const MoneyFallEffect = () => {
-  useEffect(() => {
-    const createMoneyParticle = () => {
-      // Check if user has activated the effect
-      const effectActivated = sessionStorage.getItem('moneyEffectActivated');
-      if (!effectActivated) return;
-      
-      const container = document.body;
-      const symbols = ['$', '€', '£', '¥', '₹'];
-      const particle = document.createElement('div');
-      particle.className = 'money-particle';
-      
-      // Random symbol
-      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
-      particle.innerText = symbol;
-      
-      // Random position, size, and animation duration
-      const posX = Math.random() * window.innerWidth;
-      const size = Math.random() * 30 + 20;
-      // Further increase duration for even slower animation
-      const duration = Math.random() * 7 + 6; // Increased from 5+4 to 7+6
-      
-      particle.style.left = `${posX}px`;
-      particle.style.fontSize = `${size}px`;
-      particle.style.color = '#E2FF55';
-      particle.style.animationDuration = `${duration}s`;
-      
-      // Add gentle swinging motion with increased amplitude
-      particle.style.animation = `fall ${duration}s linear, swing ${Math.random() * 3 + 3}s ease-in-out infinite alternate`;
-      
-      container.appendChild(particle);
-      
-      // Remove after animation completes
-      setTimeout(() => {
-        if (particle.parentNode === container) {
-          container.removeChild(particle);
-        }
-      }, duration * 1000);
-    };
-    
-    // Create particles at slower intervals
-    const interval = setInterval(createMoneyParticle, 500); // Changed from 300 to 500ms for slower generation
-    
-    // Add custom animation styles with enhanced effects
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .money-particle {
-        position: fixed;
-        top: -50px;
-        z-index: 9998;
-        user-select: none;
-        pointer-events: none;
-        text-shadow: 0 0 8px rgba(226, 255, 85, 0.8);
-        animation: fall 7s linear;
-        opacity: 0.9;
-        font-weight: bold;
-      }
-      
-      @keyframes fall {
-        0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-        10% { opacity: 0.9; }
-        90% { opacity: 0.9; }
-        100% { transform: translateY(calc(100vh + 50px)) rotate(360deg); opacity: 0; }
-      }
-      
-      @keyframes swing {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(40px); }
-      }
-    `;
-    
-    document.head.appendChild(style);
-    
-    return () => {
-      clearInterval(interval);
-      if (document.head.contains(style)) {
-        document.head.removeChild(style);
-      }
-    };
-  }, []);
-  
-  return null;
-};
-
 // Page transitions and animation setup
 const PageSetup = () => {
   const { pathname } = useLocation();
@@ -282,29 +196,9 @@ const PageSetup = () => {
 };
 
 const App: React.FC = () => {
-  // Initialize the money effect on first render
+  // Initialize login redirects only
   useEffect(() => {
-    // Only set this if it hasn't been set yet
-    if (!sessionStorage.getItem('moneyEffectActivated')) {
-      sessionStorage.setItem('moneyEffectActivated', 'false');
-    }
-    
-    // Set up an event listener to activate the effect when a specific button is clicked
-    const setupMoneyEffect = () => {
-      const moneyTriggers = document.querySelectorAll('[data-trigger-money-effect]');
-      
-      moneyTriggers.forEach(trigger => {
-        trigger.addEventListener('click', () => {
-          sessionStorage.setItem('moneyEffectActivated', 'true');
-          setTimeout(() => {
-            sessionStorage.setItem('moneyEffectActivated', 'false');
-          }, 12000); // Increased from 8000 to 12000ms for even longer effect duration
-        });
-      });
-    };
-    
-    // Wait for DOM to be fully loaded
-    setTimeout(setupMoneyEffect, 1000);
+    // Remove money effect initialization logic
     
     // Add login link redirection
     const setupLoginRedirect = () => {
@@ -325,7 +219,7 @@ const App: React.FC = () => {
     <Router>
       <PageSetup />
       <GreenCursor />
-      <MoneyFallEffect />
+      {/* Removed the MoneyFallEffect component */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ai-products" element={<AIProducts />} />
