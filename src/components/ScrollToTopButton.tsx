@@ -32,10 +32,11 @@ const ScrollToTopButton = () => {
       {isVisible && (
         <button
           onClick={scrollToTop}
-          className="p-3 rounded-full bg-[#0A0A29] border border-[#E2FF55]/20 text-[#E2FF55] shadow-lg hover:shadow-[0_0_15px_rgba(226,255,85,0.2)] transition-all duration-300 transform hover:translate-y-[-2px]"
+          className="p-3 rounded-full bg-[#0A0A29] border border-[#E2FF55]/20 text-[#E2FF55] shadow-lg hover:shadow-[0_0_15px_rgba(226,255,85,0.2)] transition-all duration-300 transform hover:translate-y-[-2px] animate-fade-in relative group"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="h-5 w-5" />
+          <ArrowUp className="h-5 w-5 group-hover:animate-bounce-subtle" />
+          <span className="absolute inset-0 rounded-full bg-[#E2FF55]/5 animate-pulse-ring"></span>
         </button>
       )}
     </>
