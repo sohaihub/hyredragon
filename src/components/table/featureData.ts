@@ -24,11 +24,11 @@ export const basicFeatures: FeatureCategory = {
     {
       title: "Assessment Rounds - 3 rounds",
       values: [
-        "Round 1 - MCQ or Coding",
-        "Round 1 - MCQ and Coding",
-        "Round 1 - MCQ and Coding",
-        "Round 1 - MCQ and Coding",
-        "Round 1 - MCQ and Coding"
+        "MCQ or Coding",
+        "MCQ and Coding",
+        "MCQ and Coding",
+        "MCQ and Coding",
+        "MCQ and Coding"
       ]
     },
     {
