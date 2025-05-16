@@ -21,6 +21,15 @@ interface FeatureCategoryProps {
 }
 
 const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) => {
+  // Define highlight colors for each plan
+  const planColors = {
+    starter: 'text-[#E2FF55] bg-[#E2FF55]/10',
+    basic: 'text-[#8B5CF6] bg-[#8B5CF6]/10',
+    standard: 'text-[#0EA5E9] bg-[#0EA5E9]/10',
+    professional: 'text-[#F97316] bg-[#F97316]/10',
+    premium: 'text-[#E2FF55] bg-[#E2FF55]/10', 
+  };
+
   return (
     <div className="mb-8 animate-fade-in">
       <h3 className="text-xl font-bold mb-4 text-white bg-gradient-to-r from-[#0F103E] to-transparent border-b border-[#E2FF55]/30 pb-2 pl-3">
@@ -31,11 +40,26 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
           <thead>
             <tr className="text-left">
               <th className="py-2 w-1/3 md:w-2/5 text-white text-lg bg-[#080820] sticky left-0">Feature</th>
-              <th className="py-2 text-center text-white">Starter<br/>(10k)</th>
-              <th className="py-2 text-center text-white">Basic<br/>(20k)</th>
-              <th className="py-2 text-center text-white">Standard<br/>(30k)</th>
-              <th className="py-2 text-center text-white">Professional<br/>(40k)</th>
-              <th className="py-2 text-center text-white">Premium<br/>(50k)</th>
+              <th className={cn("py-2 text-center text-white", planColors.starter)}>
+                <div className="font-bold">Starter</div>
+                <div>(10k)</div>
+              </th>
+              <th className={cn("py-2 text-center text-white", planColors.basic)}>
+                <div className="font-bold">Basic</div>
+                <div>(20k)</div>
+              </th>
+              <th className={cn("py-2 text-center text-white", planColors.standard)}>
+                <div className="font-bold">Standard</div>
+                <div>(30k)</div>
+              </th>
+              <th className={cn("py-2 text-center text-white", planColors.professional)}>
+                <div className="font-bold">Professional</div>
+                <div>(40k)</div>
+              </th>
+              <th className={cn("py-2 text-center text-white", planColors.premium)}>
+                <div className="font-bold">Premium</div>
+                <div>(50k)</div>
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -152,7 +176,7 @@ const EnhancedFeatureComparison: React.FC = () => {
   ];
 
   return (
-    <section className="py-12 md:py-16 px-4 relative">
+    <section id="feature-comparison" className="py-12 md:py-16 px-4 relative">
       {/* Animated background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl animate-pulse"></div>

@@ -4,6 +4,7 @@ import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 import FeatureComparisonTable from './FeatureComparisonTable';
+import { cn } from '@/lib/utils';
 
 interface PricingFeature {
   text: string;
@@ -25,6 +26,7 @@ interface PricingTierProps {
   buttonText?: string;
   buttonUrl?: string;
   highlighted?: boolean;
+  colorClass?: string;
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -36,6 +38,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
   buttonText = 'Choose Plan',
   buttonUrl = '/request-demo',
   highlighted = false,
+  colorClass = 'text-[#E2FF55]',
 }) => {
   const tierRef = useRef<HTMLDivElement>(null);
   
@@ -55,12 +58,12 @@ const PricingTier: React.FC<PricingTierProps> = ({
       )}
 
       <div className="text-center mb-4">
-        <h3 className="text-2xl font-bold text-white">{name}</h3>
+        <h3 className={`text-2xl font-bold ${colorClass}`}>{name}</h3>
         <p className="text-gray-400 text-sm mt-1">{description}</p>
       </div>
 
       <div className="text-center mb-5 pb-3 border-b border-gray-800">
-        <div className="text-[#E2FF55] text-4xl font-bold">{price}</div>
+        <div className={`${colorClass} text-4xl font-bold`}>{price}</div>
         <div className="text-gray-400 text-sm mt-1">{perHour}</div>
       </div>
 
@@ -153,6 +156,15 @@ const EnterpriseSolution: React.FC = () => {
 };
 
 const PricingTiers: React.FC = () => {
+  // Define plan color classes
+  const planColorClasses = {
+    starter: 'text-[#E2FF55]',
+    basic: 'text-[#8B5CF6]',
+    standard: 'text-[#0EA5E9]',
+    professional: 'text-[#F97316]',
+    premium: 'text-[#E2FF55]',
+  };
+
   // Define pricing tiers based on the image
   const tiers = [
     { 
@@ -168,7 +180,8 @@ const PricingTiers: React.FC = () => {
         'Coding platform',
         '10 interviews'
       ],
-      buttonText: 'Choose Plan' 
+      buttonText: 'Choose Plan',
+      colorClass: planColorClasses.starter 
     },
     { 
       name: 'Basic', 
@@ -183,7 +196,8 @@ const PricingTiers: React.FC = () => {
         'Coding platform',
         '20 interviews'
       ],
-      buttonText: 'Choose Plan' 
+      buttonText: 'Choose Plan',
+      colorClass: planColorClasses.basic
     },
     { 
       name: 'Standard', 
@@ -198,8 +212,9 @@ const PricingTiers: React.FC = () => {
         'Coding platform',
         '30 interviews'
       ],
-      buttonText: 'Choose Plan', 
-      highlighted: true 
+      buttonText: 'Choose Plan',
+      highlighted: true,
+      colorClass: planColorClasses.standard
     },
     { 
       name: 'Professional', 
@@ -214,7 +229,8 @@ const PricingTiers: React.FC = () => {
         'Coding platform',
         '40 interviews'
       ],
-      buttonText: 'Choose Plan' 
+      buttonText: 'Choose Plan',
+      colorClass: planColorClasses.professional
     },
     { 
       name: 'Premium', 
@@ -229,7 +245,8 @@ const PricingTiers: React.FC = () => {
         'Coding platform',
         '50 interviews'
       ],
-      buttonText: 'Choose Plan' 
+      buttonText: 'Choose Plan',
+      colorClass: planColorClasses.premium
     },
   ];
 

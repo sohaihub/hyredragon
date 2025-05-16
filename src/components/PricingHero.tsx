@@ -4,8 +4,8 @@ import PricingTiers from './PricingTiers';
 
 const PricingHero = () => {
   return (
-    <div className="px-4 py-8">
-      <div className="text-center mb-10">
+    <div className="pt-4">
+      <div className="text-center mb-8">
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
           Simple, Transparent Pricing
         </h1>
