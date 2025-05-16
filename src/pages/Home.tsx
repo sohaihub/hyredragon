@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, BarChart3, Users, Zap } from 'lucide-react';
+import { ArrowRight, CheckCircle, BarChart3, Users, Zap, ChevronUp } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MetricsShowcase from '@/components/MetricsShowcase';
 import RecruitmentSteps from '@/components/RecruitmentSteps';
@@ -132,14 +132,13 @@ const Home: React.FC = () => {
       </main>
       
       {isScrollUpVisible && (
-        <Button
+        <button
           onClick={scrollToTop}
-          className="fixed bottom-8 left-8 z-40 bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-6 py-4 rounded-full flex items-center gap-2 group relative overflow-hidden"
+          className="fixed bottom-4 right-4 bg-[#E2FF55] text-[#0A0A29] p-4 rounded-full shadow-md hover:bg-[#E2FF55]/90 transition duration-300"
+          aria-label="Scroll to top"
         >
-          <span className="relative z-10">Back to Top</span>
-          <ArrowRight className="w-5 h-5 relative z-10 group-hover:translate-x-1 transition-transform" />
-          <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:translate-x-full transition-all duration-700 ease-out"></span>
-        </Button>
+          <ChevronUp className="w-6 h-6" />
+        </button>
       )}
       
       <Footer />
