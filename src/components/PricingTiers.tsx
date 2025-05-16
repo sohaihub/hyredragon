@@ -267,7 +267,7 @@ const PricingTiers: React.FC = () => {
             </div>
             
             <div className="text-center p-6 bg-[#E2FF55]/5 rounded-xl border-2 border-[#E2FF55] relative transform scale-105">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
+              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
                 POPULAR
               </div>
               <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
