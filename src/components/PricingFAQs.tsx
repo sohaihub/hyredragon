@@ -34,18 +34,18 @@ const PricingFAQs: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 md:py-20 px-4 relative overflow-hidden content-box">
+    <section className="py-12 md:py-16 px-4 relative overflow-hidden content-box">
       {/* Enhanced animated background */}
       <div className="absolute top-1/3 right-1/4 w-72 h-72 rounded-full bg-[#E2FF55]/5 blur-3xl animate-[pulse_8s_ease-in-out_infinite]"></div>
       <div className="absolute bottom-1/3 left-1/3 w-64 h-64 rounded-full bg-[#E2FF55]/3 blur-3xl animate-[pulse_12s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
       
       <div className="container mx-auto relative z-10 max-w-4xl">
-        <h2 className="text-3xl md:text-4xl font-bold mb-12 text-white text-center relative inline-block w-full">
+        <h2 className="text-3xl md:text-4xl font-bold mb-10 text-white text-center relative inline-block w-full">
           Frequently Asked <span className="text-white hover:text-[#E2FF55] transition-colors duration-500">Questions</span>
           <div className="absolute -bottom-2 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
         </h2>
         
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion type="single" collapsible className="space-y-3">
           {faqs.map((faq, index) => (
             <AccordionItem 
               key={index} 
@@ -63,14 +63,14 @@ const PricingFAQs: React.FC = () => {
           ))}
         </Accordion>
 
-        <div className="mt-16 text-center">
-          <div className="promo-box inline-block mb-10 px-8 py-4 rounded-full bg-gradient-to-r from-[#1A1A3D] to-[#080820] border border-[#E2FF55]/10">
+        <div className="mt-12 text-center">
+          <div className="promo-box inline-block mb-8 px-6 py-3 rounded-full bg-gradient-to-r from-[#1A1A3D] to-[#080820] border border-[#E2FF55]/10">
             <p className="text-lg">
               <span className="promo-text font-semibold">First 50 customers get 3 free hours</span>
             </p>
           </div>
           
-          <div className="mt-8">
+          <div className="mt-6">
             <Button 
               className="bg-gradient-to-r from-[#1A1A3D] to-[#232349] text-white px-6 py-6 rounded-full flex items-center gap-2 border border-[#E2FF55]/10 hover:border-[#E2FF55]/20 transition-all duration-500 transform hover:translate-y-[-2px] shadow-lg hover:shadow-[#E2FF55]/5 overflow-hidden relative group micro-button"
               onClick={() => {
@@ -84,7 +84,7 @@ const PricingFAQs: React.FC = () => {
               <div className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center bg-[#232349]">
                 <Sparkles className="w-5 h-5 text-[#E2FF55]" />
               </div>
-              <span className="font-medium relative z-10">Chat with Dragon Assistant</span>
+              <span className="font-medium relative z-10 text-lg">Chat with Dragon Assistant</span>
             </Button>
           </div>
         </div>

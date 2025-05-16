@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -228,19 +227,17 @@ const DragonChatbot: React.FC = () => {
 
   return (
     <div className="fixed bottom-8 right-8 z-50">
-      {/* Dragon Assistant chat bubble button */}
+      {/* Updated Dragon Assistant chat bubble button to match the first image */}
       {!isOpen && (
         <div className="dragon-assistant-button">
           <Button 
             onClick={() => setIsOpen(true)}
-            className="w-16 h-16 rounded-full bg-gradient-to-br from-[#1A1A3D] to-[#080820] shadow-lg flex items-center justify-center border border-[#E2FF55]/10 micro-button"
+            className="px-6 py-3 rounded-full bg-[#0A0A29] border border-[#E2FF55]/20 shadow-lg flex items-center justify-center gap-2 hover:shadow-[0_0_15px_rgba(226,255,85,0.2)] transition-all duration-300"
             aria-label="Open Dragon Assistant"
           >
-            <Sparkles className="w-6 h-6 text-[#E2FF55]" />
+            <Sparkles className="w-5 h-5 text-[#E2FF55]" />
+            <span className="text-white font-medium">Chat with Dragon Assistant</span>
           </Button>
-          <div className="absolute -top-10 right-0 whitespace-nowrap bg-[#080820] text-white px-3 py-1 rounded-full text-sm shadow-lg scale-0 origin-bottom-right transition-transform duration-300 group-hover:scale-100">
-            <div className="promo-text">Dragon</div>
-          </div>
         </div>
       )}
       

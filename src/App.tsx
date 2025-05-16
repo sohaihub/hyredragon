@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -66,43 +65,13 @@ const SubtleCursor = () => {
       }, 800);
     };
     
-    // Track mouse position for content box hover effects
-    const trackMousePosition = (e: MouseEvent) => {
-      const hoveredBox = (e.target as HTMLElement).closest('.content-box');
-      
-      if (hoveredBox) {
-        const rect = hoveredBox.getBoundingClientRect();
-        const x = ((e.clientX - rect.left) / rect.width) * 100;
-        const y = ((e.clientY - rect.top) / rect.height) * 100;
-        
-        (hoveredBox as HTMLElement).style.setProperty('--mouse-x', `${x}%`);
-        (hoveredBox as HTMLElement).style.setProperty('--mouse-y', `${y}%`);
-      }
-    };
-    
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mousemove', handleInteractiveHover);
-    document.addEventListener('mousemove', trackMousePosition);
     document.addEventListener('click', createClickEffect);
-    
-    // Initialize content boxes
-    const initContentBoxes = () => {
-      document.querySelectorAll('.content-box').forEach(box => {
-        box.addEventListener('mouseenter', () => {
-          (box as HTMLElement).style.setProperty('--mouse-x', '50%');
-          (box as HTMLElement).style.setProperty('--mouse-y', '50%');
-        });
-      });
-    };
-    
-    // Call once and also after a delay to ensure all DOM elements are loaded
-    initContentBoxes();
-    setTimeout(initContentBoxes, 1000);
     
     return () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mousemove', handleInteractiveHover);
-      document.removeEventListener('mousemove', trackMousePosition);
       document.removeEventListener('click', createClickEffect);
     };
   }, []);
@@ -284,7 +253,7 @@ const App: React.FC = () => {
         <Route path="*" element={<ComingSoon />} />
       </Routes>
       {/* Moved the button to the right side at the bottom */}
-      <div className="fixed z-40 bottom-8 left-8 md:left-12">
+      <div className="fixed z-40 bottom-8 right-8">
         <ScrollToTopButton />
       </div>
       <DragonChatbot />

@@ -1,6 +1,5 @@
 
-// PricingTiers.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -37,13 +36,16 @@ const PricingTier: React.FC<PricingTierProps> = ({
   buttonUrl = '/request-demo',
   highlighted = false,
 }) => {
+  const tierRef = useRef<HTMLDivElement>(null);
+  
   return (
     <div
+      ref={tierRef}
       className={`rounded-xl ${
         highlighted
           ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl'
           : 'border border-gray-800 bg-[#080822]/70'
-      } p-6 flex flex-col h-full`}
+      } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
       {highlighted && (
         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
@@ -56,13 +58,13 @@ const PricingTier: React.FC<PricingTierProps> = ({
         <p className="text-gray-400 text-sm mt-1">{description}</p>
       </div>
 
-      <div className="text-center mb-6 pb-4 border-b border-gray-800">
+      <div className="text-center mb-5 pb-3 border-b border-gray-800">
         <div className="text-[#E2FF55] text-4xl font-bold">{price}</div>
         <div className="text-gray-400 text-sm mt-1">{perHour}</div>
       </div>
 
       <div className="flex-grow">
-        <ul className="space-y-3">
+        <ul className="space-y-2">
           {features.map((feature, index) => (
             <li key={index} className="flex items-start">
               <CheckIcon className="h-5 w-5 text-[#E2FF55] mr-2 mt-0.5 flex-shrink-0" />
@@ -72,7 +74,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
         </ul>
       </div>
 
-      <div className="mt-6">
+      <div className="mt-5">
         <Link to={buttonUrl} className="w-full block">
           <Button
             className={`w-full py-5 ${
@@ -231,7 +233,7 @@ const PricingTiers: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-16 max-w-7xl mx-auto">
+    <div className="space-y-14 max-w-7xl mx-auto">
       {/* Tiers Cards - New Design based on image */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {tiers.map((tier, i) => (

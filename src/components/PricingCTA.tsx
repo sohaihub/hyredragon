@@ -1,44 +1,38 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-const PricingCTA: React.FC = () => {
+interface PricingCTAProps {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
+}
+
+const PricingCTA: React.FC<PricingCTAProps> = ({ 
+  title = "Ready To Get Started?",
+  description = "Sign up today and receive our exclusive early adopter benefits. No credit card required.",
+  buttonText = "Explore Pricing",
+  buttonLink = "/pricing"
+}) => {
   return (
-    <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-      {/* Background neon circles */}
-      <div className="absolute top-1/3 left-1/4 w-80 h-80 rounded-full bg-[#E2FF55]/10 blur-3xl"></div>
-      <div className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full bg-[#E2FF55]/5 blur-3xl"></div>
-      
-      <div className="container mx-auto relative z-10">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            Have questions?
-          </h2>
-          <p className="text-gray-300 text-lg md:text-xl mb-8 max-w-xl mx-auto">
-            Our team is ready to help you find the perfect solution for your recruitment needs.
-          </p>
-          <div className="flex justify-center gap-4 flex-wrap">
-            <Link to="/contact">
-              <Button 
-                variant="outline"
-                className="border-white text-white hover:bg-white/10 bg-transparent transition-colors rounded-full"
-              >
-                Contact Support
-              </Button>
-            </Link>
-            <Link to="/request-demo">
-              <Button 
-                className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 rounded-full flex items-center gap-2"
-              >
-                Request a demo <ArrowRight className="w-5 h-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
+    <div className="rounded-lg bg-[#0F103E] border border-[#E2FF55]/10 p-6 overflow-hidden relative">
+      <div className="relative z-10">
+        <h2 className="text-xl md:text-2xl font-bold text-white mb-3">{title}</h2>
+        <p className="text-gray-300 mb-6 max-w-md">{description}</p>
+        <Link to={buttonLink}>
+          <Button 
+            className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-8 py-6 rounded-full text-lg font-medium"
+          >
+            {buttonText}
+          </Button>
+        </Link>
       </div>
-    </section>
+      
+      {/* Subtle background effect */}
+      <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-br from-[#E2FF55]/5 to-transparent -translate-y-1/2 translate-x-1/2 rounded-full blur-3xl"></div>
+    </div>
   );
 };
 

@@ -80,20 +80,25 @@
     @apply pt-0;
   }
   main {
-    @apply pt-16;
+    @apply pt-14;
   }
 
-  /* Custom cursor - more subtle with default cursor preserved */
+  /* Improved custom cursor - more subtle with default cursor preserved */
   .neon-cursor {
-    @apply fixed w-8 h-8 rounded-full bg-transparent pointer-events-none z-[9999] border border-neon-green/30;
-    box-shadow: 0 0 8px rgba(226, 255, 85, 0.3);
+    @apply fixed w-6 h-6 rounded-full bg-transparent pointer-events-none z-[9999] border border-indigo-400/30;
+    box-shadow: 0 0 6px rgba(155, 135, 245, 0.3);
     transform: translate(-50%, -50%);
-    transition: width 0.3s, height 0.3s, opacity 0.3s;
+    transition: width 0.3s, height 0.3s, opacity 0.3s, transform 0.05s ease-out;
     opacity: 0;
+    mix-blend-mode: screen;
   }
 
   .neon-cursor.active {
     opacity: 0.6;
+    width: 24px;
+    height: 24px;
+    border-color: rgba(226, 255, 85, 0.4);
+    box-shadow: 0 0 8px rgba(226, 255, 85, 0.3);
   }
 
   /* Button and interactive element styles - more subtle */
@@ -102,19 +107,17 @@
   }
 
   button:hover, a:hover, [role="button"]:hover, input[type="submit"]:hover, input[type="button"]:hover, .interactive:hover {
-    @apply after:absolute after:inset-0 after:bg-white/5;
     transform: translateY(-1px);
   }
 
   button:active, a:active, [role="button"]:active, input[type="submit"]:active, input[type="button"]:active, .interactive:active {
-    @apply after:absolute after:inset-0 after:bg-black/5;
     transform: translateY(1px);
   }
 
   /* Click effect - more subtle */
   .neon-click-effect {
     @apply absolute rounded-full pointer-events-none;
-    background: radial-gradient(circle, rgba(226, 255, 85, 0.2) 0%, rgba(226, 255, 85, 0) 70%);
+    background: radial-gradient(circle, rgba(155, 135, 245, 0.2) 0%, rgba(155, 135, 245, 0) 70%);
     transform: translate(-50%, -50%);
     animation: subtle-click 0.8s ease-out forwards;
   }
@@ -179,7 +182,7 @@
     content: '';
     @apply absolute inset-0 opacity-0 transition-opacity duration-700;
     background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), 
-                rgba(226, 255, 85, 0.07) 0%, 
+                rgba(226, 255, 85, 0.03) 0%, 
                 transparent 70%);
     z-index: 0;
     pointer-events: none;
@@ -192,14 +195,13 @@
   /* Early user promo styling - sophisticated */
   .promo-text {
     @apply font-bold text-white relative inline-block;
-    text-shadow: 0 0 3px rgba(226, 255, 85, 0.3);
     letter-spacing: 0.5px;
     transition: all 0.5s ease;
   }
   
   .promo-text::after {
     content: '';
-    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-neon-green/70;
+    @apply absolute bottom-0 left-0 w-0 h-[1px] bg-[#E2FF55]/70;
     transition: width 0.7s ease;
   }
   
@@ -214,7 +216,7 @@
   
   .promo-box::before {
     content: '';
-    @apply absolute inset-0 opacity-0 bg-gradient-to-r from-neon-green/5 to-transparent;
+    @apply absolute inset-0 opacity-0 bg-gradient-to-r from-[#E2FF55]/5 to-transparent;
     transition: opacity 0.6s ease;
   }
   
@@ -235,29 +237,28 @@
   
   /* Sophistication for neon elements */
   .neon-border {
-    @apply border border-neon-green/20 rounded-lg overflow-hidden;
+    @apply border border-[#E2FF55]/20 rounded-lg overflow-hidden;
     box-shadow: 0 0 10px rgba(226, 255, 85, 0.15);
     transition: box-shadow 0.5s ease, border-color 0.5s ease;
   }
   
   .neon-border:hover {
-    @apply border-neon-green/30;
+    @apply border-[#E2FF55]/30;
     box-shadow: 0 0 15px rgba(226, 255, 85, 0.2);
   }
   
   .neon-text {
     @apply text-white;
-    text-shadow: 0 0 3px rgba(226, 255, 85, 0.5);
     transition: text-shadow 0.5s ease;
   }
   
   .neon-button {
-    @apply bg-neon-green/90 text-[#0A0A29] px-4 py-2 rounded-lg transition-all duration-500;
+    @apply bg-[#E2FF55]/90 text-[#0A0A29] px-4 py-2 rounded-lg transition-all duration-500;
     box-shadow: 0 0 10px rgba(226, 255, 85, 0.2);
   }
   
   .neon-button:hover {
-    @apply bg-neon-green;
+    @apply bg-[#E2FF55];
     box-shadow: 0 0 15px rgba(226, 255, 85, 0.3), 0 0 30px rgba(226, 255, 85, 0.1);
     transform: translateY(-2px);
   }
@@ -270,22 +271,12 @@
   /* Dragon assistant specific styles */
   .dragon-assistant-button {
     @apply relative overflow-hidden rounded-full;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
   }
   
   .dragon-assistant-button:hover {
-    transform: scale(1.05);
-  }
-  
-  .dragon-assistant-button::before {
-    content: '';
-    @apply absolute inset-0 opacity-0 rounded-full;
-    background: radial-gradient(circle, rgba(226, 255, 85, 0.2) 0%, transparent 70%);
-    transition: opacity 0.5s ease;
-  }
-  
-  .dragon-assistant-button:hover::before {
-    @apply opacity-100;
+    transform: scale(1.02);
+    box-shadow: 0 0 15px rgba(226, 255, 85, 0.2);
   }
 }
 
@@ -318,37 +309,6 @@
   animation: float-up-down 4s cubic-bezier(0.45, 0, 0.55, 1) infinite;
 }
 
-@keyframes glow {
-  0%, 100% {
-    text-shadow: 0 0 3px rgba(226, 255, 85, 0.3);
-  }
-  50% {
-    text-shadow: 0 0 10px rgba(226, 255, 85, 0.5);
-  }
-}
-
-.animate-glow {
-  animation: glow 3s ease-in-out infinite;
-}
-
-/* Parallax and layered scroll effects */
-.parallax-layer {
-  @apply fixed pointer-events-none transition-transform;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.parallax-slow {
-  transform: translateY(calc(var(--scroll-y, 0) * 0.1px));
-}
-
-.parallax-medium {
-  transform: translateY(calc(var(--scroll-y, 0) * 0.2px));
-}
-
-.parallax-fast {
-  transform: translateY(calc(var(--scroll-y, 0) * 0.3px));
-}
-
 /* Advanced hover effects */
 .hover-lift {
   transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), 
@@ -357,15 +317,7 @@
 
 .hover-lift:hover {
   transform: translateY(-5px);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-}
-
-.hover-highlight {
-  transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.hover-highlight:hover {
-  background-color: rgba(255, 255, 255, 0.03);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* Button micro-interactions */
@@ -389,9 +341,4 @@
   @apply opacity-20;
 }
 
-/* Content styles */
-.prose {
-  max-width: 65ch;
-  color: rgba(255, 255, 255, 0.9);
-  /* ... keep existing code */
-}
+/* ... keep existing code (the rest of the CSS) */
