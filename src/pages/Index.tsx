@@ -40,7 +40,7 @@ const Index: React.FC = () => {
       
       if (pricingCards.length) {
         pricingCards.forEach(card => {
-          card.addEventListener('mousemove', (e) => {
+          card.addEventListener('mousemove', (e: MouseEvent) => {
             const rect = (card as HTMLElement).getBoundingClientRect();
             const x = e.clientX - rect.left; // x position within the element
             const y = e.clientY - rect.top; // y position within the element
