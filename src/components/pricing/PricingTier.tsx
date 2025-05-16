@@ -36,7 +36,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
         highlighted
           ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl backdrop-blur-sm'
           : 'border border-gray-800 bg-[#080822]/70 backdrop-blur-sm'
-      } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
+      } p-6 flex flex-col h-full hover-lift transition-all duration-300 will-change-transform`}
     >
       {highlighted && (
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md">
@@ -50,7 +50,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
       </div>
 
       <div className="text-center mb-5 pb-3 border-b border-gray-800">
-        <div className={`${colorClass} text-4xl font-bold`}>{price}</div>
+        <div className={`${colorClass} text-4xl font-bold price-highlight`}>{price}</div>
         <div className="text-gray-400 text-sm mt-1">{perHour}</div>
       </div>
 
@@ -68,10 +68,10 @@ const PricingTier: React.FC<PricingTierProps> = ({
       <div className="mt-5">
         <Link to={buttonUrl} className="w-full block">
           <Button
-            className={`w-full py-5 ${
+            className={`w-full py-5 transition-all duration-300 ${
               highlighted
-                ? 'bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90'
-                : 'bg-white/10 text-white hover:bg-white/20'
+                ? 'bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90 hover:shadow-[0_0_15px_rgba(226,255,85,0.4)] hover:scale-105'
+                : 'bg-white/10 text-white hover:bg-white/20 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] hover:translate-y-[-2px]'
             }`}
           >
             {buttonText}
