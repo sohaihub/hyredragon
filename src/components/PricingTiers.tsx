@@ -39,7 +39,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
       } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
     >
       {highlighted && (
-        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full">
+        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md">
           POPULAR
         </div>
       )}
