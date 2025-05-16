@@ -12,9 +12,8 @@ interface PricingTierProps {
   features: string[];
   buttonText?: string;
   buttonUrl?: string;
-  highlighted?: boolean;
   colorClass?: string;
-  badgeText?: string; // Add badgeText for custom badge
+  badgeText?: string; 
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -25,7 +24,6 @@ const PricingTier: React.FC<PricingTierProps> = ({
   features,
   buttonText = 'Choose Plan',
   buttonUrl = '/contact',
-  highlighted = false,
   colorClass = 'text-[#E2FF55]',
   badgeText,
 }) => {
@@ -34,15 +32,11 @@ const PricingTier: React.FC<PricingTierProps> = ({
   return (
     <div
       ref={tierRef}
-      className={`rounded-xl ${
-        highlighted
-          ? 'border-2 border-[#E2FF55] bg-[#E2FF55]/5 relative transform scale-105 shadow-2xl backdrop-blur-sm z-10'
-          : 'border border-gray-800 bg-[#080822]/70 backdrop-blur-sm'
-      } p-6 flex flex-col h-full hover-lift transition-all duration-300`}
+      className="rounded-xl border border-gray-800 bg-[#080822]/70 backdrop-blur-sm p-6 flex flex-col h-full hover-lift transition-all duration-300"
     >
-      {(highlighted || badgeText) && (
+      {badgeText && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
-          {badgeText || 'FEATURED'}
+          {badgeText}
         </div>
       )}
 
@@ -70,11 +64,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
       <div className="mt-5">
         <Link to={buttonUrl} className="w-full block">
           <Button
-            className={`w-full py-5 ${
-              highlighted
-                ? 'bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90'
-                : 'bg-white/10 text-white hover:bg-white/20'
-            }`}
+            className={`w-full py-5 bg-white/10 text-white hover:bg-white/20`}
           >
             {buttonText}
           </Button>
@@ -192,8 +182,7 @@ const PricingTiers: React.FC = () => {
         '30 interviews',
       ],
       buttonText: 'Choose Plan',
-      highlighted: true,
-      colorClass: 'text-[#E2FF55]', // Add badge for Standard plan
+      colorClass: 'text-[#E2FF55]',
     },
     {
       name: 'Professional',
@@ -247,7 +236,7 @@ const PricingTiers: React.FC = () => {
         <FeatureComparisonTable />
       </div>
       
-      {/* Add plan overview section after feature comparison table */}
+      {/* Plan overview section after feature comparison table */}
       <div className="mt-16 py-12 bg-gradient-to-b from-[#080822]/80 to-[#0A0A29]/80 rounded-xl border border-gray-800 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-white mb-10">
@@ -264,14 +253,12 @@ const PricingTiers: React.FC = () => {
               </Link>
             </div>
             
-            <div className="text-center p-6 bg-[#E2FF55]/5 rounded-xl border-2 border-[#E2FF55] relative transform scale-105">
-              <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
-              </div>
+            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-gray-800 hover:border-[#E2FF55]/30 transition-all">
               <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
               <p className="text-gray-300 mb-4">Ideal for growing companies with regular hiring needs.</p>
               <p className="text-white text-2xl font-bold mb-4">₹30,000</p>
               <Link to="/contact">
-                <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/90 w-full">Choose Plan</Button>
+                <Button className="bg-white/10 text-white hover:bg-white/20 w-full">Choose Plan</Button>
               </Link>
             </div>
             
