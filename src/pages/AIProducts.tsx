@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -107,8 +106,6 @@ const AIProducts = () => {
       <Header />
       
       <main className="flex-grow relative z-10 pt-24">
-        {/* Hero Section - REMOVED as requested */}
-        
         {/* Products Section */}
         <section className="py-16 md:py-24 bg-[#080820] px-4">
           <div className="container mx-auto">
@@ -140,9 +137,11 @@ const AIProducts = () => {
                   </ul>
                   <div className="mt-auto">
                     {product.status === "available" ? (
-                      <Button className="w-full bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] flex items-center justify-center gap-2">
-                        Try {product.name} <ArrowRight className="h-4 w-4" />
-                      </Button>
+                      <Link to="/pricing">
+                        <Button className="w-full bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] flex items-center justify-center gap-2">
+                          Try {product.name} <ArrowRight className="h-4 w-4" />
+                        </Button>
+                      </Link>
                     ) : (
                       <Button disabled className="w-full bg-gray-700 hover:bg-gray-700 text-white flex items-center justify-center">
                         Coming Soon
@@ -224,12 +223,12 @@ const AIProducts = () => {
           </div>
         </section>
         
-        {/* CTA Section - Updated with new recruitment image */}
+        {/* CTA Section - Updated to remove the image */}
         <section className="py-16 md:py-20 px-4">
           <div className="container mx-auto">
             <div className="max-w-4xl mx-auto bg-[#0F103E] rounded-xl overflow-hidden shadow-lg border border-[#E2FF55]/10 transform transition-all duration-500 hover:shadow-xl hover:shadow-[#E2FF55]/20">
-              <div className="bg-gradient-to-r from-[#0F103E]/90 to-[#080822]/90 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                <div className="text-center md:text-left">
+              <div className="bg-gradient-to-r from-[#0F103E]/90 to-[#080822]/90 p-8 md:p-10">
+                <div className="text-center">
                   <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to <span className="text-[#E2FF55]">Revolutionize</span> Your Hiring?</h2>
                   <p className="text-gray-300 mb-6 text-lg">HyreDragon helps you find the best talent faster with AI-powered assessments.</p>
                   <Link to="/request-demo">
@@ -238,13 +237,6 @@ const AIProducts = () => {
                       <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
-                </div>
-                <div className="w-full md:w-1/2 flex justify-center">
-                  <img 
-                    src="/lovable-uploads/74eba21e-1914-4a75-be66-8a196720ed5c.png" 
-                    alt="HyreDragon Recruitment" 
-                    className="rounded-lg shadow-xl max-w-full h-auto border border-gray-800/30"
-                  />
                 </div>
               </div>
             </div>

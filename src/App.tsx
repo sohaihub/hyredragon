@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -11,13 +12,14 @@ import ChangePassword from './pages/ChangePassword';
 import Index from './pages/Index';
 import Terms from './pages/Terms';
 import Privacy from './pages/Privacy';
+import About from './pages/About';
 import Security from './pages/Security';
 import Blog from './pages/Blog';
 import DragonChatbot from './components/DragonChatbot';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component - modified for subtle effect
-const SubtleCursor = () => {
+// Custom cursor component - modified for green effect
+const GreenCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -51,7 +53,7 @@ const SubtleCursor = () => {
     
     const createClickEffect = (e: MouseEvent) => {
       const clickEffect = document.createElement('div');
-      clickEffect.className = 'neon-click-effect';
+      clickEffect.className = 'green-click-effect';
       clickEffect.style.left = `${e.clientX}px`;
       clickEffect.style.top = `${e.clientY}px`;
       
@@ -68,15 +70,64 @@ const SubtleCursor = () => {
     document.addEventListener('mousemove', handleInteractiveHover);
     document.addEventListener('click', createClickEffect);
     
+    // Add green cursor style
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .green-cursor {
+        position: fixed;
+        width: 24px;
+        height: 24px;
+        background-color: transparent;
+        border: 2px solid #E2FF55;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.15s ease-out, border-color 0.3s ease;
+      }
+      
+      .green-cursor.active {
+        transform: translate(-50%, -50%) scale(1.5);
+        border-color: #E2FF55;
+        background-color: rgba(226, 255, 85, 0.1);
+      }
+      
+      .green-click-effect {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: rgba(226, 255, 85, 0.8);
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        animation: greenClickEffect 0.8s ease-out forwards;
+      }
+      
+      @keyframes greenClickEffect {
+        0% {
+          transform: translate(-50%, -50%) scale(0);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(-50%, -50%) scale(5);
+          opacity: 0;
+        }
+      }
+    `;
+    
+    document.head.appendChild(style);
+    
     return () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mousemove', handleInteractiveHover);
       document.removeEventListener('click', createClickEffect);
+      document.head.removeChild(style);
     };
   }, []);
 
   return (
-    <div ref={cursorRef} className="neon-cursor transition-transform duration-150"></div>
+    <div ref={cursorRef} className="green-cursor transition-transform duration-150"></div>
   );
 };
 
@@ -234,7 +285,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <PageSetup />
-      <SubtleCursor />
+      <GreenCursor />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -248,10 +299,10 @@ const App: React.FC = () => {
         <Route path="/change-password" element={<ChangePassword />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/privacy" element={<Privacy />} />
+        <Route path="/about" element={<About />} />
         <Route path="/security" element={<Security />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
-      {/* Removed the fixed button container, we'll handle this in each page */}
       <DragonChatbot />
     </Router>
   );
