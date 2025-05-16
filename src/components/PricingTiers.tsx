@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
+import FeatureComparisonTable from './FeatureComparisonTable';
 
 interface PricingFeature {
   text: string;
@@ -241,87 +242,11 @@ const PricingTiers: React.FC = () => {
         ))}
       </div>
 
-      <div className="bg-[#091030]/60 p-6 rounded-xl border border-[#E2FF55]/20 shadow-inner">
-        <h3 className="text-2xl font-bold text-white text-center mb-5">Key Features Across All Plans</h3>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div className="border border-gray-800 rounded-lg p-4 bg-[#080822]/40">
-            <h4 className="text-lg font-medium text-[#E2FF55] mb-3">Core Features</h4>
-            <ul className="space-y-2">
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Job Posting & Management
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Email Notifications
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Candidate Tracking
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Detailed Analytics Dashboard
-              </li>
-            </ul>
-          </div>
-          
-          <div className="border border-gray-800 rounded-lg p-4 bg-[#080822]/40">
-            <h4 className="text-lg font-medium text-[#E2FF55] mb-3">AI-Powered Features</h4>
-            <ul className="space-y-2">
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                AI Candidate Matching
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                AI Resume Parsing
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Question Generation
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                AI Feedback Reports
-              </li>
-            </ul>
-          </div>
-          
-          <div className="border border-gray-800 rounded-lg p-4 bg-[#080822]/40">
-            <h4 className="text-lg font-medium text-[#E2FF55] mb-3">Advanced Features</h4>
-            <ul className="space-y-2">
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Proctoring System
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Coding Assessment Platform
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                Multi-format Interviews
-              </li>
-              <li className="flex items-center text-gray-300">
-                <CheckIcon className="h-4 w-4 text-[#E2FF55] mr-2" />
-                24/7 Support (Premium)
-              </li>
-            </ul>
-          </div>
-        </div>
-        
-        <div className="mt-8 text-center">
-          <Link to="/request-demo">
-            <Button className="bg-[#E2FF55] text-[#080820] hover:bg-[#E2FF55]/80 px-6 py-2">
-              See It In Action
-            </Button>
-          </Link>
-        </div>
-      </div>
-
+      {/* Enterprise Solution */}
       <EnterpriseSolution />
+      
+      {/* Feature Comparison Table - Replaces Key Features Section */}
+      <FeatureComparisonTable />
     </div>
   );
 };

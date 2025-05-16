@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -8,6 +9,7 @@ import MetricsShowcase from '@/components/MetricsShowcase';
 import RecruitmentSteps from '@/components/RecruitmentSteps';
 import ComparisonSection from '@/components/ComparisonSection';
 import PricingPackagesSection from '@/components/PricingPackagesSection';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const Home: React.FC = () => {
   // News headlines
@@ -232,6 +234,11 @@ const Home: React.FC = () => {
       </main>
       
       <Footer />
+      
+      {/* Add scroll to top button */}
+      <div className="fixed bottom-8 left-8 z-40">
+        <ScrollToTopButton />
+      </div>
     </div>
   );
 };

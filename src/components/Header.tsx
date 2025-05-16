@@ -12,6 +12,19 @@ const Header: React.FC = () => {
     return location.pathname === path;
   };
 
+  const scrollToFeatureComparison = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    
+    // When on pricing page, scroll to the feature comparison section
+    const featureComparisonSection = document.getElementById('feature-comparison');
+    if (featureComparisonSection) {
+      featureComparisonSection.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // If we're not on the pricing page, navigate to pricing and then scroll
+      window.location.href = '/pricing#feature-comparison';
+    }
+  };
+
   return (
     <header className="py-4 px-4 md:px-8 w-full bg-[#0A0A29]/95 backdrop-blur-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-800/50">
       <div className="container mx-auto">
@@ -48,6 +61,13 @@ const Header: React.FC = () => {
             >
               Pricing
             </Link>
+            <a 
+              href="#feature-comparison" 
+              onClick={scrollToFeatureComparison}
+              className="transition-colors duration-300 font-medium text-white hover:text-[#E2FF55]"
+            >
+              Feature Comparison
+            </a>
           </nav>
           
           {/* Desktop buttons */}
@@ -117,6 +137,16 @@ const Header: React.FC = () => {
               >
                 Pricing
               </Link>
+              <a 
+                href="#feature-comparison" 
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  scrollToFeatureComparison(e);
+                }}
+                className="transition-colors duration-300 text-white hover:text-[#E2FF55]"
+              >
+                Feature Comparison
+              </a>
               <a 
                 href="https://hyrdragon.digitaldiffuse.in/recruiter/login" 
                 target="_blank" 
