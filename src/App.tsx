@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -181,9 +182,9 @@ const PageSetup = () => {
     
     // Apply content-box class to appropriate elements
     const contentSelectors = [
-      '.bg-[#080822]',
-      '.bg-[#0F103E]',
-      '.bg-[#0A0A29]',
+      '.bg-\\[\\#080822\\]', // Escaped selector for .bg-[#080822]
+      '.bg-\\[\\#0F103E\\]', // Escaped selector for .bg-[#0F103E]
+      '.bg-\\[\\#0A0A29\\]', // Escaped selector for .bg-[#0A0A29]
       '.card', 
       '.rounded-xl', 
       '.rounded-lg',
@@ -191,11 +192,15 @@ const PageSetup = () => {
     ];
     
     contentSelectors.forEach(selector => {
-      document.querySelectorAll(selector).forEach(el => {
-        if (!el.classList.contains('content-box')) {
-          el.classList.add('content-box');
-        }
-      });
+      try {
+        document.querySelectorAll(selector).forEach(el => {
+          if (!el.classList.contains('content-box')) {
+            el.classList.add('content-box');
+          }
+        });
+      } catch (error) {
+        console.warn(`Selector error for "${selector}":`, error);
+      }
     });
     
     // Add fade-in animations
