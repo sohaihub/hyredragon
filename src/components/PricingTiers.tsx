@@ -1,3 +1,4 @@
+
 import React, { useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -160,6 +161,7 @@ const PricingTiers: React.FC = () => {
         '10 interviews',
       ],
       buttonText: 'Choose Plan',
+      buttonUrl: '/contact',
       colorClass: 'text-[#E2FF55]',
     },
     {
@@ -176,6 +178,7 @@ const PricingTiers: React.FC = () => {
         '20 interviews',
       ],
       buttonText: 'Choose Plan',
+      buttonUrl: '/contact',
       colorClass: 'text-[#E2FF55]',
     },
     {
@@ -192,9 +195,10 @@ const PricingTiers: React.FC = () => {
         '30 interviews',
       ],
       buttonText: 'Choose Plan',
+      buttonUrl: '/contact',
       highlighted: true,
       colorClass: 'text-[#E2FF55]',
-      badgeText: 'POPULAR', // Add badge for Standard plan
+      badgeText: 'POPULAR', // Make sure this is set
     },
     {
       name: 'Professional',
@@ -210,6 +214,7 @@ const PricingTiers: React.FC = () => {
         '40 interviews',
       ],
       buttonText: 'Choose Plan',
+      buttonUrl: '/contact',
       colorClass: 'text-[#E2FF55]',
     },
     {
@@ -226,6 +231,7 @@ const PricingTiers: React.FC = () => {
         '50 interviews',
       ],
       buttonText: 'Choose Plan',
+      buttonUrl: '/contact',
       colorClass: 'text-[#E2FF55]',
     },
   ];

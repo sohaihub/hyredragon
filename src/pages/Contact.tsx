@@ -89,18 +89,18 @@ const Contact: React.FC = () => {
                   </div>
                   
                   <div className="space-y-2">
-                    <Label htmlFor="plan" className="text-white">Select Plan</Label>
+                    <Label htmlFor="plan" className="text-white text-lg">Select Plan</Label>
                     <Select value={selectedPlan} onValueChange={setSelectedPlan}>
-                      <SelectTrigger className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white">
+                      <SelectTrigger className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white text-base h-12">
                         <SelectValue placeholder="Select a plan" />
                       </SelectTrigger>
                       <SelectContent className="bg-[#080820] border-gray-800 text-white">
-                        <SelectItem value="starter">Starter (₹10,000)</SelectItem>
-                        <SelectItem value="basic">Basic (₹20,000)</SelectItem>
-                        <SelectItem value="standard">Standard (₹30,000)</SelectItem>
-                        <SelectItem value="professional">Professional (₹40,000)</SelectItem>
-                        <SelectItem value="premium">Premium (₹50,000)</SelectItem>
-                        <SelectItem value="enterprise">Enterprise (Custom)</SelectItem>
+                        <SelectItem value="starter" className="text-base py-2">Starter (₹10,000)</SelectItem>
+                        <SelectItem value="basic" className="text-base py-2">Basic (₹20,000)</SelectItem>
+                        <SelectItem value="standard" className="text-base py-2">Standard (₹30,000) - POPULAR</SelectItem>
+                        <SelectItem value="professional" className="text-base py-2">Professional (₹40,000)</SelectItem>
+                        <SelectItem value="premium" className="text-base py-2">Premium (₹50,000)</SelectItem>
+                        <SelectItem value="enterprise" className="text-base py-2">Enterprise (Custom)</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -129,9 +129,9 @@ const Contact: React.FC = () => {
 
                   <Button
                     type="submit"
-                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full md:w-auto flex items-center gap-2"
+                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full md:w-auto flex items-center gap-2 py-6 text-lg font-medium"
                   >
-                    Send Message <Send className="w-4 h-4" />
+                    Send Message <Send className="w-5 h-5" />
                   </Button>
                 </form>
               </div>

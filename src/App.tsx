@@ -131,7 +131,7 @@ const GreenCursor = () => {
   );
 };
 
-// Add money falling effect
+// Add money falling effect with slower animation
 const MoneyFallEffect = () => {
   useEffect(() => {
     const createMoneyParticle = () => {
@@ -140,7 +140,7 @@ const MoneyFallEffect = () => {
       if (!effectActivated) return;
       
       const container = document.body;
-      const symbols = ['$', '€', '£', '¥'];
+      const symbols = ['$', '€', '£', '¥', '₹'];
       const particle = document.createElement('div');
       particle.className = 'money-particle';
       
@@ -151,12 +151,16 @@ const MoneyFallEffect = () => {
       // Random position, size, and animation duration
       const posX = Math.random() * window.innerWidth;
       const size = Math.random() * 30 + 20;
-      const duration = Math.random() * 3 + 2;
+      // Increase duration for slower animation
+      const duration = Math.random() * 5 + 4; // Increased from 3+2 to 5+4
       
       particle.style.left = `${posX}px`;
       particle.style.fontSize = `${size}px`;
       particle.style.color = '#E2FF55';
       particle.style.animationDuration = `${duration}s`;
+      
+      // Add gentle swinging motion
+      particle.style.animation = `fall ${duration}s linear, swing ${Math.random() * 2 + 2}s ease-in-out infinite alternate`;
       
       container.appendChild(particle);
       
@@ -168,10 +172,44 @@ const MoneyFallEffect = () => {
       }, duration * 1000);
     };
     
-    // Create particles at random intervals
-    const interval = setInterval(createMoneyParticle, 200);
+    // Create particles at slower intervals
+    const interval = setInterval(createMoneyParticle, 300); // Changed from 200 to 300ms
     
-    return () => clearInterval(interval);
+    // Add custom animation styles
+    const style = document.createElement('style');
+    style.innerHTML = `
+      .money-particle {
+        position: fixed;
+        top: -50px;
+        z-index: 9998;
+        user-select: none;
+        pointer-events: none;
+        text-shadow: 0 0 5px rgba(226, 255, 85, 0.7);
+        animation: fall 5s linear;
+        opacity: 0.9;
+      }
+      
+      @keyframes fall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+        10% { opacity: 0.9; }
+        90% { opacity: 0.9; }
+        100% { transform: translateY(calc(100vh + 50px)) rotate(360deg); opacity: 0; }
+      }
+      
+      @keyframes swing {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(30px); }
+      }
+    `;
+    
+    document.head.appendChild(style);
+    
+    return () => {
+      clearInterval(interval);
+      if (document.head.contains(style)) {
+        document.head.removeChild(style);
+      }
+    };
   }, []);
   
   return null;
@@ -259,7 +297,7 @@ const App: React.FC = () => {
           sessionStorage.setItem('moneyEffectActivated', 'true');
           setTimeout(() => {
             sessionStorage.setItem('moneyEffectActivated', 'false');
-          }, 5000); // Turn off after 5 seconds
+          }, 8000); // Increased from 5000 to 8000ms for longer effect
         });
       });
     };
