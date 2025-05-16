@@ -39,7 +39,7 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
         <table className="w-full">
           <thead>
             <tr className="text-left">
-              <th className="py-2 w-2/5 text-white text-lg bg-[#080820] sticky left-0 pl-4">Feature</th>
+              <th className="py-2 w-1/3 md:w-2/5 text-white text-lg bg-[#080820] sticky left-0">Feature</th>
               <th className={cn("py-2 text-center text-white", planColors.starter)}>
                 <div className="font-bold">Starter</div>
                 <div>(10k)</div>
@@ -69,7 +69,7 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
                 className="border-b border-gray-800 hover:bg-[#0F103E]/30 transition-all"
               >
                 <td className={cn(
-                  "py-4 text-white text-lg sticky left-0 bg-[#080820] pl-4",
+                  "py-4 text-white text-lg sticky left-0 bg-[#080820]",
                   feature.comingSoon && "opacity-80"
                 )}>
                   {feature.name}

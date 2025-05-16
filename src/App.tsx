@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -130,6 +131,52 @@ const GreenCursor = () => {
   );
 };
 
+// Add money falling effect
+const MoneyFallEffect = () => {
+  useEffect(() => {
+    const createMoneyParticle = () => {
+      // Check if user has activated the effect
+      const effectActivated = sessionStorage.getItem('moneyEffectActivated');
+      if (!effectActivated) return;
+      
+      const container = document.body;
+      const symbols = ['$', '€', '£', '¥'];
+      const particle = document.createElement('div');
+      particle.className = 'money-particle';
+      
+      // Random symbol
+      const symbol = symbols[Math.floor(Math.random() * symbols.length)];
+      particle.innerText = symbol;
+      
+      // Random position, size, and animation duration
+      const posX = Math.random() * window.innerWidth;
+      const size = Math.random() * 30 + 20;
+      const duration = Math.random() * 3 + 2;
+      
+      particle.style.left = `${posX}px`;
+      particle.style.fontSize = `${size}px`;
+      particle.style.color = '#E2FF55';
+      particle.style.animationDuration = `${duration}s`;
+      
+      container.appendChild(particle);
+      
+      // Remove after animation completes
+      setTimeout(() => {
+        if (particle.parentNode === container) {
+          container.removeChild(particle);
+        }
+      }, duration * 1000);
+    };
+    
+    // Create particles at random intervals
+    const interval = setInterval(createMoneyParticle, 200);
+    
+    return () => clearInterval(interval);
+  }, []);
+  
+  return null;
+};
+
 // Page transitions and animation setup
 const PageSetup = () => {
   const { pathname } = useLocation();
@@ -196,9 +243,29 @@ const PageSetup = () => {
 };
 
 const App: React.FC = () => {
-  // Initialize login redirects only
+  // Initialize the money effect on first render
   useEffect(() => {
-    // Remove money effect initialization logic
+    // Only set this if it hasn't been set yet
+    if (!sessionStorage.getItem('moneyEffectActivated')) {
+      sessionStorage.setItem('moneyEffectActivated', 'false');
+    }
+    
+    // Set up an event listener to activate the effect when a specific button is clicked
+    const setupMoneyEffect = () => {
+      const moneyTriggers = document.querySelectorAll('[data-trigger-money-effect]');
+      
+      moneyTriggers.forEach(trigger => {
+        trigger.addEventListener('click', () => {
+          sessionStorage.setItem('moneyEffectActivated', 'true');
+          setTimeout(() => {
+            sessionStorage.setItem('moneyEffectActivated', 'false');
+          }, 5000); // Turn off after 5 seconds
+        });
+      });
+    };
+    
+    // Wait for DOM to be fully loaded
+    setTimeout(setupMoneyEffect, 1000);
     
     // Add login link redirection
     const setupLoginRedirect = () => {
@@ -219,7 +286,7 @@ const App: React.FC = () => {
     <Router>
       <PageSetup />
       <GreenCursor />
-      {/* Removed the MoneyFallEffect component */}
+      <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/ai-products" element={<AIProducts />} />
