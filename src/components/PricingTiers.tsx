@@ -1,4 +1,3 @@
-
 import React, { useRef } from 'react';
 import { CheckIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -43,7 +42,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
     >
       {(highlighted || badgeText) && (
         <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-4 py-1 rounded-full shadow-md ring-2 ring-[#080820] z-20">
-          {badgeText ?? 'POPULAR'}
+          {badgeText || 'POPULAR'}
         </div>
       )}
 
@@ -198,7 +197,7 @@ const PricingTiers: React.FC = () => {
       buttonUrl: '/contact',
       highlighted: true,
       colorClass: 'text-[#E2FF55]',
-      badgeText: 'POPULAR', // Make sure this is set
+      badgeText: 'POPULAR', // Ensure this is set
     },
     {
       name: 'Professional',
@@ -254,7 +253,6 @@ const PricingTiers: React.FC = () => {
         <FeatureComparisonTable />
       </div>
       
-      {/* Add plan overview section after feature comparison table */}
       <div className="mt-16 py-12 bg-gradient-to-b from-[#080822]/80 to-[#0A0A29]/80 rounded-xl border border-gray-800 backdrop-blur-sm">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl font-bold text-center text-white mb-10">

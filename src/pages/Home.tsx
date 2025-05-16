@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -64,13 +63,119 @@ const Home: React.FC = () => {
     };
   }, []);
 
+  // Add enhanced UI effects
+  useEffect(() => {
+    const enhanceUI = () => {
+      // Add pulsing effect to buttons
+      document.querySelectorAll('.bg-[#E2FF55]').forEach(el => {
+        if (!el.classList.contains('pulse-glow')) {
+          el.classList.add('pulse-glow');
+        }
+      });
+      
+      // Add animated borders to cards
+      document.querySelectorAll('.rounded-xl, .rounded-lg').forEach(card => {
+        if (!card.classList.contains('animated-border')) {
+          card.classList.add('animated-border');
+        }
+      });
+    };
+    
+    setTimeout(enhanceUI, 1000);
+    
+    // Add custom animation styles for enhanced UI
+    const addEnhancedStyles = () => {
+      const style = document.createElement('style');
+      style.innerHTML = `
+        .pulse-glow {
+          animation: pulse-glow 3s infinite;
+          position: relative;
+        }
+        
+        @keyframes pulse-glow {
+          0%, 100% { box-shadow: 0 0 0 rgba(226, 255, 85, 0.5); }
+          50% { box-shadow: 0 0 20px rgba(226, 255, 85, 0.8); }
+        }
+        
+        .promo-text {
+          animation: glow 2s infinite alternate;
+          font-size: 1.2rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+        
+        .promo-container {
+          padding: 1.5rem;
+          border-radius: 1rem;
+          background: linear-gradient(145deg, #0F103E, #080820);
+          border: 1px solid rgba(226, 255, 85, 0.3);
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+          transform-style: preserve-3d;
+          transition: all 0.5s ease;
+        }
+        
+        .promo-container:hover {
+          transform: translateY(-5px) rotateX(5deg);
+          border-color: rgba(226, 255, 85, 0.8);
+          box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3), 0 0 20px rgba(226, 255, 85, 0.4);
+        }
+        
+        @keyframes glow {
+          from { text-shadow: 0 0 5px rgba(226, 255, 85, 0.8), 0 0 10px rgba(226, 255, 85, 0.5); }
+          to { text-shadow: 0 0 15px rgba(226, 255, 85, 0.8), 0 0 20px rgba(123, 120, 255, 0.8); }
+        }
+        
+        .animated-border {
+          position: relative;
+          overflow: hidden;
+        }
+        
+        .animated-border::after {
+          content: '';
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          width: calc(100% + 4px);
+          height: calc(100% + 4px);
+          background: linear-gradient(45deg, transparent, rgba(226, 255, 85, 0.3), transparent);
+          border-radius: inherit;
+          z-index: -1;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+        
+        .animated-border:hover::after {
+          opacity: 1;
+        }
+      `;
+      
+      document.head.appendChild(style);
+      
+      return () => {
+        if (document.head.contains(style)) {
+          document.head.removeChild(style);
+        }
+      };
+    };
+    
+    const cleanup = addEnhancedStyles();
+    
+    return () => {
+      // ... keep existing code (cleanup functions)
+      cleanup();
+    };
+  }, []);
+
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Enhanced animated background elements */}
+      {/* Enhanced animated background elements - adding more elements */}
       <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-[#E2FF55]/15 to-[#E2FF55]/5 blur-3xl animate-pulse"></div>
         <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/15 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
+        {/* Additional background elements for enhanced UI */}
+        <div className="absolute top-1/4 left-1/4 w-60 h-60 rounded-full bg-gradient-to-br from-[#7B78FF]/15 to-transparent blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/4 right-1/3 w-72 h-72 rounded-full bg-gradient-to-br from-[#E2FF55]/10 to-transparent blur-3xl animate-pulse" style={{ animationDelay: '4s' }}></div>
       </div>
       
       <Header />

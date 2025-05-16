@@ -151,16 +151,16 @@ const MoneyFallEffect = () => {
       // Random position, size, and animation duration
       const posX = Math.random() * window.innerWidth;
       const size = Math.random() * 30 + 20;
-      // Increase duration for slower animation
-      const duration = Math.random() * 5 + 4; // Increased from 3+2 to 5+4
+      // Further increase duration for even slower animation
+      const duration = Math.random() * 7 + 6; // Increased from 5+4 to 7+6
       
       particle.style.left = `${posX}px`;
       particle.style.fontSize = `${size}px`;
       particle.style.color = '#E2FF55';
       particle.style.animationDuration = `${duration}s`;
       
-      // Add gentle swinging motion
-      particle.style.animation = `fall ${duration}s linear, swing ${Math.random() * 2 + 2}s ease-in-out infinite alternate`;
+      // Add gentle swinging motion with increased amplitude
+      particle.style.animation = `fall ${duration}s linear, swing ${Math.random() * 3 + 3}s ease-in-out infinite alternate`;
       
       container.appendChild(particle);
       
@@ -173,9 +173,9 @@ const MoneyFallEffect = () => {
     };
     
     // Create particles at slower intervals
-    const interval = setInterval(createMoneyParticle, 300); // Changed from 200 to 300ms
+    const interval = setInterval(createMoneyParticle, 500); // Changed from 300 to 500ms for slower generation
     
-    // Add custom animation styles
+    // Add custom animation styles with enhanced effects
     const style = document.createElement('style');
     style.innerHTML = `
       .money-particle {
@@ -184,9 +184,10 @@ const MoneyFallEffect = () => {
         z-index: 9998;
         user-select: none;
         pointer-events: none;
-        text-shadow: 0 0 5px rgba(226, 255, 85, 0.7);
-        animation: fall 5s linear;
+        text-shadow: 0 0 8px rgba(226, 255, 85, 0.8);
+        animation: fall 7s linear;
         opacity: 0.9;
+        font-weight: bold;
       }
       
       @keyframes fall {
@@ -198,7 +199,7 @@ const MoneyFallEffect = () => {
       
       @keyframes swing {
         0% { transform: translateX(0); }
-        100% { transform: translateX(30px); }
+        100% { transform: translateX(40px); }
       }
     `;
     
@@ -297,7 +298,7 @@ const App: React.FC = () => {
           sessionStorage.setItem('moneyEffectActivated', 'true');
           setTimeout(() => {
             sessionStorage.setItem('moneyEffectActivated', 'false');
-          }, 8000); // Increased from 5000 to 8000ms for longer effect
+          }, 12000); // Increased from 8000 to 12000ms for even longer effect duration
         });
       });
     };
