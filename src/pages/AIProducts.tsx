@@ -1,8 +1,9 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { CheckCircle, ArrowRight, MonitorSmartphone, Clock, Shield, Star, Download, Users, XCircle } from 'lucide-react';
+import { CheckCircle, ArrowRight, MonitorSmartphone, Clock, Shield, Star, Download, Users, XCircle, Check, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
@@ -61,36 +62,92 @@ const AIProducts = () => {
     }
   ];
 
+  // Updated comparison data with more detailed features based on the reference image
   const comparisonData = [
     {
-      feature: "Automated candidate screening",
-      traditional: false,
-      ai: true
+      category: "Basic Features",
+      features: [
+        {
+          name: "Job Posting",
+          traditional: "Manual",
+          ai: "Automated with AI optimization"
+        },
+        {
+          name: "Candidate Tracking",
+          traditional: "Limited",
+          ai: "Comprehensive with AI insights"
+        },
+        {
+          name: "Email Notifications",
+          traditional: true,
+          ai: true
+        }
+      ]
     },
     {
-      feature: "Bias reduction technology",
-      traditional: false,
-      ai: true
+      category: "AI Features",
+      features: [
+        {
+          name: "AI Candidate Matching",
+          traditional: false,
+          ai: "500+ candidates"
+        },
+        {
+          name: "AI Resume Parsing",
+          traditional: false,
+          ai: "Unlimited"
+        },
+        {
+          name: "AI Question Generation",
+          traditional: false,
+          ai: "With Gemini & OpenAI"
+        },
+        {
+          name: "AI Proctoring",
+          traditional: false,
+          ai: "Advanced monitoring system"
+        }
+      ]
     },
     {
-      feature: "Skill-based assessments",
-      traditional: true,
-      ai: true
+      category: "Analytics & Reporting",
+      features: [
+        {
+          name: "Analytics Dashboard",
+          traditional: "Basic",
+          ai: "Advanced AI-powered"
+        },
+        {
+          name: "Downloadable Reports",
+          traditional: false,
+          ai: true
+        },
+        {
+          name: "Real-time Insights",
+          traditional: false,
+          ai: true
+        }
+      ]
     },
     {
-      feature: "Automated interview scheduling",
-      traditional: false,
-      ai: true
-    },
-    {
-      feature: "AI-powered candidate matching",
-      traditional: false,
-      ai: true
-    },
-    {
-      feature: "Real-time analytics & insights",
-      traditional: false,
-      ai: true
+      category: "Support & Training",
+      features: [
+        {
+          name: "Support Hours",
+          traditional: "Limited",
+          ai: "24/7"
+        },
+        {
+          name: "Training Sessions",
+          traditional: "Extra cost",
+          ai: "Included"
+        },
+        {
+          name: "Dedicated Account Manager",
+          traditional: false,
+          ai: "Premium plans"
+        }
+      ]
     }
   ];
 
@@ -185,8 +242,8 @@ const AIProducts = () => {
           </div>
         </section>
 
-        {/* Comparison Table */}
-        <section className="py-16 md:py-24 bg-[#080820] px-4">
+        {/* Updated Comparison Table */}
+        <section id="comparison" className="py-16 md:py-24 bg-[#080820] px-4">
           <div className="container mx-auto">
             <div className="text-center mb-16">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
@@ -196,41 +253,80 @@ const AIProducts = () => {
                 See how AI-powered solutions outperform traditional recruiting methods
               </p>
             </div>
-                    <div className="overflow-x-auto">
-          <table className="w-full table-auto border-collapse border border-gray-700 text-gray-300">
-            <thead>
-              <tr className="bg-[#0F103E] text-white">
-                <th className="border border-gray-700 px-6 py-3 text-left">Feature</th>
-                <th className="border border-gray-700 px-6 py-3 text-center">Traditional</th>
-                <th className="border border-gray-700 px-6 py-3 text-center">AI-Powered</th>
-              </tr>
-            </thead>
-            <tbody>
-              {comparisonData.map(({ feature, traditional, ai }, index) => (
-                <tr
-                  key={index}
-                  className={index % 2 === 0 ? "bg-[#121243]" : "bg-[#0A0A29]"}
-                >
-                  <td className="border border-gray-700 px-6 py-3">{feature}</td>
-                  <td className="border border-gray-700 px-6 py-3 text-center">
-                    {traditional ? <CheckCircle className="mx-auto h-6 w-6 text-[#E2FF55]" /> : <XCircle className="mx-auto h-6 w-6 text-red-600" />}
-                  </td>
-                  <td className="border border-gray-700 px-6 py-3 text-center">
-                    {ai ? <CheckCircle className="mx-auto h-6 w-6 text-[#E2FF55]" /> : <XCircle className="mx-auto h-6 w-6 text-red-600" />}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-  </main>
+            
+            <div className="max-w-5xl mx-auto">
+              {/* Enhanced Comparison Table */}
+              <div className="bg-[#0F103E]/30 border border-gray-800 rounded-xl overflow-hidden">
+                {/* Table Header */}
+                <div className="grid grid-cols-3 bg-[#0F103E] border-b border-gray-800">
+                  <div className="p-4 font-semibold text-lg text-white">Features</div>
+                  <div className="p-4 font-semibold text-lg text-center text-white border-x border-gray-800">Traditional</div>
+                  <div className="p-4 font-semibold text-lg text-center text-white">AI-Powered</div>
+                </div>
+                
+                {/* Table Body - Categories and Features */}
+                {comparisonData.map((category, catIndex) => (
+                  <div key={catIndex}>
+                    {/* Category Header */}
+                    <div className="bg-[#0A0A29] border-b border-gray-800 p-3">
+                      <h3 className="font-semibold text-[#E2FF55]">{category.category}</h3>
+                    </div>
+                    
+                    {/* Features */}
+                    {category.features.map((feature, featIndex) => (
+                      <div 
+                        key={featIndex} 
+                        className={`grid grid-cols-3 border-b border-gray-800 hover:bg-[#0F103E]/50 transition-colors ${
+                          featIndex % 2 === 0 ? 'bg-[#0A0A29]/30' : 'bg-[#0A0A29]/10'
+                        }`}
+                      >
+                        <div className="p-4 text-white">{feature.name}</div>
+                        
+                        {/* Traditional Column */}
+                        <div className="p-4 flex justify-center items-center border-x border-gray-800">
+                          {typeof feature.traditional === 'boolean' ? (
+                            feature.traditional ? 
+                              <Check className="h-6 w-6 text-green-500" /> : 
+                              <X className="h-6 w-6 text-red-500" />
+                          ) : (
+                            <span className="text-gray-300 text-center">{feature.traditional}</span>
+                          )}
+                        </div>
+                        
+                        {/* AI Column */}
+                        <div className="p-4 flex justify-center items-center">
+                          {typeof feature.ai === 'boolean' ? (
+                            feature.ai ? 
+                              <Check className="h-6 w-6 text-[#E2FF55]" /> : 
+                              <X className="h-6 w-6 text-red-500" />
+                          ) : (
+                            <span className="text-[#E2FF55] text-center font-medium">{feature.ai}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+              </div>
 
-  <Footer />
-  <ScrollToTopButton />
-</div>
-    );
+              {/* CTA Button */}
+              <div className="mt-10 text-center">
+                <Link to="/pricing">
+                  <Button className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 py-6 text-lg font-medium rounded-md flex items-center gap-2 mx-auto">
+                    See Our Pricing
+                    <ArrowRight className="h-5 w-5" />
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <Footer />
+      <ScrollToTopButton />
+    </div>
+  );
 };
 
 export default AIProducts;
