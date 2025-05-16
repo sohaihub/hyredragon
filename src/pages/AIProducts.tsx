@@ -105,7 +105,7 @@ const AIProducts = () => {
         {
           name: "AI Proctoring",
           traditional: false,
-          ai: "Advanced monitoring system"
+          ai: "AI Proctoring System"
         }
       ]
     },
