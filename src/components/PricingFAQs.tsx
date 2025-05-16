@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Accordion,
@@ -64,27 +63,16 @@ const PricingFAQs: React.FC = () => {
         </Accordion>
 
         <div className="mt-12 text-center">
-          <div className="promo-box inline-block mb-8 px-6 py-3 rounded-full bg-gradient-to-r from-[#1A1A3D] to-[#080820] border border-[#E2FF55]/10">
-            <p className="text-lg">
-              <span className="promo-text font-semibold">First 50 customers get 3 free hours</span>
-            </p>
+          <div className="text-lg font-medium text-white mb-6">
+            Have more questions?
           </div>
-          
-          <div className="mt-6">
+          <div>
             <Button 
-              className="bg-gradient-to-r from-[#1A1A3D] to-[#232349] text-white px-6 py-6 rounded-full flex items-center gap-2 border border-[#E2FF55]/10 hover:border-[#E2FF55]/20 transition-all duration-500 transform hover:translate-y-[-2px] shadow-lg hover:shadow-[#E2FF55]/5 overflow-hidden relative group micro-button"
-              onClick={() => {
-                // This would trigger the chatbot to open
-                const chatbotButton = document.querySelector('.fixed.bottom-8.right-8 button');
-                if (chatbotButton) {
-                  (chatbotButton as HTMLButtonElement).click();
-                }
-              }}
+              onClick={() => {/* Add functionality to open AI assistant chat */}}
+              className="px-6 py-3 rounded-full bg-[#0A0A29] border border-[#E2FF55]/20 shadow-lg flex items-center justify-center gap-2 hover:shadow-[0_0_15px_rgba(226,255,85,0.2)] transition-all duration-300"
             >
-              <div className="relative z-10 w-8 h-8 rounded-full flex items-center justify-center bg-[#232349]">
-                <Sparkles className="w-5 h-5 text-[#E2FF55]" />
-              </div>
-              <span className="font-medium relative z-10 text-lg">Chat with Dragon Assistant</span>
+              <Sparkles className="w-5 h-5 text-[#E2FF55]" />
+              <span className="text-white font-medium">Chat with AI Assistant</span>
             </Button>
           </div>
         </div>
