@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
@@ -54,7 +53,7 @@ const ComparisonSection: React.FC = () => {
                 <TableHead className="text-white font-semibold text-lg">Platform</TableHead>
                 <TableHead className="text-white font-semibold text-lg">Pricing Model</TableHead>
                 <TableHead className="text-white font-semibold text-lg">Key Features</TableHead>
-                <TableHead className="text-white font-semibold text-lg">HyreDragon's Edge</TableHead>
+                <TableHead className="text-[#E2FF55] font-semibold text-lg">HyreDragon's Edge</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -78,7 +77,7 @@ const ComparisonSection: React.FC = () => {
                   <TableCell className={competitor.highlight ? 'text-[#E2FF55] text-lg' : 'text-white text-lg'}>
                     {competitor.features}
                   </TableCell>
-                  <TableCell className={competitor.highlight ? 'text-[#E2FF55] font-semibold text-lg' : 'text-white text-lg'}>
+                  <TableCell className="text-[#E2FF55] text-lg">
                     {competitor.edge}
                   </TableCell>
                 </TableRow>
