@@ -193,8 +193,7 @@ const PricingTiers: React.FC = () => {
       ],
       buttonText: 'Choose Plan',
       highlighted: true,
-      colorClass: 'text-[#E2FF55]',
-      badgeText: 'POPULAR', // Add badge for Standard plan
+      colorClass: 'text-[#E2FF55]', // Add badge for Standard plan
     },
     {
       name: 'Professional',
@@ -267,7 +266,6 @@ const PricingTiers: React.FC = () => {
             
             <div className="text-center p-6 bg-[#E2FF55]/5 rounded-xl border-2 border-[#E2FF55] relative transform scale-105">
               <div className="absolute -top-5 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
-                POPULAR
               </div>
               <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
               <p className="text-gray-300 mb-4">Ideal for growing companies with regular hiring needs.</p>
