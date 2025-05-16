@@ -8,6 +8,7 @@ import PricingFeatureList from '@/components/PricingFeatureList';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 const Index: React.FC = () => {
   // Add animation on scroll effect
@@ -48,14 +49,18 @@ const Index: React.FC = () => {
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
             
-            const deltaX = (x - centerX) / centerX * 4; // Max 4px movement
-            const deltaY = (y - centerY) / centerY * 4; // Max 4px movement
+            const deltaX = (x - centerX) / centerX * 6; // Increased from 4 to 6px for stronger effect
+            const deltaY = (y - centerY) / centerY * 6; // Increased from 4 to 6px for stronger effect
             
-            (card as HTMLElement).style.transform = `perspective(1000px) translateY(-5px) rotateX(${deltaY}deg) rotateY(${-deltaX}deg) scale(1.02)`;
+            (card as HTMLElement).style.transform = `perspective(1000px) translateY(-8px) rotateX(${deltaY}deg) rotateY(${-deltaX}deg) scale(1.03)`; // Increased scale for better effect
+            (card as HTMLElement).style.transition = 'transform 0.1s ease-out'; // Smoother transition
+            (card as HTMLElement).style.boxShadow = `0 15px 30px rgba(0,0,0,0.2), 0 0 20px rgba(226,255,85,0.15)`;
           });
           
           card.addEventListener('mouseleave', () => {
             (card as HTMLElement).style.transform = 'perspective(1000px) translateY(0) rotateX(0deg) rotateY(0deg) scale(1)';
+            (card as HTMLElement).style.transition = 'transform 0.5s ease, box-shadow 0.5s ease';
+            (card as HTMLElement).style.boxShadow = 'none';
           });
         });
       }
@@ -115,6 +120,11 @@ const Index: React.FC = () => {
         </div>
       </main>
       <Footer />
+      
+      {/* Add the scroll to top button positioned away from chatbot */}
+      <div className="fixed bottom-8 right-8 z-40">
+        <ScrollToTopButton />
+      </div>
     </div>
   );
 };

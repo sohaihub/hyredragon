@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -6,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users, Flame, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { toast } from '@/components/ui/use-toast';
+import ScrollToTopButton from '@/components/ScrollToTopButton';
 
 interface ProductCardProps {
   title: string;
@@ -282,31 +282,35 @@ const AIProducts: React.FC = () => {
           </div>
         </section>
         
-        {/* CTA Section with enhanced animations */}
+        {/* CTA Section - Replaced with new image from the user */}
         <section className="py-16 md:py-20 px-4">
           <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Ready to Transform Your Recruitment?
-              </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Join the companies already using HyreDragon to build better teams faster.
-              </p>
-              <Link to="/request-demo">
-                <Button 
-                  size="lg"
-                  className="bg-[#7B78FF] text-white hover:bg-[#7B78FF]/90 px-8 rounded-full relative overflow-hidden group"
-                >
-                  <span className="relative z-10">Schedule a Demo</span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shine_1s_ease-out]"></span>
-                </Button>
-              </Link>
+            <div className="max-w-4xl mx-auto">
+              <div className="rounded-lg bg-[#0F103E] border border-[#E2FF55]/10 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between">
+                <div>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Ready to revolutionize your hiring?</h2>
+                  <p className="text-gray-300">Join the companies that have transformed their recruitment process with HyreDragon.</p>
+                </div>
+                <div className="mt-6 md:mt-0">
+                  <Link to="/request-demo">
+                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full font-medium text-lg flex items-center gap-2">
+                      Start Free Trial
+                      <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </section>
       </main>
       
       <Footer />
+      
+      {/* Add the scroll to top button positioned away from chatbot */}
+      <div className="fixed bottom-8 right-8 z-40">
+        <ScrollToTopButton />
+      </div>
     </div>
   );
 };

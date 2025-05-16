@@ -14,7 +14,6 @@ import Privacy from './pages/Privacy';
 import Security from './pages/Security';
 import Blog from './pages/Blog';
 import DragonChatbot from './components/DragonChatbot';
-import ScrollToTopButton from './components/ScrollToTopButton';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
 // Custom cursor component - modified for subtle effect
@@ -252,10 +251,7 @@ const App: React.FC = () => {
         <Route path="/security" element={<Security />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
-      {/* Moved the button to the right side at the bottom */}
-      <div className="fixed z-40 bottom-8 right-8">
-        <ScrollToTopButton />
-      </div>
+      {/* Removed the fixed button container, we'll handle this in each page */}
       <DragonChatbot />
     </Router>
   );
