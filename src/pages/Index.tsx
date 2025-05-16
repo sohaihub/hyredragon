@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import PricingHero from '@/components/PricingHero';
@@ -122,7 +121,7 @@ const Index: React.FC = () => {
       <Footer />
       
       {/* Add the scroll to top button positioned away from chatbot */}
-      <div className="fixed bottom-8 right-8 z-40">
+      <div className="fixed bottom-8 right-20 z-40">
         <ScrollToTopButton />
       </div>
     </div>

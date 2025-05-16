@@ -282,22 +282,27 @@ const AIProducts: React.FC = () => {
           </div>
         </section>
         
-        {/* CTA Section - Replaced with new image from the user */}
+        {/* CTA Section - Updated with new image */}
         <section className="py-16 md:py-20 px-4">
           <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto">
-              <div className="rounded-lg bg-[#0F103E] border border-[#E2FF55]/10 p-6 md:p-8 flex flex-col md:flex-row items-center justify-between">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Ready to revolutionize your hiring?</h2>
-                  <p className="text-gray-300">Join the companies that have transformed their recruitment process with HyreDragon.</p>
-                </div>
-                <div className="mt-6 md:mt-0">
+            <div className="max-w-4xl mx-auto bg-[#0F103E] rounded-xl overflow-hidden shadow-lg border border-[#E2FF55]/10 transform transition-all duration-500 hover:shadow-xl hover:shadow-[#E2FF55]/20">
+              <div className="bg-gradient-to-r from-[#0F103E]/90 to-[#080822]/90 p-8 md:p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="text-center md:text-left">
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to <span className="text-[#E2FF55]">Revolutionize</span> Your Hiring?</h2>
+                  <p className="text-gray-300 mb-6 text-lg">HyreDragon helps you find the best talent faster with AI-powered assessments.</p>
                   <Link to="/request-demo">
-                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full font-medium text-lg flex items-center gap-2">
+                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full font-medium text-lg flex items-center gap-2 shadow-lg">
                       Start Free Trial
                       <ArrowRight className="w-5 h-5" />
                     </Button>
                   </Link>
+                </div>
+                <div className="w-full md:w-1/2 flex justify-center">
+                  <img 
+                    src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
+                    alt="HyreDragon Dashboard Demo" 
+                    className="rounded-lg shadow-xl max-w-full h-auto border border-gray-800/30"
+                  />
                 </div>
               </div>
             </div>
@@ -308,7 +313,7 @@ const AIProducts: React.FC = () => {
       <Footer />
       
       {/* Add the scroll to top button positioned away from chatbot */}
-      <div className="fixed bottom-8 right-8 z-40">
+      <div className="fixed bottom-8 right-20 z-40">
         <ScrollToTopButton />
       </div>
     </div>

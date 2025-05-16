@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -100,7 +101,7 @@
     box-shadow: 0 0 8px rgba(226, 255, 85, 0.3);
   }
 
-  /* Button and interactive element styles - more subtle */
+  /* Button and interactive element styles - no hover background */
   button, a, [role="button"], input[type="submit"], input[type="button"], label[for], select, .interactive {
     @apply relative overflow-hidden transition-all duration-300;
   }
@@ -113,7 +114,7 @@
     transform: translateY(1px);
   }
 
-  /* Click effect - more subtle with updated color */
+  /* Click effect - more subtle with updated color, no background */
   .neon-click-effect {
     @apply absolute rounded-full pointer-events-none;
     background: radial-gradient(circle, rgba(155, 135, 245, 0.1) 0%, rgba(155, 135, 245, 0) 70%);
