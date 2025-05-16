@@ -102,9 +102,9 @@ const AIProducts = () => {
         <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/15 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
         <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
       </div>
-      
+
       <Header />
-      
+
       <main className="flex-grow relative z-10 pt-24">
         {/* Products Section */}
         <section className="py-16 md:py-24 bg-[#080820] px-4">
@@ -117,10 +117,10 @@ const AIProducts = () => {
                 Transform every stage of your hiring process with our innovative AI tools
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {products.map((product, index) => (
-                <div 
+                <div
                   key={index}
                   className="bg-[#0F103E] border border-gray-800 rounded-xl p-6 transform hover:translate-y-[-4px] transition-all duration-300 hover:shadow-lg hover:shadow-[#E2FF55]/10 flex flex-col"
                 >
@@ -153,7 +153,7 @@ const AIProducts = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Benefits Section */}
         <section className="py-16 md:py-24 px-4">
           <div className="container mx-auto">
@@ -165,10 +165,10 @@ const AIProducts = () => {
                 Our solutions deliver measurable improvements to your hiring outcomes
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
               {benefits.map((benefit, index) => (
-                <div 
+                <div
                   key={index}
                   className="flex items-start p-6 bg-[#0F103E]/50 border border-gray-800 rounded-xl transform hover:translate-y-[-4px] transition-all duration-300"
                 >
@@ -184,7 +184,7 @@ const AIProducts = () => {
             </div>
           </div>
         </section>
-        
+
         {/* Comparison Table */}
         <section className="py-16 md:py-24 bg-[#080820] px-4">
           <div className="container mx-auto">
@@ -196,62 +196,41 @@ const AIProducts = () => {
                 See how AI-powered solutions outperform traditional recruiting methods
               </p>
             </div>
-            
-            <div className="max-w-3xl mx-auto bg-[#0F103E] rounded-xl overflow-hidden border border-gray-800">
-              <div className="grid grid-cols-3 bg-[#0A0A29] py-4">
-                <div className="text-gray-300 font-bold text-center">Feature</div>
-                <div className="text-gray-300 font-bold text-center">Traditional Recruiting</div>
-                <div className="text-[#E2FF55] font-bold text-center">AI-Powered Recruiting</div>
-              </div>
-              
-              {comparisonData.map((item, index) => (
-                <div key={index} className={`grid grid-cols-3 py-4 ${index % 2 === 0 ? 'bg-[#0F103E]' : 'bg-[#0F103E]/50'}`}>
-                  <div className="text-white text-center px-4">{item.feature}</div>
-                  <div className="text-center">
-                    {item.traditional ? 
-                      <CheckCircle className="h-5 w-5 text-green-400 mx-auto" /> : 
-                      <XCircle className="h-5 w-5 text-red-400 mx-auto" />}
-                  </div>
-                  <div className="text-center">
-                    {item.ai ? 
-                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
-                      <XCircle className="h-5 w-5 text-red-400 mx-auto" />}
-                  </div>
-                </div>
+                    <div className="overflow-x-auto">
+          <table className="w-full table-auto border-collapse border border-gray-700 text-gray-300">
+            <thead>
+              <tr className="bg-[#0F103E] text-white">
+                <th className="border border-gray-700 px-6 py-3 text-left">Feature</th>
+                <th className="border border-gray-700 px-6 py-3 text-center">Traditional</th>
+                <th className="border border-gray-700 px-6 py-3 text-center">AI-Powered</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonData.map(({ feature, traditional, ai }, index) => (
+                <tr
+                  key={index}
+                  className={index % 2 === 0 ? "bg-[#121243]" : "bg-[#0A0A29]"}
+                >
+                  <td className="border border-gray-700 px-6 py-3">{feature}</td>
+                  <td className="border border-gray-700 px-6 py-3 text-center">
+                    {traditional ? <CheckCircle className="mx-auto h-6 w-6 text-[#E2FF55]" /> : <XCircle className="mx-auto h-6 w-6 text-red-600" />}
+                  </td>
+                  <td className="border border-gray-700 px-6 py-3 text-center">
+                    {ai ? <CheckCircle className="mx-auto h-6 w-6 text-[#E2FF55]" /> : <XCircle className="mx-auto h-6 w-6 text-red-600" />}
+                  </td>
+                </tr>
               ))}
-            </div>
-          </div>
-        </section>
-        
-        {/* CTA Section - Updated to remove the image */}
-        <section className="py-16 md:py-20 px-4">
-          <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto bg-[#0F103E] rounded-xl overflow-hidden shadow-lg border border-[#E2FF55]/10 transform transition-all duration-500 hover:shadow-xl hover:shadow-[#E2FF55]/20">
-              <div className="bg-gradient-to-r from-[#0F103E]/90 to-[#080822]/90 p-8 md:p-10">
-                <div className="text-center">
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">Ready to <span className="text-[#E2FF55]">Revolutionize</span> Your Hiring?</h2>
-                  <p className="text-gray-300 mb-6 text-lg">HyreDragon helps you find the best talent faster with AI-powered assessments.</p>
-                  <Link to="/request-demo">
-                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full font-medium text-lg flex items-center gap-2 shadow-lg">
-                      Start Free Trial
-                      <ArrowRight className="w-5 h-5" />
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-      
-      <Footer />
-      
-      {/* Repositioned scroll to top button to the left side */}
-      <div className="fixed bottom-8 left-8 z-40">
-        <ScrollToTopButton />
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  );
+    </section>
+  </main>
+
+  <Footer />
+  <ScrollToTopButton />
+</div>
+    );
 };
 
 export default AIProducts;
