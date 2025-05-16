@@ -6,14 +6,14 @@ import { Link } from 'react-router-dom';
 
 const EnterpriseSolution: React.FC = () => {
   const features = [
-    { icon: <CheckCircle className="w-5 h-5 text-[#E2FF55]" />, text: "Everything in Premium plan" },
-    { icon: <Shield className="w-5 h-5 text-[#E2FF55]" />, text: "Advanced security features" },
-    { icon: <Users className="w-5 h-5 text-[#E2FF55]" />, text: "Dedicated customer success team" },
-    { icon: <Server className="w-5 h-5 text-[#E2FF55]" />, text: "Service level agreement (SLA)" },
-    { icon: <Cpu className="w-5 h-5 text-[#E2FF55]" />, text: "Custom AI model fine-tuning" },
-    { icon: <Briefcase className="w-5 h-5 text-[#E2FF55]" />, text: "Custom integrations" },
-    { icon: <BarChart3 className="w-5 h-5 text-[#E2FF55]" />, text: "Customized reporting" },
-    { icon: <CheckCircle className="w-5 h-5 text-[#E2FF55]" />, text: "Onboarding & training" },
+    { icon: <CheckCircle className="w-6 h-6 text-[#E2FF55]" />, text: "Everything in Premium plan" },
+    { icon: <Shield className="w-6 h-6 text-[#E2FF55]" />, text: "Advanced security features" },
+    { icon: <Users className="w-6 h-6 text-[#E2FF55]" />, text: "Dedicated customer success team" },
+    { icon: <Server className="w-6 h-6 text-[#E2FF55]" />, text: "Service level agreement (SLA)" },
+    { icon: <Cpu className="w-6 h-6 text-[#E2FF55]" />, text: "Custom AI model fine-tuning" },
+    { icon: <Briefcase className="w-6 h-6 text-[#E2FF55]" />, text: "Custom integrations" },
+    { icon: <BarChart3 className="w-6 h-6 text-[#E2FF55]" />, text: "Customized reporting" },
+    { icon: <CheckCircle className="w-6 h-6 text-[#E2FF55]" />, text: "Onboarding & training" },
   ];
 
   return (
@@ -36,15 +36,15 @@ const EnterpriseSolution: React.FC = () => {
       
       <div className="relative z-10">
         {/* Enterprise badge */}
-        <div className="bg-[#E2FF55]/10 border border-[#E2FF55]/30 text-[#E2FF55] text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">
+        <div className="bg-[#E2FF55]/10 border border-[#E2FF55]/30 text-[#E2FF55] text-lg font-semibold px-4 py-1.5 rounded-full inline-block mb-4">
           Enterprise
         </div>
         
-        <h3 className="text-2xl md:text-3xl font-bold text-white mb-6">
+        <h3 className="text-3xl md:text-4xl font-bold text-white mb-6">
           HyreDragon: <span className="text-[#E2FF55]">Unleash the Power of AI</span> to Hire Smarter
         </h3>
         
-        <p className="text-gray-300 mb-8 max-w-3xl">
+        <p className="text-gray-300 text-lg mb-8 max-w-3xl">
           Our enterprise solution offers comprehensive AI-powered tools to transform your entire recruitment workflow, 
           from sourcing and screening to interviewing and onboarding. Built for large organizations with complex hiring needs.
         </p>
@@ -60,20 +60,20 @@ const EnterpriseSolution: React.FC = () => {
                 {feature.icon}
               </div>
               <div>
-                <p className="text-white text-sm">{feature.text}</p>
+                <p className="text-white text-base">{feature.text}</p>
               </div>
             </div>
           ))}
         </div>
         
         <div className="flex flex-col sm:flex-row items-center justify-between pt-6 mt-6 border-t border-white/10">
-          <div className="text-white mb-4 sm:mb-0">
+          <div className="text-white text-xl mb-4 sm:mb-0">
             <span className="text-[#E2FF55] font-medium">Custom pricing</span> based on your needs
           </div>
           <Link to="/request-demo">
             <Button 
               size="lg"
-              className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 py-6 rounded-full flex items-center gap-2 shadow-lg shadow-[#E2FF55]/10 transform transition-transform hover:translate-y-[-2px]"
+              className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 py-6 text-lg rounded-full flex items-center gap-2 shadow-lg shadow-[#E2FF55]/10 transform transition-transform hover:translate-y-[-2px]"
             >
               Contact Sales <ArrowRight className="w-5 h-5" />
             </Button>
