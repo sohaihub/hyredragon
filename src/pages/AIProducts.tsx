@@ -1,283 +1,255 @@
+
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, CheckCircle, Shield, Zap, FileSpreadsheet, Users, Flame, MessageCircle } from 'lucide-react';
+import { CheckCircle, ArrowRight, MonitorSmartphone, Clock, Shield, Star, Download, Users, XCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { toast } from '@/components/ui/use-toast';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
-interface ProductCardProps {
-  title: string;
-  description: string;
-  icon: React.ReactNode;
-  features: string[];
-  buttonText: string;
-  buttonUrl: string;
-  accentColor: string;
-  isPopular?: boolean;
-  isComingSoon?: boolean;
-}
-
-const ProductCard: React.FC<ProductCardProps> = ({
-  title,
-  description,
-  icon,
-  features,
-  buttonText,
-  buttonUrl,
-  accentColor,
-  isPopular = false,
-  isComingSoon = false
-}) => (
-  <div className={`relative bg-[#080822]/80 border-2 ${isComingSoon ? 'border-gray-700' : `border-${accentColor}`} rounded-xl p-6 transform transition-all duration-500 hover:shadow-lg hover:shadow-${accentColor}/20 group`}>
-    {isPopular && (
-      <div className="absolute top-0 right-6 transform -translate-y-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-lg shadow-[#E2FF55]/30 animate-pulse">
-        Most Popular
-      </div>
-    )}
-    {isComingSoon && (
-      <div className="absolute top-0 right-6 transform -translate-y-1/2 bg-[#FF9F5A] text-[#080820] text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full shadow-lg shadow-[#FF9F5A]/30">
-        Coming Soon
-      </div>
-    )}
-    <div className={`inline-block p-3 bg-${accentColor}/20 rounded-xl mb-4 transform transition-all duration-500 group-hover:scale-110`}>
-      {icon}
-    </div>
-    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-[#E2FF55] transition-colors duration-300">{title}</h3>
-    <p className="text-gray-300 mb-6">{description}</p>
-    
-    <h4 className="text-sm font-semibold text-gray-400 mb-3">FEATURES:</h4>
-    <ul className="space-y-2 mb-8">
-      {features.map((feature, index) => (
-        <li key={index} className="flex items-start group-hover:transform group-hover:translate-x-1 transition-transform duration-300" style={{ transitionDelay: `${index * 50}ms` }}>
-          <CheckCircle className={`h-5 w-5 text-${accentColor} mr-2 flex-shrink-0`} />
-          <span className="text-gray-300 text-sm">{feature}</span>
-        </li>
-      ))}
-    </ul>
-    
-    <div className="mt-auto">
-      <Link to={!isComingSoon ? buttonUrl : "#"} onClick={(e) => {
-        if (isComingSoon) {
-          e.preventDefault();
-          toast({
-            title: "Coming Soon",
-            description: "This feature is currently in development. Stay tuned!",
-            variant: "default"
-          });
-        }
-      }}>
-        <Button 
-          variant="outline"
-          className={`w-full ${
-            isComingSoon 
-              ? 'border-gray-700 text-gray-400 cursor-not-allowed' 
-              : `border-${accentColor} text-${accentColor} hover:bg-${accentColor}/20`
-          } transition-all duration-300`}
-          disabled={isComingSoon}
-        >
-          {isComingSoon ? "Coming Soon" : buttonText}
-          {!isComingSoon && <ArrowRight className="ml-2 h-4 w-4 animate-pulse" />}
-        </Button>
-      </Link>
-    </div>
-  </div>
-);
-
-const AIProducts: React.FC = () => {
-  // Reordered products as requested
+const AIProducts = () => {
   const products = [
     {
-      title: "AI Assessment Suite",
-      description: "Conduct comprehensive skill evaluations with our adaptive AI testing platform.",
-      icon: <FileSpreadsheet className="w-6 h-6 text-[#7B78FF]" />,
-      features: [
-        "Customizable test templates",
-        "Automated grading",
-        "Anti-cheating mechanisms",
-        "Detailed performance analytics",
-        "Integration with ATS systems"
-      ],
-      buttonText: "Explore Assessment Suite",
-      buttonUrl: "/request-demo",
-      accentColor: "[#7B78FF]",
-      isPopular: true
+      name: "AI Assessment Suite",
+      icon: <div className="w-10 h-10 bg-blue-500/10 rounded-lg flex items-center justify-center text-blue-500"><MonitorSmartphone className="h-5 w-5" /></div>,
+      description: "Our adaptive testing platform evaluates technical skills, problem-solving abilities, and job-specific knowledge.",
+      features: ["Customized test templates", "Automated scoring", "Anti-cheating mechanisms", "Advanced analytics", "24/7 support"]
     },
     {
-      title: "AI Driven Feedback",
-      description: "Get real-time insights and feedback to make better hiring decisions.",
-      icon: <Flame className="w-6 h-6 text-[#4ECDC4]" />,
-      features: [
-        "Real-time feedback on responses",
-        "Sentiment analysis of interviews",
-        "Customized feedback templates",
-        "Automated performance insights",
-        "Bias detection and mitigation"
-      ],
-      buttonText: "Explore AI Feedback",
-      buttonUrl: "/request-demo",
-      accentColor: "[#4ECDC4]"
+      name: "AI Video Interviews",
+      icon: <div className="w-10 h-10 bg-green-500/10 rounded-lg flex items-center justify-center text-green-500"><Users className="h-5 w-5" /></div>,
+      description: "Conduct seamless remote interviews with AI-assisted evaluation and candidate assessment.",
+      features: ["Automated scheduling", "AI sentiment analysis", "Candidate engagement metrics", "Recording & playback", "Team collaboration"]
     },
     {
-      title: "Pre-Screened Talent Pool",
-      description: "Access a curated database of pre-vetted candidates ready for your opportunities.",
-      icon: <Users className="w-6 h-6 text-[#E2FF55]" />,
-      features: [
-        "AI-filtered candidate profiles",
-        "Advanced search capabilities",
-        "Skill verification badges",
-        "Direct messaging system",
-        "Candidate availability tracking"
-      ],
-      buttonText: "Browse Talent Pool",
-      buttonUrl: "/request-demo",
-      accentColor: "[#E2FF55]",
-      isComingSoon: true
+      name: "Candidate Matching",
+      icon: <div className="w-10 h-10 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-500"><Star className="h-5 w-5" /></div>,
+      description: "Our AI algorithms match candidates to your job requirements with exceptional accuracy.",
+      features: ["Skill-based matching", "Cultural fit assessment", "Bias reduction", "Candidate ranking", "Integration with ATS"]
     },
     {
-      title: "AI Video Interview",
-      description: "Streamline your interviewing process with our intelligent video platform.",
-      icon: <Zap className="w-6 h-6 text-[#FF9F5A]" />,
-      features: [
-        "Automated interview scheduling",
-        "AI sentiment analysis",
-        "Built-in recording capabilities",
-        "Collaborative interview scoring",
-        "Candidate engagement metrics"
-      ],
-      buttonText: "Try Video Interviews",
-      buttonUrl: "/request-demo",
-      accentColor: "[#FF9F5A]",
-      isComingSoon: true
+      name: "Pre-vetted Talent Pool",
+      icon: <div className="w-10 h-10 bg-orange-500/10 rounded-lg flex items-center justify-center text-orange-500"><Shield className="h-5 w-5" /></div>,
+      description: "Access our database of pre-screened candidates who are ready to interview.",
+      features: ["Verified credentials", "Skill certifications", "Technical assessments", "Availability tracking", "Direct messaging"]
+    }
+  ];
+
+  const benefits = [
+    {
+      title: "Time Savings",
+      icon: <Clock className="h-6 w-6 text-[#E2FF55]" />,
+      description: "Reduce time-to-hire by up to 80% with automated screening and AI-powered candidate matching."
+    },
+    {
+      title: "Higher Quality Candidates",
+      icon: <Star className="h-6 w-6 text-[#E2FF55]" />,
+      description: "Our AI algorithms identify the best talent based on skills, experience and cultural fit."
+    },
+    {
+      title: "Reduced Bias",
+      icon: <Shield className="h-6 w-6 text-[#E2FF55]" />,
+      description: "Our technology is designed to minimize unconscious bias in the hiring process."
+    },
+    {
+      title: "Cost Efficiency",
+      icon: <Download className="h-6 w-6 text-[#E2FF55]" />,
+      description: "Save on recruitment costs by streamlining your hiring process with AI automation."
+    }
+  ];
+
+  const comparisonData = [
+    {
+      feature: "Automated candidate screening",
+      traditional: false,
+      ai: true
+    },
+    {
+      feature: "Bias reduction technology",
+      traditional: false,
+      ai: true
+    },
+    {
+      feature: "Skill-based assessments",
+      traditional: true,
+      ai: true
+    },
+    {
+      feature: "Automated interview scheduling",
+      traditional: false,
+      ai: true
+    },
+    {
+      feature: "AI-powered candidate matching",
+      traditional: false,
+      ai: true
+    },
+    {
+      feature: "Real-time analytics & insights",
+      traditional: false,
+      ai: true
     }
   ];
 
   return (
     <div className="min-h-screen flex flex-col bg-[#0A0A29]">
       {/* Enhanced animated background elements */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/3 -right-20 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl animate-[pulse_8s_ease-in-out_infinite]"></div>
-        <div className="absolute bottom-1/3 left-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/10 blur-3xl animate-[pulse_10s_ease-in-out_infinite]" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-3/4 right-1/3 w-64 h-64 rounded-full bg-[#4ECDC4]/10 blur-3xl animate-[pulse_12s_ease-in-out_infinite]" style={{ animationDelay: '4s' }}></div>
+      <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-gradient-to-br from-[#E2FF55]/15 to-[#E2FF55]/5 blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 right-1/4 w-80 h-80 rounded-full bg-[#7B78FF]/15 blur-3xl animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+        <div className="absolute bottom-1/3 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl animate-pulse" style={{ animationDelay: '3s' }}></div>
       </div>
       
       <Header />
       
       <main className="flex-grow relative z-10 pt-24">
-        {/* Hero Section with enhanced animation */}
-        <section className="py-12 md:py-20 px-4 text-center">
-          <div className="container mx-auto max-w-4xl">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-white relative inline-block">
-              HyreDragon's <span className="text-[#E2FF55] animate-[glow_3s_ease-in-out_infinite]">AI Products</span>
-              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#E2FF55] to-transparent opacity-60 animate-[pulse_4s_ease-in-out_infinite]"></div>
-            </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto animate-[fadeIn_1s_ease-out]">
-              Our suite of intelligent recruitment tools designed to revolutionize your hiring process, reduce bias, and find the perfect candidates faster.
-            </p>
+        {/* Hero Section */}
+        <section className="py-16 md:py-24 px-4">
+          <div className="container mx-auto">
+            <div className="flex flex-col-reverse md:flex-row items-center">
+              <div className="md:w-1/2 md:pr-8">
+                <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+                  Reimagine Recruitment with <span className="text-[#E2FF55]">AI-Powered</span> Solutions
+                </h1>
+                <p className="text-xl text-gray-300 mb-8">
+                  Our AI products transform every stage of your hiring process - from sourcing and screening to interviewing and onboarding.
+                </p>
+                <div className="flex flex-wrap gap-4 mb-8">
+                  <Link to="/request-demo">
+                    <Button className="bg-[#E2FF55] hover:bg-[#E2FF55]/90 text-[#0A0A29] px-6 py-6 rounded-full flex items-center gap-2 text-lg">
+                      Get Started <ArrowRight className="w-5 h-5" />
+                    </Button>
+                  </Link>
+                  <Link to="/pricing">
+                    <Button variant="outline" className="border-[#E2FF55] text-[#E2FF55] hover:bg-[#E2FF55]/10 px-6 py-6 rounded-full flex items-center gap-2 text-lg">
+                      View Pricing
+                    </Button>
+                  </Link>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="flex -space-x-2">
+                    {[1, 2, 3, 4].map((i) => (
+                      <div key={i} className={`w-8 h-8 rounded-full border-2 border-[#0A0A29] bg-gradient-to-br from-gray-${i*100} to-gray-${i*100+100}`}></div>
+                    ))}
+                  </div>
+                  <p className="text-gray-300">
+                    <span className="font-bold text-white">500+</span> companies already using our AI tools
+                  </p>
+                </div>
+              </div>
+              <div className="md:w-1/2 mb-8 md:mb-0">
+                <div className="bg-[#0F103E] border border-gray-800 rounded-xl p-4 transform hover:scale-[1.02] transition-all duration-500 shadow-xl">
+                  <img 
+                    src="/lovable-uploads/d2c17d09-78a5-4cba-b252-f9b5b5bd0f19.png" 
+                    alt="AI-Powered Recruitment Dashboard" 
+                    className="rounded-lg w-full h-auto"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </section>
         
-        {/* Products Grid with staggered animations */}
-        <section className="py-12 px-4">
+        {/* Products Section */}
+        <section className="py-16 md:py-24 bg-[#080820] px-4">
           <div className="container mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Our <span className="text-[#E2FF55]">AI-Powered</span> Solutions
+              </h2>
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                Transform every stage of your hiring process with our innovative AI tools
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {products.map((product, index) => (
-                <div
+                <div 
                   key={index}
-                  className="animate-[fadeIn_0.5s_ease-out]"
-                  style={{ animationDelay: `${index * 0.1}s` }}
+                  className="bg-[#0F103E] border border-gray-800 rounded-xl p-6 transform hover:translate-y-[-4px] transition-all duration-300 hover:shadow-lg hover:shadow-[#E2FF55]/10"
                 >
-                  <ProductCard
-                    title={product.title}
-                    description={product.description}
-                    icon={product.icon}
-                    features={product.features}
-                    buttonText={product.buttonText}
-                    buttonUrl={product.buttonUrl}
-                    accentColor={product.accentColor}
-                    isPopular={product.isPopular}
-                    isComingSoon={product.isComingSoon}
-                  />
+                  <div className="mb-4">{product.icon}</div>
+                  <h3 className="text-xl font-bold mb-2 text-white">{product.name}</h3>
+                  <p className="text-gray-300 mb-4">{product.description}</p>
+                  <ul className="space-y-2">
+                    {product.features.map((feature, i) => (
+                      <li key={i} className="flex items-center">
+                        <CheckCircle className="h-4 w-4 text-[#E2FF55] mr-2 flex-shrink-0" />
+                        <span className="text-gray-300 text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               ))}
             </div>
           </div>
         </section>
         
-        {/* Feature Highlight with enhanced animations */}
-        <section className="py-16 md:py-24 px-4 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#0A0A29] to-[#080820]/0"></div>
-          <div className="container mx-auto relative z-10">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-[#080822]/80 border-2 border-[#E2FF55] rounded-xl p-8 md:p-10 shadow-[0_0_30px_rgba(226,255,85,0.15)] hover:shadow-[0_0_40px_rgba(226,255,85,0.25)] transition-all duration-500">
-                <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
-                  HyreDragon's Edge: <span className="text-[#E2FF55] animate-[pulse_3s_ease-in-out_infinite]">Slay the Competition</span>
-                </h2>
-                <p className="text-gray-100 mb-8 text-center text-xl font-medium p-4 bg-[#E2FF55]/10 border border-[#E2FF55]/20 rounded-lg animate-[glow_3s_ease-in-out_infinite] shadow-inner">
-                  Only HyreDragon combines MCQ, coding, and video interviews — with built-in proctoring and real-time AI analytics. One tool. Total coverage.
-                </p>
-                
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="p-5 bg-[#0A0A29]/50 rounded-lg border border-gray-800 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-lg">
-                    <h3 className="font-semibold text-white mb-4">Traditional Platforms</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-center opacity-80 transition-all duration-300 hover:opacity-100">
-                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                        <span className="text-gray-400">Multiple tools required</span>
-                      </li>
-                      <li className="flex items-center opacity-80 transition-all duration-300 hover:opacity-100">
-                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                        <span className="text-gray-400">Complex integrations</span>
-                      </li>
-                      <li className="flex items-center opacity-80 transition-all duration-300 hover:opacity-100">
-                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                        <span className="text-gray-400">Higher total cost</span>
-                      </li>
-                      <li className="flex items-center opacity-80 transition-all duration-300 hover:opacity-100">
-                        <span className="h-2 w-2 rounded-full bg-gray-500 mr-2"></span>
-                        <span className="text-gray-400">Inconsistent user experience</span>
-                      </li>
-                    </ul>
+        {/* Benefits Section */}
+        <section className="py-16 md:py-24 px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                Why Choose <span className="text-[#E2FF55]">AI-Powered</span> Recruitment?
+              </h2>
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                Our solutions deliver measurable improvements to your hiring outcomes
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+              {benefits.map((benefit, index) => (
+                <div 
+                  key={index}
+                  className="flex items-start p-6 bg-[#0F103E]/50 border border-gray-800 rounded-xl transform hover:translate-y-[-4px] transition-all duration-300"
+                >
+                  <div className="mr-4 mt-1">
+                    {benefit.icon}
                   </div>
-                  
-                  <div className="p-5 bg-[#0F103E]/80 rounded-lg border border-[#E2FF55]/30 transform transition-all duration-500 hover:-translate-y-1 hover:shadow-lg hover:shadow-[#E2FF55]/20">
-                    <h3 className="font-semibold text-[#E2FF55] mb-4">HyreDragon Advantage</h3>
-                    <ul className="space-y-3">
-                      <li className="flex items-center transform transition-all duration-300 hover:translate-x-1">
-                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                        <span className="text-white">All-in-one platform</span>
-                      </li>
-                      <li className="flex items-center transform transition-all duration-300 hover:translate-x-1">
-                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                        <span className="text-white">Seamless experience</span>
-                      </li>
-                      <li className="flex items-center transform transition-all duration-300 hover:translate-x-1">
-                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                        <span className="text-white">Cost-effective solution</span>
-                      </li>
-                      <li className="flex items-center transform transition-all duration-300 hover:translate-x-1">
-                        <CheckCircle className="h-5 w-5 text-[#E2FF55] mr-2" />
-                        <span className="text-white">Unified data analytics</span>
-                      </li>
-                    </ul>
+                  <div>
+                    <h3 className="text-xl font-bold mb-2 text-white">{benefit.title}</h3>
+                    <p className="text-gray-300">{benefit.description}</p>
                   </div>
                 </div>
-                
-                <div className="mt-8 text-center">
-                  <Link to="/request-demo">
-                    <Button 
-                      size="lg"
-                      className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 px-8 relative overflow-hidden group"
-                    >
-                      <span className="relative z-10 flex items-center">
-                        See It In Action <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-                      </span>
-                      <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shine_1s_ease-out]"></span>
-                    </Button>
-                  </Link>
-                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+        
+        {/* Comparison Table */}
+        <section className="py-16 md:py-24 bg-[#080820] px-4">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
+                AI vs. Traditional <span className="text-[#E2FF55]">Recruitment</span>
+              </h2>
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+                See how AI-powered solutions outperform traditional recruiting methods
+              </p>
+            </div>
+            
+            <div className="max-w-3xl mx-auto bg-[#0F103E] rounded-xl overflow-hidden border border-gray-800">
+              <div className="grid grid-cols-3 bg-[#0A0A29] py-4">
+                <div className="text-gray-300 font-bold text-center">Feature</div>
+                <div className="text-gray-300 font-bold text-center">Traditional Recruiting</div>
+                <div className="text-[#E2FF55] font-bold text-center">AI-Powered Recruiting</div>
               </div>
+              
+              {comparisonData.map((item, index) => (
+                <div key={index} className={`grid grid-cols-3 py-4 ${index % 2 === 0 ? 'bg-[#0F103E]' : 'bg-[#0F103E]/50'}`}>
+                  <div className="text-white text-center px-4">{item.feature}</div>
+                  <div className="text-center">
+                    {item.traditional ? 
+                      <CheckCircle className="h-5 w-5 text-green-400 mx-auto" /> : 
+                      <XCircle className="h-5 w-5 text-red-400 mx-auto" />}
+                  </div>
+                  <div className="text-center">
+                    {item.ai ? 
+                      <CheckCircle className="h-5 w-5 text-[#E2FF55] mx-auto" /> : 
+                      <XCircle className="h-5 w-5 text-red-400 mx-auto" />}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -299,7 +271,7 @@ const AIProducts: React.FC = () => {
                 </div>
                 <div className="w-full md:w-1/2 flex justify-center">
                   <img 
-                    src="/lovable-uploads/cc45f430-2139-45ed-80b1-d62a3afbdf25.png" 
+                    src="/lovable-uploads/3420832d-d75f-46bf-8164-2cd0b8d420ae.png" 
                     alt="HyreDragon Dashboard Demo" 
                     className="rounded-lg shadow-xl max-w-full h-auto border border-gray-800/30"
                   />
@@ -313,7 +285,7 @@ const AIProducts: React.FC = () => {
       <Footer />
       
       {/* Add the scroll to top button positioned away from chatbot */}
-      <div className="fixed bottom-8 right-20 z-40">
+      <div className="fixed bottom-8 right-24 z-40">
         <ScrollToTopButton />
       </div>
     </div>

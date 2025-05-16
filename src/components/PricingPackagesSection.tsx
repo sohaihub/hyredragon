@@ -113,31 +113,33 @@ const PricingPackagesSection: React.FC = () => {
         </div>
 
         <div className="overflow-x-auto mb-12">
-          <Table className="w-full">
-            <TableHeader className="bg-[#0F103E]">
-              <TableRow>
-                <TableHead className="text-white font-semibold text-lg">Package</TableHead>
-                <TableHead className="text-white font-semibold text-lg">Assessments (₹)</TableHead>
-                <TableHead className="text-white font-semibold text-lg">Video Interviews (₹)</TableHead>
-                <TableHead className="text-white font-semibold text-lg">Discount</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {packages.map((pkg, index) => (
-                <TableRow key={index} className={index === 2 ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'}>
-                  <TableCell className="text-white text-lg font-medium">{pkg.hours}</TableCell>
-                  <TableCell className="text-white text-lg">{pkg.assessments}</TableCell>
-                  <TableCell className="text-white text-lg">{pkg.interviews}</TableCell>
-                  <TableCell className={`text-white text-lg ${
-                    pkg.discount === 'Negotiable' ? 'text-[#E2FF55] font-semibold' : 
-                    pkg.discount !== 'None' ? 'text-[#E2FF55] font-semibold' : ''
-                  }`}>
-                    {pkg.discount}
-                  </TableCell>
+          <div className="min-w-full">
+            <Table className="w-full">
+              <TableHeader className="bg-[#0F103E]">
+                <TableRow>
+                  <TableHead className="text-white font-semibold text-lg w-1/4">Package</TableHead>
+                  <TableHead className="text-white font-semibold text-lg w-1/4">Assessments (₹)</TableHead>
+                  <TableHead className="text-white font-semibold text-lg w-1/4">Video Interviews (₹)</TableHead>
+                  <TableHead className="text-white font-semibold text-lg w-1/4">Discount</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {packages.map((pkg, index) => (
+                  <TableRow key={index} className={index === 2 ? 'bg-[#0F103E]/70 border-l-2 border-r-2 border-[#E2FF55]' : 'bg-[#0A0A29]/50'}>
+                    <TableCell className="text-white text-lg font-medium py-4">{pkg.hours}</TableCell>
+                    <TableCell className="text-white text-lg py-4">{pkg.assessments}</TableCell>
+                    <TableCell className="text-white text-lg py-4">{pkg.interviews}</TableCell>
+                    <TableCell className={`text-white text-lg py-4 ${
+                      pkg.discount === 'Negotiable' ? 'text-[#E2FF55] font-semibold' : 
+                      pkg.discount !== 'None' ? 'text-[#E2FF55] font-semibold' : ''
+                    }`}>
+                      {pkg.discount}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8">

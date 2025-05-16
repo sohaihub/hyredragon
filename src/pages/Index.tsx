@@ -1,3 +1,4 @@
+
 import React, { useEffect } from 'react';
 import Header from '@/components/Header';
 import PricingHero from '@/components/PricingHero';
@@ -5,7 +6,7 @@ import PricingFAQs from '@/components/PricingFAQs';
 import Footer from '@/components/Footer';
 import PricingFeatureList from '@/components/PricingFeatureList';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, MessageCircleQuestion } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import ScrollToTopButton from '@/components/ScrollToTopButton';
 
@@ -116,12 +117,19 @@ const Index: React.FC = () => {
               </div>
             </div>
           </section>
+          
+          {/* Add catchy line above chatbot */}
+          <div className="fixed bottom-24 right-8 z-40 text-center">
+            <div className="bg-[#E2FF55]/10 border border-[#E2FF55]/20 rounded-full px-4 py-2 mb-3 shadow-lg animate-pulse">
+              <p className="text-[#E2FF55] font-medium text-sm">Got more questions? Chat with our assistant!</p>
+            </div>
+          </div>
         </div>
       </main>
       <Footer />
       
       {/* Add the scroll to top button positioned away from chatbot */}
-      <div className="fixed bottom-8 right-20 z-40">
+      <div className="fixed bottom-8 right-24 z-40">
         <ScrollToTopButton />
       </div>
     </div>

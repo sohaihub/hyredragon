@@ -83,7 +83,7 @@
     @apply pt-14;
   }
 
-  /* Improved custom cursor - more subtle with default cursor preserved */
+  /* Improved custom cursor - removed white hover effect */
   .neon-cursor {
     @apply fixed w-6 h-6 rounded-full bg-transparent pointer-events-none z-[9999] border border-[#7B78FF]/30;
     box-shadow: 0 0 6px rgba(155, 135, 245, 0.3);
