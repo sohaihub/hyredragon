@@ -14,6 +14,7 @@ interface PricingTierProps {
   buttonUrl?: string;
   colorClass?: string;
   badgeText?: string; 
+  highlighted?: boolean;
 }
 
 const PricingTier: React.FC<PricingTierProps> = ({
@@ -26,16 +27,19 @@ const PricingTier: React.FC<PricingTierProps> = ({
   buttonUrl = '/contact',
   colorClass = 'text-[#E2FF55]',
   badgeText,
+  highlighted = false,
 }) => {
   const tierRef = useRef<HTMLDivElement>(null);
 
   return (
     <div
       ref={tierRef}
-      className="rounded-xl border border-gray-800 bg-[#080822]/70 backdrop-blur-sm p-6 flex flex-col h-full hover-lift transition-all duration-300"
+      className={`relative rounded-xl border bg-[#080822]/70 backdrop-blur-sm p-6 flex flex-col h-full hover-lift transition-all duration-300
+        ${highlighted ? 'border-[#E2FF55] shadow-2xl scale-105 z-10' : 'border-gray-800'}
+      `}
     >
       {badgeText && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full">
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full shadow-lg z-20">
           {badgeText}
         </div>
       )}
@@ -64,7 +68,7 @@ const PricingTier: React.FC<PricingTierProps> = ({
       <div className="mt-5">
         <Link to={buttonUrl} className="w-full block">
           <Button
-            className={`w-full py-5 bg-white/10 text-white hover:bg-white/20`}
+            className={`w-full py-5 bg-white/10 text-white hover:bg-white/20 ${highlighted ? 'border-2 border-[#E2FF55] font-bold' : ''}`}
           >
             {buttonText}
           </Button>
@@ -183,6 +187,8 @@ const PricingTiers: React.FC = () => {
       ],
       buttonText: 'Choose Plan',
       colorClass: 'text-[#E2FF55]',
+      badgeText: 'Most Popular',
+      highlighted: true,
     },
     {
       name: 'Professional',
@@ -253,12 +259,15 @@ const PricingTiers: React.FC = () => {
               </Link>
             </div>
             
-            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-gray-800 hover:border-[#E2FF55]/30 transition-all">
+            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-[#E2FF55] shadow-2xl scale-105 z-10 transition-all relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full shadow-lg z-20">
+                Most Popular
+              </div>
               <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
               <p className="text-gray-300 mb-4">Ideal for growing companies with regular hiring needs.</p>
               <p className="text-white text-2xl font-bold mb-4">₹30,000</p>
               <Link to="/contact">
-                <Button className="bg-white/10 text-white hover:bg-white/20 w-full">Choose Plan</Button>
+                <Button className="bg-white/10 text-white hover:bg-white/20 border-2 border-[#E2FF55] font-bold w-full">Choose Plan</Button>
               </Link>
             </div>
             
