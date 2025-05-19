@@ -16,6 +16,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Download } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { getSheetData } from '@/lib/sheets-service';
 
 interface FormSubmission {
   name: string;
@@ -77,32 +78,9 @@ const Admin: React.FC = () => {
     setIsLoading(true);
     
     try {
-      // In a real implementation, this would call your API endpoint
-      // For demo purposes, we'll fetch mock data
-      // const response = await fetch('/api/submissions');
-      // const data = await response.json();
-      
-      // Mock data for demonstration
-      const mockData: FormSubmission[] = [
-        {
-          name: "John Doe",
-          email: "john@example.com",
-          company: "Acme Inc",
-          plan: "Pro",
-          subject: "Pricing Question",
-          message: "I'd like to know more about your pro plan features."
-        },
-        {
-          name: "Jane Smith",
-          email: "jane@example.com",
-          company: "XYZ Corp",
-          plan: "Enterprise",
-          subject: "Demo Request",
-          message: "We're interested in scheduling a demo for our team."
-        }
-      ];
-      
-      setSubmissions(mockData);
+      // Fetch data from Google Sheet
+      const data = await getSheetData();
+      setSubmissions(data);
     } catch (error) {
       console.error('Error fetching submissions:', error);
       toast({
@@ -144,20 +122,20 @@ const Admin: React.FC = () => {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen flex flex-col bg-white">
+      <div className="min-h-screen flex flex-col bg-[#0A0A29] text-white">
         <Header />
         
         <main className="flex-grow flex items-center justify-center py-12">
-          <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-xl shadow-lg">
+          <div className="w-full max-w-md p-8 space-y-8 bg-[#0F103E]/70 rounded-xl shadow-lg border border-white/10">
             <div className="text-center">
-              <h1 className="text-2xl font-bold">Admin Login</h1>
-              <p className="mt-2 text-gray-600">Sign in to access the dashboard</p>
+              <h1 className="text-2xl font-bold text-white">Admin Login</h1>
+              <p className="mt-2 text-gray-300">Sign in to access the dashboard</p>
             </div>
             
             <form onSubmit={handleLogin} className="mt-8 space-y-6">
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="text-gray-300">Email</Label>
                   <Input
                     id="email"
                     name="email"
@@ -166,13 +144,13 @@ const Admin: React.FC = () => {
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="mt-1"
+                    className="mt-1 bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white"
                     placeholder="admin@example.com"
                   />
                 </div>
                 
                 <div>
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password" className="text-gray-300">Password</Label>
                   <Input
                     id="password"
                     name="password"
@@ -181,16 +159,18 @@ const Admin: React.FC = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="mt-1"
+                    className="mt-1 bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white"
                     placeholder="••••••••"
                   />
                 </div>
               </div>
               
-              <Button type="submit" className="w-full">Sign in</Button>
+              <Button type="submit" className="w-full bg-[#E2FF55] hover:bg-[#c8e03c] text-[#0A0A29] font-medium">
+                Sign in
+              </Button>
             </form>
             
-            <div className="mt-4 text-sm text-gray-600 text-center">
+            <div className="mt-4 text-sm text-gray-400 text-center">
               <p>For demo: email: admin@example.com / password: password</p>
             </div>
           </div>
@@ -202,16 +182,16 @@ const Admin: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-[#0A0A29] text-white">
       <Header />
       
       <main className="flex-grow py-12 container mx-auto px-4">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800">Contact Submissions</h1>
+          <h1 className="text-3xl font-bold text-white">Contact Submissions</h1>
           <div className="space-x-4">
             <Button 
               onClick={downloadCsv}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
+              className="bg-[#E2FF55] hover:bg-[#c8e03c] text-[#0A0A29] font-medium"
             >
               <Download className="w-4 h-4 mr-2" />
               Download CSV
@@ -220,6 +200,7 @@ const Admin: React.FC = () => {
             <Button 
               onClick={handleLogout}
               variant="outline"
+              className="border-white/20 hover:bg-white/10 text-white"
             >
               Log out
             </Button>
@@ -228,37 +209,37 @@ const Admin: React.FC = () => {
         
         {isLoading ? (
           <div className="text-center py-10">
-            <div className="animate-spin w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full mx-auto"></div>
-            <p className="mt-4 text-gray-600">Loading submissions...</p>
+            <div className="animate-spin w-10 h-10 border-4 border-[#E2FF55] border-t-transparent rounded-full mx-auto"></div>
+            <p className="mt-4 text-gray-400">Loading submissions...</p>
           </div>
         ) : submissions.length === 0 ? (
-          <div className="text-center py-16 bg-gray-50 rounded-lg">
-            <h3 className="text-xl font-medium text-gray-600">No submissions yet</h3>
-            <p className="mt-2 text-gray-500">Submissions from the contact form will appear here.</p>
+          <div className="text-center py-16 bg-[#0F103E]/50 rounded-lg border border-white/10">
+            <h3 className="text-xl font-medium text-gray-300">No submissions yet</h3>
+            <p className="mt-2 text-gray-400">Submissions from the contact form will appear here.</p>
           </div>
         ) : (
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+          <div className="bg-[#0F103E]/70 rounded-xl shadow-lg overflow-hidden border border-white/10">
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
-                  <TableRow>
-                    <TableHead className="text-gray-700">Name</TableHead>
-                    <TableHead className="text-gray-700">Email</TableHead>
-                    <TableHead className="text-gray-700">Company</TableHead>
-                    <TableHead className="text-gray-700">Plan</TableHead>
-                    <TableHead className="text-gray-700">Subject</TableHead>
-                    <TableHead className="text-gray-700">Message</TableHead>
+                  <TableRow className="border-white/10">
+                    <TableHead className="text-gray-300">Name</TableHead>
+                    <TableHead className="text-gray-300">Email</TableHead>
+                    <TableHead className="text-gray-300">Company</TableHead>
+                    <TableHead className="text-gray-300">Plan</TableHead>
+                    <TableHead className="text-gray-300">Subject</TableHead>
+                    <TableHead className="text-gray-300">Message</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {submissions.map((submission, index) => (
-                    <TableRow key={index}>
-                      <TableCell className="font-medium">{submission.name}</TableCell>
-                      <TableCell>{submission.email}</TableCell>
-                      <TableCell>{submission.company || '-'}</TableCell>
-                      <TableCell>{submission.plan}</TableCell>
-                      <TableCell>{submission.subject}</TableCell>
-                      <TableCell className="max-w-xs truncate">
+                    <TableRow key={index} className="border-white/10 hover:bg-[#1A1F2C]">
+                      <TableCell className="font-medium text-white">{submission.name}</TableCell>
+                      <TableCell className="text-gray-200">{submission.email}</TableCell>
+                      <TableCell className="text-gray-200">{submission.company || '-'}</TableCell>
+                      <TableCell className="text-gray-200">{submission.plan}</TableCell>
+                      <TableCell className="text-gray-200">{submission.subject}</TableCell>
+                      <TableCell className="max-w-xs truncate text-gray-200">
                         {submission.message.length > 100
                           ? `${submission.message.substring(0, 100)}...`
                           : submission.message}

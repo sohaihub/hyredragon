@@ -25,6 +25,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { appendToGoogleSheet } from '@/lib/sheets-service';
 
 // Form validation schema
 const formSchema = z.object({
@@ -58,16 +59,10 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // In a production environment, this would be a call to your serverless function
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      // Submit form data directly to Google Sheets
+      const success = await appendToGoogleSheet(data);
       
-      if (!response.ok) {
+      if (!success) {
         throw new Error('Failed to submit form');
       }
       
@@ -90,25 +85,25 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white">
+    <div className="min-h-screen flex flex-col bg-[#0A0A29] text-white">
       <Header />
 
       <main className="flex-grow relative z-10 py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 leading-tight">
-                Get in <span className="text-blue-600">Touch</span>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
+                Get in <span className="text-neon-green">Touch</span>
               </h1>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
                 Have questions? We're here to help. Fill out the form below and we'll get back to you as soon as possible.
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
               {/* Contact Form */}
-              <div className="lg:col-span-3 bg-white shadow-lg rounded-xl p-6 md:p-8">
-                <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a message</h2>
+              <div className="lg:col-span-3 bg-[#0F103E]/70 shadow-lg rounded-xl p-6 md:p-8 border border-white/10">
+                <h2 className="text-2xl font-bold mb-6 text-white">Send us a message</h2>
 
                 <Form {...form}>
                   <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -118,12 +113,12 @@ const Contact: React.FC = () => {
                         name="name"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel htmlFor="name">Name</FormLabel>
+                            <FormLabel htmlFor="name" className="text-gray-300">Name</FormLabel>
                             <FormControl>
                               <Input 
                                 id="name"
                                 placeholder="Your name" 
-                                className="bg-white border-gray-300 focus:border-blue-500" 
+                                className="bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white" 
                                 {...field} 
                               />
                             </FormControl>
@@ -137,13 +132,13 @@ const Contact: React.FC = () => {
                         name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <FormLabel htmlFor="email" className="text-gray-300">Email</FormLabel>
                             <FormControl>
                               <Input 
                                 id="email"
                                 type="email" 
                                 placeholder="your.email@example.com" 
-                                className="bg-white border-gray-300 focus:border-blue-500" 
+                                className="bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white" 
                                 {...field} 
                               />
                             </FormControl>
@@ -158,12 +153,12 @@ const Contact: React.FC = () => {
                       name="company"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel htmlFor="company">Company</FormLabel>
+                          <FormLabel htmlFor="company" className="text-gray-300">Company</FormLabel>
                           <FormControl>
                             <Input 
                               id="company"
                               placeholder="Your company name" 
-                              className="bg-white border-gray-300 focus:border-blue-500" 
+                              className="bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white" 
                               {...field} 
                             />
                           </FormControl>
@@ -177,17 +172,17 @@ const Contact: React.FC = () => {
                       name="plan"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel htmlFor="plan">Plan</FormLabel>
+                          <FormLabel htmlFor="plan" className="text-gray-300">Plan</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
-                              <SelectTrigger className="bg-white border-gray-300 focus:border-blue-500">
+                              <SelectTrigger className="bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white">
                                 <SelectValue placeholder="Select a plan" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent className="bg-white">
-                              <SelectItem value="Free">Free</SelectItem>
-                              <SelectItem value="Pro">Pro</SelectItem>
-                              <SelectItem value="Enterprise">Enterprise</SelectItem>
+                            <SelectContent className="bg-[#0F103E] text-white border-gray-700">
+                              <SelectItem value="Free" className="focus:bg-[#1A1F2C] focus:text-white">Free</SelectItem>
+                              <SelectItem value="Pro" className="focus:bg-[#1A1F2C] focus:text-white">Pro</SelectItem>
+                              <SelectItem value="Enterprise" className="focus:bg-[#1A1F2C] focus:text-white">Enterprise</SelectItem>
                             </SelectContent>
                           </Select>
                           <FormMessage />
@@ -200,12 +195,12 @@ const Contact: React.FC = () => {
                       name="subject"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel htmlFor="subject">Subject</FormLabel>
+                          <FormLabel htmlFor="subject" className="text-gray-300">Subject</FormLabel>
                           <FormControl>
                             <Input 
                               id="subject"
                               placeholder="How can we help you?" 
-                              className="bg-white border-gray-300 focus:border-blue-500" 
+                              className="bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white" 
                               {...field} 
                             />
                           </FormControl>
@@ -219,13 +214,13 @@ const Contact: React.FC = () => {
                       name="message"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel htmlFor="message">Message</FormLabel>
+                          <FormLabel htmlFor="message" className="text-gray-300">Message</FormLabel>
                           <FormControl>
                             <Textarea
                               id="message"
                               placeholder="Your message..."
                               rows={6}
-                              className="bg-white border-gray-300 focus:border-blue-500 resize-none"
+                              className="bg-[#141824] border-gray-700 focus:border-[#E2FF55] text-white resize-none"
                               {...field}
                             />
                           </FormControl>
@@ -236,7 +231,7 @@ const Contact: React.FC = () => {
 
                     <Button
                       type="submit"
-                      className="bg-blue-600 text-white hover:bg-blue-700 w-full md:w-auto flex items-center gap-2"
+                      className="bg-[#E2FF55] hover:bg-[#c8e03c] text-[#0A0A29] font-medium w-full md:w-auto flex items-center gap-2"
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
@@ -247,47 +242,47 @@ const Contact: React.FC = () => {
 
               {/* Contact Information */}
               <div className="lg:col-span-2 space-y-8">
-                <div className="bg-white shadow-lg rounded-xl p-6">
-                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Contact Info</h2>
+                <div className="bg-[#0F103E]/70 shadow-lg rounded-xl p-6 border border-white/10">
+                  <h2 className="text-2xl font-bold mb-6 text-white">Contact Info</h2>
 
                   <div className="space-y-6">
                     <div className="flex items-start">
-                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                        <Mail className="h-5 w-5 text-blue-600" />
+                      <div className="p-3 bg-[#1A1F2C] rounded-lg mr-4">
+                        <Mail className="h-5 w-5 text-[#E2FF55]" />
                       </div>
                       <div>
-                        <p className="text-gray-500 text-sm">Email</p>
-                        <p className="text-gray-800">contact@example.com</p>
+                        <p className="text-gray-400 text-sm">Email</p>
+                        <p className="text-gray-100">contact@example.com</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
-                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                        <Phone className="h-5 w-5 text-blue-600" />
+                      <div className="p-3 bg-[#1A1F2C] rounded-lg mr-4">
+                        <Phone className="h-5 w-5 text-[#E2FF55]" />
                       </div>
                       <div>
-                        <p className="text-gray-500 text-sm">Phone</p>
-                        <p className="text-gray-800">+1 (555) 123-4567</p>
+                        <p className="text-gray-400 text-sm">Phone</p>
+                        <p className="text-gray-100">+1 (555) 123-4567</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
-                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                        <MapPin className="h-5 w-5 text-blue-600" />
+                      <div className="p-3 bg-[#1A1F2C] rounded-lg mr-4">
+                        <MapPin className="h-5 w-5 text-[#E2FF55]" />
                       </div>
                       <div>
-                        <p className="text-gray-500 text-sm">Location</p>
-                        <p className="text-gray-800">123 Business Ave,<br />Suite 100, San Francisco, CA 94107</p>
+                        <p className="text-gray-400 text-sm">Location</p>
+                        <p className="text-gray-100">123 Business Ave,<br />Suite 100, San Francisco, CA 94107</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
-                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
-                        <Clock className="h-5 w-5 text-blue-600" />
+                      <div className="p-3 bg-[#1A1F2C] rounded-lg mr-4">
+                        <Clock className="h-5 w-5 text-[#E2FF55]" />
                       </div>
                       <div>
-                        <p className="text-gray-500 text-sm">Hours</p>
-                        <p className="text-gray-800">Monday - Friday: 9am - 5pm<br />Weekend: Closed</p>
+                        <p className="text-gray-400 text-sm">Hours</p>
+                        <p className="text-gray-100">Monday - Friday: 9am - 5pm<br />Weekend: Closed</p>
                       </div>
                     </div>
                   </div>
