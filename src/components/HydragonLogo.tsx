@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Flame } from 'lucide-react';
 
 // Define prop types for the logo component
 interface HydragonLogoProps {
@@ -13,25 +14,42 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
   size = 'regular'
 }) => {
   // Define size mappings
-  const sizeMap: Record<string, { height: number }> = {
-    small: { height: 30 },
-    regular: { height: 40 },
-    large: { height: 60 }
+  const sizeMap: Record<string, { icon: number, height: number }> = {
+    small: { icon: 24, height: 30 },
+    regular: { icon: 32, height: 40 },
+    large: { icon: 48, height: 60 }
   };
 
   // Get dimensions based on size prop with fallback to regular
   const dimensions = sizeMap[size] || sizeMap.regular;
-  const { height } = dimensions;
-  
+  const { icon, height } = dimensions;
+
   return (
     <div className="inline-flex items-center">
-      {/* Logo image */}
-      <img 
-        src="/lovable-uploads/2fb3f0ba-83a2-4006-826c-020511f006c6.png" 
-        alt="HyreDragon Logo" 
-        style={{ height: `${height}px` }}
-        className="object-contain"
-      />
+      {/* Logo icon */}
+      <div className="relative" style={{ height: `${height}px` }}>
+        {/* Circular background for the flame */}
+        <div 
+          className="rounded-full flex items-center justify-center" 
+          style={{ 
+            width: `${icon}px`, 
+            height: `${icon}px`, 
+            backgroundColor: '#0A0A29',
+            border: '2px solid #E2FF55'
+          }}
+        >
+          <Flame className="text-[#E2FF55]" style={{ width: `${icon * 0.7}px`, height: `${icon * 0.7}px` }} />
+        </div>
+      </div>
+      
+      {/* Logo text - conditionally rendered */}
+      {withText && (
+        <div className="ml-2 md:ml-3">
+          <h1 className="text-white font-bold text-lg md:text-xl">
+            <span className="text-[#E2FF55]">HyreDragon</span>
+          </h1>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -90,7 +91,7 @@ const DragonChatbot: React.FC = () => {
     - Better job fit leading to higher satisfaction
 
     PRICING INFORMATION:
-    - Starter: ��10,000 - 10 hours, basic features
+    - Starter: ₹10,000 - 10 hours, basic features
     - Basic: ₹20,000 - 20 hours, all core features
     - Standard: ₹30,000 - 30 hours, all features with priority support
     - Professional: ₹40,000 - 40 hours, all features with dedicated support
@@ -261,13 +262,13 @@ const DragonChatbot: React.FC = () => {
         </div>
       )}
       
-      {/* Premium chat window with subtle animations */}
+      {/* Premium chat window with neon green border and subtle animations */}
       {isOpen && (
         <div className="bg-[#080820] border-2 border-[#E2FF55] rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box shadow-[0_0_15px_rgba(226,255,85,0.3)]">
-          {/* Chat header */}
-          <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
+          {/* Chat header - updated with Dragon theme */}
+          <div className="p-4 border-b border-[#E2FF55]/30 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
             <div className="flex items-center relative z-10">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/30 p-1">
                 <Sparkles className="w-5 h-5 text-[#E2FF55]" />
               </div>
               <div>
@@ -292,7 +293,7 @@ const DragonChatbot: React.FC = () => {
             </div>
           </div>
           
-          {/* Chat messages */}
+          {/* Chat messages with refined animations */}
           <div 
             className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
             ref={chatContainerRef}
@@ -344,21 +345,21 @@ const DragonChatbot: React.FC = () => {
             )}
           </div>
           
-          {/* Chat input */}
-          <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#080822]">
+          {/* Chat input - refined design */}
+          <div className="p-4 border-t border-[#E2FF55]/30 bg-gradient-to-r from-[#0F103E] to-[#080822]">
             <div className="flex items-center gap-2 relative">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                 placeholder="Ask Dragon about HyreDragon's features..."
-                className="flex-1 bg-[#080820] border-[#E2FF55]/10 focus:border-[#E2FF55]/30 text-white focus:ring-[#E2FF55]/10 transition-all duration-300"
+                className="flex-1 bg-[#080820] border-[#E2FF55]/30 focus:border-[#E2FF55]/50 text-white focus:ring-[#E2FF55]/30 transition-all duration-300"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden micro-button"
+                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden micro-button border border-[#E2FF55]/30"
               >
                 <Send className="w-4 h-4 relative z-10" />
               </Button>
