@@ -20,13 +20,15 @@ export async function submitContactForm(formData: ContactFormData): Promise<bool
       body: JSON.stringify(formData),
     });
 
-    const responseData = await response.json();
-    
     if (!response.ok) {
-      console.error("Error response:", responseData);
-      throw new Error(responseData.error || 'Failed to submit form');
+      const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+      console.error("Error response:", errorData);
+      throw new Error(errorData.error || errorData.message || 'Failed to submit form');
     }
 
+    const responseData = await response.json();
+    console.log("Contact form submission successful:", responseData);
+    
     return true;
   } catch (error) {
     console.error('Error submitting contact form:', error);
@@ -39,6 +41,7 @@ export async function submitContactForm(formData: ContactFormData): Promise<bool
  */
 export async function submitDemoRequest(formData: DemoRequestData): Promise<boolean> {
   try {
+    console.log("Submitting demo request:", formData);
     const response = await fetch(`${API_BASE_URL}/demo-request`, {
       method: 'POST',
       headers: {
@@ -47,12 +50,15 @@ export async function submitDemoRequest(formData: DemoRequestData): Promise<bool
       body: JSON.stringify(formData),
     });
 
-    const responseData = await response.json();
-    
     if (!response.ok) {
-      throw new Error(responseData.error || 'Failed to submit demo request');
+      const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+      console.error("Error response:", errorData);
+      throw new Error(errorData.error || errorData.message || 'Failed to submit demo request');
     }
 
+    const responseData = await response.json();
+    console.log("Demo request submission successful:", responseData);
+    
     return true;
   } catch (error) {
     console.error('Error submitting demo request:', error);
@@ -65,6 +71,7 @@ export async function submitDemoRequest(formData: DemoRequestData): Promise<bool
  */
 export async function subscribeToNewsletter(email: string): Promise<boolean> {
   try {
+    console.log("Subscribing to newsletter:", email);
     const response = await fetch(`${API_BASE_URL}/newsletter-subscribe`, {
       method: 'POST',
       headers: {
@@ -73,12 +80,15 @@ export async function subscribeToNewsletter(email: string): Promise<boolean> {
       body: JSON.stringify({ email }),
     });
 
-    const responseData = await response.json();
-    
     if (!response.ok) {
-      throw new Error(responseData.error || 'Failed to subscribe');
+      const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+      console.error("Error response:", errorData);
+      throw new Error(errorData.error || errorData.message || 'Failed to subscribe');
     }
 
+    const responseData = await response.json();
+    console.log("Newsletter subscription successful:", responseData);
+    
     return true;
   } catch (error) {
     console.error('Error subscribing to newsletter:', error);
@@ -91,7 +101,8 @@ export async function subscribeToNewsletter(email: string): Promise<boolean> {
  */
 export async function verifyAdmin(password: string): Promise<boolean> {
   try {
-    const response = await fetch(`${API_BASE_URL}/admin-verify`, {
+    console.log("Verifying admin credentials...");
+    const response = await fetch(`${API_BASE_URL}/admin-submissions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -100,11 +111,12 @@ export async function verifyAdmin(password: string): Promise<boolean> {
     });
 
     if (!response.ok) {
+      console.error("Admin verification failed:", response.status);
       return false;
     }
 
-    const data = await response.json();
-    return data.verified === true;
+    console.log("Admin verification successful");
+    return true;
   } catch (error) {
     console.error('Error verifying admin:', error);
     return false;
@@ -127,12 +139,16 @@ export async function getContactSubmissions(password: string) {
 
     if (!response.ok) {
       console.error("Response not OK:", response.status);
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to fetch submissions');
+      const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response' }));
+      throw new Error(errorData.error || errorData.message || 'Failed to fetch submissions');
     }
 
     const data = await response.json();
-    console.log("Submissions fetched successfully:", data);
+    console.log("Submissions fetched successfully, count:", {
+      contacts: data.contact?.length || 0,
+      demos: data.demos?.length || 0,
+      newsletters: data.newsletters?.length || 0
+    });
     return data;
   } catch (error) {
     console.error('Error fetching submissions:', error);

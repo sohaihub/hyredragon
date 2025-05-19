@@ -17,6 +17,7 @@ const Admin: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [contactSubmissions, setContactSubmissions] = useState<any[]>([]);
   const [demoRequests, setDemoRequests] = useState<any[]>([]);
+  const [newsletterSubscriptions, setNewsletterSubscriptions] = useState<any[]>([]);
   const { toast } = useToast();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,11 +73,32 @@ const Admin: React.FC = () => {
     try {
       const data = await getContactSubmissions(password);
       console.log("Fetched data:", data); // Debug logging
-      setContactSubmissions(data.contact || []);
-      setDemoRequests(data.demos || []);
+      
+      // Format and process contact submissions
+      const formattedContacts = data.contact?.map((item: any) => ({
+        ...item,
+        formattedDate: formatDate(item.created_at)
+      })) || [];
+      
+      // Format and process demo requests
+      const formattedDemos = data.demos?.map((item: any) => ({
+        ...item,
+        formattedDate: formatDate(item.created_at)
+      })) || [];
+      
+      // Format and process newsletter subscriptions
+      const formattedNewsletters = data.newsletters?.map((item: any) => ({
+        ...item,
+        formattedDate: formatDate(item.subscribed_at)
+      })) || [];
+      
+      setContactSubmissions(formattedContacts);
+      setDemoRequests(formattedDemos);
+      setNewsletterSubscriptions(formattedNewsletters);
+      
       toast({
         title: "Data Refreshed",
-        description: `${data.contact?.length || 0} contact submissions and ${data.demos?.length || 0} demo requests loaded.`
+        description: `${formattedContacts.length} contact submissions, ${formattedDemos.length} demo requests, and ${formattedNewsletters.length} newsletter subscriptions loaded.`
       });
     } catch (error) {
       console.error('Error fetching submissions:', error);
@@ -186,14 +208,19 @@ const Admin: React.FC = () => {
                     <TabsTrigger value="demos" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
                       Demo Requests ({demoRequests.length})
                     </TabsTrigger>
+                    <TabsTrigger value="newsletters" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
+                      Newsletter Subscribers ({newsletterSubscriptions.length})
+                    </TabsTrigger>
                   </TabsList>
                   
+                  {/* Contact Form Submissions Tab */}
                   <TabsContent value="contacts" className="p-0">
                     <div className="overflow-x-auto">
                       {contactSubmissions.length > 0 ? (
                         <table className="w-full">
                           <thead className="bg-white/5 border-b border-white/10">
                             <tr>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
                               <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
                               <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
                               <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company</th>
@@ -206,22 +233,25 @@ const Admin: React.FC = () => {
                             {contactSubmissions.map((submission, index) => (
                               <tr key={index} className="text-gray-100 hover:bg-white/5">
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.Name}
+                                  {submission.formattedDate}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.Email}
+                                  {submission.name}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.Company || 'N/A'}
+                                  {submission.email}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.Plan || submission["Select Plan"] || 'N/A'}
+                                  {submission.company || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.Subject || 'N/A'}
+                                  {submission.plan || submission["select_plan"] || 'N/A'}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {submission.subject || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 text-sm max-w-xs truncate">
-                                  {submission.Message || 'N/A'}
+                                  {submission.message || 'N/A'}
                                 </td>
                               </tr>
                             ))}
@@ -240,6 +270,7 @@ const Admin: React.FC = () => {
                     </div>
                   </TabsContent>
                   
+                  {/* Demo Requests Tab */}
                   <TabsContent value="demos" className="p-0">
                     <div className="overflow-x-auto">
                       {demoRequests.length > 0 ? (
@@ -260,7 +291,7 @@ const Admin: React.FC = () => {
                             {demoRequests.map((request, index) => (
                               <tr key={index} className="text-gray-100 hover:bg-white/5">
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {formatDate(request.created_at)}
+                                  {request.formattedDate}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
                                   {request.first_name} {request.last_name}
@@ -269,16 +300,16 @@ const Admin: React.FC = () => {
                                   {request.email}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.phone}
+                                  {request.phone || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.company}
+                                  {request.company || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.job_title}
+                                  {request.job_title || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.company_size}
+                                  {request.company_size || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 text-sm max-w-xs truncate">
                                   {request.message || 'N/A'}
@@ -299,12 +330,58 @@ const Admin: React.FC = () => {
                       )}
                     </div>
                   </TabsContent>
+                  
+                  {/* Newsletter Subscribers Tab */}
+                  <TabsContent value="newsletters" className="p-0">
+                    <div className="overflow-x-auto">
+                      {newsletterSubscriptions.length > 0 ? (
+                        <table className="w-full">
+                          <thead className="bg-white/5 border-b border-white/10">
+                            <tr>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-white/10">
+                            {newsletterSubscriptions.map((subscriber, index) => (
+                              <tr key={index} className="text-gray-100 hover:bg-white/5">
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {subscriber.formattedDate}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {subscriber.email}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
+                                    ${subscriber.status === 'active' ? 'bg-green-100 text-green-800' : 
+                                    subscriber.status === 'unsubscribed' ? 'bg-red-100 text-red-800' : 
+                                    'bg-yellow-100 text-yellow-800'}`}>
+                                    {subscriber.status || 'unknown'}
+                                  </span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      ) : (
+                        <div className="p-8 text-center text-gray-300">
+                          {isLoading ? (
+                            <div className="flex justify-center items-center space-x-2">
+                              <Loader2 className="h-5 w-5 animate-spin text-[#E2FF55]" />
+                              <span>Loading newsletter subscriptions...</span>
+                            </div>
+                          ) : 'No newsletter subscribers found'}
+                        </div>
+                      )}
+                    </div>
+                  </TabsContent>
                 </Tabs>
               </div>
               
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
                 <p className="text-sm text-gray-400 text-center sm:text-left">
-                  Showing all submissions from contact forms and demo requests
+                  Showing all submissions from contact forms, demo requests, and newsletter subscriptions
                 </p>
                 <button 
                   onClick={() => setIsVerified(false)} 

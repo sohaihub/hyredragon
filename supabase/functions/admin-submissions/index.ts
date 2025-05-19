@@ -1,11 +1,7 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.23.0";
 import * as bcrypt from "https://deno.land/x/bcrypt@v0.4.1/mod.ts";
-
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+import { corsHeaders, handleCorsPreflightRequest, addCorsHeaders } from "../_shared/cors.ts";
 
 const SUPABASE_URL = "https://hyhvmvsxrxnwybrfkpqu.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5aHZtdnN4cnhud3licmZrcHF1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc2MzYzMDksImV4cCI6MjA2MzIxMjMwOX0.gcWskABIWdkDd1JNLE7rHSvU4HXr3CW5xbusQ-gCT64";
@@ -101,9 +97,7 @@ async function fetchSubmissionsData(supabaseClient: any, page = 1, limit = 50) {
 serve(async (req) => {
   // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
-    return new Response(null, {
-      headers: corsHeaders,
-    });
+    return handleCorsPreflightRequest();
   }
 
   // Only accept POST requests
@@ -216,13 +210,12 @@ serve(async (req) => {
       }
     };
 
-    // Return response
-    return new Response(
+    // Return response with CORS headers
+    const response = new Response(
       JSON.stringify(responseData),
       {
         status: errors.length > 0 ? 207 : 200,
         headers: { 
-          ...corsHeaders, 
           "Content-Type": "application/json",
           "Cache-Control": "no-store, private, must-revalidate",
           "Pragma": "no-cache",
@@ -230,6 +223,8 @@ serve(async (req) => {
         },
       }
     );
+
+    return addCorsHeaders(response);
 
   } catch (error) {
     console.error("Server error:", error);
