@@ -11,6 +11,7 @@ const API_BASE_URL = "https://hyhvmvsxrxnwybrfkpqu.supabase.co/functions/v1";
  */
 export async function submitContactForm(formData: ContactFormData): Promise<boolean> {
   try {
+    console.log("Submitting contact form data:", formData);
     const response = await fetch(`${API_BASE_URL}/contact`, {
       method: 'POST',
       headers: {
@@ -19,9 +20,11 @@ export async function submitContactForm(formData: ContactFormData): Promise<bool
       body: JSON.stringify(formData),
     });
 
+    const responseData = await response.json();
+    
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to submit form');
+      console.error("Error response:", responseData);
+      throw new Error(responseData.error || 'Failed to submit form');
     }
 
     return true;
@@ -44,14 +47,41 @@ export async function submitDemoRequest(formData: DemoRequestData): Promise<bool
       body: JSON.stringify(formData),
     });
 
+    const responseData = await response.json();
+    
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.error || 'Failed to submit demo request');
+      throw new Error(responseData.error || 'Failed to submit demo request');
     }
 
     return true;
   } catch (error) {
     console.error('Error submitting demo request:', error);
+    throw error;
+  }
+}
+
+/**
+ * Submit newsletter subscription
+ */
+export async function subscribeToNewsletter(email: string): Promise<boolean> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/newsletter-subscribe`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+
+    const responseData = await response.json();
+    
+    if (!response.ok) {
+      throw new Error(responseData.error || 'Failed to subscribe');
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error subscribing to newsletter:', error);
     throw error;
   }
 }

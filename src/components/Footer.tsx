@@ -5,14 +5,14 @@ import HyrDragonLogo from './HydragonLogo';
 import { ArrowRight, Mail, Send } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { useToast } from './ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
@@ -26,17 +26,38 @@ const Footer: React.FC = () => {
 
     setIsSubmitting(true);
     
-    // Simulate API call with timeout
-    setTimeout(() => {
-      // Here you would typically send the email to your backend
-      toast({
-        title: "Subscription Successful!",
-        description: "You've been subscribed to our newsletter.",
+    // Send the subscription request to our backend
+    try {
+      const API_BASE_URL = "https://hyhvmvsxrxnwybrfkpqu.supabase.co/functions/v1";
+      const response = await fetch(`${API_BASE_URL}/newsletter-subscribe`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
+
+      const data = await response.json();
       
-      setEmail('');
+      if (response.ok) {
+        toast({
+          title: "Subscription Successful!",
+          description: data.message || "You've been subscribed to our newsletter.",
+        });
+        setEmail('');
+      } else {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+    } catch (error) {
+      console.error('Newsletter subscription error:', error);
+      toast({
+        title: "Subscription Failed",
+        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
+        variant: "destructive"
+      });
+    } finally {
       setIsSubmitting(false);
-    }, 800);
+    }
   };
 
   return (

@@ -31,16 +31,16 @@ serve(async (req) => {
       .insert({
         Name: requestData.name,
         Email: requestData.email,
-        Company: requestData.company,
-        Plan: requestData.plan,
-        Subject: requestData.subject,
-        Message: requestData.message,
+        Company: requestData.company || null,
+        Plan: requestData.plan || null,
+        Subject: requestData.subject || null,
+        Message: requestData.message || null,
       });
 
     if (error) {
       console.error("Error storing contact form data:", error);
       return new Response(
-        JSON.stringify({ error: "Failed to submit form" }),
+        JSON.stringify({ error: "Failed to submit form", details: error.message }),
         {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -58,7 +58,7 @@ serve(async (req) => {
   } catch (error) {
     console.error("Server error:", error);
     return new Response(
-      JSON.stringify({ error: "Internal Server Error" }),
+      JSON.stringify({ error: "Internal Server Error", details: error.message }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

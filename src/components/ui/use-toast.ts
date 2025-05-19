@@ -16,6 +16,23 @@ const toast = Object.assign(
         description,
         className: "neon-border bg-[#0F103E]/90 text-neon-green",
       });
+    },
+    // Add custom error method with enhanced visibility
+    error: (title: string, description?: string) => {
+      return toastOriginal({
+        title,
+        description,
+        variant: "destructive",
+        className: "border-red-500 bg-red-950/90 text-white",
+      });
+    },
+    // Add custom success method
+    success: (title: string, description?: string) => {
+      return toastOriginal({
+        title,
+        description,
+        className: "border-green-500 bg-green-950/90 text-white",
+      });
     }
   }
 );
