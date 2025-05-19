@@ -200,7 +200,7 @@ const Footer: React.FC = () => {
 
         <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row gap-4 justify-between items-center">
           <p className="text-gray-400 text-sm text-center md:text-left">
-            © {new Date().getFullYear()} HydragonAI. All rights reserved.
+            © {new Date().getFullYear()} HyredragonAI. All rights reserved.
           </p>
           <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
             <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
