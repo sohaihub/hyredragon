@@ -90,7 +90,7 @@ const DragonChatbot: React.FC = () => {
     - Better job fit leading to higher satisfaction
 
     PRICING INFORMATION:
-    - Starter: ₹10,000 - 10 hours, basic features
+    - Starter: ��10,000 - 10 hours, basic features
     - Basic: ₹20,000 - 20 hours, all core features
     - Standard: ₹30,000 - 30 hours, all features with priority support
     - Professional: ₹40,000 - 40 hours, all features with dedicated support
@@ -256,15 +256,15 @@ const DragonChatbot: React.FC = () => {
             aria-label="Open Dragon Assistant"
           >
             <Sparkles className="w-5 h-5 text-[#E2FF55]" />
-            <span className="text-white font-medium">Chat with Dragon  </span>
+            <span className="text-white font-medium">Chat with Dragon</span>
           </Button>
         </div>
       )}
       
       {/* Premium chat window with subtle animations */}
       {isOpen && (
-        <div className="bg-[#080820] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
-          {/* Chat header - updated with Dragon theme */}
+        <div className="bg-[#080820] border-2 border-[#E2FF55] rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box shadow-[0_0_15px_rgba(226,255,85,0.3)]">
+          {/* Chat header */}
           <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
             <div className="flex items-center relative z-10">
               <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
@@ -292,7 +292,7 @@ const DragonChatbot: React.FC = () => {
             </div>
           </div>
           
-          {/* Chat messages with refined animations */}
+          {/* Chat messages */}
           <div 
             className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
             ref={chatContainerRef}
@@ -344,7 +344,7 @@ const DragonChatbot: React.FC = () => {
             )}
           </div>
           
-          {/* Chat input - refined design */}
+          {/* Chat input */}
           <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#080822]">
             <div className="flex items-center gap-2 relative">
               <Input

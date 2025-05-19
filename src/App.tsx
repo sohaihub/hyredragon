@@ -18,42 +18,13 @@ import DragonChatbot from './components/DragonChatbot';
 import Admin from './pages/Admin';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component - modified for green effect
-const GreenCursor = () => {
-  const cursorRef = useRef<HTMLDivElement>(null);
-  
+// Custom cursor component - modified for neon effect
+const NeonCursor = () => {
   useEffect(() => {
-    const cursor = cursorRef.current;
-    
-    if (!cursor) return;
-    
-    const moveCursor = (e: MouseEvent) => {
-      cursor.style.left = `${e.clientX}px`;
-      cursor.style.top = `${e.clientY}px`;
-    };
-    
-    const handleInteractiveHover = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const isInteractive = 
-        target.tagName.toLowerCase() === 'a' || 
-        target.tagName.toLowerCase() === 'button' || 
-        target.closest('a') || 
-        target.closest('button') || 
-        target.closest('[role="button"]') ||
-        target.closest('input[type="submit"]') ||
-        target.closest('input[type="button"]') ||
-        target.closest('label[for]');
-      
-      if (isInteractive) {
-        cursor.classList.add('active');
-      } else {
-        cursor.classList.remove('active');
-      }
-    };
-    
+    // Create click effect function
     const createClickEffect = (e: MouseEvent) => {
       const clickEffect = document.createElement('div');
-      clickEffect.className = 'green-click-effect';
+      clickEffect.className = 'neon-click-effect';
       clickEffect.style.left = `${e.clientX}px`;
       clickEffect.style.top = `${e.clientY}px`;
       
@@ -66,69 +37,14 @@ const GreenCursor = () => {
       }, 800);
     };
     
-    document.addEventListener('mousemove', moveCursor);
-    document.addEventListener('mousemove', handleInteractiveHover);
     document.addEventListener('click', createClickEffect);
     
-    // Add green cursor style
-    const style = document.createElement('style');
-    style.innerHTML = `
-      .green-cursor {
-        position: fixed;
-        width: 24px;
-        height: 24px;
-        background-color: transparent;
-        border: 2px solid #E2FF55;
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        transition: transform 0.15s ease-out, border-color 0.3s ease;
-      }
-      
-      .green-cursor.active {
-        transform: translate(-50%, -50%) scale(1.5);
-        border-color: #E2FF55;
-        background-color: rgba(226, 255, 85, 0.1);
-      }
-      
-      .green-click-effect {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: rgba(226, 255, 85, 0.8);
-        pointer-events: none;
-        z-index: 9999;
-        transform: translate(-50%, -50%);
-        animation: greenClickEffect 0.8s ease-out forwards;
-      }
-      
-      @keyframes greenClickEffect {
-        0% {
-          transform: translate(-50%, -50%) scale(0);
-          opacity: 1;
-        }
-        100% {
-          transform: translate(-50%, -50%) scale(5);
-          opacity: 0;
-        }
-      }
-    `;
-    
-    document.head.appendChild(style);
-    
     return () => {
-      document.removeEventListener('mousemove', moveCursor);
-      document.removeEventListener('mousemove', handleInteractiveHover);
       document.removeEventListener('click', createClickEffect);
-      document.head.removeChild(style);
     };
   }, []);
 
-  return (
-    <div ref={cursorRef} className="green-cursor transition-transform duration-150"></div>
-  );
+  return null;
 };
 
 // Add money falling effect
@@ -285,7 +201,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <PageSetup />
-      <GreenCursor />
+      <NeonCursor />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
