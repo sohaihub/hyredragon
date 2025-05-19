@@ -313,7 +313,7 @@ const Contact: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-gray-400 text-sm">Email</p>
-                          <p className="text-white">contact@company.com</p>
+                          <p className="text-white">alex.c.ihub@snsgroups.com</p>
                         </div>
                       </div>
 
@@ -323,7 +323,7 @@ const Contact: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-gray-400 text-sm">Phone</p>
-                          <p className="text-white">+1 (555) 123-4567</p>
+                          <p className="text-white">+91 98435 00227</p>
                         </div>
                       </div>
 
@@ -333,7 +333,7 @@ const Contact: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-gray-400 text-sm">Location</p>
-                          <p className="text-white">123 Business Avenue, Suite 100<br />San Francisco, CA 94107</p>
+                          <p className="text-white">SNS Institutions<br />Kurumbapalayam, Coimbatore - 641035</p>
                         </div>
                       </div>
 
@@ -343,7 +343,7 @@ const Contact: React.FC = () => {
                         </div>
                         <div>
                           <p className="text-gray-400 text-sm">Hours</p>
-                          <p className="text-white">Monday - Friday: 9am - 5pm<br />Weekend: Closed</p>
+                          <p className="text-white">Monday - Saturday: 9am - 6pm<br />Sundays: Closed</p>
                         </div>
                       </div>
                     </div>
