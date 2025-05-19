@@ -244,7 +244,7 @@ const Admin: React.FC = () => {
                       </div>
                     ) : (
                       <div className="flex items-center">
-                        <RefreshCw className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90" />
+                        <RefreshCw className="h-4 w-4 mr-2 text-[#00000]" />
                         <span>Refresh Data</span>
                       </div>
                     )}
