@@ -68,12 +68,7 @@ const DragonChatbot: React.FC = () => {
        - Time-to-hire and cost-per-hire analytics
        - Customizable reports and data visualization
 
-    5. INDUSTRY-SPECIFIC RECRUITMENT SOLUTIONS
-       - Healthcare: credential verification, shift scheduling integration
-       - Technology: technical assessment tools, coding challenge integration
-       - Finance: compliance verification, background check automation
-       - Education: certification tracking, specialized academic staffing
-       - Retail: high-volume hiring tools, seasonal staffing optimization
+
 
     BENEFITS FOR RECRUITERS:
     - Reduces time-to-hire by 40%
@@ -106,6 +101,11 @@ const DragonChatbot: React.FC = () => {
     Respond in a helpful, concise manner. Aim for responses that are informative but not too lengthy.
     
     If someone asks about something completely unrelated to recruitment or our platform, politely redirect them by mentioning you're specialized in helping with our recruitment platform.
+    URLS: Pricing "https://hyregram-landing-page.vercel.app/pricing"
+    AI products "https://hyregram-landing-page.vercel.app/ai-products"
+    Main"https://hyregram-landing-page.vercel.app/"
+      Contact us"https://hyregram-landing-page.vercel.app/contact"
+      
   `;
 
   useEffect(() => {
