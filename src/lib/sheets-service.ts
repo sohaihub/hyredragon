@@ -2,7 +2,7 @@
 // This file would be used on the server side in a real implementation
 // For a frontend-only app, we must use client-side code with caution regarding credentials
 
-import { GoogleSpreadsheet } from 'google-spreadsheet';
+import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
 import { JWT } from 'google-auth-library';
 
 export interface ContactFormData {
@@ -89,13 +89,14 @@ export const getSheetData = async (): Promise<ContactFormData[]> => {
     // Get rows
     const rows = await sheet.getRows();
     
+    // Correctly access row values using the array-like notation
     return rows.map(row => ({
-      name: row.Name,
-      email: row.Email,
-      company: row.Company,
-      plan: row.Plan,
-      subject: row.Subject,
-      message: row.Message,
+      name: row.get('Name') || '',
+      email: row.get('Email') || '',
+      company: row.get('Company') || '',
+      plan: row.get('Plan') || '',
+      subject: row.get('Subject') || '',
+      message: row.get('Message') || '',
     }));
   } catch (error) {
     console.error('Error getting sheet data:', error);
