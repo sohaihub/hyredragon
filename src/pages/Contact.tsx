@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -16,12 +16,26 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { submitContactForm } from '@/lib/api';
-import type { ContactFormData } from '@/lib/types';
-import { supabase } from "@/integrations/supabase/client";
+
+const pricingPlans = [
+  { id: 1, name: "Free", price: 0 },
+  { id: 2, name: "Basic", price: 9999 },
+  { id: 3, name: "Standard", price: 19999 },
+  { id: 4, name: "Professional", price: 29999 },
+  { id: 5, name: "Enterprise", price: 49999 }
+];
+
+interface ContactFormData {
+  name: string;
+  email: string;
+  company: string;
+  plan: string;
+  subject: string;
+  message: string;
+}
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
-  const [pricingPlans, setPricingPlans] = useState<any[]>([]);
   const [formSubmitted, setFormSubmitted] = useState(false);
   
   // Form state with all required fields initialized
@@ -36,24 +50,6 @@ const Contact: React.FC = () => {
   
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Fetch pricing plans from Supabase
-  useEffect(() => {
-    async function fetchPricingPlans() {
-      const { data, error } = await supabase
-        .from('pricing_plans')
-        .select('*')
-        .order('price', { ascending: true });
-      
-      if (error) {
-        console.error('Error fetching pricing plans:', error);
-      } else {
-        setPricingPlans(data);
-      }
-    }
-    
-    fetchPricingPlans();
-  }, []);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -108,8 +104,12 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Submit form data to the serverless function
+      // Submit form data to localStorage
       await submitContactForm(formData);
+      
+      // Trigger a custom event to notify other tabs
+      const event = new Event('storage');
+      window.dispatchEvent(event);
       
       toast({
         title: "Message sent!",
@@ -227,23 +227,11 @@ const Contact: React.FC = () => {
                             <SelectValue placeholder="Select a plan" />
                           </SelectTrigger>
                           <SelectContent className="bg-[#080820] border-gray-800 text-white">
-                            {pricingPlans.length > 0 ? (
-                              pricingPlans.map((plan) => (
-                                <SelectItem key={plan.id} value={plan.name}>
-                                  {plan.name} (₹{plan.price.toLocaleString()})
-                                </SelectItem>
-                              ))
-                            ) : (
-                              <>
-                                <SelectItem value="Free">Free</SelectItem>
-                                <SelectItem value="Starter">Starter</SelectItem>
-                                <SelectItem value="Basic">Basic</SelectItem>
-                                <SelectItem value="Standard">Standard</SelectItem>
-                                <SelectItem value="Professional">Professional</SelectItem>
-                                <SelectItem value="Premium">Premium</SelectItem>
-                                <SelectItem value="Enterprise">Enterprise</SelectItem>
-                              </>
-                            )}
+                            {pricingPlans.map((plan) => (
+                              <SelectItem key={plan.id} value={plan.name}>
+                                {plan.name} (₹{(plan.price / 100).toLocaleString()})
+                              </SelectItem>
+                            ))}
                           </SelectContent>
                         </Select>
                       </div>

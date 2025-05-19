@@ -1,20 +1,30 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { verifyAdmin, getContactSubmissions } from '@/lib/api';
+import { verifyAdmin, getContactSubmissions, exportSubmissionsToCsv } from '@/lib/api';
+import { format } from 'date-fns';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { format } from 'date-fns';
-import { Loader2, RefreshCw } from 'lucide-react';
+import { Loader2, RefreshCw, Download, FileDown, User, Mail, Building, Calendar, MessageSquare } from 'lucide-react';
 
 const Admin: React.FC = () => {
   const [password, setPassword] = useState("");
   const [isVerified, setIsVerified] = useState(false);
   const [isVerifying, setIsVerifying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [exportLoading, setExportLoading] = useState(false);
   const [contactSubmissions, setContactSubmissions] = useState<any[]>([]);
   const [demoRequests, setDemoRequests] = useState<any[]>([]);
   const [newsletterSubscriptions, setNewsletterSubscriptions] = useState<any[]>([]);
@@ -72,24 +82,23 @@ const Admin: React.FC = () => {
     
     try {
       const data = await getContactSubmissions(password);
-      console.log("Fetched data:", data); // Debug logging
       
       // Format and process contact submissions
       const formattedContacts = data.contact?.map((item: any) => ({
         ...item,
-        formattedDate: formatDate(item.created_at)
+        formattedDate: formatDate(item.createdAt)
       })) || [];
       
       // Format and process demo requests
       const formattedDemos = data.demos?.map((item: any) => ({
         ...item,
-        formattedDate: formatDate(item.created_at)
+        formattedDate: formatDate(item.createdAt)
       })) || [];
       
       // Format and process newsletter subscriptions
       const formattedNewsletters = data.newsletters?.map((item: any) => ({
         ...item,
-        formattedDate: formatDate(item.subscribed_at)
+        formattedDate: formatDate(item.subscribedAt)
       })) || [];
       
       setContactSubmissions(formattedContacts);
@@ -112,6 +121,26 @@ const Admin: React.FC = () => {
     }
   };
 
+  const handleExportCsv = async () => {
+    try {
+      setExportLoading(true);
+      exportSubmissionsToCsv();
+      toast({
+        title: "Export Successful",
+        description: "All submissions have been exported to CSV"
+      });
+    } catch (error) {
+      console.error('Error exporting to CSV:', error);
+      toast({
+        title: "Export Failed",
+        description: "Could not export data to CSV",
+        variant: "destructive"
+      });
+    } finally {
+      setExportLoading(false);
+    }
+  };
+
   const formatDate = (dateString?: string) => {
     if (!dateString) return 'N/A';
     try {
@@ -120,6 +149,21 @@ const Admin: React.FC = () => {
       return 'Invalid Date';
     }
   };
+
+  // Set up real-time storage event listener
+  useEffect(() => {
+    const handleStorageChange = () => {
+      if (isVerified) {
+        fetchSubmissions();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, [isVerified, password]);
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-900 to-blue-950">
@@ -138,7 +182,7 @@ const Admin: React.FC = () => {
             <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
               Admin Dashboard
             </h1>
-            <p className="text-gray-300">Manage contact and demo request submissions</p>
+            <p className="text-gray-300">Manage form submissions</p>
           </div>
           
           {!isVerified ? (
@@ -159,6 +203,9 @@ const Admin: React.FC = () => {
                     className="bg-white/5 border-white/10 text-white"
                     disabled={isVerifying}
                   />
+                  <p className="text-xs text-gray-400 mt-2">
+                    Default password: admin123
+                  </p>
                 </div>
                 
                 <Button
@@ -176,27 +223,47 @@ const Admin: React.FC = () => {
               </form>
             </div>
           ) : (
-            <div>
+            <div className="space-y-6">
               <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <h2 className="text-2xl font-bold text-white">Submissions Dashboard</h2>
-                <Button 
-                  onClick={fetchSubmissions} 
-                  variant="outline" 
-                  className="text-white border-white/20 hover:bg-white/10"
-                  disabled={isLoading}
-                >
-                  {isLoading ? (
-                    <div className="flex items-center">
-                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                      <span>Loading...</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-center">
-                      <RefreshCw className="h-4 w-4 mr-2" />
-                      <span>Refresh Data</span>
-                    </div>
-                  )}
-                </Button>
+                <div className="flex gap-2">
+                  <Button 
+                    onClick={fetchSubmissions} 
+                    variant="outline" 
+                    className="text-white border-white/20 hover:bg-white/10"
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <div className="flex items-center">
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        <span>Loading...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center">
+                        <RefreshCw className="h-4 w-4 mr-2" />
+                        <span>Refresh Data</span>
+                      </div>
+                    )}
+                  </Button>
+                  
+                  <Button 
+                    onClick={handleExportCsv}
+                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90"
+                    disabled={exportLoading}
+                  >
+                    {exportLoading ? (
+                      <div className="flex items-center">
+                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        <span>Exporting...</span>
+                      </div>
+                    ) : (
+                      <div className="flex items-center">
+                        <FileDown className="h-4 w-4 mr-2" />
+                        <span>Export to CSV</span>
+                      </div>
+                    )}
+                  </Button>
+                </div>
               </div>
               
               <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl overflow-hidden shadow-lg">
@@ -217,46 +284,58 @@ const Admin: React.FC = () => {
                   <TabsContent value="contacts" className="p-0">
                     <div className="overflow-x-auto">
                       {contactSubmissions.length > 0 ? (
-                        <table className="w-full">
-                          <thead className="bg-white/5 border-b border-white/10">
-                            <tr>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Plan</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Subject</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Message</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-white/10">
-                            {contactSubmissions.map((submission, index) => (
-                              <tr key={index} className="text-gray-100 hover:bg-white/5">
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-white/10 bg-white/5">
+                              <TableHead className="text-gray-300">Date</TableHead>
+                              <TableHead className="text-gray-300">Name</TableHead>
+                              <TableHead className="text-gray-300">Email</TableHead>
+                              <TableHead className="text-gray-300">Company</TableHead>
+                              <TableHead className="text-gray-300">Subject</TableHead>
+                              <TableHead className="text-gray-300">Message</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody className="divide-y divide-white/10">
+                            {contactSubmissions.map((submission) => (
+                              <TableRow key={submission.id} className="text-gray-100 hover:bg-white/5 border-white/10">
+                                <TableCell className="font-medium">
                                   {submission.formattedDate}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.name}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.email}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.company || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.plan || submission["select_plan"] || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.subject || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 text-sm max-w-xs truncate">
-                                  {submission.message || 'N/A'}
-                                </td>
-                              </tr>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center">
+                                    <User className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    {submission.name}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center">
+                                    <Mail className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    {submission.email}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  {submission.company ? (
+                                    <div className="flex items-center">
+                                      <Building className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                      {submission.company}
+                                    </div>
+                                  ) : 'N/A'}
+                                </TableCell>
+                                <TableCell>{submission.subject}</TableCell>
+                                <TableCell className="max-w-xs truncate">
+                                  <div className="flex items-center">
+                                    <MessageSquare className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    <span title={submission.message}>
+                                      {submission.message.length > 50 
+                                        ? `${submission.message.substring(0, 50)}...` 
+                                        : submission.message}
+                                    </span>
+                                  </div>
+                                </TableCell>
+                              </TableRow>
                             ))}
-                          </tbody>
-                        </table>
+                          </TableBody>
+                        </Table>
                       ) : (
                         <div className="p-8 text-center text-gray-300">
                           {isLoading ? (
@@ -274,50 +353,69 @@ const Admin: React.FC = () => {
                   <TabsContent value="demos" className="p-0">
                     <div className="overflow-x-auto">
                       {demoRequests.length > 0 ? (
-                        <table className="w-full">
-                          <thead className="bg-white/5 border-b border-white/10">
-                            <tr>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Phone</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Job Title</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company Size</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Message</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-white/10">
-                            {demoRequests.map((request, index) => (
-                              <tr key={index} className="text-gray-100 hover:bg-white/5">
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-white/10 bg-white/5">
+                              <TableHead className="text-gray-300">Date</TableHead>
+                              <TableHead className="text-gray-300">Name</TableHead>
+                              <TableHead className="text-gray-300">Email</TableHead>
+                              <TableHead className="text-gray-300">Company</TableHead>
+                              <TableHead className="text-gray-300">Job Title</TableHead>
+                              <TableHead className="text-gray-300">Size</TableHead>
+                              <TableHead className="text-gray-300">Preferred Date</TableHead>
+                              <TableHead className="text-gray-300">Message</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody className="divide-y divide-white/10">
+                            {demoRequests.map((request) => (
+                              <TableRow key={request.id} className="text-gray-100 hover:bg-white/5 border-white/10">
+                                <TableCell className="font-medium">
                                   {request.formattedDate}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.first_name} {request.last_name}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.email}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.phone || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.company || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.job_title || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {request.company_size || 'N/A'}
-                                </td>
-                                <td className="px-4 py-4 text-sm max-w-xs truncate">
-                                  {request.message || 'N/A'}
-                                </td>
-                              </tr>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center">
+                                    <User className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    {request.firstName} {request.lastName}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center">
+                                    <Mail className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    {request.email}
+                                  </div>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center">
+                                    <Building className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    {request.company}
+                                  </div>
+                                </TableCell>
+                                <TableCell>{request.jobTitle}</TableCell>
+                                <TableCell>{request.companySize}</TableCell>
+                                <TableCell>
+                                  {request.preferredDate ? (
+                                    <div className="flex items-center">
+                                      <Calendar className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                      {request.preferredDate}
+                                    </div>
+                                  ) : 'Not specified'}
+                                </TableCell>
+                                <TableCell className="max-w-xs truncate">
+                                  {request.message ? (
+                                    <div className="flex items-center">
+                                      <MessageSquare className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                      <span title={request.message}>
+                                        {request.message.length > 30 
+                                          ? `${request.message.substring(0, 30)}...` 
+                                          : request.message}
+                                      </span>
+                                    </div>
+                                  ) : 'N/A'}
+                                </TableCell>
+                              </TableRow>
                             ))}
-                          </tbody>
-                        </table>
+                          </TableBody>
+                        </Table>
                       ) : (
                         <div className="p-8 text-center text-gray-300">
                           {isLoading ? (
@@ -335,35 +433,29 @@ const Admin: React.FC = () => {
                   <TabsContent value="newsletters" className="p-0">
                     <div className="overflow-x-auto">
                       {newsletterSubscriptions.length > 0 ? (
-                        <table className="w-full">
-                          <thead className="bg-white/5 border-b border-white/10">
-                            <tr>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Status</th>
-                            </tr>
-                          </thead>
-                          <tbody className="divide-y divide-white/10">
-                            {newsletterSubscriptions.map((subscriber, index) => (
-                              <tr key={index} className="text-gray-100 hover:bg-white/5">
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                        <Table>
+                          <TableHeader>
+                            <TableRow className="border-white/10 bg-white/5">
+                              <TableHead className="text-gray-300">Date</TableHead>
+                              <TableHead className="text-gray-300">Email</TableHead>
+                            </TableRow>
+                          </TableHeader>
+                          <TableBody className="divide-y divide-white/10">
+                            {newsletterSubscriptions.map((subscriber) => (
+                              <TableRow key={subscriber.id} className="text-gray-100 hover:bg-white/5 border-white/10">
+                                <TableCell className="font-medium">
                                   {subscriber.formattedDate}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {subscriber.email}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  <span className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                    ${subscriber.status === 'active' ? 'bg-green-100 text-green-800' : 
-                                    subscriber.status === 'unsubscribed' ? 'bg-red-100 text-red-800' : 
-                                    'bg-yellow-100 text-yellow-800'}`}>
-                                    {subscriber.status || 'unknown'}
-                                  </span>
-                                </td>
-                              </tr>
+                                </TableCell>
+                                <TableCell>
+                                  <div className="flex items-center">
+                                    <Mail className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                                    {subscriber.email}
+                                  </div>
+                                </TableCell>
+                              </TableRow>
                             ))}
-                          </tbody>
-                        </table>
+                          </TableBody>
+                        </Table>
                       ) : (
                         <div className="p-8 text-center text-gray-300">
                           {isLoading ? (
@@ -381,7 +473,7 @@ const Admin: React.FC = () => {
               
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
                 <p className="text-sm text-gray-400 text-center sm:text-left">
-                  Showing all submissions from contact forms, demo requests, and newsletter subscriptions
+                  All data is stored locally in your browser's localStorage
                 </p>
                 <button 
                   onClick={() => setIsVerified(false)} 

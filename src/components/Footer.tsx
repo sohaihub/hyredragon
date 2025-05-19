@@ -1,59 +1,62 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import HyrDragonLogo from './HydragonLogo';
-import { ArrowRight, Mail, Send } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+import HydragonLogo from './HydragonLogo';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Facebook, Twitter, Instagram, Linkedin, Github } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { subscribeToNewsletter } from '@/lib/api';
+
+interface HydragonLogoProps {
+  withText?: boolean;
+  size?: string;
+}
 
 const Footer: React.FC = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { toast } = useToast();
 
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+  };
+
   const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+    // Simple email validation
+    if (!email || !email.includes('@')) {
       toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
-        variant: "destructive"
+        title: 'Invalid email',
+        description: 'Please enter a valid email address',
+        variant: 'destructive'
       });
       return;
     }
-
+    
     setIsSubmitting(true);
     
-    // Send the subscription request to our backend
     try {
-      const API_BASE_URL = "https://hyhvmvsxrxnwybrfkpqu.supabase.co/functions/v1";
-      const response = await fetch(`${API_BASE_URL}/newsletter-subscribe`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
+      await subscribeToNewsletter(email);
       
-      if (response.ok) {
-        toast({
-          title: "Subscription Successful!",
-          description: data.message || "You've been subscribed to our newsletter.",
-        });
-        setEmail('');
-      } else {
-        throw new Error(data.error || 'Failed to subscribe');
-      }
-    } catch (error) {
-      console.error('Newsletter subscription error:', error);
+      // Trigger a custom event to notify other tabs
+      const event = new Event('storage');
+      window.dispatchEvent(event);
+      
       toast({
-        title: "Subscription Failed",
-        description: error instanceof Error ? error.message : "Something went wrong. Please try again.",
-        variant: "destructive"
+        title: 'Success!',
+        description: 'You\'ve been subscribed to our newsletter'
+      });
+      
+      // Reset form
+      setEmail('');
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      toast({
+        title: 'Subscription failed',
+        description: 'There was an error subscribing to the newsletter. Please try again.',
+        variant: 'destructive'
       });
     } finally {
       setIsSubmitting(false);
@@ -61,100 +64,149 @@ const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-[#07071D] py-12 px-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute top-1/4 right-1/4 w-64 h-64 rounded-full bg-[#E2FF55]/5 blur-3xl animate-[pulse_10s_ease-in-out_infinite]"></div>
-      <div className="absolute bottom-1/3 left-1/6 w-80 h-80 rounded-full bg-[#7B78FF]/5 blur-3xl animate-[pulse_15s_ease-in-out_infinite]" style={{ animationDelay: '5s' }}></div>
-      
-      <div className="container mx-auto relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="animate-[fadeIn_0.5s_ease-out]">
-            <Link to="/" className="inline-block mb-4 transform hover:scale-105 transition-transform duration-300">
-              <HyrDragonLogo size="sm" withText={true} />
-            </Link>
-            <p className="text-gray-400 text-sm max-w-xs">
-              AI-powered recruitment platform that makes hiring smarter, faster, and more efficient.
+    <footer className="bg-[#080820] relative">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/5 to-transparent"></div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-16">
+          {/* Logo and company info */}
+          <div className="space-y-6">
+            <div>
+              <Link to="/">
+                <HydragonLogo size="regular" withText={true} />
+              </Link>
+            </div>
+            <p className="text-gray-400 text-sm">
+              Revolutionizing recruitment with powerful AI tools designed to save time and reduce hiring costs.
             </p>
-          </div>
-          
-          <div className="md:col-span-1 animate-[fadeIn_0.5s_ease-out]" style={{ animationDelay: '0.2s' }}>
-            <div className="grid grid-cols-2 gap-8">
-              {/* Company Section */}
-              <div>
-                <h4 className="text-white font-medium mb-4 relative inline-block">
-                  Company
-                  <div className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-[#E2FF55]/40"></div>
-                </h4>
-                <ul className="space-y-2">
-                  <li><Link to="/about" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">About</Link></li>
-                  <li><Link to="/contact" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Contact Us</Link></li>
-                  <li><Link to="/blog" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Blog</Link></li>
-                  <li><Link to="/case-studies" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Case Studies</Link></li>
-                </ul>
-              </div>
-              
-              {/* Product Section */}
-              <div>
-                <h4 className="text-white font-medium mb-4 relative inline-block">
-                  Product
-                  <div className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-[#E2FF55]/40"></div>
-                </h4>
-                <ul className="space-y-2">
-                  <li><Link to="/ai-products" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">AI Products</Link></li>
-                  <li><Link to="/pricing" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Pricing</Link></li>
-                  <li><Link to="/request-demo" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Enterprise</Link></li>
-                </ul>
-              </div>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-[#E2FF55] transition-colors">
+                <Facebook size={20} />
+                <span className="sr-only">Facebook</span>
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#E2FF55] transition-colors">
+                <Twitter size={20} />
+                <span className="sr-only">Twitter</span>
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#E2FF55] transition-colors">
+                <Instagram size={20} />
+                <span className="sr-only">Instagram</span>
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#E2FF55] transition-colors">
+                <Linkedin size={20} />
+                <span className="sr-only">LinkedIn</span>
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#E2FF55] transition-colors">
+                <Github size={20} />
+                <span className="sr-only">GitHub</span>
+              </a>
             </div>
           </div>
 
-          <div className="animate-[fadeIn_0.5s_ease-out]" style={{ animationDelay: '0.4s' }}>
-            <h4 className="text-white font-medium mb-4 relative inline-block">
-              Subscribe to our newsletter
-              <div className="absolute -bottom-1 left-0 w-1/2 h-0.5 bg-[#E2FF55]/40"></div>
-            </h4>
-            <p className="text-gray-400 text-sm mb-4">Get the latest news and updates from HyreDragon.</p>
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2 relative group">
-              <div className="flex-grow relative">
-                <Input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[#131342] border-gray-700 text-white w-full focus:border-[#E2FF55] focus:ring-[#E2FF55]/20 transition-all duration-300"
-                />
-                <div className="absolute inset-0 rounded-md border border-[#E2FF55]/0 group-hover:border-[#E2FF55]/30 pointer-events-none transition-colors duration-500 opacity-0 group-hover:opacity-100"></div>
+          {/* Products column */}
+          <div className="space-y-4">
+            <h3 className="text-[#E2FF55] text-lg font-semibold">Products</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/ai-products" className="text-gray-400 hover:text-white transition-colors">
+                  AI Products
+                </Link>
+              </li>
+              <li>
+                <Link to="/pricing" className="text-gray-400 hover:text-white transition-colors">
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link to="/request-demo" className="text-gray-400 hover:text-white transition-colors">
+                  Request Demo
+                </Link>
+              </li>
+              <li>
+                <Link to="/blog" className="text-gray-400 hover:text-white transition-colors">
+                  Blog
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Company column */}
+          <div className="space-y-4">
+            <h3 className="text-[#E2FF55] text-lg font-semibold">Company</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link to="/about" className="text-gray-400 hover:text-white transition-colors">
+                  About Us
+                </Link>
+              </li>
+              <li>
+                <Link to="/contact" className="text-gray-400 hover:text-white transition-colors">
+                  Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy" className="text-gray-400 hover:text-white transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link to="/terms" className="text-gray-400 hover:text-white transition-colors">
+                  Terms of Service
+                </Link>
+              </li>
+              <li>
+                <Link to="/security" className="text-gray-400 hover:text-white transition-colors">
+                  Security
+                </Link>
+              </li>
+              <li>
+                <Link to="/admin" className="text-gray-400 hover:text-white transition-colors">
+                  Admin Portal
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Newsletter */}
+          <div className="space-y-4">
+            <h3 className="text-[#E2FF55] text-lg font-semibold">Subscribe to Newsletter</h3>
+            <p className="text-gray-400 text-sm">
+              Stay updated with the latest news, features, and releases.
+            </p>
+            <form onSubmit={handleSubscribe} className="mt-2 sm:flex">
+              <Input
+                type="email"
+                name="email"
+                id="email-newsletter"
+                placeholder="Enter your email"
+                value={email}
+                onChange={handleEmailChange}
+                className="w-full bg-[#0A0A29] border-gray-800 focus:border-[#E2FF55] text-white"
+                required
+              />
+              <div className="mt-3 sm:mt-0 sm:ml-3">
+                <Button
+                  type="submit"
+                  className="w-full bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-[#0A0A29] border-t-transparent"></div>
+                  ) : "Subscribe"}
+                </Button>
               </div>
-              <Button 
-                type="submit" 
-                className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 flex items-center gap-2 relative overflow-hidden"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-[#0A0A29] border-r-transparent"></div>
-                    <span>Processing...</span>
-                  </>
-                ) : (
-                  <>
-                    <Send className="w-4 h-4" /> Subscribe
-                  </>
-                )}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[shine_1s_ease-out]"></span>
-              </Button>
             </form>
           </div>
         </div>
-        
-        <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="text-gray-400 text-sm mb-4 md:mb-0">
-            © 2025 HyreDragon. All rights reserved.
-          </div>
-          
-          <div className="flex space-x-6">
-            <Link to="/terms" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Terms</Link>
-            <Link to="/privacy" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Privacy</Link>
-            <Link to="/security" className="text-gray-400 hover:text-[#E2FF55] text-sm transition-colors duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:-bottom-1 after:left-0 after:bg-[#E2FF55] after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left">Security</Link>
+
+        <div className="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row gap-4 justify-between items-center">
+          <p className="text-gray-400 text-sm text-center md:text-left">
+            © {new Date().getFullYear()} HydragonAI. All rights reserved.
+          </p>
+          <div className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-gray-400">
+            <Link to="/terms" className="hover:text-white transition-colors">Terms</Link>
+            <Link to="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link to="/security" className="hover:text-white transition-colors">Security</Link>
+            <Link to="/contact" className="hover:text-white transition-colors">Contact</Link>
           </div>
         </div>
       </div>
