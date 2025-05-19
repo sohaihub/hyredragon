@@ -286,6 +286,8 @@ const DragonChatbot: React.FC = () => {
             
             {/* Early adopter promo notification */}
 
+          </div>
+          
           {/* Chat messages with refined animations */}
           <div 
             className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
