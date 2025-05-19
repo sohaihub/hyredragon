@@ -285,13 +285,7 @@ const DragonChatbot: React.FC = () => {
             </Button>
             
             {/* Early adopter promo notification */}
-            <div className="absolute -top-1 left-0 right-0 px-3 py-0.5 bg-gradient-to-r from-[#E2FF55]/10 to-transparent opacity-0 animate-fade-in" style={{animationDelay: '0.5s', animationFillMode: 'forwards'}}>
-              <p className="text-xs text-center">
-                <span className="promo-text text-xs">First 50 customers get 3 free hours</span>
-              </p>
-            </div>
-          </div>
-          
+
           {/* Chat messages with refined animations */}
           <div 
             className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
