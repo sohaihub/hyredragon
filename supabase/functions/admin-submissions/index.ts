@@ -16,16 +16,6 @@ serve(async (req) => {
   }
 
   try {
-    const supabaseClient = createClient(
-      Deno.env.get("SUPABASE_URL") ?? "",
-      Deno.env.get("SUPABASE_ANON_KEY") ?? "",
-      {
-        global: {
-          headers: { Authorization: req.headers.get("Authorization") || "" },
-        },
-      }
-    );
-
     const { password } = await req.json();
     
     // Simple admin verification - in a real app, you'd use proper authentication
@@ -39,33 +29,50 @@ serve(async (req) => {
       );
     }
 
-    // Get contacts
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL") ?? "",
+      Deno.env.get("SUPABASE_ANON_KEY") ?? ""
+    );
+
+    // Fetch contact submissions
     const { data: contactData, error: contactError } = await supabaseClient
       .from("contact form")
       .select("*")
       .order("created_at", { ascending: false });
 
-    // Get demo requests
-    const { data: demoData, error: demoError } = await supabaseClient
-      .from("demo_requests")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (contactError || demoError) {
-      console.error("Error fetching data:", contactError || demoError);
+    if (contactError) {
+      console.error("Error fetching contact submissions:", contactError);
       return new Response(
-        JSON.stringify({ error: "Failed to fetch submissions" }),
+        JSON.stringify({ error: "Failed to fetch contact submissions" }),
         {
-          status: 400,
+          status: 500,
           headers: { ...corsHeaders, "Content-Type": "application/json" },
         }
       );
     }
 
+    // Fetch demo requests
+    const { data: demoData, error: demoError } = await supabaseClient
+      .from("demo_requests")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (demoError) {
+      console.error("Error fetching demo requests:", demoError);
+      return new Response(
+        JSON.stringify({ error: "Failed to fetch demo requests" }),
+        {
+          status: 500,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    // Return both contact form submissions and demo requests
     return new Response(
       JSON.stringify({ 
-        contacts: contactData || [], 
-        demoRequests: demoData || []
+        contact: contactData || [], 
+        demos: demoData || [] 
       }),
       {
         status: 200,

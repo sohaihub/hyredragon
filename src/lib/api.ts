@@ -1,7 +1,7 @@
 
 // API utility functions for interacting with serverless functions
 
-import { ContactFormData } from './types';
+import { ContactFormData, DemoRequestData } from './types';
 
 // Base URL for API calls
 const API_BASE_URL = "https://hyhvmvsxrxnwybrfkpqu.supabase.co/functions/v1";
@@ -34,7 +34,7 @@ export async function submitContactForm(formData: ContactFormData): Promise<bool
 /**
  * Submit demo request to serverless function
  */
-export async function submitDemoRequest(formData: any): Promise<boolean> {
+export async function submitDemoRequest(formData: DemoRequestData): Promise<boolean> {
   try {
     const response = await fetch(`${API_BASE_URL}/demo-request`, {
       method: 'POST',

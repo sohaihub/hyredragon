@@ -2,9 +2,13 @@
 project_id = "hyhvmvsxrxnwybrfkpqu"
 
 [functions.contact]
+verify_jwt = false
 
 [functions.demo-request]
+verify_jwt = false
 
 [functions.admin-submissions]
+verify_jwt = false
 
 [functions.admin-verify]
+verify_jwt = false
