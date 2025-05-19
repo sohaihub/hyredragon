@@ -23,22 +23,24 @@ serve(async (req) => {
 
     // Get the request body
     const requestData = await req.json();
-    console.log("Contact form submission received:", requestData);
+    console.log("Demo request received:", requestData);
 
-    // Insert data into the contact form table
+    // Insert data into the demo_requests table
     const { data, error } = await supabaseClient
-      .from("contact form")
+      .from("demo_requests")
       .insert({
-        Name: requestData.name,
-        Email: requestData.email,
-        Company: requestData.company,
-        Plan: requestData.plan,
-        Subject: requestData.subject,
-        Message: requestData.message,
+        first_name: requestData.firstName,
+        last_name: requestData.lastName,
+        email: requestData.email,
+        phone: requestData.phone,
+        company: requestData.company,
+        job_title: requestData.jobTitle,
+        company_size: requestData.companySize,
+        message: requestData.message,
       });
 
     if (error) {
-      console.error("Error storing contact form data:", error);
+      console.error("Error storing demo request data:", error);
       return new Response(
         JSON.stringify({ error: "Failed to submit form" }),
         {
@@ -49,7 +51,7 @@ serve(async (req) => {
     }
 
     return new Response(
-      JSON.stringify({ success: true, message: "Form submitted successfully" }),
+      JSON.stringify({ success: true, message: "Demo request submitted successfully" }),
       {
         status: 200,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

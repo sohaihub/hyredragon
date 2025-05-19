@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -16,9 +17,11 @@ import {
 } from "@/components/ui/select";
 import { submitContactForm } from '@/lib/api';
 import type { ContactFormData } from '@/lib/types';
+import { supabase } from "@/integrations/supabase/client";
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
+  const [pricingPlans, setPricingPlans] = useState<any[]>([]);
   
   // Form state with all required fields initialized
   const [formData, setFormData] = useState<ContactFormData>({
@@ -32,6 +35,24 @@ const Contact: React.FC = () => {
   
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Fetch pricing plans from Supabase
+  useEffect(() => {
+    async function fetchPricingPlans() {
+      const { data, error } = await supabase
+        .from('pricing_plans')
+        .select('*')
+        .order('price', { ascending: true });
+      
+      if (error) {
+        console.error('Error fetching pricing plans:', error);
+      } else {
+        setPricingPlans(data);
+      }
+    }
+    
+    fetchPricingPlans();
+  }, []);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -209,9 +230,23 @@ const Contact: React.FC = () => {
                         <SelectValue placeholder="Select a plan" />
                       </SelectTrigger>
                       <SelectContent className="bg-blue-950 border-white/20 text-white">
-                        <SelectItem value="Free">Free</SelectItem>
-                        <SelectItem value="Pro">Pro</SelectItem>
-                        <SelectItem value="Enterprise">Enterprise</SelectItem>
+                        {pricingPlans.length > 0 ? (
+                          pricingPlans.map((plan) => (
+                            <SelectItem key={plan.id} value={plan.name}>
+                              {plan.name} (₹{plan.price.toLocaleString()})
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <>
+                            <SelectItem value="Free">Free</SelectItem>
+                            <SelectItem value="Starter">Starter</SelectItem>
+                            <SelectItem value="Basic">Basic</SelectItem>
+                            <SelectItem value="Standard">Standard</SelectItem>
+                            <SelectItem value="Professional">Professional</SelectItem>
+                            <SelectItem value="Premium">Premium</SelectItem>
+                            <SelectItem value="Enterprise">Enterprise</SelectItem>
+                          </>
+                        )}
                       </SelectContent>
                     </Select>
                   </div>

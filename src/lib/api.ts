@@ -4,7 +4,7 @@
 import { ContactFormData } from './types';
 
 // Base URL for API calls
-const API_BASE_URL = import.meta.env.VITE_SUPABASE_FUNCTIONS_URL || '';
+const API_BASE_URL = "https://hyhvmvsxrxnwybrfkpqu.supabase.co/functions/v1";
 
 /**
  * Submit contact form data to serverless function
@@ -27,6 +27,31 @@ export async function submitContactForm(formData: ContactFormData): Promise<bool
     return true;
   } catch (error) {
     console.error('Error submitting contact form:', error);
+    throw error;
+  }
+}
+
+/**
+ * Submit demo request to serverless function
+ */
+export async function submitDemoRequest(formData: any): Promise<boolean> {
+  try {
+    const response = await fetch(`${API_BASE_URL}/demo-request`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || 'Failed to submit demo request');
+    }
+
+    return true;
+  } catch (error) {
+    console.error('Error submitting demo request:', error);
     throw error;
   }
 }
@@ -74,7 +99,7 @@ export async function getContactSubmissions(password: string) {
     }
 
     const data = await response.json();
-    return data.submissions || [];
+    return data;
   } catch (error) {
     console.error('Error fetching submissions:', error);
     throw error;

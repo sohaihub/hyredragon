@@ -1,57 +1,78 @@
 
 import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { verifyAdmin, getContactSubmissions } from '@/lib/api';
-import { Submission } from '@/lib/types';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import { format } from 'date-fns';
 
 const Admin: React.FC = () => {
-  const { toast } = useToast();
-  const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [isVerified, setIsVerified] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [contactSubmissions, setContactSubmissions] = useState<any[]>([]);
+  const [demoRequests, setDemoRequests] = useState<any[]>([]);
+  const { toast } = useToast();
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
+  };
+
+  const handleVerify = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
-
-    try {
-      // Authenticate using the API utility
-      const success = await verifyAdmin(password);
-
-      if (!success) {
-        throw new Error('Authentication failed');
-      }
-
-      setIsAuthenticated(true);
-      await fetchSubmissions();
-      
-    } catch (error) {
-      console.error('Login error:', error);
+    
+    if (!password) {
       toast({
-        title: "Authentication Failed",
-        description: "Incorrect password. Please try again.",
+        title: "Error",
+        description: "Please enter the admin password",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setIsVerifying(true);
+    
+    try {
+      const verified = await verifyAdmin(password);
+      
+      if (verified) {
+        setIsVerified(true);
+        fetchSubmissions();
+      } else {
+        toast({
+          title: "Access Denied",
+          description: "Incorrect password",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      console.error('Error verifying admin:', error);
+      toast({
+        title: "Error",
+        description: "Failed to verify admin credentials. Please try again.",
         variant: "destructive",
       });
     } finally {
-      setIsLoading(false);
+      setIsVerifying(false);
     }
   };
 
   const fetchSubmissions = async () => {
     setIsLoading(true);
+    
     try {
-      // Fetch submissions using the API utility
       const data = await getContactSubmissions(password);
-      setSubmissions(data);
-      
+      setContactSubmissions(data.contacts || []);
+      setDemoRequests(data.demoRequests || []);
     } catch (error) {
       console.error('Error fetching submissions:', error);
       toast({
         title: "Error",
-        description: "Failed to load submissions. Please try again.",
+        description: "Failed to fetch submissions. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -59,107 +80,197 @@ const Admin: React.FC = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-900 to-blue-950 py-16 px-4">
-      <div className="container mx-auto max-w-6xl">
-        {!isAuthenticated ? (
-          <div className="max-w-md mx-auto bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 shadow-xl">
-            <h1 className="text-3xl font-bold text-white mb-6">Admin Login</h1>
-            
-            <form onSubmit={handleLogin} className="space-y-6">
-              <div className="space-y-2">
-                <label htmlFor="password" className="text-white text-sm font-medium block">
-                  Password
-                </label>
-                <Input
-                  id="password"
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Enter admin password"
-                  className="bg-white/10 border-white/20 text-white focus:border-blue-400"
-                  required
-                />
-              </div>
+  const formatDate = (dateString: string) => {
+    try {
+      return format(new Date(dateString), 'MMM dd, yyyy HH:mm');
+    } catch (error) {
+      return dateString || 'N/A';
+    }
+  };
 
-              <Button
-                type="submit"
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white transition-colors"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <div className="flex items-center justify-center">
-                    <div className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent mr-2"></div>
-                    Logging in...
-                  </div>
-                ) : (
-                  "Login"
-                )}
-              </Button>
-            </form>
-          </div>
-        ) : (
-          <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-6 md:p-8 shadow-xl">
-            <div className="flex justify-between items-center mb-8">
-              <h1 className="text-3xl font-bold text-white">Contact Form Submissions</h1>
-              <Button
-                onClick={() => setIsAuthenticated(false)}
-                variant="outline"
-                className="border-white/20 text-white hover:bg-white/10"
-              >
-                Logout
-              </Button>
+  return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-900 to-blue-950">
+      <Header />
+      
+      <main className="flex-grow container mx-auto px-4 py-16">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+            Admin Dashboard
+          </h1>
+          
+          {!isVerified ? (
+            <div className="bg-white/5 backdrop-blur-md rounded-xl p-8 max-w-md mx-auto border border-white/10">
+              <h2 className="text-xl font-medium text-white mb-6">Admin Login</h2>
+              
+              <form onSubmit={handleVerify} className="space-y-6">
+                <div>
+                  <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-2">
+                    Password
+                  </label>
+                  <Input
+                    id="password"
+                    type="password"
+                    value={password}
+                    onChange={handlePasswordChange}
+                    placeholder="Enter admin password"
+                    className="bg-white/10 border-white/20 text-white"
+                    disabled={isVerifying}
+                  />
+                </div>
+                
+                <Button
+                  type="submit"
+                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  disabled={isVerifying}
+                >
+                  {isVerifying ? "Verifying..." : "Login"}
+                </Button>
+              </form>
             </div>
-            
-            {isLoading ? (
-              <div className="flex justify-center items-center h-40">
-                <div className="h-8 w-8 animate-spin rounded-full border-4 border-blue-400 border-t-transparent"></div>
+          ) : (
+            <div>
+              <div className="mb-6 flex justify-between items-center">
+                <h2 className="text-2xl font-bold text-white">Submissions</h2>
+                <Button 
+                  onClick={fetchSubmissions} 
+                  variant="outline" 
+                  className="text-white border-white/20 hover:bg-white/10"
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Loading..." : "Refresh Data"}
+                </Button>
               </div>
-            ) : submissions.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-white/10">
-                      <th className="py-3 px-4 text-blue-400">Name</th>
-                      <th className="py-3 px-4 text-blue-400">Email</th>
-                      <th className="py-3 px-4 text-blue-400">Company</th>
-                      <th className="py-3 px-4 text-blue-400">Plan</th>
-                      <th className="py-3 px-4 text-blue-400">Subject</th>
-                      <th className="py-3 px-4 text-blue-400">Message</th>
-                      <th className="py-3 px-4 text-blue-400">Date</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {submissions.map((submission, index) => (
-                      <tr key={index} className="border-b border-white/5 hover:bg-white/5">
-                        <td className="py-4 px-4 text-white">{submission.name}</td>
-                        <td className="py-4 px-4 text-white">{submission.email}</td>
-                        <td className="py-4 px-4 text-white">{submission.company || '—'}</td>
-                        <td className="py-4 px-4 text-white">{submission.plan}</td>
-                        <td className="py-4 px-4 text-white">{submission.subject}</td>
-                        <td className="py-4 px-4 text-white">
-                          <div className="max-w-xs overflow-hidden text-ellipsis whitespace-nowrap">
-                            {submission.message}
-                          </div>
-                        </td>
-                        <td className="py-4 px-4 text-white">
-                          {submission.created_at
-                            ? new Date(submission.created_at).toLocaleDateString()
-                            : '—'}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+              
+              <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden">
+                <Tabs defaultValue="contacts" className="w-full">
+                  <TabsList className="w-full bg-white/5">
+                    <TabsTrigger value="contacts" className="flex-1">Contact Form ({contactSubmissions.length})</TabsTrigger>
+                    <TabsTrigger value="demos" className="flex-1">Demo Requests ({demoRequests.length})</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="contacts" className="p-0">
+                    {contactSubmissions.length > 0 ? (
+                      <div className="overflow-x-auto">
+                        <table className="w-full">
+                          <thead className="bg-white/5 border-b border-white/10">
+                            <tr>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Plan</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Subject</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Message</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-white/10">
+                            {contactSubmissions.map((submission, index) => (
+                              <tr key={index} className="text-gray-100 hover:bg-white/5">
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {formatDate(submission.created_at)}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {submission.Name}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {submission.Email}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {submission.Company || 'N/A'}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {submission.Plan || 'N/A'}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {submission.Subject || 'N/A'}
+                                </td>
+                                <td className="px-4 py-4 text-sm max-w-xs truncate">
+                                  {submission.Message || 'N/A'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <div className="p-8 text-center text-gray-300">
+                        {isLoading ? 'Loading contact submissions...' : 'No contact form submissions found'}
+                      </div>
+                    )}
+                  </TabsContent>
+                  
+                  <TabsContent value="demos" className="p-0">
+                    {demoRequests.length > 0 ? (
+                      <div className="overflow-x-auto">
+                        <table className="w-full">
+                          <thead className="bg-white/5 border-b border-white/10">
+                            <tr>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Phone</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Job Title</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company Size</th>
+                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Message</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-white/10">
+                            {demoRequests.map((request, index) => (
+                              <tr key={index} className="text-gray-100 hover:bg-white/5">
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {formatDate(request.created_at)}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {request.first_name} {request.last_name}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {request.email}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {request.phone}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {request.company}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {request.job_title}
+                                </td>
+                                <td className="px-4 py-4 whitespace-nowrap text-sm">
+                                  {request.company_size}
+                                </td>
+                                <td className="px-4 py-4 text-sm max-w-xs truncate">
+                                  {request.message || 'N/A'}
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    ) : (
+                      <div className="p-8 text-center text-gray-300">
+                        {isLoading ? 'Loading demo requests...' : 'No demo requests found'}
+                      </div>
+                    )}
+                  </TabsContent>
+                </Tabs>
               </div>
-            ) : (
-              <div className="text-center py-10 text-gray-300">
-                <p>No submissions found.</p>
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+              
+              <p className="mt-6 text-sm text-gray-400 text-center">
+                For security reasons, please log out when you're done. <br />
+                <button 
+                  onClick={() => setIsVerified(false)} 
+                  className="text-blue-400 hover:underline mt-2"
+                >
+                  Log Out
+                </button>
+              </p>
+            </div>
+          )}
+        </div>
+      </main>
+      
+      <Footer />
     </div>
   );
 };

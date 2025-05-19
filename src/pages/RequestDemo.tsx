@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -15,6 +16,8 @@ import {
 } from '@/components/ui/select';
 import { CheckCircle, ArrowRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { submitDemoRequest } from '@/lib/api';
+import type { DemoRequestData } from '@/lib/types';
 
 const companySizes = [
   '1-10 employees',
@@ -28,16 +31,98 @@ const companySizes = [
 const RequestDemo: React.FC = () => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState<DemoRequestData>({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    company: '',
+    jobTitle: '',
+    companySize: '',
+    message: '',
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+    
+    if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
+    if (!formData.email.trim()) newErrors.email = 'Email is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
+    if (!formData.company.trim()) newErrors.company = 'Company name is required';
+    if (!formData.jobTitle.trim()) newErrors.jobTitle = 'Job title is required';
+    if (!formData.companySize) newErrors.companySize = 'Company size is required';
+    
+    // Validate email format
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (formData.email && !emailRegex.test(formData.email)) {
+      newErrors.email = 'Please enter a valid email address';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [id]: value
+    }));
+    
+    // Clear error when user types
+    if (errors[id]) {
+      setErrors(prev => ({
+        ...prev,
+        [id]: ''
+      }));
+    }
+  };
+
+  const handleCompanySizeChange = (value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      companySize: value
+    }));
+    
+    // Clear error when user selects
+    if (errors.companySize) {
+      setErrors(prev => ({
+        ...prev,
+        companySize: ''
+      }));
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setFormSubmitted(true);
-
-    toast({
-      title: 'Demo request received!',
-      description:
-        'Our team will contact you shortly to schedule your personalized demo.',
-    });
+    
+    if (!validateForm()) return;
+    
+    setIsSubmitting(true);
+    
+    try {
+      await submitDemoRequest(formData);
+      
+      toast({
+        title: 'Demo request received!',
+        description:
+          'Our team will contact you shortly to schedule your personalized demo.',
+      });
+      
+      setFormSubmitted(true);
+    } catch (error) {
+      console.error('Error submitting demo request:', error);
+      toast({
+        title: 'Error',
+        description: 'There was a problem submitting your request. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -79,9 +164,15 @@ const RequestDemo: React.FC = () => {
                           id="firstName"
                           type="text"
                           placeholder="Your first name"
+                          value={formData.firstName}
+                          onChange={handleChange}
                           required
                           className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                          aria-invalid={!!errors.firstName}
                         />
+                        {errors.firstName && (
+                          <p className="text-red-400 text-sm mt-1">{errors.firstName}</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="lastName" className="text-white">
@@ -91,9 +182,15 @@ const RequestDemo: React.FC = () => {
                           id="lastName"
                           type="text"
                           placeholder="Your last name"
+                          value={formData.lastName}
+                          onChange={handleChange}
                           required
                           className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                          aria-invalid={!!errors.lastName}
                         />
+                        {errors.lastName && (
+                          <p className="text-red-400 text-sm mt-1">{errors.lastName}</p>
+                        )}
                       </div>
                     </div>
 
@@ -105,9 +202,15 @@ const RequestDemo: React.FC = () => {
                         id="email"
                         type="email"
                         placeholder="your.email@company.com"
+                        value={formData.email}
+                        onChange={handleChange}
                         required
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                        aria-invalid={!!errors.email}
                       />
+                      {errors.email && (
+                        <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -118,9 +221,15 @@ const RequestDemo: React.FC = () => {
                         id="phone"
                         type="tel"
                         placeholder="+1 (555) 123-4567"
+                        value={formData.phone}
+                        onChange={handleChange}
                         required
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                        aria-invalid={!!errors.phone}
                       />
+                      {errors.phone && (
+                        <p className="text-red-400 text-sm mt-1">{errors.phone}</p>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -132,9 +241,15 @@ const RequestDemo: React.FC = () => {
                           id="company"
                           type="text"
                           placeholder="Your company name"
+                          value={formData.company}
+                          onChange={handleChange}
                           required
                           className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                          aria-invalid={!!errors.company}
                         />
+                        {errors.company && (
+                          <p className="text-red-400 text-sm mt-1">{errors.company}</p>
+                        )}
                       </div>
                       <div className="space-y-2">
                         <Label htmlFor="jobTitle" className="text-white">
@@ -144,9 +259,15 @@ const RequestDemo: React.FC = () => {
                           id="jobTitle"
                           type="text"
                           placeholder="Your role"
+                          value={formData.jobTitle}
+                          onChange={handleChange}
                           required
                           className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                          aria-invalid={!!errors.jobTitle}
                         />
+                        {errors.jobTitle && (
+                          <p className="text-red-400 text-sm mt-1">{errors.jobTitle}</p>
+                        )}
                       </div>
                     </div>
 
@@ -154,7 +275,7 @@ const RequestDemo: React.FC = () => {
                       <Label htmlFor="companySize" className="text-white">
                         Company Size
                       </Label>
-                      <Select required>
+                      <Select required onValueChange={handleCompanySizeChange} value={formData.companySize}>
                         <SelectTrigger className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white">
                           <SelectValue placeholder="Select company size" />
                         </SelectTrigger>
@@ -166,6 +287,9 @@ const RequestDemo: React.FC = () => {
                           ))}
                         </SelectContent>
                       </Select>
+                      {errors.companySize && (
+                        <p className="text-red-400 text-sm mt-1">{errors.companySize}</p>
+                      )}
                     </div>
 
                     <div className="space-y-2">
@@ -175,6 +299,8 @@ const RequestDemo: React.FC = () => {
                       <Textarea
                         id="message"
                         placeholder="Tell us about your hiring challenges and what you're looking for in a recruitment solution..."
+                        value={formData.message}
+                        onChange={handleChange}
                         rows={4}
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white resize-none"
                       />
@@ -182,22 +308,32 @@ const RequestDemo: React.FC = () => {
 
                     <Button
                       type="submit"
+                      disabled={isSubmitting}
                       className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full flex items-center gap-2 justify-center"
                     >
-                      Request Demo <ArrowRight className="w-4 h-4" />
+                      {isSubmitting ? (
+                        <>
+                          <div className="h-4 w-4 animate-spin rounded-full border-2 border-[#0A0A29] border-t-transparent"></div>
+                          <span>Submitting...</span>
+                        </>
+                      ) : (
+                        <>
+                          Request Demo <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
                     </Button>
 
                     <p className="text-xs text-gray-400 text-center">
                       By submitting this form, you agree to our{' '}
                       <Link
-                        to="#"
+                        to="/terms"
                         className="text-[#7B78FF] hover:text-[#E2FF55]"
                       >
                         Terms of Service
                       </Link>{' '}
                       and{' '}
                       <Link
-                        to="#"
+                        to="/privacy"
                         className="text-[#7B78FF] hover:text-[#E2FF55]"
                       >
                         Privacy Policy
