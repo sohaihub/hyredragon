@@ -17,16 +17,6 @@ import {
 import { submitContactForm } from '@/lib/api';
 import { ContactFormData } from '@/lib/types';
 
-// Define the form data type with required fields
-interface ContactFormData {
-  name: string;
-  email: string;
-  company: string;
-  plan: string;
-  subject: string;
-  message: string;
-}
-
 const Contact: React.FC = () => {
   const { toast } = useToast();
   
@@ -41,7 +31,7 @@ const Contact: React.FC = () => {
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitting, setIsSubmitting] useState(false);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

@@ -1,19 +1,10 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { verifyAdmin, getContactSubmissions } from '@/lib/api';
 import { Submission } from '@/lib/types';
-
-interface ContactSubmission {
-  name: string;
-  email: string;
-  company: string;
-  plan: string;
-  subject: string;
-  message: string;
-  createdAt?: string;
-}
 
 const Admin: React.FC = () => {
   const { toast } = useToast();
@@ -152,8 +143,8 @@ const Admin: React.FC = () => {
                           </div>
                         </td>
                         <td className="py-4 px-4 text-white">
-                          {submission.createdAt
-                            ? new Date(submission.createdAt).toLocaleDateString()
+                          {submission.created_at
+                            ? new Date(submission.created_at).toLocaleDateString()
                             : '—'}
                         </td>
                       </tr>
