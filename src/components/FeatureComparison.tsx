@@ -35,7 +35,7 @@ const FeatureCategory: React.FC<FeatureCategoryProps> = ({ title, features }) =>
         <table className="w-full table-fixed">
           <thead>
             <tr className="text-left">
-              <th className="py-2 px-4 w-1/3 md:w-2/5 text-white text-lg">Feature</th>
+              <th className="py-2 px-4 w-1/2 md:w-[30%] text-white text-lg">Feature</th>
               <th className={cn("py-2 px-4 text-center text-white text-lg", planColors.starter)}>
                 Starter<br/>(10k)
               </th>
