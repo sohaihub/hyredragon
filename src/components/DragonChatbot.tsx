@@ -263,9 +263,9 @@ const DragonChatbot: React.FC = () => {
       
       {/* Premium chat window with subtle animations */}
       {isOpen && (
-        <div className="bg-[#0F103E] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
+        <div className="bg-[#080820] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
           {/* Chat header - updated with Dragon theme */}
-          <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#151535] relative overflow-hidden">
+          <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
             <div className="flex items-center relative z-10">
               <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
                 <Sparkles className="w-5 h-5 text-[#E2FF55]" />
@@ -294,7 +294,7 @@ const DragonChatbot: React.FC = () => {
           
           {/* Chat messages with refined animations */}
           <div 
-            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#0F103E]"
+            className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent bg-[#080820]"
             ref={chatContainerRef}
             style={{ 
               backgroundImage: 'url("data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.03" fill-rule="evenodd"%3E%3Ccircle cx="3" cy="3" r="3"/%3E%3Ccircle cx="13" cy="13" r="3"/%3E%3C/g%3E%3C/svg%3E")',
@@ -345,7 +345,7 @@ const DragonChatbot: React.FC = () => {
           </div>
           
           {/* Chat input - refined design */}
-          <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#151535]">
+          <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#080822]">
             <div className="flex items-center gap-2 relative">
               <Input
                 value={input}

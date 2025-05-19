@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Flame } from 'lucide-react';
 
 // Define prop types for the logo component
 interface HydragonLogoProps {
@@ -27,13 +28,9 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
     <div className="inline-flex items-center">
       {/* Logo icon */}
       <div className="relative" style={{ height: `${height}px` }}>
-        {/* Use the uploaded image instead of the Flame icon */}
-        <div className="rounded-full" style={{ width: `${icon}px`, height: `${icon}px` }}>
-          <img 
-            src="/lovable-uploads/3668d3b3-d949-47a7-940e-669ff11143f8.png" 
-            alt="HyreDragon Logo" 
-            className="w-full h-full"
-          />
+        {/* Circular gradient background */}
+        <div className={`w-${icon/8} h-${icon/8} rounded-full flex items-center justify-center bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 p-1`} style={{ width: `${icon}px`, height: `${icon}px` }}>
+          <Flame className="w-6 h-6 text-[#E2FF55]" style={{ width: `${icon * 0.7}px`, height: `${icon * 0.7}px` }} />
         </div>
       </div>
       
@@ -41,7 +38,7 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
       {withText && (
         <div className="ml-2 md:ml-3">
           <h1 className="text-white font-bold text-lg md:text-xl">
-            Hyre<span className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-transparent bg-clip-text">Dragon</span>
+            Hyre<span className="bg-gradient-to-r from-[#E2FF55] to-[#00AAFF] text-transparent bg-clip-text">Dragon</span>
           </h1>
           <p className="text-gray-400 text-[10px] md:text-xs -mt-1">AI Recruitment Solutions</p>
         </div>
