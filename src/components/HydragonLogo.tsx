@@ -28,9 +28,17 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
     <div className="inline-flex items-center">
       {/* Logo icon */}
       <div className="relative" style={{ height: `${height}px` }}>
-        {/* Circular gradient background */}
-        <div className={`w-${icon/8} h-${icon/8} rounded-full flex items-center justify-center bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 p-1`} style={{ width: `${icon}px`, height: `${icon}px` }}>
-          <Flame className="w-6 h-6 text-[#E2FF55]" style={{ width: `${icon * 0.7}px`, height: `${icon * 0.7}px` }} />
+        {/* Circular background for the flame */}
+        <div 
+          className="rounded-full flex items-center justify-center" 
+          style={{ 
+            width: `${icon}px`, 
+            height: `${icon}px`, 
+            backgroundColor: '#0A0A29',
+            border: '2px solid #E2FF55'
+          }}
+        >
+          <Flame className="text-[#E2FF55]" style={{ width: `${icon * 0.7}px`, height: `${icon * 0.7}px` }} />
         </div>
       </div>
       
@@ -38,9 +46,8 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
       {withText && (
         <div className="ml-2 md:ml-3">
           <h1 className="text-white font-bold text-lg md:text-xl">
-            Hyre<span className="bg-gradient-to-r from-[#E2FF55] to-[#00AAFF] text-transparent bg-clip-text">Dragon</span>
+            <span className="text-[#E2FF55]">HyreDragon</span>
           </h1>
-          <p className="text-gray-400 text-[10px] md:text-xs -mt-1">AI Recruitment Solutions</p>
         </div>
       )}
     </div>

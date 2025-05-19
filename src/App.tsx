@@ -18,8 +18,8 @@ import DragonChatbot from './components/DragonChatbot';
 import Admin from './pages/Admin';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component - modified for green effect
-const GreenCursor = () => {
+// Custom cursor component - dragon theme with flame effect
+const DragonCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -52,16 +52,17 @@ const GreenCursor = () => {
     };
     
     const createClickEffect = (e: MouseEvent) => {
-      const clickEffect = document.createElement('div');
-      clickEffect.className = 'green-click-effect';
-      clickEffect.style.left = `${e.clientX}px`;
-      clickEffect.style.top = `${e.clientY}px`;
+      // Create flame effect on click
+      const flameEffect = document.createElement('div');
+      flameEffect.className = 'flame-click-effect';
+      flameEffect.style.left = `${e.clientX}px`;
+      flameEffect.style.top = `${e.clientY}px`;
       
-      document.body.appendChild(clickEffect);
+      document.body.appendChild(flameEffect);
       
       setTimeout(() => {
-        if (clickEffect && clickEffect.parentNode === document.body) {
-          document.body.removeChild(clickEffect);
+        if (flameEffect && flameEffect.parentNode === document.body) {
+          document.body.removeChild(flameEffect);
         }
       }, 800);
     };
@@ -70,47 +71,45 @@ const GreenCursor = () => {
     document.addEventListener('mousemove', handleInteractiveHover);
     document.addEventListener('click', createClickEffect);
     
-    // Add green cursor style
+    // Add dragon cursor style
     const style = document.createElement('style');
     style.innerHTML = `
-      .green-cursor {
+      .dragon-cursor {
         position: fixed;
         width: 24px;
         height: 24px;
-        background-color: transparent;
-        border: 2px solid #E2FF55;
-        border-radius: 50%;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E2FF55' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2c.5 0 2 2 2 3.5c0 2.5-2 3-2 9.5c0 1.5 1 2 1 3.5c0 1-.5 2-2 2s-2-1-2-2c0-1.5 1-2 1-3.5c0-6.5-2-7-2-9.5C8 4 11.5 2 12 2z'/%3E%3C/svg%3E");
+        background-size: cover;
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);
-        transition: transform 0.15s ease-out, border-color 0.3s ease;
+        transition: transform 0.15s ease-out, filter 0.3s ease;
       }
       
-      .green-cursor.active {
+      .dragon-cursor.active {
         transform: translate(-50%, -50%) scale(1.5);
-        border-color: #E2FF55;
-        background-color: rgba(226, 255, 85, 0.1);
+        filter: drop-shadow(0 0 8px rgba(226, 255, 85, 0.8));
       }
       
-      .green-click-effect {
+      .flame-click-effect {
         position: fixed;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: rgba(226, 255, 85, 0.8);
+        width: 40px;
+        height: 40px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23E2FF55' stroke='%23E2FF55' stroke-width='1' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3s.55-1.38 1-2.5c1.48 1.05 2.5 2.62 2.5 4.5 0 2.5-2 4.5-4.5 4.5S4.5 15.5 4.5 13c0-1.38.5-2.5 1.25-3.5C6.5 10.5 8.5 11 8.5 14.5Z'/%3E%3C/svg%3E");
+        background-size: cover;
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);
-        animation: greenClickEffect 0.8s ease-out forwards;
+        animation: flameClickEffect 0.8s ease-out forwards;
       }
       
-      @keyframes greenClickEffect {
+      @keyframes flameClickEffect {
         0% {
-          transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0.5);
           opacity: 1;
         }
         100% {
-          transform: translate(-50%, -50%) scale(5);
+          transform: translate(-50%, -50%) scale(2.5);
           opacity: 0;
         }
       }
@@ -127,7 +126,7 @@ const GreenCursor = () => {
   }, []);
 
   return (
-    <div ref={cursorRef} className="green-cursor transition-transform duration-150"></div>
+    <div ref={cursorRef} className="dragon-cursor transition-transform duration-150"></div>
   );
 };
 
@@ -285,7 +284,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <PageSetup />
-      <GreenCursor />
+      <DragonCursor />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
