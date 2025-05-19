@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { verifyAdmin, getContactSubmissions, exportSubmissionsToCsv } from '@/lib/responses';
@@ -230,25 +229,27 @@ const Admin: React.FC = () => {
               <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
                 <h2 className="text-2xl font-bold text-white">Submissions Dashboard</h2>
                 <div className="flex gap-2">
+                  {/* Updated Refresh Data Button with Neon Theme */}
                   <Button 
                     onClick={fetchSubmissions} 
                     variant="outline" 
-                    className="text-white border-white/20 hover:bg-white/10"
+                    className="text-[#E2FF55] border-[#E2FF55] hover:bg-[#E2FF55]/10 hover:shadow-[0_0_15px_#E2FF55] transition-all duration-300"
                     disabled={isLoading}
                   >
                     {isLoading ? (
                       <div className="flex items-center">
-                        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                        <Loader2 className="h-4 w-4 animate-spin mr-2 text-[#E2FF55]" />
                         <span>Loading...</span>
                       </div>
                     ) : (
                       <div className="flex items-center">
-                        <RefreshCw className="h-4 w-4 mr-2" />
+                        <RefreshCw className="h-4 w-4 mr-2 text-[#E2FF55]" />
                         <span>Refresh Data</span>
                       </div>
                     )}
                   </Button>
                   
+                  {/* Export to CSV Button */}
                   <Button 
                     onClick={handleExportCsv}
                     className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90"
@@ -268,231 +269,3 @@ const Admin: React.FC = () => {
                   </Button>
                 </div>
               </div>
-              
-              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl overflow-hidden shadow-lg">
-                <Tabs defaultValue="contacts" className="w-full">
-                  <TabsList className="w-full bg-white/5">
-                    <TabsTrigger value="contacts" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
-                      Contact Form ({contactSubmissions.length})
-                    </TabsTrigger>
-                    <TabsTrigger value="demos" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
-                      Demo Requests ({demoRequests.length})
-                    </TabsTrigger>
-                    <TabsTrigger value="newsletters" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
-                      Newsletter Subscribers ({newsletterSubscriptions.length})
-                    </TabsTrigger>
-                  </TabsList>
-                  
-                  {/* Contact Form Submissions Tab */}
-                  <TabsContent value="contacts" className="p-0">
-                    <div className="overflow-x-auto">
-                      {contactSubmissions.length > 0 ? (
-                        <Table>
-                          <TableHeader>
-                            <TableRow className="border-white/10 bg-white/5">
-                              <TableHead className="text-gray-300">Date</TableHead>
-                              <TableHead className="text-gray-300">Name</TableHead>
-                              <TableHead className="text-gray-300">Email</TableHead>
-                              <TableHead className="text-gray-300">Company</TableHead>
-                              <TableHead className="text-gray-300">Subject</TableHead>
-                              <TableHead className="text-gray-300">Message</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody className="divide-y divide-white/10">
-                            {contactSubmissions.map((submission) => (
-                              <TableRow key={submission.id} className="text-gray-100 hover:bg-white/5 border-white/10">
-                                <TableCell className="font-medium">
-                                  {submission.formattedDate}
-                                </TableCell>
-                                <TableCell>
-                                  <div className="flex items-center">
-                                    <User className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    {submission.name}
-                                  </div>
-                                </TableCell>
-                                <TableCell>
-                                  <div className="flex items-center">
-                                    <Mail className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    {submission.email}
-                                  </div>
-                                </TableCell>
-                                <TableCell>
-                                  {submission.company ? (
-                                    <div className="flex items-center">
-                                      <Building className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                      {submission.company}
-                                    </div>
-                                  ) : 'N/A'}
-                                </TableCell>
-                                <TableCell>{submission.subject}</TableCell>
-                                <TableCell className="max-w-xs truncate">
-                                  <div className="flex items-center">
-                                    <MessageSquare className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    <span title={submission.message}>
-                                      {submission.message.length > 50 
-                                        ? `${submission.message.substring(0, 50)}...` 
-                                        : submission.message}
-                                    </span>
-                                  </div>
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      ) : (
-                        <div className="p-8 text-center text-gray-300">
-                          {isLoading ? (
-                            <div className="flex justify-center items-center space-x-2">
-                              <Loader2 className="h-5 w-5 animate-spin text-[#E2FF55]" />
-                              <span>Loading contact submissions...</span>
-                            </div>
-                          ) : 'No contact form submissions found'}
-                        </div>
-                      )}
-                    </div>
-                  </TabsContent>
-                  
-                  {/* Demo Requests Tab */}
-                  <TabsContent value="demos" className="p-0">
-                    <div className="overflow-x-auto">
-                      {demoRequests.length > 0 ? (
-                        <Table>
-                          <TableHeader>
-                            <TableRow className="border-white/10 bg-white/5">
-                              <TableHead className="text-gray-300">Date</TableHead>
-                              <TableHead className="text-gray-300">Name</TableHead>
-                              <TableHead className="text-gray-300">Email</TableHead>
-                              <TableHead className="text-gray-300">Company</TableHead>
-                              <TableHead className="text-gray-300">Job Title</TableHead>
-                              <TableHead className="text-gray-300">Size</TableHead>
-                              <TableHead className="text-gray-300">Preferred Date</TableHead>
-                              <TableHead className="text-gray-300">Message</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody className="divide-y divide-white/10">
-                            {demoRequests.map((request) => (
-                              <TableRow key={request.id} className="text-gray-100 hover:bg-white/5 border-white/10">
-                                <TableCell className="font-medium">
-                                  {request.formattedDate}
-                                </TableCell>
-                                <TableCell>
-                                  <div className="flex items-center">
-                                    <User className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    {request.firstName} {request.lastName}
-                                  </div>
-                                </TableCell>
-                                <TableCell>
-                                  <div className="flex items-center">
-                                    <Mail className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    {request.email}
-                                  </div>
-                                </TableCell>
-                                <TableCell>
-                                  <div className="flex items-center">
-                                    <Building className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    {request.company}
-                                  </div>
-                                </TableCell>
-                                <TableCell>{request.jobTitle}</TableCell>
-                                <TableCell>{request.companySize}</TableCell>
-                                <TableCell>
-                                  {request.preferredDate ? (
-                                    <div className="flex items-center">
-                                      <Calendar className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                      {request.preferredDate}
-                                    </div>
-                                  ) : 'Not specified'}
-                                </TableCell>
-                                <TableCell className="max-w-xs truncate">
-                                  {request.message ? (
-                                    <div className="flex items-center">
-                                      <MessageSquare className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                      <span title={request.message}>
-                                        {request.message.length > 30 
-                                          ? `${request.message.substring(0, 30)}...` 
-                                          : request.message}
-                                      </span>
-                                    </div>
-                                  ) : 'N/A'}
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      ) : (
-                        <div className="p-8 text-center text-gray-300">
-                          {isLoading ? (
-                            <div className="flex justify-center items-center space-x-2">
-                              <Loader2 className="h-5 w-5 animate-spin text-[#E2FF55]" />
-                              <span>Loading demo requests...</span>
-                            </div>
-                          ) : 'No demo requests found'}
-                        </div>
-                      )}
-                    </div>
-                  </TabsContent>
-                  
-                  {/* Newsletter Subscribers Tab */}
-                  <TabsContent value="newsletters" className="p-0">
-                    <div className="overflow-x-auto">
-                      {newsletterSubscriptions.length > 0 ? (
-                        <Table>
-                          <TableHeader>
-                            <TableRow className="border-white/10 bg-white/5">
-                              <TableHead className="text-gray-300">Date</TableHead>
-                              <TableHead className="text-gray-300">Email</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody className="divide-y divide-white/10">
-                            {newsletterSubscriptions.map((subscriber) => (
-                              <TableRow key={subscriber.id} className="text-gray-100 hover:bg-white/5 border-white/10">
-                                <TableCell className="font-medium">
-                                  {subscriber.formattedDate}
-                                </TableCell>
-                                <TableCell>
-                                  <div className="flex items-center">
-                                    <Mail className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                                    {subscriber.email}
-                                  </div>
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      ) : (
-                        <div className="p-8 text-center text-gray-300">
-                          {isLoading ? (
-                            <div className="flex justify-center items-center space-x-2">
-                              <Loader2 className="h-5 w-5 animate-spin text-[#E2FF55]" />
-                              <span>Loading newsletter subscriptions...</span>
-                            </div>
-                          ) : 'No newsletter subscribers found'}
-                        </div>
-                      )}
-                    </div>
-                  </TabsContent>
-                </Tabs>
-              </div>
-              
-              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
-                <p className="text-sm text-gray-400 text-center sm:text-left">
-                  All data is stored locally in your browser's localStorage
-                </p>
-                <button 
-                  onClick={() => setIsVerified(false)} 
-                  className="text-[#E2FF55] hover:text-[#E2FF55]/80 hover:underline flex items-center"
-                >
-                  <span>Log Out</span>
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </main>
-      
-      <Footer />
-    </div>
-  );
-};
-
-export default Admin;
