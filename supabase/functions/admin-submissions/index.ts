@@ -35,10 +35,10 @@ serve(async (req) => {
     );
 
     // Fetch contact submissions
+    // Note: We're no longer using created_at for ordering since it doesn't exist in this table
     const { data: contactData, error: contactError } = await supabaseClient
       .from("contact form")
-      .select("*")
-      .order("created_at", { ascending: false });
+      .select("*");
 
     if (contactError) {
       console.error("Error fetching contact submissions:", contactError);
@@ -51,7 +51,7 @@ serve(async (req) => {
       );
     }
 
-    // Fetch demo requests
+    // Fetch demo requests (which do have created_at field)
     const { data: demoData, error: demoError } = await supabaseClient
       .from("demo_requests")
       .select("*")

@@ -73,7 +73,8 @@ export async function verifyAdmin(password: string): Promise<boolean> {
       return false;
     }
 
-    return true;
+    const data = await response.json();
+    return data.verified === true;
   } catch (error) {
     console.error('Error verifying admin:', error);
     return false;
@@ -85,6 +86,7 @@ export async function verifyAdmin(password: string): Promise<boolean> {
  */
 export async function getContactSubmissions(password: string) {
   try {
+    console.log("Fetching submissions with password...");
     const response = await fetch(`${API_BASE_URL}/admin-submissions`, {
       method: 'POST',
       headers: {
@@ -94,11 +96,13 @@ export async function getContactSubmissions(password: string) {
     });
 
     if (!response.ok) {
+      console.error("Response not OK:", response.status);
       const errorData = await response.json();
       throw new Error(errorData.error || 'Failed to fetch submissions');
     }
 
     const data = await response.json();
+    console.log("Submissions fetched successfully:", data);
     return data;
   } catch (error) {
     console.error('Error fetching submissions:', error);

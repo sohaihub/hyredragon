@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { format } from 'date-fns';
+import { Loader2, RefreshCw } from 'lucide-react';
 
 const Admin: React.FC = () => {
   const [password, setPassword] = useState("");
@@ -42,6 +43,10 @@ const Admin: React.FC = () => {
       if (verified) {
         setIsVerified(true);
         fetchSubmissions();
+        toast({
+          title: "Success",
+          description: "Admin login successful",
+        });
       } else {
         toast({
           title: "Access Denied",
@@ -66,8 +71,13 @@ const Admin: React.FC = () => {
     
     try {
       const data = await getContactSubmissions(password);
-      setContactSubmissions(data.contacts || []);
-      setDemoRequests(data.demoRequests || []);
+      console.log("Fetched data:", data); // Debug logging
+      setContactSubmissions(data.contact || []);
+      setDemoRequests(data.demos || []);
+      toast({
+        title: "Data Refreshed",
+        description: `${data.contact?.length || 0} contact submissions and ${data.demos?.length || 0} demo requests loaded.`
+      });
     } catch (error) {
       console.error('Error fetching submissions:', error);
       toast({
@@ -80,26 +90,37 @@ const Admin: React.FC = () => {
     }
   };
 
-  const formatDate = (dateString: string) => {
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return 'N/A';
     try {
       return format(new Date(dateString), 'MMM dd, yyyy HH:mm');
     } catch (error) {
-      return dateString || 'N/A';
+      return 'Invalid Date';
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-900 to-blue-950">
+      {/* Background elements */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
+        <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-neon-green/5 blur-3xl"></div>
+        <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-neon-purple/10 blur-3xl"></div>
+        <div className="absolute top-1/3 left-1/4 w-64 h-64 rounded-full bg-neon-green/5 blur-2xl"></div>
+      </div>
+      
       <Header />
       
-      <main className="flex-grow container mx-auto px-4 py-16">
+      <main className="flex-grow container mx-auto px-4 py-16 relative z-10">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
-            Admin Dashboard
-          </h1>
+          <div className="mb-8 text-center">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">
+              Admin Dashboard
+            </h1>
+            <p className="text-gray-300">Manage contact and demo request submissions</p>
+          </div>
           
           {!isVerified ? (
-            <div className="bg-white/5 backdrop-blur-md rounded-xl p-8 max-w-md mx-auto border border-white/10">
+            <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 max-w-md mx-auto shadow-xl">
               <h2 className="text-xl font-medium text-white mb-6">Admin Login</h2>
               
               <form onSubmit={handleVerify} className="space-y-6">
@@ -113,48 +134,66 @@ const Admin: React.FC = () => {
                     value={password}
                     onChange={handlePasswordChange}
                     placeholder="Enter admin password"
-                    className="bg-white/10 border-white/20 text-white"
+                    className="bg-white/5 border-white/10 text-white"
                     disabled={isVerifying}
                   />
                 </div>
                 
                 <Button
                   type="submit"
-                  className="w-full bg-blue-600 hover:bg-blue-700"
+                  className="w-full bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90"
                   disabled={isVerifying}
                 >
-                  {isVerifying ? "Verifying..." : "Login"}
+                  {isVerifying ? (
+                    <div className="flex items-center">
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      <span>Verifying...</span>
+                    </div>
+                  ) : "Login"}
                 </Button>
               </form>
             </div>
           ) : (
             <div>
-              <div className="mb-6 flex justify-between items-center">
-                <h2 className="text-2xl font-bold text-white">Submissions</h2>
+              <div className="mb-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+                <h2 className="text-2xl font-bold text-white">Submissions Dashboard</h2>
                 <Button 
                   onClick={fetchSubmissions} 
                   variant="outline" 
                   className="text-white border-white/20 hover:bg-white/10"
                   disabled={isLoading}
                 >
-                  {isLoading ? "Loading..." : "Refresh Data"}
+                  {isLoading ? (
+                    <div className="flex items-center">
+                      <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                      <span>Loading...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center">
+                      <RefreshCw className="h-4 w-4 mr-2" />
+                      <span>Refresh Data</span>
+                    </div>
+                  )}
                 </Button>
               </div>
               
-              <div className="bg-white/5 backdrop-blur-md rounded-xl border border-white/10 overflow-hidden">
+              <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl overflow-hidden shadow-lg">
                 <Tabs defaultValue="contacts" className="w-full">
                   <TabsList className="w-full bg-white/5">
-                    <TabsTrigger value="contacts" className="flex-1">Contact Form ({contactSubmissions.length})</TabsTrigger>
-                    <TabsTrigger value="demos" className="flex-1">Demo Requests ({demoRequests.length})</TabsTrigger>
+                    <TabsTrigger value="contacts" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
+                      Contact Form ({contactSubmissions.length})
+                    </TabsTrigger>
+                    <TabsTrigger value="demos" className="flex-1 text-white data-[state=active]:bg-[#E2FF55]/10 data-[state=active]:text-[#E2FF55]">
+                      Demo Requests ({demoRequests.length})
+                    </TabsTrigger>
                   </TabsList>
                   
                   <TabsContent value="contacts" className="p-0">
-                    {contactSubmissions.length > 0 ? (
-                      <div className="overflow-x-auto">
+                    <div className="overflow-x-auto">
+                      {contactSubmissions.length > 0 ? (
                         <table className="w-full">
                           <thead className="bg-white/5 border-b border-white/10">
                             <tr>
-                              <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Date</th>
                               <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Name</th>
                               <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Email</th>
                               <th className="px-4 py-3 text-left text-xs font-medium text-gray-300 uppercase tracking-wider">Company</th>
@@ -167,9 +206,6 @@ const Admin: React.FC = () => {
                             {contactSubmissions.map((submission, index) => (
                               <tr key={index} className="text-gray-100 hover:bg-white/5">
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {formatDate(submission.created_at)}
-                                </td>
-                                <td className="px-4 py-4 whitespace-nowrap text-sm">
                                   {submission.Name}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
@@ -179,7 +215,7 @@ const Admin: React.FC = () => {
                                   {submission.Company || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
-                                  {submission.Plan || 'N/A'}
+                                  {submission.Plan || submission["Select Plan"] || 'N/A'}
                                 </td>
                                 <td className="px-4 py-4 whitespace-nowrap text-sm">
                                   {submission.Subject || 'N/A'}
@@ -191,17 +227,22 @@ const Admin: React.FC = () => {
                             ))}
                           </tbody>
                         </table>
-                      </div>
-                    ) : (
-                      <div className="p-8 text-center text-gray-300">
-                        {isLoading ? 'Loading contact submissions...' : 'No contact form submissions found'}
-                      </div>
-                    )}
+                      ) : (
+                        <div className="p-8 text-center text-gray-300">
+                          {isLoading ? (
+                            <div className="flex justify-center items-center space-x-2">
+                              <Loader2 className="h-5 w-5 animate-spin text-[#E2FF55]" />
+                              <span>Loading contact submissions...</span>
+                            </div>
+                          ) : 'No contact form submissions found'}
+                        </div>
+                      )}
+                    </div>
                   </TabsContent>
                   
                   <TabsContent value="demos" className="p-0">
-                    {demoRequests.length > 0 ? (
-                      <div className="overflow-x-auto">
+                    <div className="overflow-x-auto">
+                      {demoRequests.length > 0 ? (
                         <table className="w-full">
                           <thead className="bg-white/5 border-b border-white/10">
                             <tr>
@@ -246,25 +287,32 @@ const Admin: React.FC = () => {
                             ))}
                           </tbody>
                         </table>
-                      </div>
-                    ) : (
-                      <div className="p-8 text-center text-gray-300">
-                        {isLoading ? 'Loading demo requests...' : 'No demo requests found'}
-                      </div>
-                    )}
+                      ) : (
+                        <div className="p-8 text-center text-gray-300">
+                          {isLoading ? (
+                            <div className="flex justify-center items-center space-x-2">
+                              <Loader2 className="h-5 w-5 animate-spin text-[#E2FF55]" />
+                              <span>Loading demo requests...</span>
+                            </div>
+                          ) : 'No demo requests found'}
+                        </div>
+                      )}
+                    </div>
                   </TabsContent>
                 </Tabs>
               </div>
               
-              <p className="mt-6 text-sm text-gray-400 text-center">
-                For security reasons, please log out when you're done. <br />
+              <div className="mt-6 flex flex-col sm:flex-row items-center justify-between gap-4 px-2">
+                <p className="text-sm text-gray-400 text-center sm:text-left">
+                  Showing all submissions from contact forms and demo requests
+                </p>
                 <button 
                   onClick={() => setIsVerified(false)} 
-                  className="text-blue-400 hover:underline mt-2"
+                  className="text-[#E2FF55] hover:text-[#E2FF55]/80 hover:underline flex items-center"
                 >
-                  Log Out
+                  <span>Log Out</span>
                 </button>
-              </p>
+              </div>
             </div>
           )}
         </div>
