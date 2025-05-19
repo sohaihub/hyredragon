@@ -203,9 +203,7 @@ const Admin: React.FC = () => {
                     className="bg-white/5 border-white/10 text-white"
                     disabled={isVerifying}
                   />
-                  <p className="text-xs text-gray-400 mt-2">
-                    Default password: admin123
-                  </p>
+
                 </div>
                 
                 <Button
