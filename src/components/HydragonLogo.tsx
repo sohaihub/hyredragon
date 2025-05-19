@@ -55,9 +55,6 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
           >
             HyreDragon
           </h1>
-          <p className="text-gray-400 text-[10px] md:text-xs -mt-1">
-            AI Recruitment
-          </p>
         </div>
       )}
     </div>
