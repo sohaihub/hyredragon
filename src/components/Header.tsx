@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Flame } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import HydragonLogo from './HydragonLogo';
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -31,12 +32,7 @@ const Header: React.FC = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <div className="w-10 h-10 rounded-full flex items-center justify-center mr-2 bg-gradient-to-br from-[#E2FF55]/20 to-[#FF9F5A]/20 p-1">
-              <Flame className="w-6 h-6 text-[#E2FF55]" />
-            </div>
-            <div className="font-bold text-xl bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] bg-clip-text text-transparent">
-              HyreDragon
-            </div>
+            <HydragonLogo size="small" withText={true} />
           </Link>
           
           {/* Centered Desktop menu */}
