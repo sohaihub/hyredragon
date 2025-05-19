@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
@@ -257,18 +256,18 @@ const DragonChatbot: React.FC = () => {
             aria-label="Open Dragon Assistant"
           >
             <Sparkles className="w-5 h-5 text-[#E2FF55]" />
-            <span className="text-white font-medium">Chat with Dragon</span>
+            <span className="text-white font-medium">Chat with Dragon  </span>
           </Button>
         </div>
       )}
       
-      {/* Premium chat window with neon green border and subtle animations */}
+      {/* Premium chat window with subtle animations */}
       {isOpen && (
-        <div className="bg-[#080820] border-2 border-[#E2FF55] rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box shadow-[0_0_15px_rgba(226,255,85,0.3)]">
+        <div className="bg-[#080820] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
           {/* Chat header - updated with Dragon theme */}
-          <div className="p-4 border-b border-[#E2FF55]/30 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
+          <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
             <div className="flex items-center relative z-10">
-              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/30 p-1">
+              <div className="w-10 h-10 rounded-full flex items-center justify-center mr-3 bg-[#1A1A3D] border border-[#E2FF55]/10 p-1">
                 <Sparkles className="w-5 h-5 text-[#E2FF55]" />
               </div>
               <div>
@@ -346,20 +345,20 @@ const DragonChatbot: React.FC = () => {
           </div>
           
           {/* Chat input - refined design */}
-          <div className="p-4 border-t border-[#E2FF55]/30 bg-gradient-to-r from-[#0F103E] to-[#080822]">
+          <div className="p-4 border-t border-[#E2FF55]/10 bg-gradient-to-r from-[#0F103E] to-[#080822]">
             <div className="flex items-center gap-2 relative">
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSendMessage()}
                 placeholder="Ask Dragon about HyreDragon's features..."
-                className="flex-1 bg-[#080820] border-[#E2FF55]/30 focus:border-[#E2FF55]/50 text-white focus:ring-[#E2FF55]/30 transition-all duration-300"
+                className="flex-1 bg-[#080820] border-[#E2FF55]/10 focus:border-[#E2FF55]/30 text-white focus:ring-[#E2FF55]/10 transition-all duration-300"
               />
               <Button 
                 onClick={handleSendMessage} 
                 disabled={!input.trim() || isLoading}
                 size="sm"
-                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden micro-button border border-[#E2FF55]/30"
+                className="bg-[#1A1A3D] hover:bg-[#232349] text-white p-1 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden micro-button"
               >
                 <Send className="w-4 h-4 relative z-10" />
               </Button>

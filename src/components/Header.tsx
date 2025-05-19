@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -77,7 +78,7 @@ const Header: React.FC = () => {
             </a>
             <Link to="/request-demo">
               <Button 
-                className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 rounded-full flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#0A0A29] hover:opacity-90 rounded-full flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Request a demo <ArrowRight className="w-4 h-4" />
               </Button>
