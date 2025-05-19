@@ -27,7 +27,7 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
     <div className="inline-flex items-center">
       {/* Logo icon */}
       <div
-        className="relative flex items-center justify-center rounded-full bg-[#181834]"
+        className="relative flex items-center justify-center rounded-full bg-black"
         style={{
           width: `${icon}px`,
           height: `${icon}px`
@@ -45,8 +45,15 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
       {/* Logo text - conditionally rendered */}
       {withText && (
         <div className="ml-2 md:ml-3">
-          <h1 className="text-[#E2FF55] font-bold text-lg md:text-xl">
-            Hyre<span className="text-white">Dragon</span>
+          <h1
+            className="font-bold text-lg md:text-xl"
+            style={{
+              background: 'linear-gradient(90deg, #E2FF55, #FF9F5A)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}
+          >
+            HyreDragon
           </h1>
           <p className="text-gray-400 text-[10px] md:text-xs -mt-1">
             AI Recruitment Solutions
