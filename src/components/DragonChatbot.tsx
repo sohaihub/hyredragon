@@ -263,7 +263,7 @@ const DragonChatbot: React.FC = () => {
       
       {/* Premium chat window with subtle animations */}
       {isOpen && (
-        <div className="bg-[#080820] border border-[#E2FF55]/10 rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
+        <div className="bg-[#080820] border-2 border-[#00FF00] rounded-2xl shadow-2xl shadow-black/20 flex flex-col w-96 sm:w-[500px] h-[650px] animate-fade-in overflow-hidden content-box">
           {/* Chat header - updated with Dragon theme */}
           <div className="p-4 border-b border-[#E2FF55]/10 flex justify-between items-center bg-gradient-to-r from-[#0F103E] to-[#080822] relative overflow-hidden">
             <div className="flex items-center relative z-10">
