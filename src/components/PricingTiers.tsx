@@ -37,9 +37,10 @@ const PricingTier: React.FC<PricingTierProps> = ({
       className={`relative rounded-xl border bg-[#080822]/70 backdrop-blur-sm p-6 flex flex-col h-full hover-lift transition-all duration-300
         ${highlighted ? 'border-[#E2FF55] shadow-2xl scale-105 z-10' : 'border-gray-800'}
       `}
+      style={{ overflow: 'visible' }} // Ensure overflow is visible for badge
     >
       {badgeText && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full shadow-lg z-20">
+        <div className="absolute left-1/2 -translate-x-1/2 -top-5 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full shadow-lg z-20 whitespace-nowrap">
           {badgeText}
         </div>
       )}
@@ -225,12 +226,12 @@ const PricingTiers: React.FC = () => {
   ];
 
   return (
-    <div className="space-y-14 max-w-7xl mx-auto">
+    <div className="space-y-14 max-w-7xl mx-auto pt-10" style={{ overflow: 'visible' }}>
       <h2 className="text-3xl font-bold text-center text-white mb-8">
         Choose the plan that's right for your recruitment needs
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4" style={{ overflow: 'visible' }}>
         {tiers.map((tier, i) => (
           <PricingTier key={i} {...tier} />
         ))}
@@ -259,8 +260,8 @@ const PricingTiers: React.FC = () => {
               </Link>
             </div>
             
-            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-[#E2FF55] shadow-2xl scale-105 z-10 transition-all relative">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full shadow-lg z-20">
+            <div className="text-center p-6 bg-[#080822]/70 rounded-xl border border-[#E2FF55] shadow-2xl scale-105 z-10 transition-all relative" style={{ overflow: 'visible' }}>
+              <div className="absolute left-1/2 -translate-x-1/2 -top-5 bg-[#E2FF55] text-[#080820] text-xs font-bold uppercase px-3 py-1 rounded-full shadow-lg z-20 whitespace-nowrap">
                 Most Popular
               </div>
               <h3 className="text-xl font-bold text-[#E2FF55] mb-2">Standard</h3>
