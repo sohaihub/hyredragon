@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { verifyAdmin, getContactSubmissions, exportSubmissionsToCsv } from '@/lib/responses';
@@ -269,3 +270,164 @@ const Admin: React.FC = () => {
                   </Button>
                 </div>
               </div>
+              
+              {/* Tabs for different types of submissions */}
+              <Tabs defaultValue="contacts" className="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 overflow-hidden">
+                <div className="p-4 border-b border-white/10">
+                  <TabsList className="bg-white/10 grid grid-cols-3 gap-2">
+                    <TabsTrigger value="contacts" className="data-[state=active]:bg-[#E2FF55] data-[state=active]:text-black">
+                      Contact Forms
+                    </TabsTrigger>
+                    <TabsTrigger value="demos" className="data-[state=active]:bg-[#E2FF55] data-[state=active]:text-black">
+                      Demo Requests
+                    </TabsTrigger>
+                    <TabsTrigger value="newsletters" className="data-[state=active]:bg-[#E2FF55] data-[state=active]:text-black">
+                      Newsletter Subscriptions
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+                
+                {/* Contact Form Submissions */}
+                <TabsContent value="contacts" className="p-4">
+                  <Table>
+                    <TableCaption>Contact form submissions: {contactSubmissions.length} total</TableCaption>
+                    <TableHeader>
+                      <TableRow className="hover:bg-white/5 border-white/10">
+                        <TableHead className="text-white">Date</TableHead>
+                        <TableHead className="text-white">Name</TableHead>
+                        <TableHead className="text-white">Email</TableHead>
+                        <TableHead className="text-white">Company</TableHead>
+                        <TableHead className="text-white">Subject</TableHead>
+                        <TableHead className="text-white">Message</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {contactSubmissions.length === 0 ? (
+                        <TableRow>
+                          <TableCell colSpan={6} className="text-center text-gray-400 py-8">No contact form submissions yet</TableCell>
+                        </TableRow>
+                      ) : (
+                        contactSubmissions.map((submission) => (
+                          <TableRow key={submission.id} className="hover:bg-white/5 border-white/10">
+                            <TableCell className="text-gray-300 whitespace-nowrap">{submission.formattedDate}</TableCell>
+                            <TableCell className="text-white flex items-center gap-2">
+                              <User size={14} className="text-[#E2FF55]" />
+                              {submission.name}
+                            </TableCell>
+                            <TableCell className="text-gray-300">
+                              <div className="flex items-center gap-2">
+                                <Mail size={14} className="text-[#E2FF55]" />
+                                {submission.email}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-gray-300">
+                              <div className="flex items-center gap-2">
+                                <Building size={14} className="text-gray-400" />
+                                {submission.company || 'N/A'}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-white">{submission.subject}</TableCell>
+                            <TableCell className="text-gray-300 max-w-xs truncate">{submission.message}</TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </TabsContent>
+                
+                {/* Demo Requests */}
+                <TabsContent value="demos" className="p-4">
+                  <Table>
+                    <TableCaption>Demo requests: {demoRequests.length} total</TableCaption>
+                    <TableHeader>
+                      <TableRow className="hover:bg-white/5 border-white/10">
+                        <TableHead className="text-white">Date</TableHead>
+                        <TableHead className="text-white">Name</TableHead>
+                        <TableHead className="text-white">Email</TableHead>
+                        <TableHead className="text-white">Company</TableHead>
+                        <TableHead className="text-white">Job Title</TableHead>
+                        <TableHead className="text-white">Message</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {demoRequests.length === 0 ? (
+                        <TableRow>
+                          <TableCell colSpan={6} className="text-center text-gray-400 py-8">No demo requests yet</TableCell>
+                        </TableRow>
+                      ) : (
+                        demoRequests.map((request) => (
+                          <TableRow key={request.id} className="hover:bg-white/5 border-white/10">
+                            <TableCell className="text-gray-300 whitespace-nowrap">{request.formattedDate}</TableCell>
+                            <TableCell className="text-white flex items-center gap-2">
+                              <User size={14} className="text-[#E2FF55]" />
+                              {`${request.firstName} ${request.lastName}`}
+                            </TableCell>
+                            <TableCell className="text-gray-300">
+                              <div className="flex items-center gap-2">
+                                <Mail size={14} className="text-[#E2FF55]" />
+                                {request.email}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-gray-300">
+                              <div className="flex items-center gap-2">
+                                <Building size={14} className="text-gray-400" />
+                                {request.company}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-gray-300">{request.jobTitle}</TableCell>
+                            <TableCell className="text-gray-300 max-w-xs truncate">{request.message || 'N/A'}</TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </TabsContent>
+                
+                {/* Newsletter Subscriptions */}
+                <TabsContent value="newsletters" className="p-4">
+                  <Table>
+                    <TableCaption>Newsletter subscriptions: {newsletterSubscriptions.length} total</TableCaption>
+                    <TableHeader>
+                      <TableRow className="hover:bg-white/5 border-white/10">
+                        <TableHead className="text-white">Date</TableHead>
+                        <TableHead className="text-white">Email</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {newsletterSubscriptions.length === 0 ? (
+                        <TableRow>
+                          <TableCell colSpan={2} className="text-center text-gray-400 py-8">No newsletter subscriptions yet</TableCell>
+                        </TableRow>
+                      ) : (
+                        newsletterSubscriptions.map((subscription) => (
+                          <TableRow key={subscription.id} className="hover:bg-white/5 border-white/10">
+                            <TableCell className="text-gray-300 whitespace-nowrap">
+                              <div className="flex items-center gap-2">
+                                <Calendar size={14} className="text-gray-400" />
+                                {subscription.formattedDate}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-gray-300">
+                              <div className="flex items-center gap-2">
+                                <Mail size={14} className="text-[#E2FF55]" />
+                                {subscription.email}
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))
+                      )}
+                    </TableBody>
+                  </Table>
+                </TabsContent>
+              </Tabs>
+            </div>
+          )}
+        </div>
+      </main>
+      
+      <Footer />
+    </div>
+  );
+};
+
+export default Admin;
