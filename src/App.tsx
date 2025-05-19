@@ -18,8 +18,8 @@ import DragonChatbot from './components/DragonChatbot';
 import Admin from './pages/Admin';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component - modified for green effect
-const GreenCursor = () => {
+// Custom cursor component - modified for dragon effect
+const DragonCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
@@ -51,66 +51,64 @@ const GreenCursor = () => {
       }
     };
     
-    const createClickEffect = (e: MouseEvent) => {
-      const clickEffect = document.createElement('div');
-      clickEffect.className = 'green-click-effect';
-      clickEffect.style.left = `${e.clientX}px`;
-      clickEffect.style.top = `${e.clientY}px`;
+    const createFlameEffect = (e: MouseEvent) => {
+      const flame = document.createElement('div');
+      flame.className = 'flame-click-effect';
+      flame.style.left = `${e.clientX}px`;
+      flame.style.top = `${e.clientY}px`;
       
-      document.body.appendChild(clickEffect);
+      document.body.appendChild(flame);
       
       setTimeout(() => {
-        if (clickEffect && clickEffect.parentNode === document.body) {
-          document.body.removeChild(clickEffect);
+        if (flame && flame.parentNode === document.body) {
+          document.body.removeChild(flame);
         }
       }, 800);
     };
     
     document.addEventListener('mousemove', moveCursor);
     document.addEventListener('mousemove', handleInteractiveHover);
-    document.addEventListener('click', createClickEffect);
+    document.addEventListener('click', createFlameEffect);
     
-    // Add green cursor style
+    // Add dragon cursor style
     const style = document.createElement('style');
     style.innerHTML = `
-      .green-cursor {
+      .dragon-cursor {
         position: fixed;
-        width: 24px;
-        height: 24px;
-        background-color: transparent;
-        border: 2px solid #E2FF55;
-        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='%23E2FF55' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z'/%3E%3Cpath d='M12 16c1.5-1.5 2-5 2-5s3.5-1 3.5-3.5c0-1-1-2.5-3-2.5 0 0-1 0-2 .5 0-1 .5-2 .5-2 0 0-2.5 1-4.5 3-2 2-2.5 3-2.5 6 0 4 3 4 3 4 .5-.5 2-1 3-1 1.5 0 2.5 1 2.5 1'/%3E%3C/svg%3E");
+        background-size: contain;
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);
-        transition: transform 0.15s ease-out, border-color 0.3s ease;
+        transition: transform 0.15s ease-out;
       }
       
-      .green-cursor.active {
+      .dragon-cursor.active {
         transform: translate(-50%, -50%) scale(1.5);
-        border-color: #E2FF55;
-        background-color: rgba(226, 255, 85, 0.1);
+        filter: brightness(1.5);
       }
       
-      .green-click-effect {
+      .flame-click-effect {
         position: fixed;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: rgba(226, 255, 85, 0.8);
+        width: 30px;
+        height: 30px;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='%23FF9F5A' stroke='%23E2FF55' stroke-width='1'%3E%3Cpath d='M12 2c1 0 4 4 4 9-3-3-4-3-4-3 0 6 4 7 4 7-2 4-7 4-8 4s-5-2-5-7c0-3 1-5 3-7 1-1 1.5-2 1-3 0 0 1.5 1 2 3 .5-3 2-3 3-3z'/%3E%3C/svg%3E");
+        background-size: contain;
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);
-        animation: greenClickEffect 0.8s ease-out forwards;
+        animation: flameEffect 0.8s ease-out forwards;
       }
       
-      @keyframes greenClickEffect {
+      @keyframes flameEffect {
         0% {
-          transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0.5);
           opacity: 1;
         }
         100% {
-          transform: translate(-50%, -50%) scale(5);
+          transform: translate(-50%, -50%) scale(2);
           opacity: 0;
         }
       }
@@ -121,13 +119,13 @@ const GreenCursor = () => {
     return () => {
       document.removeEventListener('mousemove', moveCursor);
       document.removeEventListener('mousemove', handleInteractiveHover);
-      document.removeEventListener('click', createClickEffect);
+      document.removeEventListener('click', createFlameEffect);
       document.head.removeChild(style);
     };
   }, []);
 
   return (
-    <div ref={cursorRef} className="green-cursor transition-transform duration-150"></div>
+    <div ref={cursorRef} className="dragon-cursor transition-transform duration-150"></div>
   );
 };
 
@@ -285,7 +283,7 @@ const App: React.FC = () => {
   return (
     <Router>
       <PageSetup />
-      <GreenCursor />
+      <DragonCursor />
       <MoneyFallEffect />
       <Routes>
         <Route path="/" element={<Home />} />
