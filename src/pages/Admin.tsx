@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { verifyAdmin, getContactSubmissions, exportSubmissionsToCsv } from '@/lib/responses';
+import { verifyAdmin, getContactSubmissions, exportSubmissionsToCsv } from '@/lib/api';
 import { format } from 'date-fns';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/table";
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import HydragonLogo from '@/components/HydragonLogo';
 import { Loader2, RefreshCw, Download, FileDown, User, Mail, Building, Calendar, MessageSquare } from 'lucide-react';
 
 const Admin: React.FC = () => {
@@ -50,7 +49,7 @@ const Admin: React.FC = () => {
     setIsVerifying(true);
     
     try {
-      const verified = verifyAdmin(password);
+      const verified = await verifyAdmin(password);
       
       if (verified) {
         setIsVerified(true);
@@ -82,7 +81,7 @@ const Admin: React.FC = () => {
     setIsLoading(true);
     
     try {
-      const data = getContactSubmissions();
+      const data = await getContactSubmissions(password);
       
       // Format and process contact submissions
       const formattedContacts = data.contact?.map((item: any) => ({
@@ -164,10 +163,10 @@ const Admin: React.FC = () => {
     return () => {
       window.removeEventListener('storage', handleStorageChange);
     };
-  }, [isVerified]);
+  }, [isVerified, password]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-[#080820] to-[#0A0A29]">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-900 to-blue-950">
       {/* Background elements */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-neon-green/5 blur-3xl"></div>
@@ -188,10 +187,6 @@ const Admin: React.FC = () => {
           
           {!isVerified ? (
             <div className="bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 max-w-md mx-auto shadow-xl">
-              <div className="flex justify-center mb-6">
-                <HydragonLogo withText={true} size="regular" />
-              </div>
-              
               <h2 className="text-xl font-medium text-white mb-6">Admin Login</h2>
               
               <form onSubmit={handleVerify} className="space-y-6">
@@ -208,7 +203,7 @@ const Admin: React.FC = () => {
                     className="bg-white/5 border-white/10 text-white"
                     disabled={isVerifying}
                   />
-                  <p className="text-xs text-gray-400 mt-2">Default password: admin123</p>
+
                 </div>
                 
                 <Button

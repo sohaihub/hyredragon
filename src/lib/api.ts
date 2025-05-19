@@ -1,77 +1,127 @@
 
-// Import the response manager for local storage access
-import { responseManager } from './responses';
+// API utility functions for managing form submissions with localStorage
 
-// Contact form submission
-export const submitContactForm = async (formData: {
+import { 
+  saveContactForm, 
+  saveDemoRequest, 
+  saveNewsletter,
+  verifyAdminPassword,
+  getContactForms,
+  getDemoRequests,
+  getNewsletters,
+  downloadCsv
+} from './localStorageUtils';
+
+/**
+ * Submit contact form data to localStorage
+ */
+export async function submitContactForm(formData: {
   name: string;
   email: string;
   company?: string;
   subject: string;
   message: string;
-}) => {
+}): Promise<boolean> {
   try {
-    responseManager.saveContactSubmission(formData);
-    return { success: true };
+    console.log("Submitting contact form data:", formData);
+    saveContactForm(formData);
+    return true;
   } catch (error) {
     console.error('Error submitting contact form:', error);
-    throw new Error('Failed to submit contact form');
+    throw error;
   }
-};
+}
 
-// Demo request submission
-export const submitDemoRequest = async (formData: {
+/**
+ * Submit demo request to localStorage
+ */
+export async function submitDemoRequest(formData: {
   firstName: string;
   lastName: string;
   email: string;
+  phone?: string;
   company: string;
   jobTitle: string;
   companySize: string;
   preferredDate?: string;
   message?: string;
-}) => {
+}): Promise<boolean> {
   try {
-    responseManager.saveDemoRequest(formData);
-    return { success: true };
+    console.log("Submitting demo request:", formData);
+    saveDemoRequest(formData);
+    return true;
   } catch (error) {
     console.error('Error submitting demo request:', error);
-    throw new Error('Failed to submit demo request');
+    throw error;
   }
-};
+}
 
-// Newsletter subscription
-export const subscribeToNewsletter = async (email: string) => {
+/**
+ * Submit newsletter subscription to localStorage
+ */
+export async function subscribeToNewsletter(email: string): Promise<boolean> {
   try {
-    responseManager.saveNewsletterSubscription(email);
-    return { success: true };
+    console.log("Subscribing to newsletter:", email);
+    saveNewsletter(email);
+    return true;
   } catch (error) {
     console.error('Error subscribing to newsletter:', error);
-    throw new Error('Failed to subscribe to newsletter');
+    throw error;
   }
-};
+}
 
-// Admin verification
-export const verifyAdmin = (password: string) => {
-  return responseManager.verifyAdmin(password);
-};
+/**
+ * Verify admin credentials
+ */
+export async function verifyAdmin(password: string): Promise<boolean> {
+  try {
+    console.log("Verifying admin credentials...");
+    return verifyAdminPassword(password);
+  } catch (error) {
+    console.error('Error verifying admin:', error);
+    return false;
+  }
+}
 
-// Get all contact submissions for admin
-export const getContactSubmissions = (password: string) => {
-  // In a real app, we would verify the password here
-  return responseManager.getAllSubmissions();
-};
+/**
+ * Fetch all submissions (requires admin authentication)
+ */
+export async function getContactSubmissions(password: string) {
+  try {
+    if (!verifyAdminPassword(password)) {
+      throw new Error("Unauthorized");
+    }
 
-// Export all submissions to CSV
-export const exportSubmissionsToCsv = () => {
-  const csvContent = responseManager.exportToCsv();
-  
-  // Create a blob and trigger download
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement('a');
-  link.setAttribute('href', url);
-  link.setAttribute('download', 'hyredragon_submissions_export.csv');
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-};
+    console.log("Fetching submissions...");
+    
+    const data = {
+      contact: getContactForms(),
+      demos: getDemoRequests(),
+      newsletters: getNewsletters(),
+      timestamp: new Date().toISOString()
+    };
+    
+    console.log("Submissions fetched successfully, count:", {
+      contacts: data.contact.length,
+      demos: data.demos.length,
+      newsletters: data.newsletters.length
+    });
+    
+    return data;
+  } catch (error) {
+    console.error('Error fetching submissions:', error);
+    throw error;
+  }
+}
+
+/**
+ * Download all submissions as a CSV file
+ */
+export function exportSubmissionsToCsv(): void {
+  try {
+    downloadCsv();
+  } catch (error) {
+    console.error('Error exporting submissions:', error);
+    throw error;
+  }
+}
