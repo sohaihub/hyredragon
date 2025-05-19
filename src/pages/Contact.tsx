@@ -1,13 +1,20 @@
 
 import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import * as z from 'zod';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Clock, Send } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { 
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage
+} from '@/components/ui/form';
 import {
   Select,
   SelectContent,
@@ -15,194 +22,274 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui/button';
+
+// Form validation schema
+const formSchema = z.object({
+  name: z.string().min(1, { message: 'Name is required' }),
+  email: z.string().email({ message: 'Invalid email address' }),
+  company: z.string().optional(),
+  plan: z.enum(['Free', 'Pro', 'Enterprise']),
+  subject: z.string().min(1, { message: 'Subject is required' }),
+  message: z.string().min(1, { message: 'Message is required' }),
+});
+
+type FormValues = z.infer<typeof formSchema>;
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
-  const [selectedPlan, setSelectedPlan] = useState<string>("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const form = useForm<FormValues>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      company: '',
+      plan: 'Free',
+      subject: '',
+      message: '',
+    },
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    toast({
-      title: "Message sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
+  const onSubmit = async (data: FormValues) => {
+    setIsSubmitting(true);
+    
+    try {
+      // In a production environment, this would be a call to your serverless function
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+      
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you as soon as possible.",
+      });
+      
+      form.reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: "Error",
+        description: "There was a problem sending your message. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#0A0A29]">
-      {/* Background gradients */}
-      <div className="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-[#E2FF55]/20 blur-3xl pointer-events-none select-none"></div>
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full bg-[#E2FF55]/10 blur-3xl pointer-events-none select-none"></div>
-
+    <div className="min-h-screen flex flex-col bg-white">
       <Header />
 
       <main className="flex-grow relative z-10 py-12 md:py-20">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white leading-tight">
-                Get in <span className="text-[#E2FF55]">Touch</span>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 leading-tight">
+                Get in <span className="text-blue-600">Touch</span>
               </h1>
-              <p className="text-xl text-gray-300 max-w-2xl mx-auto">
-                Have questions about Hydragon's AI recruitment platform? We're here to help.
+              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+                Have questions? We're here to help. Fill out the form below and we'll get back to you as soon as possible.
               </p>
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
               {/* Contact Form */}
-              <div className="lg:col-span-3 bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 md:p-10 backdrop-blur-lg">
-                <h2 className="text-2xl font-bold mb-6 text-white">Send us a message</h2>
+              <div className="lg:col-span-3 bg-white shadow-lg rounded-xl p-6 md:p-8">
+                <h2 className="text-2xl font-bold mb-6 text-gray-800">Send us a message</h2>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-white">Name</Label>
-                      <Input
-                        id="name"
-                        type="text"
-                        placeholder="Your name"
-                        required
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="name">Name</FormLabel>
+                            <FormControl>
+                              <Input 
+                                id="name"
+                                placeholder="Your name" 
+                                className="bg-white border-gray-300 focus:border-blue-500" 
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel htmlFor="email">Email</FormLabel>
+                            <FormControl>
+                              <Input 
+                                id="email"
+                                type="email" 
+                                placeholder="your.email@example.com" 
+                                className="bg-white border-gray-300 focus:border-blue-500" 
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
                       />
                     </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-white">Email</Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        placeholder="your.email@example.com"
-                        required
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                      />
-                    </div>
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="company" className="text-white">Company</Label>
-                    <Input
-                      id="company"
-                      type="text"
-                      placeholder="Your company name"
-                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                    <FormField
+                      control={form.control}
+                      name="company"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="company">Company</FormLabel>
+                          <FormControl>
+                            <Input 
+                              id="company"
+                              placeholder="Your company name" 
+                              className="bg-white border-gray-300 focus:border-blue-500" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <Label htmlFor="plan" className="text-white">Select Plan</Label>
-                    <Select value={selectedPlan} onValueChange={setSelectedPlan}>
-                      <SelectTrigger className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white">
-                        <SelectValue placeholder="Select a plan" />
-                      </SelectTrigger>
-                      <SelectContent className="bg-[#080820] border-gray-800 text-white">
-                        <SelectItem value="starter">Starter (₹10,000)</SelectItem>
-                        <SelectItem value="basic">Basic (₹20,000)</SelectItem>
-                        <SelectItem value="standard">Standard (₹30,000)</SelectItem>
-                        <SelectItem value="professional">Professional (₹40,000)</SelectItem>
-                        <SelectItem value="premium">Premium (₹50,000)</SelectItem>
-                        <SelectItem value="enterprise">Enterprise (Custom)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="subject" className="text-white">Subject</Label>
-                    <Input
-                      id="subject"
-                      type="text"
-                      placeholder="How can we help you?"
-                      required
-                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                    
+                    <FormField
+                      control={form.control}
+                      name="plan"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="plan">Plan</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger className="bg-white border-gray-300 focus:border-blue-500">
+                                <SelectValue placeholder="Select a plan" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent className="bg-white">
+                              <SelectItem value="Free">Free</SelectItem>
+                              <SelectItem value="Pro">Pro</SelectItem>
+                              <SelectItem value="Enterprise">Enterprise</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="message" className="text-white">Message</Label>
-                    <Textarea
-                      id="message"
-                      placeholder="Your message..."
-                      rows={6}
-                      required
-                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white resize-none"
+                    <FormField
+                      control={form.control}
+                      name="subject"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="subject">Subject</FormLabel>
+                          <FormControl>
+                            <Input 
+                              id="subject"
+                              placeholder="How can we help you?" 
+                              className="bg-white border-gray-300 focus:border-blue-500" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
                     />
-                  </div>
 
-                  <Button
-                    type="submit"
-                    className="bg-[#E2FF55] text-[#0A0A29] hover:bg-[#E2FF55]/90 w-full md:w-auto flex items-center gap-2"
-                  >
-                    Send Message <Send className="w-4 h-4" />
-                  </Button>
-                </form>
+                    <FormField
+                      control={form.control}
+                      name="message"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel htmlFor="message">Message</FormLabel>
+                          <FormControl>
+                            <Textarea
+                              id="message"
+                              placeholder="Your message..."
+                              rows={6}
+                              className="bg-white border-gray-300 focus:border-blue-500 resize-none"
+                              {...field}
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                    <Button
+                      type="submit"
+                      className="bg-blue-600 text-white hover:bg-blue-700 w-full md:w-auto flex items-center gap-2"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? 'Sending...' : 'Send Message'} <Send className="w-4 h-4" />
+                    </Button>
+                  </form>
+                </Form>
               </div>
 
               {/* Contact Information */}
               <div className="lg:col-span-2 space-y-8">
-                <div className="bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 backdrop-blur-lg">
-                  <h2 className="text-2xl font-bold mb-6 text-white">Contact Info</h2>
+                <div className="bg-white shadow-lg rounded-xl p-6">
+                  <h2 className="text-2xl font-bold mb-6 text-gray-800">Contact Info</h2>
 
                   <div className="space-y-6">
                     <div className="flex items-start">
-                      <div className="p-3 bg-[#E2FF55]/10 rounded-lg mr-4">
-                        <Mail className="h-5 w-5 text-[#E2FF55]" />
+                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
+                        <Mail className="h-5 w-5 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm">Email</p>
-                        <p className="text-white">alex.c.ihub@snsgroups.com</p>
+                        <p className="text-gray-500 text-sm">Email</p>
+                        <p className="text-gray-800">contact@example.com</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
-                      <div className="p-3 bg-[#E2FF55]/10 rounded-lg mr-4">
-                        <Phone className="h-5 w-5 text-[#E2FF55]" />
+                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
+                        <Phone className="h-5 w-5 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm">Phone</p>
-                        <p className="text-white">+91 98435 00227</p>
+                        <p className="text-gray-500 text-sm">Phone</p>
+                        <p className="text-gray-800">+1 (555) 123-4567</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
-                      <div className="p-3 bg-[#E2FF55]/10 rounded-lg mr-4">
-                        <MapPin className="h-5 w-5 text-[#E2FF55]" />
+                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
+                        <MapPin className="h-5 w-5 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm">Location</p>
-                        <p className="text-white">SNS Institutions,<br />Kurumbapalayam, Coimbatore - 641035.</p>
+                        <p className="text-gray-500 text-sm">Location</p>
+                        <p className="text-gray-800">123 Business Ave,<br />Suite 100, San Francisco, CA 94107</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
-                      <div className="p-3 bg-[#E2FF55]/10 rounded-lg mr-4">
-                        <Clock className="h-5 w-5 text-[#E2FF55]" />
+                      <div className="p-3 bg-blue-100 rounded-lg mr-4">
+                        <Clock className="h-5 w-5 text-blue-600" />
                       </div>
                       <div>
-                        <p className="text-gray-400 text-sm">Hours</p>
-                        <p className="text-white">Monday - Saturday: 9am - 6pm<br />Weekend: Closed</p>
+                        <p className="text-gray-500 text-sm">Hours</p>
+                        <p className="text-gray-800">Monday - Friday: 9am - 5pm<br />Weekend: Closed</p>
                       </div>
                     </div>
-                  </div>
-                </div>
-
-                <div className="bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 backdrop-blur-lg">
-                  <h2 className="text-2xl font-bold mb-4 text-white">Follow Us</h2>
-                  <div className="flex space-x-4">
-                    {["Facebook", "Twitter", "Instagram", "YouTube"].map((platform, index) => (
-                      <a
-                        key={index}
-                        href="#"
-                        className="p-3 bg-[#E2FF55]/10 rounded-lg hover:bg-[#E2FF55]/20 transition-colors"
-                      >
-                        <svg
-                          className="h-5 w-5 text-[#E2FF55]"
-                          fill="currentColor"
-                          viewBox="0 0 24 24"
-                          aria-hidden="true"
-                        >
-                          {/* Add respective platform icons */}
-                        </svg>
-                      </a>
-                    ))}
                   </div>
                 </div>
               </div>
