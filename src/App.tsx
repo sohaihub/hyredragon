@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -16,6 +15,7 @@ import About from './pages/About';
 import Security from './pages/Security';
 import Blog from './pages/Blog';
 import DragonChatbot from './components/DragonChatbot';
+import Admin from './pages/Admin';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
 // Custom cursor component - modified for green effect
@@ -301,6 +301,8 @@ const App: React.FC = () => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
         <Route path="/security" element={<Security />} />
+        {/* Add the Admin route inside the Routes component */}
+        <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
       <DragonChatbot />
