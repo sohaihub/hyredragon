@@ -15,7 +15,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { submitContactForm } from '@/lib/api';
-import { ContactFormData } from '@/lib/types';
+import type { ContactFormData } from '@/lib/types';
 
 const Contact: React.FC = () => {
   const { toast } = useToast();
@@ -31,7 +31,7 @@ const Contact: React.FC = () => {
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [isSubmitting, setIsSubmitting] useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Handle input changes
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
