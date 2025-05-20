@@ -43,6 +43,28 @@ export default defineConfig(({ mode }) => ({
       stderr: { isTTY: false, write: () => {} },
       // Fix the type issue with nextTick
       nextTick: (cb: () => void) => setTimeout(cb, 0)
-    }
+    },
+    // Add missing Node.js global modules that might be used by Google libraries
+    'global': {},
+    'node:events': JSON.stringify({}),
+    'node:stream': JSON.stringify({}),
+    'node:util': JSON.stringify({}),
+    'node:buffer': JSON.stringify({}),
+    'events': JSON.stringify({}),
+    'stream': JSON.stringify({}),
+    'util': JSON.stringify({}),
+    'buffer': JSON.stringify({ Buffer: {} }),
+    'http': JSON.stringify({}),
+    'https': JSON.stringify({}),
+    'path': JSON.stringify({}),
+    'fs': JSON.stringify({})
+  },
+  optimizeDeps: {
+    esbuildOptions: {
+      // Node.js global to browser globalThis
+      define: {
+        global: 'globalThis',
+      },
+    },
   },
 }));

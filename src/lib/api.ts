@@ -6,6 +6,27 @@ import { ensureInitialized, addRowToSheet } from './googleSheetsService';
 // Check if we're in a browser environment
 const isBrowser = typeof window !== 'undefined';
 
+// Safely try to use the Google Sheets functionality with robust fallback
+const safelyExecuteServerOperation = async (operation: () => Promise<any>, fallbackFn: () => void) => {
+  // In browser environments or if server operations fail, use localStorage
+  if (isBrowser) {
+    console.info('Using localStorage fallback for data storage');
+    fallbackFn();
+    return { success: true, usedFallback: true };
+  }
+  
+  // Try server operation (Google Sheets)
+  try {
+    await ensureInitialized();
+    await operation();
+    return { success: true };
+  } catch (error) {
+    console.error('Server operation failed, using fallback:', error);
+    fallbackFn();
+    return { success: true, usedFallback: true };
+  }
+};
+
 // Contact form submission
 export const submitContactForm = async (formData: {
   name: string;
@@ -15,48 +36,28 @@ export const submitContactForm = async (formData: {
   subject: string;
   message: string;
 }) => {
-  try {
-    console.log("Attempting to submit contact form data");
-    
-    if (isBrowser) {
-      // In browser environments, go straight to localStorage
-      responseManager.saveContactSubmission(formData);
-      console.info('Contact form saved to localStorage');
-      return { success: true, usedFallback: true };
-    }
-    
-    // Server environment - try Google Sheets
-    // Initialize Google Sheets connection if needed
-    await ensureInitialized();
-    
-    // Add the row to the ContactUs sheet
-    await addRowToSheet('ContactUs', {
-      name: formData.name,
-      email: formData.email,
-      company: formData.company || '',
-      plan: formData.plan || '',
-      subject: formData.subject,
-      message: formData.message,
-      created_at: new Date().toISOString()
-    });
-    
-    console.log("Successfully submitted contact form to Google Sheets");
-    
-    // Success! Return true
-    return { success: true };
-  } catch (error) {
-    console.error('Error submitting contact form:', error);
-    
-    // Fallback to localStorage
-    try {
+  console.log("Attempting to submit contact form data");
+  
+  return safelyExecuteServerOperation(
+    // Google Sheets operation
+    async () => {
+      await addRowToSheet('ContactUs', {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || '',
+        plan: formData.plan || '',
+        subject: formData.subject,
+        message: formData.message,
+        created_at: new Date().toISOString()
+      });
+      console.log("Successfully submitted contact form to Google Sheets");
+    },
+    // Fallback operation
+    () => {
       responseManager.saveContactSubmission(formData);
       console.info('Contact form saved to localStorage as fallback');
-      return { success: true, usedFallback: true };
-    } catch (fallbackError) {
-      console.error('Fallback to localStorage failed:', fallbackError);
-      throw new Error('Failed to submit contact form');
     }
-  }
+  );
 };
 
 // Demo request submission
@@ -70,91 +71,51 @@ export const submitDemoRequest = async (formData: {
   preferredDate?: string;
   message?: string;
 }) => {
-  try {
-    console.log("Attempting to submit demo request");
-    
-    if (isBrowser) {
-      // In browser environments, go straight to localStorage
-      responseManager.saveDemoRequest(formData);
-      console.info('Demo request saved to localStorage');
-      return { success: true, usedFallback: true };
-    }
-    
-    // Server environment - try Google Sheets
-    // Initialize Google Sheets connection if needed
-    await ensureInitialized();
-    
-    // Add the row to the DemoRequests sheet
-    await addRowToSheet('DemoRequests', {
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      email: formData.email,
-      company: formData.company,
-      jobTitle: formData.jobTitle,
-      companySize: formData.companySize,
-      preferredDate: formData.preferredDate || '',
-      message: formData.message || '',
-      created_at: new Date().toISOString()
-    });
-    
-    console.log("Successfully submitted demo request to Google Sheets");
-    
-    // Success! Return true
-    return { success: true };
-  } catch (error) {
-    console.error('Error submitting demo request:', error);
-    
-    // Fallback to localStorage
-    try {
+  console.log("Attempting to submit demo request");
+  
+  return safelyExecuteServerOperation(
+    // Google Sheets operation
+    async () => {
+      await addRowToSheet('DemoRequests', {
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        company: formData.company,
+        jobTitle: formData.jobTitle,
+        companySize: formData.companySize,
+        preferredDate: formData.preferredDate || '',
+        message: formData.message || '',
+        created_at: new Date().toISOString()
+      });
+      console.log("Successfully submitted demo request to Google Sheets");
+    },
+    // Fallback operation
+    () => {
       responseManager.saveDemoRequest(formData);
       console.info('Demo request saved to localStorage as fallback');
-      return { success: true, usedFallback: true };
-    } catch (fallbackError) {
-      console.error('Fallback to localStorage failed:', fallbackError);
-      throw new Error('Failed to submit demo request');
     }
-  }
+  );
 };
 
 // Newsletter subscription
 export const subscribeToNewsletter = async (email: string) => {
-  try {
-    console.log("Attempting to subscribe to newsletter");
-    
-    if (isBrowser) {
-      // In browser environments, go straight to localStorage
-      responseManager.saveNewsletterSubscription(email);
-      console.info('Newsletter subscription saved to localStorage');
-      return { success: true, usedFallback: true };
-    }
-    
-    // Server environment - try Google Sheets
-    // Initialize Google Sheets connection if needed
-    await ensureInitialized();
-    
-    // Add the row to the Newsletters sheet
-    await addRowToSheet('Newsletters', {
-      email: email,
-      subscribed_at: new Date().toISOString()
-    });
-    
-    console.log("Successfully subscribed to newsletter via Google Sheets");
-    
-    // Success! Return true
-    return { success: true };
-  } catch (error) {
-    console.error('Error subscribing to newsletter:', error);
-    
-    // Fallback to localStorage
-    try {
+  console.log("Attempting to subscribe to newsletter");
+  
+  return safelyExecuteServerOperation(
+    // Google Sheets operation
+    async () => {
+      await addRowToSheet('Newsletters', {
+        email: email,
+        subscribed_at: new Date().toISOString()
+      });
+      console.log("Successfully subscribed to newsletter via Google Sheets");
+    },
+    // Fallback operation
+    () => {
       responseManager.saveNewsletterSubscription(email);
       console.info('Newsletter subscription saved to localStorage as fallback');
-      return { success: true, usedFallback: true };
-    } catch (fallbackError) {
-      console.error('Fallback to localStorage failed:', fallbackError);
-      throw new Error('Failed to subscribe to newsletter');
     }
-  }
+  );
 };
 
 // Admin verification
