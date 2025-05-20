@@ -17,11 +17,11 @@ import {
 import { submitContactForm } from '@/lib/api';
 
 const pricingPlans = [
-  { id: 1, name: "Free", price: 0 },
-  { id: 2, name: "Basic", price: 9999 },
-  { id: 3, name: "Standard", price: 19999 },
-  { id: 4, name: "Professional", price: 29999 },
-  { id: 5, name: "Enterprise", price: 49999 }
+  { id: 1, name: "Starter", price: 10000 },
+  { id: 2, name: "Basic", price: 20000 },
+  { id: 3, name: "Standard", price: 30000 },
+  { id: 4, name: "Professional", price: 40000 },
+  { id: 5, name: "Enterprise", price: 50000 }
 ];
 
 interface ContactFormData {
