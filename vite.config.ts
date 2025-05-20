@@ -41,7 +41,8 @@ export default defineConfig(({ mode }) => ({
       env: {},
       stdout: { isTTY: false, columns: 80, write: () => {} },
       stderr: { isTTY: false, write: () => {} },
-      nextTick: (cb: Function) => setTimeout(cb, 0)
+      // Fix the type issue with nextTick
+      nextTick: (cb: () => void) => setTimeout(cb, 0)
     }
   },
 }));
