@@ -27,7 +27,7 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
     <div className="inline-flex items-center group">
       {/* Logo icon */}
       <div
-        className="relative flex items-center justify-center rounded-full bg-black group-hover:bg-[#1A1A3D] transition-all duration-300"
+        className="relative flex items-center justify-center rounded-full bg-black group-hover:bg-[#e2ff55] transition-all duration-300"
         style={{
           width: `${icon}px`,
           height: `${icon}px`,
@@ -48,7 +48,7 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
           <h1
             className="font-bold text-lg md:text-xl"
             style={{
-              background: 'linear-gradient(90deg, #E2FF55, #FF9F5A)',
+              background: 'linear-gradient(90deg, #E2FF55, #e2ff55)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
