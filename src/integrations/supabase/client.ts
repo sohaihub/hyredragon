@@ -31,5 +31,9 @@ export const supabase = {
     signOut: () => Promise.resolve({ error: null }),
     onAuthStateChange: () => ({ unsubscribe: () => {} })
   },
+  functions: {
+    invoke: (functionName: string, options?: { body?: any }) => 
+      Promise.resolve({ data: { success: true }, error: null })
+  },
   rpc: () => Promise.resolve({ data: null, error: null })
 };
