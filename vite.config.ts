@@ -21,10 +21,13 @@ export default defineConfig(({ mode }) => ({
     },
   },
   define: {
-    // Provide process.env for Google Sheets API
+    // Provide a browser-friendly `process.env`
     'process.env': {
       SERVICE_ACCOUNT_KEY: JSON.stringify(process.env.SERVICE_ACCOUNT_KEY || '{}'),
       ADMIN_PASSWORD: JSON.stringify(process.env.ADMIN_PASSWORD || 'Hyredragon@123')
-    }
+    },
+    // Add these to prevent errors with node-specific features
+    'process.stdout': JSON.stringify({}),
+    'process.stderr': JSON.stringify({}),
   },
 }));

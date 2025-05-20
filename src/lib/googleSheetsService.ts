@@ -1,9 +1,16 @@
 
+// This service is designed to work primarily in a Node.js environment
+// For browser environments, the fallback mechanism in lib/api.ts will be used
 import { JWT } from 'google-auth-library';
 import { GoogleSpreadsheet, GoogleSpreadsheetRow } from 'google-spreadsheet';
 
+// Check if we're in a browser environment
+const isBrowser = typeof window !== 'undefined';
+
 // Service account credentials
-const serviceAccountCredentials = JSON.parse(process.env.SERVICE_ACCOUNT_KEY || '{}');
+const serviceAccountCredentials = isBrowser 
+  ? { client_email: '', private_key: '' } 
+  : JSON.parse(process.env.SERVICE_ACCOUNT_KEY || '{}');
 
 // Spreadsheet ID (will be set after creation)
 let spreadsheetId = '';
@@ -11,6 +18,11 @@ let spreadsheetId = '';
 // Create a JWT auth client
 const createJwtClient = async () => {
   try {
+    if (isBrowser) {
+      console.warn('Running in browser environment - Google Sheets API may not function properly');
+      throw new Error('Google Sheets API requires a server environment');
+    }
+    
     const client = new JWT({
       email: serviceAccountCredentials.client_email,
       key: serviceAccountCredentials.private_key,
@@ -28,6 +40,10 @@ const createJwtClient = async () => {
 // Access the spreadsheet
 export const getSpreadsheet = async () => {
   try {
+    if (isBrowser) {
+      throw new Error('Google Sheets API requires a server environment');
+    }
+    
     const jwtClient = await createJwtClient();
     const doc = new GoogleSpreadsheet(spreadsheetId, jwtClient);
     await doc.loadInfo();
@@ -41,17 +57,23 @@ export const getSpreadsheet = async () => {
 // Initialize the spreadsheet - create it if it doesn't exist
 export const initializeSpreadsheet = async () => {
   try {
+    if (isBrowser) {
+      throw new Error('Google Sheets API requires a server environment');
+    }
+    
     // Create spreadsheet if ID is not set
     if (!spreadsheetId) {
       const jwtClient = await createJwtClient();
       
-      // Create new spreadsheet - using the correct method
+      // Create new spreadsheet
       const doc = new GoogleSpreadsheet(undefined, jwtClient);
-      try {
-        // For version 4.x of google-spreadsheet
+      
+      // Different versions of the library have different methods
+      if (typeof doc.createNewSpreadsheet === 'function') {
+        // For version 4.x
         await doc.createNewSpreadsheet({ title: 'HyreDragon DB' });
-      } catch (e) {
-        // For version 3.x of google-spreadsheet - fallback
+      } else {
+        // For version 3.x - fallback
         // @ts-ignore - older API method
         await doc.useServiceAccountAuth(jwtClient);
         // @ts-ignore - older API method
@@ -89,6 +111,10 @@ export const initializeSpreadsheet = async () => {
 // Add a row to a specific sheet
 export const addRowToSheet = async (sheetName: string, rowData: Record<string, any>) => {
   try {
+    if (isBrowser) {
+      throw new Error('Google Sheets API requires a server environment');
+    }
+    
     const doc = await getSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];
     
@@ -107,6 +133,12 @@ export const addRowToSheet = async (sheetName: string, rowData: Record<string, a
 // Function to check if initialization is complete
 let isInitialized = false;
 export const ensureInitialized = async () => {
+  if (isBrowser) {
+    // In browser, just mark as initialized but actual operations will fall back
+    isInitialized = true;
+    return;
+  }
+  
   if (!isInitialized) {
     await initializeSpreadsheet();
     isInitialized = true;

@@ -3,6 +3,9 @@
 import { responseManager } from './responses';
 import { ensureInitialized, addRowToSheet } from './googleSheetsService';
 
+// Check if we're in a browser environment
+const isBrowser = typeof window !== 'undefined';
+
 // Contact form submission
 export const submitContactForm = async (formData: {
   name: string;
@@ -13,8 +16,16 @@ export const submitContactForm = async (formData: {
   message: string;
 }) => {
   try {
-    console.log("Attempting to submit contact form to Google Sheets");
+    console.log("Attempting to submit contact form data");
     
+    if (isBrowser) {
+      // In browser environments, go straight to localStorage
+      responseManager.saveContactSubmission(formData);
+      console.info('Contact form saved to localStorage');
+      return { success: true, usedFallback: true };
+    }
+    
+    // Server environment - try Google Sheets
     // Initialize Google Sheets connection if needed
     await ensureInitialized();
     
@@ -34,7 +45,7 @@ export const submitContactForm = async (formData: {
     // Success! Return true
     return { success: true };
   } catch (error) {
-    console.error('Error submitting contact form to Google Sheets:', error);
+    console.error('Error submitting contact form:', error);
     
     // Fallback to localStorage
     try {
@@ -60,6 +71,16 @@ export const submitDemoRequest = async (formData: {
   message?: string;
 }) => {
   try {
+    console.log("Attempting to submit demo request");
+    
+    if (isBrowser) {
+      // In browser environments, go straight to localStorage
+      responseManager.saveDemoRequest(formData);
+      console.info('Demo request saved to localStorage');
+      return { success: true, usedFallback: true };
+    }
+    
+    // Server environment - try Google Sheets
     // Initialize Google Sheets connection if needed
     await ensureInitialized();
     
@@ -76,10 +97,12 @@ export const submitDemoRequest = async (formData: {
       created_at: new Date().toISOString()
     });
     
+    console.log("Successfully submitted demo request to Google Sheets");
+    
     // Success! Return true
     return { success: true };
   } catch (error) {
-    console.error('Error submitting demo request to Google Sheets:', error);
+    console.error('Error submitting demo request:', error);
     
     // Fallback to localStorage
     try {
@@ -96,6 +119,16 @@ export const submitDemoRequest = async (formData: {
 // Newsletter subscription
 export const subscribeToNewsletter = async (email: string) => {
   try {
+    console.log("Attempting to subscribe to newsletter");
+    
+    if (isBrowser) {
+      // In browser environments, go straight to localStorage
+      responseManager.saveNewsletterSubscription(email);
+      console.info('Newsletter subscription saved to localStorage');
+      return { success: true, usedFallback: true };
+    }
+    
+    // Server environment - try Google Sheets
     // Initialize Google Sheets connection if needed
     await ensureInitialized();
     
@@ -105,10 +138,12 @@ export const subscribeToNewsletter = async (email: string) => {
       subscribed_at: new Date().toISOString()
     });
     
+    console.log("Successfully subscribed to newsletter via Google Sheets");
+    
     // Success! Return true
     return { success: true };
   } catch (error) {
-    console.error('Error subscribing to newsletter via Google Sheets:', error);
+    console.error('Error subscribing to newsletter:', error);
     
     // Fallback to localStorage
     try {
@@ -134,18 +169,8 @@ export const getContactSubmissions = async (password: string) => {
     throw new Error('Unauthorized access');
   }
   
-  try {
-    // Try to get data from Google Sheets
-    // Initialize Google Sheets connection if needed
-    await ensureInitialized();
-    
-    // For now, fall back to local storage
-    return responseManager.getAllSubmissions();
-  } catch (error) {
-    console.error('Error getting submissions from Google Sheets:', error);
-    // Fallback to localStorage
-    return responseManager.getAllSubmissions();
-  }
+  // For now, always fall back to local storage
+  return responseManager.getAllSubmissions();
 };
 
 // Export all submissions to CSV
