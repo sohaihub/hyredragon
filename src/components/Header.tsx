@@ -40,6 +40,7 @@ const Header: React.FC = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <HydragonLogo size="small" withText={true} />
+            <span className="text-[#E2FF55] font-bold text-lg ml-2">HyreDragon</span>
           </Link>
 
           {/* Centered Desktop menu */}
@@ -89,7 +90,7 @@ const Header: React.FC = () => {
             </a>
             <Link to="/request-demo">
               <Button
-                className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#0A0A29] hover:opacity-90 rounded-full flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
+                className="bg-[#E2FF55] text-[#0A0A29] hover:opacity-90 rounded-full flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl"
               >
                 Request a demo <ArrowRight className="w-4 h-4" />
               </Button>
@@ -172,7 +173,7 @@ const Header: React.FC = () => {
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 <Button
-                  className="bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] text-[#0A0A29] hover:opacity-90 w-full"
+                  className="bg-[#E2FF55] text-[#0A0A29] hover:opacity-90 w-full"
                 >
                   Request a demo
                 </Button>
