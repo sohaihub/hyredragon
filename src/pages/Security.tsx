@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -12,7 +11,8 @@ const Security: React.FC = () => {
       
       <Header />
       
-      <main className="flex-grow relative z-10 container mx-auto px-4 py-12">
+      {/* Add more padding here to bring the section further down */}
+      <main className="flex-grow relative z-10 container mx-auto px-4 pt-20 md:pt-32 pb-12">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl md:text-4xl font-bold mb-4 text-white text-center">Security at HyrDragon</h1>
           <p className="text-gray-300 text-center mb-12 text-lg">
