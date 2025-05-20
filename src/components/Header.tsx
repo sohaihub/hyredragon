@@ -28,8 +28,8 @@ const Header: React.FC = () => {
     if (featureComparisonSection) {
       featureComparisonSection.scrollIntoView({ behavior: 'smooth' });
     } else {
-      // Navigate to pricing page and include the hash in URL
-      window.location.href = '/pricing#feature-comparison';
+      // Navigate to the pricing page if feature comparison section is not found
+      window.location.href = '/pricing';
     }
   };
 
