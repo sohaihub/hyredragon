@@ -1,3 +1,4 @@
+
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -18,5 +19,12 @@ export default defineConfig(({ mode }) => ({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  define: {
+    // Provide process.env for Google Sheets API
+    'process.env': {
+      SERVICE_ACCOUNT_KEY: JSON.stringify(process.env.SERVICE_ACCOUNT_KEY || '{}'),
+      ADMIN_PASSWORD: JSON.stringify(process.env.ADMIN_PASSWORD || 'Hyredragon@123')
+    }
   },
 }));

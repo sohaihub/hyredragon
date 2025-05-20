@@ -1,8 +1,7 @@
 
-// Import the Google Sheets service
-import { addRowToSheet, ensureInitialized } from './googleSheetsService';
 // Import the response manager for local storage fallback
 import { responseManager } from './responses';
+import { ensureInitialized, addRowToSheet } from './googleSheetsService';
 
 // Contact form submission
 export const submitContactForm = async (formData: {
@@ -14,6 +13,8 @@ export const submitContactForm = async (formData: {
   message: string;
 }) => {
   try {
+    console.log("Attempting to submit contact form to Google Sheets");
+    
     // Initialize Google Sheets connection if needed
     await ensureInitialized();
     
@@ -27,6 +28,8 @@ export const submitContactForm = async (formData: {
       message: formData.message,
       created_at: new Date().toISOString()
     });
+    
+    console.log("Successfully submitted contact form to Google Sheets");
     
     // Success! Return true
     return { success: true };

@@ -45,9 +45,19 @@ export const initializeSpreadsheet = async () => {
     if (!spreadsheetId) {
       const jwtClient = await createJwtClient();
       
-      // Create new spreadsheet
+      // Create new spreadsheet - using the correct method
       const doc = new GoogleSpreadsheet(undefined, jwtClient);
-      await doc.createNewSpreadsheet({ title: 'HyreDragon DB' });
+      try {
+        // For version 4.x of google-spreadsheet
+        await doc.createNewSpreadsheet({ title: 'HyreDragon DB' });
+      } catch (e) {
+        // For version 3.x of google-spreadsheet - fallback
+        // @ts-ignore - older API method
+        await doc.useServiceAccountAuth(jwtClient);
+        // @ts-ignore - older API method
+        await doc.createNewSpreadsheetDocument({ title: 'HyreDragon DB' });
+      }
+      
       spreadsheetId = doc.spreadsheetId;
       
       // Create required sheets
