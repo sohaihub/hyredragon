@@ -117,8 +117,10 @@ const RequestDemo: React.FC = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
+    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
     if (!formData.company.trim()) newErrors.company = 'Company name is required';
+    if (!formData.jobTitle.trim()) newErrors.jobTitle = 'Job title is required';
     if (!formData.companySize) newErrors.companySize = 'Company size is required';
     
     // Validate email format
@@ -198,11 +200,11 @@ const RequestDemo: React.FC = () => {
                         First Name <span className="text-red-400">*</span>
                       </Label>
                       <Input
-                        id="Name"
-                        name="Name"
+                        id="firstName"
+                        name="firstName"
                         value={formData.firstName}
                         onChange={handleChange}
-                        placeholder="Name"
+                        placeholder="Your first name"
                         className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
                         aria-invalid={!!errors.firstName}
                         aria-describedby={errors.firstName ? "firstName-error" : undefined}
@@ -214,6 +216,26 @@ const RequestDemo: React.FC = () => {
                       )}
                     </div>
 
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName" className="text-white">
+                        Last Name <span className="text-red-400">*</span>
+                      </Label>
+                      <Input
+                        id="lastName"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleChange}
+                        placeholder="Your last name"
+                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                        aria-invalid={!!errors.lastName}
+                        aria-describedby={errors.lastName ? "lastName-error" : undefined}
+                      />
+                      {errors.lastName && (
+                        <p id="lastName-error" className="text-red-400 text-sm mt-1">
+                          {errors.lastName}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -283,6 +305,26 @@ const RequestDemo: React.FC = () => {
                       )}
                     </div>
 
+                    <div className="space-y-2">
+                      <Label htmlFor="jobTitle" className="text-white">
+                        Job Title <span className="text-red-400">*</span>
+                      </Label>
+                      <Input
+                        id="jobTitle"
+                        name="jobTitle"
+                        value={formData.jobTitle}
+                        onChange={handleChange}
+                        placeholder="Your position"
+                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                        aria-invalid={!!errors.jobTitle}
+                        aria-describedby={errors.jobTitle ? "jobTitle-error" : undefined}
+                      />
+                      {errors.jobTitle && (
+                        <p id="jobTitle-error" className="text-red-400 text-sm mt-1">
+                          {errors.jobTitle}
+                        </p>
+                      )}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -396,7 +438,7 @@ const RequestDemo: React.FC = () => {
               </div>
               <h2 className="text-4xl font-bold mb-6">Thanks for your interest!</h2>
               <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto">
-                Your demo request has been received. One of our representatives will contact you soon to schedule a personalized demo at your preferred time.
+                Thanks for your interest! Your demo request has been received. One of our representatives will contact you soon to schedule a personalized demo at your preferred time.
               </p>
               <Button 
                 onClick={() => setFormSubmitted(false)}
