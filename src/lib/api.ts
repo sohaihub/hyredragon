@@ -9,10 +9,8 @@ const isBrowser = typeof window !== 'undefined';
 // Safely try to use the Google Sheets functionality with robust fallback
 const safelyExecuteServerOperation = async (operation: () => Promise<any>, fallbackFn: () => void) => {
   try {
-    if (isBrowser) {
-      // In browser environments, try Google Sheets but be prepared to fall back
-      console.info('Running in browser - attempting to use Google Sheets API with fallbacks');
-    }
+    // Log that we're attempting to use Google Sheets
+    console.info('Attempting to use Google Sheets API with fallbacks');
     
     // Try to ensure the sheet service is initialized
     await ensureInitialized();
@@ -37,7 +35,7 @@ export const submitContactForm = async (formData: {
   subject: string;
   message: string;
 }) => {
-  console.log("Attempting to submit contact form data");
+  console.log("Attempting to submit contact form data", formData);
   
   return safelyExecuteServerOperation(
     // Google Sheets operation
@@ -73,7 +71,7 @@ export const submitDemoRequest = async (formData: {
   preferredDate?: string;
   message?: string;
 }) => {
-  console.log("Attempting to submit demo request");
+  console.log("Attempting to submit demo request", formData);
   
   return safelyExecuteServerOperation(
     // Google Sheets operation
@@ -102,7 +100,7 @@ export const submitDemoRequest = async (formData: {
 
 // Newsletter subscription
 export const subscribeToNewsletter = async (email: string) => {
-  console.log("Attempting to subscribe to newsletter");
+  console.log("Attempting to subscribe to newsletter", email);
   
   return safelyExecuteServerOperation(
     // Google Sheets operation

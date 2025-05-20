@@ -33,37 +33,66 @@ const createMockedSpreadsheet = (): Spreadsheet => {
     sheetsByTitle: {
       ContactUs: {
         title: 'ContactUs',
-        addRow: async () => ({ success: true, mocked: true })
+        addRow: async () => {
+          console.log('Mock: Adding row to ContactUs sheet');
+          throw new Error('Cannot use Google Sheets in browser environment');
+        }
       },
       DemoRequests: {
         title: 'DemoRequests',
-        addRow: async () => ({ success: true, mocked: true })
+        addRow: async () => {
+          console.log('Mock: Adding row to DemoRequests sheet');
+          throw new Error('Cannot use Google Sheets in browser environment');
+        }
       },
       Newsletters: {
         title: 'Newsletters',
-        addRow: async () => ({ success: true, mocked: true })
+        addRow: async () => {
+          console.log('Mock: Adding row to Newsletters sheet');
+          throw new Error('Cannot use Google Sheets in browser environment');
+        }
       }
     },
-    loadInfo: async () => {},
+    loadInfo: async () => {
+      console.log('Mock: Loading spreadsheet info');
+    },
     addSheet: async (options) => ({ 
       title: options.title, 
-      addRow: async () => ({ success: true, mocked: true }) 
+      addRow: async () => {
+        console.log(`Mock: Adding row to ${options.title} sheet`);
+        throw new Error('Cannot use Google Sheets in browser environment');
+      }
     })
   };
 };
 
-// Safely try to create a JWT client
+// Create JWT client only in server environment
 export const createJwtClient = async () => {
   if (isBrowser) {
-    console.warn('Running in browser environment - using mock implementation');
+    console.warn('Running in browser environment - cannot create JWT client');
     return null;
   }
   
   try {
-    // In a Node.js environment, we would import and use the actual library
-    // We're importing dynamically to prevent browser errors
     const { JWT } = await import('google-auth-library');
-    const serviceAccountCredentials = JSON.parse(process.env.SERVICE_ACCOUNT_KEY || '{}');
+    
+    // Get service account credentials from environment
+    // In a real environment, this would be set in your server's environment variables
+    const serviceAccountKeyString = process.env.SERVICE_ACCOUNT_KEY || '{}';
+    
+    // Parse the service account key
+    let serviceAccountCredentials;
+    try {
+      serviceAccountCredentials = JSON.parse(serviceAccountKeyString);
+    } catch (parseError) {
+      console.error('Error parsing service account key:', parseError);
+      return null;
+    }
+    
+    if (!serviceAccountCredentials.client_email || !serviceAccountCredentials.private_key) {
+      console.error('Invalid or missing service account credentials');
+      return null;
+    }
     
     const client = new JWT({
       email: serviceAccountCredentials.client_email,
@@ -93,11 +122,16 @@ export const getSpreadsheet = async (): Promise<Spreadsheet> => {
       return createMockedSpreadsheet();
     }
     
-    // Dynamic import to prevent browser errors
-    const { GoogleSpreadsheet } = await import('google-spreadsheet');
-    const doc = new GoogleSpreadsheet(spreadsheetId, jwtClient);
-    await doc.loadInfo();
-    return doc as unknown as Spreadsheet;
+    try {
+      // Dynamic import to prevent browser errors
+      const { GoogleSpreadsheet } = await import('google-spreadsheet');
+      const doc = new GoogleSpreadsheet(spreadsheetId, jwtClient);
+      await doc.loadInfo();
+      return doc as unknown as Spreadsheet;
+    } catch (importError) {
+      console.error('Error importing GoogleSpreadsheet:', importError);
+      return createMockedSpreadsheet();
+    }
   } catch (error) {
     console.error('Error loading spreadsheet:', error);
     return createMockedSpreadsheet();
@@ -119,50 +153,55 @@ export const initializeSpreadsheet = async (): Promise<Spreadsheet> => {
       return createMockedSpreadsheet();
     }
     
-    // Dynamic import to prevent browser errors
-    const { GoogleSpreadsheet } = await import('google-spreadsheet');
-    
     try {
-      // Access the existing spreadsheet
-      const doc = new GoogleSpreadsheet(spreadsheetId, jwtClient);
-      await doc.loadInfo();
-      console.log('Successfully connected to spreadsheet:', doc.title);
+      // Dynamic import to prevent browser errors
+      const { GoogleSpreadsheet } = await import('google-spreadsheet');
       
-      // Check if required sheets exist, create them if not
-      if (!doc.sheetsByTitle['ContactUs']) {
-        const contactSheet = await doc.addSheet({ 
-          title: 'ContactUs', 
-          headerValues: [
-            'name', 'email', 'company', 'plan', 'subject', 'message', 'created_at'
-          ]
-        });
-        console.log('Created ContactUs sheet');
+      try {
+        // Access the existing spreadsheet
+        const doc = new GoogleSpreadsheet(spreadsheetId, jwtClient);
+        await doc.loadInfo();
+        console.log('Successfully connected to spreadsheet:', doc.title);
+        
+        // Check if required sheets exist, create them if not
+        if (!doc.sheetsByTitle['ContactUs']) {
+          const contactSheet = await doc.addSheet({ 
+            title: 'ContactUs', 
+            headerValues: [
+              'name', 'email', 'company', 'plan', 'subject', 'message', 'created_at'
+            ]
+          });
+          console.log('Created ContactUs sheet');
+        }
+        
+        if (!doc.sheetsByTitle['DemoRequests']) {
+          const demoSheet = await doc.addSheet({ 
+            title: 'DemoRequests', 
+            headerValues: [
+              'firstName', 'lastName', 'email', 'company', 'phone', 'jobTitle', 'companySize', 
+              'preferredDate', 'message', 'created_at'
+            ]
+          });
+          console.log('Created DemoRequests sheet');
+        }
+        
+        if (!doc.sheetsByTitle['Newsletters']) {
+          const newsletterSheet = await doc.addSheet({ 
+            title: 'Newsletters', 
+            headerValues: [
+              'email', 'subscribed_at'
+            ]
+          });
+          console.log('Created Newsletters sheet');
+        }
+        
+        return doc as unknown as Spreadsheet;
+      } catch (error) {
+        console.error('Error accessing spreadsheet:', error);
+        return createMockedSpreadsheet();
       }
-      
-      if (!doc.sheetsByTitle['DemoRequests']) {
-        const demoSheet = await doc.addSheet({ 
-          title: 'DemoRequests', 
-          headerValues: [
-            'firstName', 'lastName', 'email', 'company', 'phone', 'jobTitle', 'companySize', 
-            'preferredDate', 'message', 'created_at'
-          ]
-        });
-        console.log('Created DemoRequests sheet');
-      }
-      
-      if (!doc.sheetsByTitle['Newsletters']) {
-        const newsletterSheet = await doc.addSheet({ 
-          title: 'Newsletters', 
-          headerValues: [
-            'email', 'subscribed_at'
-          ]
-        });
-        console.log('Created Newsletters sheet');
-      }
-      
-      return doc as unknown as Spreadsheet;
-    } catch (error) {
-      console.error('Error accessing spreadsheet:', error);
+    } catch (importError) {
+      console.error('Error importing GoogleSpreadsheet:', importError);
       return createMockedSpreadsheet();
     }
   } catch (error) {
@@ -173,33 +212,50 @@ export const initializeSpreadsheet = async (): Promise<Spreadsheet> => {
 
 // Add a row to a specific sheet
 export const addRowToSheet = async (sheetName: string, rowData: Record<string, any>) => {
+  if (isBrowser) {
+    console.warn('Cannot add row to Google Sheets in browser environment');
+    throw new Error('Cannot add row to Google Sheets in browser environment');
+  }
+  
   try {
+    console.log(`Attempting to add row to ${sheetName} sheet`);
     const doc = await getSpreadsheet();
     const sheet = doc.sheetsByTitle[sheetName];
     
     if (!sheet) {
+      console.error(`Sheet ${sheetName} not found`);
       throw new Error(`Sheet ${sheetName} not found`);
     }
     
     const result = await sheet.addRow(rowData);
+    console.log(`Successfully added row to ${sheetName} sheet`);
     return result;
   } catch (error) {
     console.error(`Error adding row to ${sheetName}:`, error);
-    throw new Error(`Failed to add data to ${sheetName}`);
+    throw new Error(`Failed to add data to ${sheetName}: ${error.message}`);
   }
 };
 
 // Function to check if initialization is complete
 let isInitialized = false;
 export const ensureInitialized = async () => {
+  if (isInitialized) {
+    return;
+  }
+
   if (isBrowser) {
     // In browser, just mark as initialized but actual operations will fall back
+    console.log('Browser environment detected - skipping Google Sheets initialization');
     isInitialized = true;
     return;
   }
   
-  if (!isInitialized) {
+  try {
     await initializeSpreadsheet();
     isInitialized = true;
+    console.log('Google Sheets service initialized successfully');
+  } catch (error) {
+    console.error('Failed to initialize Google Sheets service:', error);
+    throw new Error('Failed to initialize Google Sheets service');
   }
 };

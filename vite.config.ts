@@ -36,7 +36,8 @@ export default defineConfig(({ mode }) => ({
       isTTY: false,
       write: () => {}
     }),
-    // Add Node.js process polyfill
+    // Add global objects that might be needed
+    'global': 'window',
     'process': {
       env: {
         SERVICE_ACCOUNT_KEY: JSON.stringify(process.env.SERVICE_ACCOUNT_KEY || '{}'),
@@ -44,11 +45,10 @@ export default defineConfig(({ mode }) => ({
       },
       stdout: { isTTY: false, columns: 80, write: () => {} },
       stderr: { isTTY: false, write: () => {} },
-      // Fix the type issue with nextTick - using a properly typed function
-      nextTick: (cb: () => void) => setTimeout(cb, 0)
+      // Fix the type issue with nextTick
+      nextTick: (cb: Function) => setTimeout(cb, 0)
     },
     // Add missing Node.js global modules that might be used by Google libraries
-    'global': {},
     'node:events': JSON.stringify({}),
     'node:stream': JSON.stringify({}),
     'node:util': JSON.stringify({}),
