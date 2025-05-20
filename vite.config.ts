@@ -38,7 +38,10 @@ export default defineConfig(({ mode }) => ({
     }),
     // Add Node.js process polyfill
     'process': {
-      env: {},
+      env: {
+        SERVICE_ACCOUNT_KEY: JSON.stringify(process.env.SERVICE_ACCOUNT_KEY || '{}'),
+        ADMIN_PASSWORD: JSON.stringify(process.env.ADMIN_PASSWORD || 'Hyredragon@123')
+      },
       stdout: { isTTY: false, columns: 80, write: () => {} },
       stderr: { isTTY: false, write: () => {} },
       // Fix the type issue with nextTick - using a properly typed function

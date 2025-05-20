@@ -5,9 +5,9 @@
 // Check if we're in a browser environment
 const isBrowser = typeof window !== 'undefined';
 
-// We'll mock the functionality for browser environments
-// and implement real functionality for server environments
-let spreadsheetId = '';
+// Extract spreadsheet ID from the Google Sheets URL
+// For "https://docs.google.com/spreadsheets/d/18dTG8BLnnHkdlVIF4wS-BJZuX31dYx6_fc7MmajMP1s/edit?usp=sharing"
+let spreadsheetId = '18dTG8BLnnHkdlVIF4wS-BJZuX31dYx6_fc7MmajMP1s';
 
 // Simplified interface for spreadsheet operations
 interface SpreadsheetRow {
@@ -104,7 +104,7 @@ export const getSpreadsheet = async (): Promise<Spreadsheet> => {
   }
 };
 
-// Initialize the spreadsheet - create it if it doesn't exist
+// Initialize the spreadsheet - create sheets if they don't exist
 export const initializeSpreadsheet = async (): Promise<Spreadsheet> => {
   if (isBrowser) {
     console.info('Browser environment detected - using mock implementation');
@@ -112,76 +112,59 @@ export const initializeSpreadsheet = async (): Promise<Spreadsheet> => {
   }
   
   try {
-    // Create spreadsheet if ID is not set
-    if (!spreadsheetId) {
-      const jwtClient = await createJwtClient();
-      if (!jwtClient) {
-        console.warn('JWT client creation failed - using mock implementation');
-        return createMockedSpreadsheet();
-      }
+    // Use the existing spreadsheet ID
+    const jwtClient = await createJwtClient();
+    if (!jwtClient) {
+      console.warn('JWT client creation failed - using mock implementation');
+      return createMockedSpreadsheet();
+    }
+    
+    // Dynamic import to prevent browser errors
+    const { GoogleSpreadsheet } = await import('google-spreadsheet');
+    
+    try {
+      // Access the existing spreadsheet
+      const doc = new GoogleSpreadsheet(spreadsheetId, jwtClient);
+      await doc.loadInfo();
+      console.log('Successfully connected to spreadsheet:', doc.title);
       
-      // Dynamic import to prevent browser errors
-      const { GoogleSpreadsheet } = await import('google-spreadsheet');
-      
-      try {
-        // Create a new document - handling different API versions
-        const doc = new GoogleSpreadsheet('', jwtClient);
-        
-        // Use appropriate method based on available API
-        try {
-          // For version 4.x or newer, using proper TypeScript arguments
-          // @ts-ignore - API method exists but TypeScript might not recognize it
-          await doc.createNewSpreadsheetDocument({ title: 'HyreDragon DB' });
-        } catch (error) {
-          console.warn('First createNewSpreadsheetDocument attempt failed, trying alternative:', error);
-          try {
-            // @ts-ignore - Trying alternative method structure
-            await doc.createNewSpreadsheetDocument();
-            // If this succeeds, we still need to set the title
-            // @ts-ignore - Accessing potential property
-            await doc.updateProperties({ title: 'HyreDragon DB' });
-          } catch (innerError) {
-            console.error('All createNewSpreadsheetDocument attempts failed:', innerError);
-            throw new Error('Could not create spreadsheet document');
-          }
-        }
-        
-        spreadsheetId = doc.spreadsheetId;
-        
-        // Create required sheets
+      // Check if required sheets exist, create them if not
+      if (!doc.sheetsByTitle['ContactUs']) {
         const contactSheet = await doc.addSheet({ 
           title: 'ContactUs', 
           headerValues: [
             'name', 'email', 'company', 'plan', 'subject', 'message', 'created_at'
           ]
         });
-        
+        console.log('Created ContactUs sheet');
+      }
+      
+      if (!doc.sheetsByTitle['DemoRequests']) {
         const demoSheet = await doc.addSheet({ 
           title: 'DemoRequests', 
           headerValues: [
-            'firstName', 'lastName', 'email', 'company', 'jobTitle', 'companySize', 
+            'firstName', 'lastName', 'email', 'company', 'phone', 'jobTitle', 'companySize', 
             'preferredDate', 'message', 'created_at'
           ]
         });
-        
+        console.log('Created DemoRequests sheet');
+      }
+      
+      if (!doc.sheetsByTitle['Newsletters']) {
         const newsletterSheet = await doc.addSheet({ 
           title: 'Newsletters', 
           headerValues: [
             'email', 'subscribed_at'
           ]
         });
-        
-        console.log('Spreadsheet created with ID:', spreadsheetId);
-        console.log('Created sheets:', contactSheet.title, demoSheet.title, newsletterSheet.title);
-        
-        return doc as unknown as Spreadsheet;
-      } catch (error) {
-        console.error('Error creating spreadsheet:', error);
-        return createMockedSpreadsheet();
+        console.log('Created Newsletters sheet');
       }
+      
+      return doc as unknown as Spreadsheet;
+    } catch (error) {
+      console.error('Error accessing spreadsheet:', error);
+      return createMockedSpreadsheet();
     }
-    
-    return await getSpreadsheet();
   } catch (error) {
     console.error('Error initializing spreadsheet:', error);
     return createMockedSpreadsheet();

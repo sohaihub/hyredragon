@@ -9,11 +9,17 @@ const isBrowser = typeof window !== 'undefined';
 // Safely try to use the Google Sheets functionality with robust fallback
 const safelyExecuteServerOperation = async (operation: () => Promise<any>, fallbackFn: () => void) => {
   try {
+    if (isBrowser) {
+      // In browser environments, try Google Sheets but be prepared to fall back
+      console.info('Running in browser - attempting to use Google Sheets API with fallbacks');
+    }
+    
     // Try to ensure the sheet service is initialized
     await ensureInitialized();
     
     // Try the server operation (Google Sheets) first
     await operation();
+    console.log('Successfully executed Google Sheets operation');
     return { success: true, usedFallback: false };
   } catch (error) {
     console.info('Using localStorage fallback for data storage:', error);
@@ -61,6 +67,7 @@ export const submitDemoRequest = async (formData: {
   lastName: string;
   email: string;
   company: string;
+  phone?: string;
   jobTitle: string;
   companySize: string;
   preferredDate?: string;
@@ -75,6 +82,7 @@ export const submitDemoRequest = async (formData: {
         firstName: formData.firstName,
         lastName: formData.lastName,
         email: formData.email,
+        phone: formData.phone || '',
         company: formData.company,
         jobTitle: formData.jobTitle,
         companySize: formData.companySize,
