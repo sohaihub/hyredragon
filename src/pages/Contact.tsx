@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -277,27 +278,6 @@ const Contact: React.FC = () => {
                           {errors.message}
                         </p>
                       )}
-                    </div>
-
-                    <div className="text-sm text-gray-400 mt-4 mb-4">
-                      By submitting this form, you agree to our{" "}
-                      <a 
-                        href="/terms" 
-                        className="text-[#E2FF55] hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Terms of Service
-                      </a>{" "}
-                      and{" "}
-                      <a 
-                        href="/privacy" 
-                        className="text-[#E2FF55] hover:underline"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        Privacy Policy
-                      </a>.
                     </div>
 
                     <Button
