@@ -48,11 +48,11 @@ export default defineConfig(({ mode }) => ({
       // Fix the type issue with nextTick
       nextTick: (cb: () => void) => setTimeout(cb, 0)
     },
-    // Add missing Node.js global modules with proper formatting to avoid colon in keys
-    'require("events")': JSON.stringify({}),
-    'require("stream")': JSON.stringify({}),
-    'require("util")': JSON.stringify({}),
-    'require("buffer")': JSON.stringify({ Buffer: {} }),
+    // Fix node modules polyfills with valid identifiers
+    '__utils': JSON.stringify({}),
+    '__stream': JSON.stringify({}),
+    '__events': JSON.stringify({}),
+    '__buffer': JSON.stringify({ Buffer: {} }),
     'http': JSON.stringify({}),
     'https': JSON.stringify({}),
     'path': JSON.stringify({}),
