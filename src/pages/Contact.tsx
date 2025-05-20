@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -104,17 +103,21 @@ const Contact: React.FC = () => {
     setIsSubmitting(true);
     
     try {
-      // Submit form data to localStorage
-      await submitContactForm(formData);
+      // Submit form data to Google Sheets
+      const result = await submitContactForm(formData);
       
-      // Trigger a custom event to notify other tabs
-      const event = new Event('storage');
-      window.dispatchEvent(event);
-      
-      toast({
-        title: "Message sent!",
-        description: "We'll get back to you as soon as possible.",
-      });
+      // Show appropriate toast message
+      if (result.usedFallback) {
+        toast({
+          title: "Message sent!",
+          description: "Your message was saved locally. We'll get back to you as soon as possible.",
+        });
+      } else {
+        toast({
+          title: "Message sent successfully!",
+          description: "Your information has been saved to our Google Sheet. We'll get back to you soon.",
+        });
+      }
       
       // Show success state
       setFormSubmitted(true);

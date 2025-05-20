@@ -78,6 +78,18 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletterr: {
+        Row: {
+          email: string
+        }
+        Insert: {
+          email: string
+        }
+        Update: {
+          email?: string
+        }
+        Relationships: []
+      }
       pricing_plans: {
         Row: {
           created_at: string
