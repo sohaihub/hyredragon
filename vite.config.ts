@@ -46,17 +46,13 @@ export default defineConfig(({ mode }) => ({
       stdout: { isTTY: false, columns: 80, write: () => {} },
       stderr: { isTTY: false, write: () => {} },
       // Fix the type issue with nextTick
-      nextTick: (cb: () => void) => setTimeout(cb, 0)
+      nextTick: (cb) => setTimeout(cb, 0)
     },
-    // Add missing Node.js global modules that might be used by Google libraries
-    'node:events': JSON.stringify({}),
-    'node:stream': JSON.stringify({}),
-    'node:util': JSON.stringify({}),
-    'node:buffer': JSON.stringify({}),
-    'events': JSON.stringify({}),
-    'stream': JSON.stringify({}),
-    'util': JSON.stringify({}),
-    'buffer': JSON.stringify({ Buffer: {} }),
+    // Add missing Node.js global modules with proper formatting to avoid colon in keys
+    'require("events")': JSON.stringify({}),
+    'require("stream")': JSON.stringify({}),
+    'require("util")': JSON.stringify({}),
+    'require("buffer")': JSON.stringify({ Buffer: {} }),
     'http': JSON.stringify({}),
     'https': JSON.stringify({}),
     'path': JSON.stringify({}),
