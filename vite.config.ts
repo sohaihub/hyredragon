@@ -27,7 +27,21 @@ export default defineConfig(({ mode }) => ({
       ADMIN_PASSWORD: JSON.stringify(process.env.ADMIN_PASSWORD || 'Hyredragon@123')
     },
     // Add these to prevent errors with node-specific features
-    'process.stdout': JSON.stringify({}),
-    'process.stderr': JSON.stringify({}),
+    'process.stdout': JSON.stringify({
+      isTTY: false,
+      columns: 80,
+      write: () => {}
+    }),
+    'process.stderr': JSON.stringify({
+      isTTY: false,
+      write: () => {}
+    }),
+    // Add Node.js process polyfill
+    'process': {
+      env: {},
+      stdout: { isTTY: false, columns: 80, write: () => {} },
+      stderr: { isTTY: false, write: () => {} },
+      nextTick: (cb: Function) => setTimeout(cb, 0)
+    }
   },
 }));

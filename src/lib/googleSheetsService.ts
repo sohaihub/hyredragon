@@ -65,40 +65,70 @@ export const initializeSpreadsheet = async () => {
     if (!spreadsheetId) {
       const jwtClient = await createJwtClient();
       
-      // Create new spreadsheet
-      const doc = new GoogleSpreadsheet(undefined, jwtClient);
-      
-      // Different versions of the library have different methods
-      if (typeof doc.createNewSpreadsheet === 'function') {
-        // For version 4.x
-        await doc.createNewSpreadsheet({ title: 'HyreDragon DB' });
-      } else {
-        // For version 3.x - fallback
-        // @ts-ignore - older API method
-        await doc.useServiceAccountAuth(jwtClient);
-        // @ts-ignore - older API method
+      // Create new spreadsheet - updated to handle different API versions
+      try {
+        // For version 4.x or newer
+        const doc = new GoogleSpreadsheet(undefined, jwtClient);
+        
+        // This is a workaround since TypeScript doesn't recognize this method
+        // @ts-ignore - API method exists but not in type definitions
         await doc.createNewSpreadsheetDocument({ title: 'HyreDragon DB' });
+        
+        spreadsheetId = doc.spreadsheetId;
+        
+        // Create required sheets
+        const contactSheet = await doc.addSheet({ title: 'ContactUs', headerValues: [
+          'name', 'email', 'company', 'plan', 'subject', 'message', 'created_at'
+        ]});
+        
+        const demoSheet = await doc.addSheet({ title: 'DemoRequests', headerValues: [
+          'firstName', 'lastName', 'email', 'company', 'jobTitle', 'companySize', 'preferredDate', 'message', 'created_at'
+        ]});
+        
+        const newsletterSheet = await doc.addSheet({ title: 'Newsletters', headerValues: [
+          'email', 'subscribed_at'
+        ]});
+        
+        console.log('Spreadsheet created with ID:', spreadsheetId);
+        console.log('Created sheets:', contactSheet.title, demoSheet.title, newsletterSheet.title);
+        
+        return doc;
+      } catch (error) {
+        console.error('Error creating new spreadsheet document:', error);
+        
+        // Fallback for older API versions (3.x)
+        // Try the older method structure
+        try {
+          const doc = new GoogleSpreadsheet(''); // Temp ID will be replaced
+          // @ts-ignore - older method
+          await doc.useServiceAccountAuth(jwtClient);
+          // @ts-ignore - older method
+          await doc.createNewSpreadsheetDocument({ title: 'HyreDragon DB' });
+          
+          spreadsheetId = doc.spreadsheetId;
+          
+          // Create required sheets (format may vary by version)
+          const contactSheet = await doc.addSheet({ title: 'ContactUs', headerValues: [
+            'name', 'email', 'company', 'plan', 'subject', 'message', 'created_at'
+          ]});
+          
+          const demoSheet = await doc.addSheet({ title: 'DemoRequests', headerValues: [
+            'firstName', 'lastName', 'email', 'company', 'jobTitle', 'companySize', 'preferredDate', 'message', 'created_at'
+          ]});
+          
+          const newsletterSheet = await doc.addSheet({ title: 'Newsletters', headerValues: [
+            'email', 'subscribed_at'
+          ]});
+          
+          console.log('Spreadsheet created with ID (fallback method):', spreadsheetId);
+          console.log('Created sheets:', contactSheet.title, demoSheet.title, newsletterSheet.title);
+          
+          return doc;
+        } catch (fallbackError) {
+          console.error('Both creation methods failed:', fallbackError);
+          throw new Error('Failed to create Google Spreadsheet');
+        }
       }
-      
-      spreadsheetId = doc.spreadsheetId;
-      
-      // Create required sheets
-      const contactSheet = await doc.addSheet({ title: 'ContactUs', headerValues: [
-        'name', 'email', 'company', 'plan', 'subject', 'message', 'created_at'
-      ]});
-      
-      const demoSheet = await doc.addSheet({ title: 'DemoRequests', headerValues: [
-        'firstName', 'lastName', 'email', 'company', 'jobTitle', 'companySize', 'preferredDate', 'message', 'created_at'
-      ]});
-      
-      const newsletterSheet = await doc.addSheet({ title: 'Newsletters', headerValues: [
-        'email', 'subscribed_at'
-      ]});
-      
-      console.log('Spreadsheet created with ID:', spreadsheetId);
-      console.log('Created sheets:', contactSheet.title, demoSheet.title, newsletterSheet.title);
-      
-      return doc;
     }
     
     return await getSpreadsheet();
