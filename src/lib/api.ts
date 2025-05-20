@@ -1,4 +1,3 @@
-
 // Import the response manager for local storage fallback
 import { responseManager } from './responses';
 import { ensureInitialized, addRowToSheet } from './googleSheetsService';
@@ -11,10 +10,10 @@ const safelyExecuteServerOperation = async (operation: () => Promise<any>, fallb
   try {
     // Log that we're attempting to use Google Sheets
     console.info('Attempting to use Google Sheets API with fallbacks');
-    
+
     // Try to ensure the sheet service is initialized
     await ensureInitialized();
-    
+
     // Try the server operation (Google Sheets) first
     await operation();
     console.log('Successfully executed Google Sheets operation');
@@ -36,7 +35,7 @@ export const submitContactForm = async (formData: {
   message: string;
 }) => {
   console.log("Attempting to submit contact form data", formData);
-  
+
   return safelyExecuteServerOperation(
     // Google Sheets operation
     async () => {
@@ -62,27 +61,23 @@ export const submitContactForm = async (formData: {
 // Demo request submission
 export const submitDemoRequest = async (formData: {
   firstName: string;
-  lastName: string;
   email: string;
+  phone: string;
   company: string;
-  phone?: string;
-  jobTitle: string;
   companySize: string;
   preferredDate?: string;
   message?: string;
 }) => {
-  console.log("Attempting to submit demo request", formData);
-  
+  console.log("Attempting to submit demo request data", formData);
+
   return safelyExecuteServerOperation(
     // Google Sheets operation
     async () => {
       await addRowToSheet('DemoRequests', {
         firstName: formData.firstName,
-        lastName: formData.lastName,
         email: formData.email,
-        phone: formData.phone || '',
+        phone: formData.phone,
         company: formData.company,
-        jobTitle: formData.jobTitle,
         companySize: formData.companySize,
         preferredDate: formData.preferredDate || '',
         message: formData.message || '',
@@ -101,7 +96,7 @@ export const submitDemoRequest = async (formData: {
 // Newsletter subscription
 export const subscribeToNewsletter = async (email: string) => {
   console.log("Attempting to subscribe to newsletter", email);
-  
+
   return safelyExecuteServerOperation(
     // Google Sheets operation
     async () => {
@@ -130,15 +125,35 @@ export const getContactSubmissions = async (password: string) => {
   if (!verifyAdmin(password)) {
     throw new Error('Unauthorized access');
   }
-  
+
   // For now, always fall back to local storage
-  return responseManager.getAllSubmissions();
+  return responseManager.getContactSubmissions();
+};
+
+// Get all demo requests for admin
+export const getDemoRequests = async (password: string) => {
+  if (!verifyAdmin(password)) {
+    throw new Error('Unauthorized access');
+  }
+
+  // For now, always fall back to local storage
+  return responseManager.getDemoRequests();
+};
+
+// Get all newsletter subscriptions for admin
+export const getNewsletterSubscriptions = async (password: string) => {
+  if (!verifyAdmin(password)) {
+    throw new Error('Unauthorized access');
+  }
+
+  // For now, always fall back to local storage
+  return responseManager.getNewsletterSubscriptions();
 };
 
 // Export all submissions to CSV
 export const exportSubmissionsToCsv = () => {
-  const csvContent = responseManager.exportToCsv();
-  
+  const csvContent = responseManager.exportAllDataToCsv();
+
   // Create a blob and trigger download
   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
