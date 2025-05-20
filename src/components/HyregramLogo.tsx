@@ -25,7 +25,7 @@ const HyregramLogo: React.FC<HyregramLogoProps> = ({
     <Link to="/" className="flex items-center group">
       <div className="relative mr-2">
         <div 
-          className="bg-gradient-to-br from-[#1A1A3D] to-[#080820] flex items-center justify-center rounded-full overflow-hidden border border-[#E2FF55]/10 transition-all duration-500 group-hover:border-[#E2FF55]/30"
+          className="bg-gradient-to-br from-[#e2ff55] to-[#e2ff55] flex items-center justify-center rounded-full overflow-hidden border border-[#E2FF55]/10 transition-all duration-500 group-hover:border-[#E2FF55]/30"
           style={{ width, height }}
         >
           <Sparkles className="text-[#E2FF55] w-1/2 h-1/2 transition-all duration-500 group-hover:scale-110" />
