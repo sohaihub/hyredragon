@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -14,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { CalendarIcon, Building2, SendIcon } from "lucide-react";
+import { CalendarIcon, SendIcon } from "lucide-react";
 import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
@@ -23,11 +22,9 @@ import { submitDemoRequest } from '@/lib/api';
 
 interface DemoRequestFormData {
   firstName: string;
-  lastName: string;
   email: string;
   phone: string;
   company: string;
-  jobTitle: string;
   companySize: string;
   preferredDate: string;
   message: string;
@@ -46,20 +43,18 @@ const RequestDemo: React.FC = () => {
   const { toast } = useToast();
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [date, setDate] = useState<Date | undefined>(undefined);
-  
+
   // Form state with required fields initialized
   const [formData, setFormData] = useState<DemoRequestFormData>({
     firstName: '',
-    lastName: '',
     email: '',
     phone: '',
     company: '',
-    jobTitle: '',
     companySize: '',
     preferredDate: '',
     message: ''
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -70,7 +65,7 @@ const RequestDemo: React.FC = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user types
     if (errors[name]) {
       setErrors(prev => ({
@@ -86,7 +81,7 @@ const RequestDemo: React.FC = () => {
       ...prev,
       companySize: value
     }));
-    
+
     if (errors.companySize) {
       setErrors(prev => ({
         ...prev,
@@ -98,7 +93,7 @@ const RequestDemo: React.FC = () => {
   // Handle date selection
   const handleDateSelect = (selectedDate: Date | undefined) => {
     setDate(selectedDate);
-    
+
     if (selectedDate) {
       setFormData(prev => ({
         ...prev,
@@ -115,26 +110,25 @@ const RequestDemo: React.FC = () => {
   // Validate form data
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
-    
+
     if (!formData.firstName.trim()) newErrors.firstName = 'First name is required';
-    if (!formData.lastName.trim()) newErrors.lastName = 'Last name is required';
     if (!formData.email.trim()) newErrors.email = 'Email is required';
+    if (!formData.phone.trim()) newErrors.phone = 'Phone number is required';
     if (!formData.company.trim()) newErrors.company = 'Company name is required';
-    if (!formData.jobTitle.trim()) newErrors.jobTitle = 'Job title is required';
     if (!formData.companySize) newErrors.companySize = 'Company size is required';
-    
+
     // Validate email format
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (formData.email && !emailRegex.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
-    // Validate phone format (optional field)
+
+    // Validate phone format
     const phoneRegex = /^\+?[\d\s-()]{8,}$/;
     if (formData.phone && !phoneRegex.test(formData.phone)) {
       newErrors.phone = 'Please enter a valid phone number';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -142,23 +136,23 @@ const RequestDemo: React.FC = () => {
   // Form submission handler
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateForm()) return;
-    
+
     setIsSubmitting(true);
-    
+
     try {
       await submitDemoRequest(formData);
-      
+
       // Trigger a custom event to notify other tabs
       const event = new Event('storage');
       window.dispatchEvent(event);
-      
+
       toast({
         title: "Demo request submitted!",
         description: "We'll contact you soon to schedule your demo.",
       });
-      
+
       setFormSubmitted(true);
     } catch (error) {
       console.error('Error submitting demo request:', error);
@@ -194,200 +188,150 @@ const RequestDemo: React.FC = () => {
 
               <div className="bg-[#0A0A29]/60 border border-gray-800 rounded-2xl p-6 md:p-10 backdrop-blur-lg">
                 <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="firstName" className="text-white">
-                        First Name <span className="text-red-400">*</span>
-                      </Label>
-                      <Input
-                        id="firstName"
-                        name="firstName"
-                        value={formData.firstName}
-                        onChange={handleChange}
-                        placeholder="Your first name"
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                        aria-invalid={!!errors.firstName}
-                        aria-describedby={errors.firstName ? "firstName-error" : undefined}
-                      />
-                      {errors.firstName && (
-                        <p id="firstName-error" className="text-red-400 text-sm mt-1">
-                          {errors.firstName}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="lastName" className="text-white">
-                        Last Name <span className="text-red-400">*</span>
-                      </Label>
-                      <Input
-                        id="lastName"
-                        name="lastName"
-                        value={formData.lastName}
-                        onChange={handleChange}
-                        placeholder="Your last name"
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                        aria-invalid={!!errors.lastName}
-                        aria-describedby={errors.lastName ? "lastName-error" : undefined}
-                      />
-                      {errors.lastName && (
-                        <p id="lastName-error" className="text-red-400 text-sm mt-1">
-                          {errors.lastName}
-                        </p>
-                      )}
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="firstName" className="text-white">
+                      First Name <span className="text-red-400">*</span>
+                    </Label>
+                    <Input
+                      id="firstName"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      placeholder="Your first name"
+                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                      aria-invalid={!!errors.firstName}
+                      aria-describedby={errors.firstName ? "firstName-error" : undefined}
+                    />
+                    {errors.firstName && (
+                      <p id="firstName-error" className="text-red-400 text-sm mt-1">
+                        {errors.firstName}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-white">
-                        Email <span className="text-red-400">*</span>
-                      </Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="your.email@example.com"
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                        aria-invalid={!!errors.email}
-                        aria-describedby={errors.email ? "email-error" : undefined}
-                      />
-                      {errors.email && (
-                        <p id="email-error" className="text-red-400 text-sm mt-1">
-                          {errors.email}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-white">
-                        Phone Number
-                      </Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        placeholder="+1 (555) 123-4567"
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                        aria-invalid={!!errors.phone}
-                        aria-describedby={errors.phone ? "phone-error" : undefined}
-                      />
-                      {errors.phone && (
-                        <p id="phone-error" className="text-red-400 text-sm mt-1">
-                          {errors.phone}
-                        </p>
-                      )}
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email" className="text-white">
+                      Email <span className="text-red-400">*</span>
+                    </Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="your.email@example.com"
+                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                    />
+                    {errors.email && (
+                      <p id="email-error" className="text-red-400 text-sm mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="company" className="text-white">
-                        Company <span className="text-red-400">*</span>
-                      </Label>
-                      <Input
-                        id="company"
-                        name="company"
-                        value={formData.company}
-                        onChange={handleChange}
-                        placeholder="Your company name"
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                        aria-invalid={!!errors.company}
-                        aria-describedby={errors.company ? "company-error" : undefined}
-                      />
-                      {errors.company && (
-                        <p id="company-error" className="text-red-400 text-sm mt-1">
-                          {errors.company}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="jobTitle" className="text-white">
-                        Job Title <span className="text-red-400">*</span>
-                      </Label>
-                      <Input
-                        id="jobTitle"
-                        name="jobTitle"
-                        value={formData.jobTitle}
-                        onChange={handleChange}
-                        placeholder="Your position"
-                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                        aria-invalid={!!errors.jobTitle}
-                        aria-describedby={errors.jobTitle ? "jobTitle-error" : undefined}
-                      />
-                      {errors.jobTitle && (
-                        <p id="jobTitle-error" className="text-red-400 text-sm mt-1">
-                          {errors.jobTitle}
-                        </p>
-                      )}
-                    </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="phone" className="text-white">
+                      Phone Number <span className="text-red-400">*</span>
+                    </Label>
+                    <Input
+                      id="phone"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="+1 (555) 123-4567"
+                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                      aria-invalid={!!errors.phone}
+                      aria-describedby={errors.phone ? "phone-error" : undefined}
+                    />
+                    {errors.phone && (
+                      <p id="phone-error" className="text-red-400 text-sm mt-1">
+                        {errors.phone}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="companySize" className="text-white">
-                        Company Size <span className="text-red-400">*</span>
-                      </Label>
-                      <Select value={formData.companySize} onValueChange={handleCompanySizeChange}>
-                        <SelectTrigger 
-                          id="companySize"
-                          className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
-                          aria-invalid={!!errors.companySize}
-                          aria-describedby={errors.companySize ? "companySize-error" : undefined}
+                  <div className="space-y-2">
+                    <Label htmlFor="company" className="text-white">
+                      Company <span className="text-red-400">*</span>
+                    </Label>
+                    <Input
+                      id="company"
+                      name="company"
+                      value={formData.company}
+                      onChange={handleChange}
+                      placeholder="Your company name"
+                      className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                      aria-invalid={!!errors.company}
+                      aria-describedby={errors.company ? "company-error" : undefined}
+                    />
+                    {errors.company && (
+                      <p id="company-error" className="text-red-400 text-sm mt-1">
+                        {errors.company}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="companySize" className="text-white">
+                      Company Size <span className="text-red-400">*</span>
+                    </Label>
+                    <Select value={formData.companySize} onValueChange={handleCompanySizeChange}>
+                      <SelectTrigger
+                        id="companySize"
+                        className="bg-[#080820] border-gray-800 focus:border-[#E2FF55] text-white"
+                        aria-invalid={!!errors.companySize}
+                        aria-describedby={errors.companySize ? "companySize-error" : undefined}
+                      >
+                        <SelectValue placeholder="Select company size" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#080820] border-gray-800 text-white">
+                        {companySizes.map((size) => (
+                          <SelectItem key={size} value={size}>
+                            {size}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                    {errors.companySize && (
+                      <p id="companySize-error" className="text-red-400 text-sm mt-1">
+                        {errors.companySize}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="preferredDate" className="text-white">
+                      Preferred Demo Date
+                    </Label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal bg-[#080820] border-gray-800 hover:bg-[#080820]/70 text-white",
+                            !date && "text-gray-400"
+                          )}
                         >
-                          <SelectValue placeholder="Select company size" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-[#080820] border-gray-800 text-white">
-                          {companySizes.map((size) => (
-                            <SelectItem key={size} value={size}>
-                              {size}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                      {errors.companySize && (
-                        <p id="companySize-error" className="text-red-400 text-sm mt-1">
-                          {errors.companySize}
-                        </p>
-                      )}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="preferredDate" className="text-white">
-                        Preferred Demo Date
-                      </Label>
-                      <Popover>
-                        <PopoverTrigger asChild>
-                          <Button
-                            variant="outline"
-                            className={cn(
-                              "w-full justify-start text-left font-normal bg-[#080820] border-gray-800 hover:bg-[#080820]/70 text-white",
-                              !date && "text-gray-400"
-                            )}
-                          >
-                            <CalendarIcon className="mr-2 h-4 w-4 text-[#E2FF55]" />
-                            {date ? format(date, "PPP") : "Select a date"}
-                          </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-[#080820] border-gray-800 text-white">
-                          <Calendar
-                            mode="single"
-                            selected={date}
-                            onSelect={handleDateSelect}
-                            initialFocus
-                            disabled={(date) => 
-                              date < new Date(new Date().setHours(0, 0, 0, 0)) || 
-                              date > new Date(new Date().setMonth(new Date().getMonth() + 3))
-                            }
-                            className="bg-[#080820] text-white"
-                          />
-                        </PopoverContent>
-                      </Popover>
-                    </div>
+                          <CalendarIcon className="mr-2 h-4 w-4 text-[#E2FF55]" />
+                          {date ? format(date, "PPP") : "Select a date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0 bg-[#080820] border-gray-800 text-white">
+                        <Calendar
+                          mode="single"
+                          selected={date}
+                          onSelect={handleDateSelect}
+                          initialFocus
+                          disabled={(date) =>
+                            date < new Date(new Date().setHours(0, 0, 0, 0)) ||
+                            date > new Date(new Date().setMonth(new Date().getMonth() + 3))
+                          }
+                          className="bg-[#080820] text-white"
+                        />
+                      </PopoverContent>
+                    </Popover>
                   </div>
 
                   <div className="space-y-2">
