@@ -1,5 +1,6 @@
 
 import { supabase } from '@/integrations/supabase/client';
+import { responseManager } from './responses';
 
 interface ContactFormData {
   name: string;
@@ -133,6 +134,40 @@ export const submitDemoRequest = async (data: DemoRequestData) => {
     localStorage.setItem('demo_requests', JSON.stringify(storedRequests));
     
     return request;
+  }
+};
+
+/**
+ * Subscribe to newsletter using Supabase Edge Function
+ * @param email Email address to subscribe
+ * @returns Promise with subscription result
+ */
+export const subscribeToNewsletter = async (email: string) => {
+  try {
+    // Call Supabase Edge Function
+    const { data, error } = await supabase.functions.invoke('newsletter-subscribe', {
+      body: { email }
+    });
+
+    if (error) {
+      console.error('Error calling newsletter subscription function:', error);
+      throw error;
+    }
+
+    // Also store in localStorage as backup
+    try {
+      responseManager.saveNewsletterSubscription(email);
+    } catch (e) {
+      // If already subscribed in localStorage, that's fine
+      console.log('Newsletter already exists in localStorage or other error:', e);
+    }
+
+    return data;
+  } catch (error) {
+    console.error('Falling back to localStorage for newsletter:', error);
+    
+    // Fallback to local storage
+    return responseManager.saveNewsletterSubscription(email);
   }
 };
 
