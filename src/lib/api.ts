@@ -8,20 +8,15 @@ const isBrowser = typeof window !== 'undefined';
 
 // Safely try to use the Google Sheets functionality with robust fallback
 const safelyExecuteServerOperation = async (operation: () => Promise<any>, fallbackFn: () => void) => {
-  // In browser environments or if server operations fail, use localStorage
-  if (isBrowser) {
-    console.info('Using localStorage fallback for data storage');
-    fallbackFn();
-    return { success: true, usedFallback: true };
-  }
-  
-  // Try server operation (Google Sheets)
   try {
+    // Try to ensure the sheet service is initialized
     await ensureInitialized();
+    
+    // Try the server operation (Google Sheets) first
     await operation();
-    return { success: true };
+    return { success: true, usedFallback: false };
   } catch (error) {
-    console.error('Server operation failed, using fallback:', error);
+    console.info('Using localStorage fallback for data storage:', error);
     fallbackFn();
     return { success: true, usedFallback: true };
   }
