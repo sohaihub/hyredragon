@@ -57,7 +57,7 @@ const HydragonLogo: React.FC<HydragonLogoProps> = ({
           </h1>
           {/* Underline effect on hover */}
           <div
-            className="absolute top-full left-0 w-full h-[2px] bg-gradient-to-r from-[#E2FF55] to-[#FF9F5A] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
+            className="absolute top-full left-0 w-full h-[2px] bg-gradient-to-r from-[#E2FF55] to-[#e2ff55] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-center"
           ></div>
         </div>
       )}
