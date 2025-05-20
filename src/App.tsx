@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Home from './pages/Home';
@@ -18,7 +19,7 @@ import DragonChatbot from './components/DragonChatbot';
 import Admin from './pages/Admin';
 import { setupCountUpAnimation, setupHighlightAnimations } from './lib/utils';
 
-// Custom cursor component - modified for green effect
+// Custom cursor component - modified for yellow flame effect
 const GreenCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   
@@ -53,7 +54,7 @@ const GreenCursor = () => {
     
     const createClickEffect = (e: MouseEvent) => {
       const clickEffect = document.createElement('div');
-      clickEffect.className = 'green-click-effect';
+      clickEffect.className = 'yellow-flame-effect';
       clickEffect.style.left = `${e.clientX}px`;
       clickEffect.style.top = `${e.clientY}px`;
       
@@ -92,25 +93,31 @@ const GreenCursor = () => {
         background-color: rgba(226, 255, 85, 0.1);
       }
       
-      .green-click-effect {
+      .yellow-flame-effect {
         position: fixed;
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
-        background-color: rgba(226, 255, 85, 0.8);
+        width: 30px;
+        height: 40px;
         pointer-events: none;
         z-index: 9999;
         transform: translate(-50%, -50%);
-        animation: greenClickEffect 0.8s ease-out forwards;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' width='24' height='24' fill='none' stroke='%23FEF7CD' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-size: contain;
+        filter: drop-shadow(0 0 8px #FEF7CD);
+        opacity: 0;
+        animation: flameEffect 0.8s ease-out forwards;
       }
       
-      @keyframes greenClickEffect {
+      @keyframes flameEffect {
         0% {
-          transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0.5);
           opacity: 1;
         }
+        60% {
+          opacity: 0.8;
+        }
         100% {
-          transform: translate(-50%, -50%) scale(5);
+          transform: translate(-50%, -50%) scale(2);
           opacity: 0;
         }
       }
@@ -301,7 +308,6 @@ const App: React.FC = () => {
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/about" element={<About />} />
         <Route path="/security" element={<Security />} />
-        {/* Add the Admin route inside the Routes component */}
         <Route path="/admin" element={<Admin />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
